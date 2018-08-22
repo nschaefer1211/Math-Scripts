@@ -1,0 +1,2281 @@
+\documentclass[10pt,a4paper,numbers=endperiod]{scrreprt}
+
+\usepackage[a4paper, left=25mm, right=25mm, top=25mm, bottom=25mm]{geometry}
+\usepackage[ngerman]{babel}			
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{stmaryrd}
+\usepackage{ulem}
+\usepackage{lscape}
+\usepackage{setspace}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage[all]{xy}
+\usepackage{pstricks,pst-plot}
+\usepackage{pst-node}
+\usepackage{pstricks,pst-plot,pst-node}
+\SpecialCoor
+\usepackage{amsmath,listings}
+\usepackage{bigdelim}
+\usepackage{arydshln}
+\usepackage{amsmath}
+\usepackage{amssymb}			
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{nicefrac}
+\usepackage{tikz}
+  \usetikzlibrary{matrix}
+  \usetikzlibrary{fit}
+  \usetikzlibrary{backgrounds}
+  \usetikzlibrary{arrows}
+  \usetikzlibrary{shapes}
+
+\setkomafont{sectioning}{\rmfamily\bfseries} 
+\setlength\parindent{0pt}
+
+\theoremstyle{definition}
+\newtheorem{satz}{Satz}[section]
+\newtheorem{lemm}[satz]{Lemma}
+\newtheorem{prop}[satz]{Proposition} 
+\newtheorem{theo}[satz]{Theorem}
+\newtheorem{kor}[satz]{Korollar}
+\newtheorem{defi}[satz]{Definition}
+\newtheorem{bem}[satz]{Bemerkung}
+\newtheorem{bsp}[satz]{Beispiel}
+\newtheorem{folg}[satz]{Folgerung}
+\newtheorem{nota}[satz]{Notation}
+\newtheorem{defisatz}[satz]{Definition/Satz}
+\newtheorem{whg}[satz]{Wiederholung}
+
+\newcommand{\xfrac}[2]{%
+	\mbox{\raisebox{0.4ex}{\ensuremath{\displaystyle #1}\hspace{0.2ex}}%
+		{\raisebox{-0.1ex}{\Large /}}%
+		\raisebox{-0.2ex}{\ensuremath{\displaystyle #2}}%
+	}%
+}
+
+
+
+
+\def\QQ{{\mathbb Q}}
+\def\CC{{\mathbb C}}
+\def\RR{{\mathbb R}}
+\def\NN{{\mathbb N}}
+\def\ZZ{{\mathbb Z}}
+\def\PP{{\mathbb P}}
+\def\FF{{\mathbb F}}
+
+
+\def\Namen{} % Namen eintragen
+\def\Datum{} % Datum eintragen
+\def\Titel{} % Vortragstitel eintragen
+% Die Titelzeilen werden aus diesen Angaben automatisch erzeugt.
+\begin{document}
+\Namen \hfill \Datum\par
+\vspace{0.25\baselineskip}
+\hrule
+\vspace{\baselineskip}
+\begin{center}
+{\LARGE\textbf{Algebra 1}}\par
+\vspace{0.25\baselineskip}
+{\large\textsc{Uni Heidelberg}}
+\end{center}
+
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}  
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+
+\begin{center}
+	{\large\text{Mit Liebe gemacht von:}}\\
+	\vspace{0.3\baselineskip}
+	{\large\textsc{Nikolaus Schäfer}}
+\end{center}
+
+\newpage
+\vspace{0.125\baselineskip}
+\tableofcontents %Inhaltsverzeichnis (wird automatisch erzeugt
+\newpage
+\part{Elementare Gruppentheorie}
+
+\chapter{Gruppen und Homomorphismen}
+\onehalfspacing
+
+Erinnerung an LA: Monoid/Gruppe\\ 
+Wir schreiben Monoide/Gruppen multiplikativ und bezeichnen das neutrale Element mit $e$
+
+\begin{defi}
+	$M$ Monoid, $N \subseteq M$\\
+	$N$ heißt ein Untermonoid von $M$ $\Leftrightarrow$ es gilt:\\
+	(a) $e \in N$\\
+	(b) $a,b \in N \Rightarrow ab \in N$
+\end{defi}
+
+\begin{bsp}
+	$2 \NN_0 := \{2a | a \in \NN_0\}$ ist ein Untermonoid von $\NN_0$ bzgl. ''+''
+\end{bsp}
+
+\begin{defi}
+	$G$ Gruppe, $H \subseteq G$\\
+	$H$ heißt Untergruppe von $G$ $\Leftrightarrow$ Es gilt:\\
+	(a) $H$ ist ein Untermonoid von $G$\\
+	(b) $a \in H \Rightarrow a^{-1} \in H$ (hierbei bezeichne $a^{-1}$ das Inverse zu $a$)
+\end{defi}
+
+\begin{bsp}
+	$K$ Körper $\Rightarrow SL(n,K) := \{A \in GL(n,K) | \det(A) = 1\}$ (spezielle lineare Gruppe) ist eine Untergruppe von GL(n,K) (beachte: $\det(A^{-1}) = \det(A)^{-1}$) 
+\end{bsp}
+
+Anmerkung: Ist $G$ eine Gruppe und $H \subseteq G$ eine Untergruppe, dann ist $H$ mit der eingeschränkten Verknüpfung von $G$ eine Gruppe. (analog für (Unter-)monoide).
+
+\begin{bem}
+	(Untergruppenkriterium)\\
+	$G$ Gruppe, $H \subseteq G$. Dann sind äquivalent:\\
+	(i) $H$ ist eine Untergruppe von $G$\\
+	(ii) $H \neq \emptyset$ und für alle $a,b \in H$ ist $ab^{-1} \in H$ 
+\end{bem}
+
+\begin{bsp}
+	Für jedes $n \in \ZZ$ ist $n\ZZ = \{na| a \in \ZZ \}$ eine Untergruppe von $\ZZ$, denn:
+	\begin{itemize}
+		\item $n \ZZ \neq \emptyset$ wegen $0 \in n\ZZ$
+		\item $a, b \in n \ZZ \Rightarrow$ Es existiert $\tilde{a}, \tilde{b} \in \ZZ$ mit $a = n\tilde{a}$, $b = n\tilde{b} \Rightarrow a-b = n\tilde{a} - n\tilde{b} = n(\tilde{a} - \tilde{b}) \in n\ZZ$
+	\end{itemize}
+\end{bsp}
+
+\begin{bem}
+	$G$ Gruppe, $(H_i)_{i \in I}$ Familie von Untergruppen von $G$\\
+	Dann ist $H := \bigcap\limits_{i \in I} H_i$ eine Untergruppe von $G$\\
+\end{bem}
+
+\begin{defi}
+	$G$ Gruppe, $M \subseteq G$ Teilmenge\\
+	$<M> := \bigcap\limits_{H \subseteq G \text{ mit } H \supseteq M} H$ heißt die von $M$ erzeugte Untergruppe von $G$.\\
+	Ist $M = \{x_1, \ldots, x_r\}$ endlich, dann schreiben wir auch $<x_1, \ldots, x_r>$ für $<\{x_1, \ldots, x_r\}>$\\
+	Existiert ein $x \in G$ mit $G = <x>$, so heißt $G$ zyklisch.
+\end{defi}
+
+Anmerkung: $<M>$ ist die kleinste Untergruppe von $G$, die $M$ enthält. 
+
+\begin{bem}
+	$G$ Gruppe, $M \subseteq G$. Dann gilt:\\
+	$<M> = \{x_1^{\epsilon_1} \cdot \ldots \cdot x_n^{\epsilon_n} | n \in \NN_0, x_1, \ldots, x_n \in M, \epsilon_1, \ldots, \epsilon_n \in \{\pm 1\}\}$
+\end{bem}
+
+\begin{folg}
+	$G$ Gruppe, $x \in G$\\
+	Dann gilt: $<x> = \{x^n | n \in \ZZ\}$\\
+	Insbesondere ist $<x>$ abelsch, und jede zyklische Gruppe ist abelsch.
+\end{folg}
+
+\begin{bsp}
+	$\ZZ = <1>$, denn: $<1> = \{n \cdot 1| n \in \ZZ\} = \ZZ$, insbesondere ist $\ZZ$ zyklisch. 
+\end{bsp}
+
+Erinnerung: an LA: Gruppenhomomorphismus
+
+\begin{bem}
+	$G, G'$ Gruppen, $\varphi: G \rightarrow G'$ Homomorphismus. Dann gilt:\\
+	(a) $H \subseteq G$ Untergruppe $\Rightarrow \varphi(H) \subseteq G'$ Untergruppe\\
+	(b) $H' \subseteq G'$ Untergruppe $\Rightarrow \varphi^{-1} (H') \subseteq G$ Untergruppe
+\end{bem}
+
+\begin{defi}
+	$G, G'$ Gruppen, $e'$ neutrale Element von $G'$, $\varphi: G \rightarrow G'$ Homomorphismus\\
+	$\ker(\varphi) := \varphi^{-1}(\{e'\}) = \{a \in G| \varphi(a) = e'\}$ heißt der Kern von $\varphi$\\
+	$im(\varphi) := \varphi(G) = \{\varphi(a) | a \in G\}$ heißt das Bild von $\varphi$
+\end{defi}
+
+\begin{bem}
+	$G, G'$ Gruppen, $\varphi: G \rightarrow G'$ Homomorphismus. Dann gilt:\\
+	(a) $\ker(\varphi) \subseteq G$ ist eine Untergruppe\\
+	(b) $im (\varphi) \subseteq G'$ ist eine Untergruppe\\
+	(c) $\varphi$ injektiv $\Leftrightarrow \ker (\varphi) = \{e\}$\\
+	(d) $\varphi$ surjektiv $\Leftrightarrow im(\varphi) = G'$
+\end{bem}
+
+\begin{bsp}
+	$sgn: S_N \rightarrow \{\pm 1\}$\\
+	$A_n := \ker(sgn) = \{ \pi \in S_n | sgn(\pi) = 1\}$ ist eine Untergruppe von $S_n$, die alternierende Gruppe.
+\end{bsp}
+
+\begin{defi}
+	$G, G'$ Gruppen, $\varphi: G \rightarrow G'$ Homomorphismus\\
+	$\varphi$ heißt:\\
+	Monomorphismus $\Leftrightarrow \varphi$ ist injektiv\\
+	Epimorphismus $\Leftrightarrow \varphi$ ist surjektiv\\
+	Isomorphisms $\Leftrightarrow \varphi$ ist bijektiv\\
+	Ist $G = G'$ und $\varphi$ ein Isomorphismus, dann heißt $\varphi$ ein Automorphismus von $G$. Zwei Gruppen heißen isomorph $\Leftrightarrow$ Es gibt einen Isomorphismus zwischen ihnen.
+\end{defi}
+
+Anmerkung: $\varphi: G \rightarrow G'$ Isomorphismus, dann ist die Umkehrabbildung $\varphi^{-1}: G' \rightarrow G$ ein Homomorphismus (also auch ein Isomorphismus)
+
+\begin{bem}
+	$G, G'$ Gruppen, $\varphi: G \rightarrow G'$ Homomorphismus. Dann sind äquivalent:\\
+	(i) $\varphi$ ist ein Isomorphismus\\
+	(i) Es existiert ein Homomorphismus (Isomorphismus) $\psi: G' \rightarrow G$ mit $\varphi \circ \psi = id_{G'}$, und $\psi \circ \varphi = id_G$ Insbesondere ist für eine Gruppe $G$ die Menge $Aut(G) := \{\varphi: G \rightarrow G| \varphi \text{ ist ein Automorphismus}\}$ eine Gruppe bzgl. ''$\circ$''.
+\end{bem}
+
+\begin{bem}
+	$G$ Gruppe, $a \in G$\\
+	Dann ist die Abbildung $\tau_a: G \rightarrow G$, $g \mapsto ag$ (''Linkstranslation mit a'') bijektiv (aber für $a \neq e$ kein Gruppenhomomorphismus). Insbesondere ist $\tau_a \in S(G)$ 
+\end{bem}
+
+\begin{bem}
+	$G$ Gruppe. Dann ist die Abbildung $\varphi: G \rightarrow S(G)$, $a \mapsto \tau_a$ ein Monomorphismus
+\end{bem}
+
+\begin{folg}
+	(Satz von Cayley)\\
+	$G$ endliche Gruppe mit $n$ Elementen. Dann existiert ein Monomorphismus $G \rightarrow S_n$ (d.h. $G$ kann bis auf Isomorphie als Untergruppe der $S_n$ aufgefasst werden.) 
+\end{folg}
+
+\begin{bem}
+	$G$ Gruppe, $a \in G$\\
+	Dann ist die Abbildung $\varphi_a: G \rightarrow G$, $g \mapsto a g a^{-1}$ (''Konjugation mit a'')\\
+	ist ein Automorphismus von $G$
+\end{bem}
+
+\chapter{Normalteiler und Faktorgruppen} $ $\\
+
+In diesem Abschnitt sei $G$ stets ein Gruppe\\
+
+\begin{bem}
+	$H \subseteq G$ Untergruppe. Durch $a \sim_H b \Leftrightarrow b^{-1} a \in H$ ist eine Äquivalenzrelation auf $G$ erklärt. Die Äquivalenzklasse von $a \in G$ ist durch $aH:= \{ah| h \in H\}$ gegeben. Insbesondere gilt für $a,b \in G$: Entweder ist $aH = bH$ oder $aH \cap bH = \emptyset$
+\end{bem}
+
+\begin{defi}
+	$H \subseteq G$ Untergruppe\\
+	Eine Linksnebenklasse von $H$ in $G$ ist eine Teilmenge von $G$ der Gestalt $aH = \{ah|h \in H\}$,\\
+	d.h. eine Äquivalenzklasse bzgl. ''$\sim_H$''. Elemente einer Linksnebenklasse heißen Repräsentanten. Die Menge der Linksnebenklasssen von $H$ in $G$ mit $G/H$
+\end{defi}
+
+\begin{satz}
+	$H \subseteq G$ Untergruppe. Dann gilt:\\
+	(a) Je zwei Linksnebenklassen von $H$ in $G$ sind gleichmächtig\\
+	(b) Je zwei Linksnebenklassen von $H$ in $G$ sind entweder gleich oder disjunkt\\
+	(c) $G$ ist die disjunkte Vereinigung der Linksnebenklassen von $H$ in $G$
+\end{satz}
+
+Anmerkung: In analoger Weisen zu Linksnebenklassen von $H$ in $G$ sind Rechtsnebenklassen von $H$ in $G$ erklärt, nämlich als Teilmengen der Gestalt: $Ha = \{ha| h \in H\}$\\
+Menge der Rechtsnebenklassen von $H$ in $G$: $H \backslash G$, $a \in G$\\
+Es ist im Allgemeinen $aH \neq Ha$\\
+
+\begin{bem}
+	$H \subseteq G$ Untergruppe. Dann gilt:\\
+	Die bijektive Abbildung $\psi: G \rightarrow G$, $a \mapsto a^{-1}$ induziert eine bijektive Abbildung $\phi: G/H \rightarrow H \backslash G$, $aH \mapsto Ha^{-1} = \psi(aH)$
+\end{bem}
+
+\begin{defi}
+	$H \subseteq G$ Untergruppe\\
+	Die Ordnung von $G$ ist die Anzahl der Elemente von $G$, falls diese endlich ist, sonst $\infty$. Bezeichnung: $ord(G)$\\
+	Der Index von $H$ in $G$ ist die Anzahl der Linksnebenklassen von $H$ in $G$, falls diese endlich sonst $\infty$. Bezeichnung: $(G:H)$ 
+\end{defi}
+
+Anmerkung: Wegen 2.4 stimmt (G:H) mit der Anzahl der Rechtsnebenklassen von $H$ in $G$ überein.
+
+\begin{satz}
+	(Satz von Lagrange) 
+	$H \subseteq G$ Untergruppe\\
+	Dann gilt: $ord(G) = ord(H) \cdot (G:H)$\\
+	Insbesondere ist $ord(H)$ ein Teiler von $ord(G)$ 
+\end{satz}
+
+\begin{defi}
+	$H \subseteq G$ Untergruppe\\
+	$H$ heißt Normalteiler von $G$ (normale Untergruppe)\\
+	$\Leftrightarrow aH = Ha$ für alle $a \in G$ Bezeichnung: $H \underline{\vartriangleleft} G$\\
+	In diesem Fall bezeichnet man die Nebenklasse $aH = Ha$ auch als die Restklasse von $a$ modulo $H$
+\end{defi}
+
+\begin{bsp}
+	$ $\\
+	(a) $G$ Gruppe $\Rightarrow \{e\} \underline{\vartriangleleft} G$, $G \underline{\vartriangleleft} G$\\
+	(b) $G$ abelsche Gruppe $\Rightarrow$ Jede Untergruppe von $G$ ist Normalteiler
+\end{bsp}
+
+\begin{bem}
+	$H \subseteq G$ Untergruppe. Dann sind äquivalent:\\
+	(i) $H \underline{\vartriangleleft} G$\\
+	(ii) $aHa^{-1} = H$ für alle $a \in G$\\
+	(iii) $aHa^{-1} \subseteq H$ für alle $a \in G$\\
+	(iv) $aba^{-1} \in H$ für alle $a \in G, b \in H$
+\end{bem}
+
+\begin{bem}
+	$G, G'$ Gruppen, $\varphi: G \rightarrow G'$ Homomorphismus. Dann gilt:\\
+	(a) $H' \underline{\vartriangleleft} G' \Rightarrow \varphi^{-1} (H') \underline{\vartriangleleft} G$\\
+	(b) $\ker(\varphi) \underline{\vartriangleleft} G$\\
+	(c) $H \underline{\vartriangleleft} G$ und $\varphi$ surjektiv $\Rightarrow \varphi(H) \underline{\vartriangleleft} G'$ 
+\end{bem}
+
+Anmerkung: $im(\varphi)$ ist im allgemeinen kein Normalteiler von $G'$
+
+\begin{bsp}
+	$A_n \underline{\vartriangleleft} S_n$, denn $A_n = \ker(sgn)$
+\end{bsp}
+
+\begin{bem}
+	$H \subseteq G$ Untergruppe, mit $(G:H)= 2$. Dann ist $H \underline{\vartriangleleft} G$
+\end{bem}
+
+\begin{bem}
+	$H \underline{\vartriangleleft} G$\\
+	Die Menge der Restklassen $G/H$ wird mittels der Verknüpfung:\\
+	$G/H \times G/H \rightarrow G/H$, $(aH) \cdot(bH) := abH$\\
+	zu einer Gruppe, der Faktorgruppe von $G$ modulo $H$
+\end{bem}
+
+\begin{bsp}
+	$ $\\
+	(a) $G = \ZZ$, $H = m \ZZ \leadsto \ZZ/m\ZZ$ mit der Verknüpfung $\overline{a} + \overline{b} = \overline{a+b}$\\
+	(b) $K$ Körper, $G = GL(n,K)$, $H = \{aE_n| a \in K^*\}$ $\leadsto$ $PGL(n,K) := G/H$ heißt die projektive allgemeine lineare Gruppe
+\end{bsp}
+
+\begin{bem}
+	$H \underline{\vartriangleleft} G$\\
+	Dann ist die Abbildung $\pi: G \rightarrow G/H$, $a \mapsto aH$ ein Epimorphismus mit $\ker(\pi) = H$\\
+	$\pi$ heißt die kanonische Projektion von $G$ nach $G/H$
+\end{bem}
+
+\begin{folg}
+	$H\subseteq G$ Untergruppe. Dann sind äquivalent:\\
+	(i) $H \underline{\vartriangleleft} G$\\
+	(ii) Es existiert ein Gruppe $G'$, Homomorphismus $\varphi: G \rightarrow G'$ mit $\ker(\varphi) = H$\\
+\end{folg}
+
+\begin{bem}
+	$H \underline{\vartriangleleft} G$, $\pi: G \rightarrow G/H$ kanonische Projektion. Dann ist die Abbildung\\
+	$\phi: \{\text{Untergruppen von $G/H$}\} \rightarrow \{ \text{Untergruppen $V$ von $G$ mit $V \supseteq H$}\}$, $U \mapsto \pi^{-1} (U)$\\
+	ist eine inklusionserhaltende Bijektion, und es gilt: $U \underline{\vartriangleleft} G/H \Leftrightarrow \phi(U) \underline{\vartriangleleft} G$
+\end{bem}
+
+\begin{satz}
+	$G, G'$ Gruppen, $\varphi: G \rightarrow G'$ Homomorphismus, $N\underline{\vartriangleleft} G$ mit $N \subseteq \ker(\varphi)$ Dann existiert ein eindeutig bestimmter Gruppenhomomorphismus. $\overline{\varphi}: G/N \rightarrow G'$, so dass folgendes Diagramm kommutiert:\\ 
+	$\begin{xy}
+	\xymatrix{
+		G \ar[rr]^{\varphi} \ar[dr]_\pi &     &  G' \\
+									   & G/N \ar@{.>}[ur]_{\overline{\varphi}}  
+	}
+	\end{xy}$\\
+	d.h. $\overline{\varphi} \circ \pi = \varphi$. Explizit ist $\overline{\varphi}$ gegeben durch $\overline{\varphi}: G/N \rightarrow G'$, $aN \mapsto \varphi(a)$
+\end{satz}
+
+\begin{satz}
+	(Homomorphiesatz)\\
+	$G, G'$ Gruppen, $\varphi: G \rightarrow G'$ Homomorphismus\\
+	Dann gibt es einen eindeutig bestimmten Isomorphismus $\phi: G/\ker(\varphi) \rightarrow im(\varphi)$, sodass folgendes Diagramm kommutiert:\\
+	$\begin{xy}
+	\xymatrix{
+		G \ar[r]^{\varphi} \ar[d]_\pi    &   G'  \\
+		G/\ker(\varphi) \ar[r]_{\phi}^{\cong} &   im(\varphi) \ar[u]_i
+	}
+	\end{xy}$\\
+	Hierbei ist $\pi$ die kanonische Projektion, $i$ die Inklusionsabbildung. Die Abbildung $\phi$ ist explizit gegeben durch $\phi(a \ker(\varphi)) = \varphi(a)$
+\end{satz}
+
+Anmerkung: Häufig verwendet man davon nur $G/\ker(\varphi) \cong im(\varphi)$
+
+\begin{defi}
+	$H_1, H_2 \subseteq G$ Untergruppen\\
+	$H_1H_2 := \{h_1h_2| h_1 \in H_1, h_2 \in H_2\}$
+\end{defi}
+
+\begin{bem}
+	$H_1, H_2 \subseteq G$ Untergruppen. Dann gilt:\\
+	(a) $H_1 \underline{\vartriangleleft} G$ oder $H_2 \underline{\vartriangleleft} G$ $\Rightarrow H_1H_2 \subseteq G$ Untergruppe\\
+	(b) $H_1 \underline{\vartriangleleft} G$ und $H_2 \underline{\vartriangleleft} G$ $\Rightarrow H_1H_2 \underline{\vartriangleleft} G$.
+\end{bem}
+
+\begin{satz}
+	(Erster Isomorphiesatz)
+	$H \subseteq G$ Untergruppe, $N \underline{\vartriangleleft} G$\\
+	Dann gilt: Die Inklusion $H \overset{i}{\hookrightarrow} HN$ und die kanonische Projektion $\pi: HN \rightarrow HN/N$ induzieren einen Isomorphismus $H/H\cap N \overset{\cong}{\longrightarrow} HN/N$, $a(H \cap N) \mapsto aN$\\
+\end{satz}
+
+\begin{satz}
+	(Zweiter Isomorphiesatz)\\
+	$N, H \underline{\vartriangleleft} G$ mit $N \subseteq H$. Dann ist die Abbildung:\\
+	
+	$(G/N)/(H/N) \rightarrow G/H$, $(aN) H/N \mapsto aH$\\
+	ein Isomorphismus.
+\end{satz}
+
+\chapter{Zyklische Gruppen}
+
+\begin{bem}
+	$G$ Gruppe. Dann sind äquivalent:
+	
+	(i) $G$ ist zyklisch\\
+	(ii) Es gibt ein Epimorphismus $\varphi: \ZZ \rightarrow G$
+\end{bem}
+
+\begin{satz}
+	Die Untergruppen von $\ZZ$ sind genau die folgenden:\\
+	$\{0\}, n \ZZ = \{na| a \in \ZZ\}$, $n \in \NN$\\
+	Für $n \in \NN$ gilt: $n \ZZ \cong \ZZ$
+\end{satz}
+
+Anmerkung: alternatives Argument: Untergruppen von $\ZZ = \ZZ$-Untermodul von $\ZZ$ = Ideale in $\ZZ$, $\ZZ$ HIR.
+
+\begin{folg}
+	$G$ zyklische Gruppe. Dann gilt:\\
+	$G \cong \begin{cases}
+	\ZZ, \text{ falls } ord(G) = \infty\\
+	\ZZ/n\ZZ, \text{ falls } ord(G) = n \in \NN
+	\end{cases}$
+\end{folg}
+
+\begin{satz}
+	$G$ zyklische Gruppe, $H \subseteq G$ Untergruppe. Dann gilt:\\
+	(a) $H$ ist zyklisch\\
+	(b) $G/H$ ist zyklisch
+\end{satz}
+
+\begin{defi}
+	$G$ Gruppe, $a \in G$\\
+	$ord(a) := min\{n \in \NN| a^n = e\}$, falls ein $n \in \NN$ existiert mit $a^n = e$\\
+	(Andernfalls setzt man $ord(a) := \infty$)\\
+	heißt die Ordnung des Elements $a$.
+\end{defi}
+
+\begin{bem}
+	$G$ Gruppe, $a \in G$. Dann gilt: $ord(a) = ord(<a>)$
+\end{bem}
+
+\begin{folg}
+	$G$ Gruppe, $a \in G$\\
+	Dann gilt: $ord(a)|ord(G)$
+\end{folg}
+
+\begin{satz}
+	$G$ endliche Gruppe mit $ord(G) = p$, $p$ Primzahl\\
+	Dann gilt: $G$ ist zyklisch, insbesondere $G \cong \ZZ/p\ZZ$
+\end{satz}
+
+\begin{satz}
+	(Kleiner Satz von Fermat) $G$ endliche Gruppe, $a \in G$\\
+	Dann gilt: $a^{ord(G)} = e$
+\end{satz}
+
+\begin{defi}
+	$(G_i)_{i \in I}$ Familie von Gruppen\\
+	Das kartesische Produkt $\prod\limits_{i \in I} G_i$ wird durch komponentenweise Verknüpfung zu einer Gruppe.\\
+	Diese bezeichnet man als das direkte Produkt über die Famile $(G_i)_{i \in I}$
+\end{defi}
+
+\begin{satz}
+	(Hauptsatz über endlich erzeugte abelsche Gruppen)\\
+	$G$ endlich erzeugte abelsche Gruppe (d.h. es existieren $m \in \NN$, $x_1, \ldots, x_m \in G$ mit $G = <x_1, \ldots, x_m>$).\\
+	Dann existieren eindeutig bestimmte Zahlen $r,s \in \NN_0$, $d_1, \ldots, d_s \in \NN_{>1}$ mit $d_1|\ldots|d_s$, sodass\\
+	$G \cong \ZZ^r \times \ZZ/d_1\ZZ \times \ldots \times \ZZ/d_s\ZZ$.
+\end{satz}
+
+\begin{bsp}
+	Bis auf Isomorphie gibt es folgende abelsche Gruppen der Ordnung 24:\\
+	$\ZZ/24\ZZ$, $\ZZ/2\ZZ \times \ZZ/12\ZZ$, $\ZZ/2\ZZ \times \ZZ/2\ZZ \times \ZZ/6\ZZ$
+\end{bsp}
+
+\part{Ringe}
+
+\chapter{Ringe und Ideale}
+
+In diesem Abschnitt sei $R$ stets ein kommutativer Ring.\\
+
+\begin{bem}
+	$I \subseteq R$ Ideal, $\pi: R \rightarrow R/I$ kanonische Projektion\\
+	Dann ist die Abbildung:\\
+	$\phi: \{\text{ Ideale in } R/I\} \rightarrow \{\text{ Ideale $\tilde{I}$ in $R$ mit $\tilde{I} \geq I$}\}$\\
+	\hspace*{25 mm} $J \mapsto \pi^{-1}(J)$\\
+	eine inklusionserhaltende Bijektion
+\end{bem}
+
+\begin{satz}
+	(Homomorphiesatz für Ringe) $R'$ kommutativer Ring, $\varphi: R \rightarrow R'$ Ringhomomorphismus\\
+	Dann gibt es einen eindeutig bestimmten Ringisomorphismus\\
+	$\phi: R/\ker(\varphi) \rightarrow im(\varphi)$, sodasss folgendes Diagramm kommutiert:\\
+	$\begin{xy}
+	\xymatrix{
+		R \ar[r]^{\varphi} \ar[d]_\pi    &   R'  \\
+		R/\ker(\varphi) \ar[r]_{\phi}^{\cong} &   im(\varphi) \ar[u]_i
+	}
+	\end{xy}$\\
+	Hierbei ist $\pi$ die kanonische Projektion, $i$ die Inklusionsabbildung. Die Abbildung $\phi$ ist explizit gegeben durch $\phi(a + \ker(\varphi)) = \varphi(a)$ für alle $a \in R$.
+\end{satz}
+
+\begin{defi}
+	$R$ heißt Körper $\Leftrightarrow R^* = R \backslash \{0\}$
+\end{defi}
+
+\textbf{Anmerkung:} Insbesondere $R = 0$ kein Körper.
+
+\begin{satz}
+	$R \neq 0$. Dann sind äquivalent:\\
+	(i) $R$ ist ein Körper\\
+	(ii) (0) und (1) = $R$ sind die einzigen Ideale in $R$\\
+	(iii) Jeder Ringhomomorphismus $\varphi: R \rightarrow S$ in einen kommutativen Ring $S \neq 0$ ist injektiv.
+\end{satz}
+
+\begin{bem}
+	$I, J \subseteq R$ Ideale. Dann sind:\\
+	$I+J := \{a+b| a \in I, b \in J\}$, $I \cap J$, $IJ := \{ \sum\limits_{i = 1}^{n} a_ib_i| n \in \NN_0$, $a_1, \ldots, a_n \in I \text{, } b_1, \ldots, b_n \in I\}$ Ideale in $R$.\\
+	Analog für endliche Familie von Idealen, insbesondere $I^n := \underbrace{I \cdots I}_{\text{n-mal}}$ für $n \in \NN$.\\
+	Konvention: $I^0 := (1) = R$\\
+	$I, J$ heißen relativ prim $\Leftrightarrow I +J = (1)$
+\end{bem}
+
+\textbf{Anmerkung:} Offenbar ist die Multiplikation von Idealen assoziativ, Klammerung nicht notwendig.
+
+\begin{bsp}
+	$R = \ZZ$, $I = (2)$, $J = (3)$
+	\begin{itemize}
+		\item $I+J = (1)$, denn $1 = \underbrace{(-1) \cdot 2}_{\in (2)} + \underbrace{1 \cdot 3}_{\in (3)} \in I+J$
+		\item $I \cap J = (6)$
+		\item $IJ = (6)$
+	\end{itemize}
+\end{bsp}
+
+\begin{bem}
+	$I, J, K \subseteq R$ Ideale. Dann gilt:\\
+	(a) $I(J+K) = IJ + IK$\\
+	(b) $(I \cap J)(I+J) \subseteq IJ \subseteq I \cap J$\\
+	(c) $I+J = (1) \Rightarrow I \cap J = IJ$
+\end{bem}
+
+\begin{bem}
+	$I_1, \ldots, I_n \subseteq R$ paarweise relativ prime Ideale. Dann gilt:\\
+	$I_1 \cdot \ldots \cdot I_n = I_1 \cap \ldots \cap I_n$
+\end{bem}
+
+\begin{bem}
+	$(R_i)_{i \in I}$ Familie von Ringen\\
+	Das kartesische Produkt $\prod\limits_{i \in I} R_i$ wird durch komponentenweise Addition und Multiplikation zu einem Ring. Diesen bezeichnet man als das direkte Produkt über die Familie $(R_i)_{i \in I}$.
+\end{bem}
+
+\begin{satz}
+	(Chinesischer Restsatz)\\
+	$I_1, \ldots, I_n \subseteq R$ Ideale, $\varphi: R \rightarrow \prod\limits_{i = 1}^{n} R/I_i$, $r \mapsto (r+ I_1, \ldots, r+ I_n)$ (ist offenbar Ringhomomorphismus). Dann gilt:\\
+	(a) $\varphi$ surjektiv $\Leftrightarrow$ Die Ideale $I_1, \ldots, I_n$ sind paarweise relativ prim,\\
+	(b) $\ker(\varphi) = \bigcap\limits_{i=1}^{n} I_i$\\
+	(c) $\varphi$ injektiv $\Leftrightarrow \bigcap\limits_{i = 1}^{n} I = (0)$\\
+	Insbesondere erhalten wir unter der Voraussetzung, dass $I_1, \ldots, I_n$ paarweise relativ prim sind, einen Ringisomorphismus: $R/\bigcap\limits_{i=1}^n I_i \cong R/I_1 \times \dots
+	\times R/I_n$\\
+\end{satz}
+
+\begin{bsp}
+	$\varphi: \ZZ \rightarrow \ZZ/2\ZZ \times \ZZ/3\ZZ$, $a \mapsto (a + 2\ZZ, a + 3\ZZ)$\\
+	ist surjektiv wegen $(2) + (3) = (1)$\\
+	$\ker(\varphi) = (2) \cap (3) = (6)$ D.h. $\varphi$ induziert einen Ringisomorphismus 
+	$\ZZ/6\ZZ \overset{\cong}{\rightarrow} \ZZ/2\ZZ \times \ZZ/3\ZZ$
+\end{bsp}
+
+\begin{folg}
+	$m_1, \ldots, m_n \in \ZZ$ paarweise teilerfremd, $a_1, \ldots, a_n \in \ZZ$\\
+	Dann hat das System von Kongruenzen\\
+	$x \equiv a_1 (\text{mod } m_1)$\\
+	$\vdots$\\
+	$x \equiv a_n (\text{mod } m_n)$\\
+	
+	eine Lösung. Ist $x \in \ZZ$ eine Lösung des Systems, dann ist die Menge aller Lösungen gegeben durch $x + m_1 \cdot \ldots \cdot m_n \ZZ$
+\end{folg}
+
+\begin{defi}
+	$I \subseteq R$ Ideal. $I$ heißt:\\
+	Primideal $\Leftrightarrow I \neq R$ und für alle $x,y \in R$ gilt: $xy \in I \Rightarrow x \in I$ oder $y \in I$\\
+	maximales Ideal $\Leftrightarrow I \neq R$ und es existiert kein Ideal $J \subseteq R$ mit $I \subsetneq J \subsetneq R \Leftrightarrow I \neq R$ und für alle Ideale $J \subsetneq R$ gilt: $I \subseteq J \Rightarrow I = J$ (d.h. $I$ ist maximal bzgl. $''\subseteq''$ unter allen Idealen $\neq R$ in $R$)
+\end{defi}
+
+\begin{bem}
+	$I \subseteq R$ Ideal. Dann gilt:\\
+	(a) $I$ Primideal $\Leftrightarrow R/I$ nullteilerfrei\\
+	(b) $I$ maximales Ideal $\Leftrightarrow R/I$ Körper
+\end{bem}
+
+\begin{folg}
+	$I \subseteq R$ maximales Ideal. Dann ist $I$ ein Primideal.
+\end{folg}
+
+\begin{bem}
+	$n \in \NN$. Dann sind äquivalent:\\
+	(i) $n$ ist eine Primzahl\\
+	(ii) $\ZZ/n\ZZ$ ist nullteilerfrei\\
+	(iii) $\ZZ/n\ZZ$ ist ein Körper
+\end{bem}
+
+\begin{folg}
+	$ $\\
+	Primideale in $\ZZ$: $(0), (p)$ für $p$ Primzahl\\
+	maximale Ideale in $\ZZ$: $(p)$ für $p$ Primzahl
+\end{folg}
+
+\begin{satz}
+	$R \neq 0$. Dann besitzt $R$ ein maximales Ideal.
+\end{satz}
+
+\begin{folg}
+	Es gilt:\\
+	(a) Jedes Ideal $I \subsetneq R$ ist in einem maximalen Ideal von $R$ enthalten.\\
+	(b) Jede Nichteinheit in $R$ ist einem maximalen Ideal von $R$ enthalten.
+\end{folg}
+
+\chapter{Polynomringe}
+
+In diesem Abschnitt sei $R$ stets ein kommutativer Ring.\\
+
+Notation: $n \in \NN$\\
+$R[X_1, \ldots, X_n] := \{ \sum\limits_{i = (i_1, \ldots, i_n) \in \NN_0^n} a_i X_1^{i_1} \cdot \ldots \cdot X_n^{i_n}| a_i \in R \text{ mit } a_i = 0 \text{ für fast alle } i \in \NN_0^n\}$ mit üblicher Polynomaddition und multiplikation ist ein kommutativer Ring, der Polynomring über $R$ in den Variablen $X_1, \ldots, X_n$.\\
+
+\textbf{Anmerkung:} \begin{itemize}
+	\item für eine präzise Definition vgl. Übung
+	\item Es lassen sich auch Polynomringe $R[X_i|i \in I]$ für beliebige Indexmengen $I$ definieren.
+	\item Offenbar ist $R$ ein Unterring von $R[X_1, \ldots, X_n]$ und $R[X_1, \ldots, X_n] = (R[X_1, \ldots, X_{n-1}])[X_n]$ 
+\end{itemize}
+
+\begin{satz}
+	(Universelle Eigenschaft von Polynomringen)\\
+	$R, S$ kommutative Ringe, $\varphi: R \rightarrow S$ Ringhomomorphismus, $\alpha_1, \ldots \alpha_n \in S$\\
+	Dann existiert ein eindeutig bestimmter Ringhomomorphismus\\
+	$\phi: R[X_1, \ldots, X_n] \rightarrow S$ mit $\phi(X_i) = \alpha_i$ für $i = 1, \ldots, n$ und $\phi|_R = \varphi$
+\end{satz}
+
+\begin{folg}
+	$a \in R$\\
+	Dann existiert ein surjektiver Ringhomomorphismus $\phi_a: R[X] \rightarrow R$ mit $\phi_a|_R = id_R$, $\phi_a(X) = a$ (Einsetzungshomomorphismus)\\
+	(explizit: $\phi_a(\sum\limits_{i = 0}^n b_iX^i) = \sum\limits_{i = 0}^n b_ia^i$)\\
+	Für $f \in R[X]$ setzen wir $f(a) := \phi_a(f)$
+\end{folg}
+
+\textbf{Anmerkung:} $f \in R[X]$. Dann erhalten wir eine Abbildung $f^*: R \rightarrow R$, $a \mapsto f(a)$\\
+Im Allgemeinen ist $f$ durch die Abbildung $f^*$ nicht eindeutig bestimmt:\\
+z.B. $R = \ZZ/2\ZZ$, $f_1 = 0$, $f_2 = (X-\overline{1})X$. Dann ist $f_1(\overline{0}) = \overline{0} = f_2(\overline{0})$, $f_1(\overline{1}) = \overline{0} = f_2(\overline{1})$. Dann sind $f_1^*, f_2^*$ die Nullabbildungen, jedoch $f_1 \neq f_2$.
+
+\begin{defi}
+	$f = a_nX^n + a_{n-1}X^{n-1} + \ldots + a_1X + a_0 \in R[X]$ mit $a_n \neq 0$.\\
+	Dann heißt $n$ der Grad von $f$ (Bezeichnung: $\deg(f))$, $a_n$ der Leitkoeffizient von $f$ (Bezeichnung: $l(f)$)\\
+	$f$ heißt normiert $\Leftrightarrow l(f) = 1$\\
+	$\deg(0):= - \infty, l(0) := 0$ 
+\end{defi}
+
+\begin{bem}
+	$f,g \in R[X]$. Dann gilt:\\
+	(a) $l(fg) = l(f)l(g)$, falls $l(f)$ oder $l(g)$ kein Nullteiler ist.\\
+	(b) $\deg(fg) \leq \deg(f) + \deg(g)$ (''='', falls $l(f)$ oder $l(g)$ kein Nullteiler ist)\\
+	(c) $\deg(f+g) \leq max\{\deg(f), \deg(g)\}$ (''='', falls $\deg(f) \neq \deg(g)$) 
+\end{bem}
+
+\begin{bem}
+	$R$ nullteilerfrei. Dann gelten:\\
+	(a) $R[X]$ nullteilerfrei\\
+	(b) $R[X_1, \ldots, X_n]$ nullteilerfrei\\
+	(c) $R[X]^* = R^*$\\
+	(d) $(R[X_1, \ldots, X_n])^* = R^*$
+\end{bem}
+
+\begin{satz}
+	(Division mit Rest)\\
+	$f,g \in R[X]$, $l(g) \in R^*$\\
+	Dann existieren eindeutig bestimmte Polynome $q,r \in R[X]$ mit $f = qg + r$ und $\deg(r) < \deg(g)$
+\end{satz}
+
+\begin{defi}
+	$\alpha \in R$, $f \in R[X]$\\
+	$\alpha$ heißt Nullstelle von $f$ $\Leftrightarrow f(\alpha) = 0$.
+\end{defi}
+
+\begin{bem}
+	$f \in R[X]$, $\alpha \in R$ Nullstelle von $f$\\
+	Dann existiert ein $q \in R[X]$ mit $f = (X- \alpha)q$
+\end{bem}
+
+
+\begin{folg}
+	$R$ nullteilerfrei, $f \in R[X], f \neq 0$, $n := \deg(f)$\\
+	Dann besitzt $f$ in $R$ höchstens $n$ Nullstellen.
+\end{folg}
+
+\begin{bsp}
+	$R = \ZZ/8\ZZ$ (nicht nullteilerfrei: $\overline{0} = \overline{2} \cdot \overline{4})$, $f = X^2 - \overline{1}$ $f$ hat die Nullstellen $\overline{1}, \overline{3}, \overline{5}, \overline{7}$ (obwohl $\deg(f) = 2$). 
+\end{bsp}
+
+\chapter{Primfaktorzerlegung} 
+
+In diesem Abschnitt sei $R$ stets ein nullteilerfreier kommutativer Ring.\\
+
+\begin{defi}
+	$\pi \in R \backslash (R^* \cup \{0\})$\\
+	$\pi$ heißt Primelement $\Leftrightarrow$ Aus $\pi|ab$ mit $a,b \in R$ folgt $\pi|a$ oder $\pi|b$\\
+	$\pi$ heißt irreduzibel $\Leftrightarrow$ Aus $\pi = ab$ mit $a,b \in R$ folgt stets $a \in R^*$ oder $b \in R^*$
+\end{defi}
+
+\textbf{Anmerkung:} \begin{itemize}
+	\item In LA2 gezeigt $\pi$ Primelement $\Rightarrow \pi$ irreduzibel
+	\item Es gibt Beispiele für irreduzible Elemente, die keine Primelemente sind
+\end{itemize}
+
+\begin{bem}
+	$\pi \in R \backslash (R^* \cup \{0\})$. Dann sind äquivalent:\\
+	(i) $\pi$ ist irreduzibel\\
+	(ii) $(\pi)$ ist maximal bzgl. ''$\subseteq$'' in $\{I \subsetneq R| I \text{ ist Hauptideal}\}$
+\end{bem}
+
+\begin{satz}
+	$R$ HIR. $\pi \in R \backslash (R^* \cup \{0\}$. Dann sind äquivalent:\\
+	(i) $\pi$ ist irreduzibel\\
+	(ii) $\pi$ ist Primelement\\
+	(iii) $(\pi)$ ist maximales Ideal in $R$
+\end{satz}
+
+\begin{bem}
+	$ $\\
+	$a \in R$ habe Zerlegungen $a = p_1 \cdot \ldots \cdot p_r = q_1 \cdot \ldots \cdot q_s$\\
+	Dann ist $r = s$ und nach Umnummerieren ist $p_i \hat{=} q_i$ für $i = 1, \ldots r$ 
+\end{bem}
+
+\begin{satz}
+	Es sind äquivalent:\\
+	(i) Jedes $a \in R \backslash (R^* \cup \{0\})$ lässt sich eindeutig bis auf Reihenfolge und Assoziiertheit als Produkt irreduzibler Elemente aus $R$ schreiben.\\
+	(ii) Jedes $a \in R \backslash (R^* \cup \{0\})$ lässt sich als Produkt von Primelementen aus $R$ schreiben.\\
+	In diesem Fall heißt $R$ ein faktorieller Ring.
+\end{satz}
+
+\begin{folg}
+	$R$ faktorieller Ring, $\pi \in R \backslash (R^* \cup \{0\})$. Dann sind äquivalent:\\
+	(i) $\pi$ irreduzibel\\
+	(ii) $\pi$ Primelement\\
+	Insbesondere lässt sich in $R$ jedes Element aus $R \backslash (R^* \cup \{0\})$ eindeutig bis auf Reihenfolge und Assoziiertheit als Produkt von Primelementen schreiben. 
+\end{folg}
+
+\begin{satz}
+	$R$ HIR. Dann ist $R$ faktoriell.
+\end{satz}
+
+\begin{bem}
+	$R$ faktorieller Ring. $\PP$ Vertretersystem von Primelementen von $R$ modulo ''$\hat{=}$'', $a \in R \backslash \{0\}$. Dann existieren eindeutig bestimmte $v_p(a) \in \NN_0$ für $p \in \PP$, $\epsilon \in R^*$ mit $v_p(a) = 0$ für fast alle $p \in \PP$, sodass:\\
+	$a = \epsilon \prod\limits_{p \in \PP} p^{v_p(a)}$
+\end{bem}
+
+\begin{bsp}
+	$R = \ZZ$, wähle $\PP = \{p \in \NN| p \text{ Primelement}\}$. Jedes $a \in \ZZ \backslash \{0\}$  lässt sich eindeutig als $a = \epsilon \prod\limits_{p \in \PP} p^{v_p(a)}$, $\epsilon \in \{ \pm 1\}$ schreiben.\\
+	z.B. $90 = 2 \cdot 3^2 \cdot 5$, d.h. $v_2(90) = 1$, $v_3(90) = 1$, $v_5(90) = 1$, $v_p(90) = 0$ für $p \in \PP \backslash \{2,3,5\}, \epsilon = 1$
+\end{bsp}
+
+\begin{bem}
+	$R$ HIR, $a_1, \ldots, a_n \in R$ Dann gilt:\\
+	(a) $GGT(a_1, \ldots, a_n) \neq \emptyset$\\
+	(b) $d \in GGT(a_1, \ldots, a_n) \Leftrightarrow (d) = (a_1, \ldots, a_n)$
+\end{bem}
+
+\begin{folg}
+	$R$ HIR, $a,b \in R$, $d \in GGT(a,b)$\\
+	Dann existiert $u,v \in R$ mit $d = ua + vb$
+\end{folg}
+
+\begin{bem}
+	$R$ faktorieller Ring, $\PP$ Vertretersystem von Primelementen von $R$ modulo ''$\hat{=}$'', $a_1, \ldots, a_n \in R \backslash \{0\}$ mit $a_i = \epsilon_i \prod\limits_{p \in \PP} p^{v_p(a_i)}$, $\epsilon_i \in R^*$, $i = 1, \ldots, n$\\
+	Dann gilt:\\
+	$GGT(a_1,\ldots, a_n) \neq \emptyset$, und es ist $\prod\limits_{p \in \PP} p^{min\{v_p(a_1), \ldots v_p(a_n)\}} \in GGT(a_1, \ldots, a_n)$.
+\end{bem}
+
+\textbf{Anmerkung:} In faktoriellen Ringen existieren GGTs, 6.10(b), 6.11 sind jedoch im Allgemeinen nicht erfüllt.
+
+\begin{satz}
+	$R$ euklidischer Ring. Dann ist $R$ ein HIR.
+\end{satz}
+
+\begin{folg}
+	$R$ euklidischer Ring. Dann ist $R$ faktoriell.
+\end{folg}
+
+\chapter{Lokalisierung}$ $\\
+
+In diesem Abschnitt sei $R$ stets ein kommutativer Ring
+
+\begin{satz}
+	$S \subseteq R$ Untermonoid bzgl. ''$\cdot$'', dann gilt:\\
+	(a) Aus $R \times S$ ist durch $(r_1, s_1) \sim (r_2, s_2) \Leftrightarrow$ Es existiert ein $t \in S$ mit $tr_2s_1 = tr_1s_2$ eine Äquivalenzrelation gegeben.\\
+	Wir setzen $S^{-1}R = (R \times S)/\sim$ (Menge der Äquivalenzklassen), $\frac{r}{s}$ bezeichnet die Äquivalenzklasse von $(r,s) \in R \times S$\\
+	(b) $S^{-1}R$ ist ein Ring via\\
+	$\frac{r_1}{s_1} + \frac{r_2}{s_2} := \frac{r_1s_2 + r_2s_1}{s_1s_2}$, $\frac{r_1}{s_1} \cdot \frac{r_2}{s_2} := \frac{r_1r_2}{s_1s_2}$\\
+	$S^{-1}R$ heißt der Quotientenring (Bruchring) von $R$ nach der Nennermenge $S$.\\
+	(c) Die Abbildung $\tau_s: R \rightarrow S^{-1}R$, $r \mapsto \frac{r}{1}$ ist ein Ringhomomorphismus.\\
+	(d) $\tau_s$ injektiv $\Leftrightarrow S$ enthält keinen Nullteiler.
+\end{satz}
+
+\begin{satz}
+	$S \subseteq R$ Untermonoid bzgl. ''$\cdot$''. Dann gilt:\\
+	Für jeden kommutativen Ring $T$ und jeden Ringhomomorphismus $\varphi: R \rightarrow T$ mit $\varphi(S) \subseteq T^*$ gibt es genau einen Ringhomomorphismus $\psi: S^{-1} R \rightarrow T$ mit $\psi \circ \tau_s = \varphi$:\\
+	$\begin{xy}
+	\xymatrix{
+		R \ar[rr]^{\varphi} \ar[dr]_{\tau_s} &     &  T \\
+		& S^{-1}R \ar@{.>}[ur]
+	}
+	\end{xy}$\\
+	Explizit ist $\psi$ gegeben durch $\psi(\frac{r}{s}) = \varphi(r) \varphi(s)^{-1}$ für $r \in R, s \in S$
+\end{satz}
+
+\begin{bem}
+	$R$ nullteilerfrei. Dann gilt:\\
+	(a) $Quot(R) := (R \backslash\{0\})^{-1} R$ ist ein Körper, der Quotientenkörper von $R$.\\
+	(b) In $Quot(R)$ ist $\frac{r_1}{s_1} = \frac{r_2}{s_2} \Leftrightarrow r_1s_2 = r_2s_1$ (für alle $r_1, r_2 \in R$, $s_1, s_2 \in R \backslash \{0\})$\\
+	(c) Die Abbildung $R \rightarrow Quot(R)$, $r \mapsto \frac{r}{1}$ ist ein injektiver Ringhomomorphismus.
+\end{bem}
+
+\begin{folg}
+	$R$ nullteilerfrei, $K$ Körper, $\varphi: R \hookrightarrow K$ injektiver Ringhomomorphismus. Dann existiert ein eindeutig bestimmter Körperhomomorphismus $\psi: Quot(R) \hookrightarrow K$, sodass das  folgende Diagramm kommutiert:\\
+	$\begin{xy}
+	\xymatrix{
+		R \ar@{^{(}->}[rr]^{\varphi} \ar@{^{(}->}[dr]_{\tau_s} &     &  K \\
+		& Quot(R) \ar@{^{(}.>}[ur]
+	}
+	\end{xy}$\\
+	(d.h. $\psi \circ \tau = \varphi)$
+\end{folg}
+
+\textbf{Anmerkung:} Körperhomomorphismen sind immer injektiv (denn: $\varphi: K \rightarrow L$ Körperhomomorphismus $\Rightarrow \ker(\varphi) \subseteq K$ ist ein Ideal, somit $\ker(\varphi) = (0)$ oder $\ker(\varphi) = (1)$ und es ist $\varphi(1) = 1 \neq 0$, d.h. $1 \notin \ker(\varphi)$. Also $\ker(\varphi) = (0))$.\\
+Philosophie hinter 7.0.4: $Quot(R)$ ist der kleinste Körper, in den $R$ eingebettet werden kann.
+
+\begin{bem}
+	$R$ faktorieller Ring, $\PP$ Vertretersystem von Primelementen von $R$ modulo $''\hat{=}''$, $x \in Quot(R), x \neq 0$.\\
+	Dann existieren eindeutig bestimmte $v_p(x) \in \ZZ$ für $p \in \PP$ mit $v_p(x) = 0$ für fast alle $p \in \PP$ und $\epsilon \in R^*$ mit\\
+	$x = \epsilon \prod\limits_{p \in \PP} p^{v_p(x)}$\\
+	Es gilt: $x \in R \Leftrightarrow v_p(x) \geq 0$ für alle $p \in \PP$.\\
+	Konvention: $v_p(0) := \infty$
+\end{bem}
+
+\begin{bsp}
+	$R = \ZZ$, $\PP$ Menge aller Primzahlen in $\NN$\\
+	$v_2(\frac{2}{9}) = v_2(\frac{2^1}{3^2}) = v_2(2^1\cdot3^{-2}) = 1$, $v_3(\frac{2}{9}) = -2$, $v_p(\frac{2}{9}) = 0$ für alle Primzahlen $p \neq 2,3$.
+\end{bsp}
+
+\begin{bem}
+	$R$ faktorieller Ring, $x,y \in Quot(R)$. Dann gilt:\\
+	(a) $p$ Primelement in $R \Rightarrow  v_p(xy) = v_p(x) + v_p(y)$\\
+	(b) Ist $v_p(x) = 0$ für alle Primelemente $p \in R \Rightarrow x \in R^*$
+\end{bem}
+
+\chapter{Primfaktorzerlegung in Polynomringen}
+
+In diesem Abschnitt sei $R$ stets ein faktorieller Ring.\\
+Ziel $R[T]$ ist faktoriell.
+
+\begin{defi}
+	$f = a_rT^r+ \ldots + a_1T + a_0 \in Quot(R)[T]$, $p \in R$ Primelement\\
+	Wir setzen $v_p(f) := \min\limits_{i = 0, \ldots, r} v_p(a_i)$
+\end{defi}
+
+\begin{bem}
+	$f \in Quot(R)[T]$. Dann gilt:\\
+	(a) Ist $\PP$ ein Vertretersystem von Primelementen von $R$, dann ist $v_p(f) = 0$ für fast alle $p \in \PP$.\\
+	(b) $f \in R[T] \Leftrightarrow v_p(f) \geq 0$ für fast alle $p \in \PP$
+\end{bem}
+
+\begin{satz}
+	$p \in R$ Primelement, $f, g \in Quot(R)[T]$. Dann gilt:\\
+	$v_p(fg) = v_p(f) + v_p(g)$
+\end{satz}
+
+\begin{folg}
+	$h \in R[T]$ normiert. Es sei $h = fg$ mit normierten Polynomen $f,g \in Quot(R)[T]$\\
+	Dann gilt: $f,g \in R[T]$
+\end{folg}
+
+\begin{defi}
+	$f = a_nT^n + \ldots + a_1T + a_0 \in R[T]$\\
+	$f$ heißt primitiv $\Leftrightarrow 1 \in GGT(a_0, \ldots, a_n) \Leftrightarrow v_p(f) = 0$ für alle Primelemente $p \in R$
+\end{defi}
+
+\begin{bsp}
+	\begin{itemize}
+		\item Jedes normierte Polynom aus $R[T]$ ist primitiv
+		\item $R = \ZZ$: $f = 5T^2 + 3T+9 \in \ZZ[T]$ ist primitiv
+	\end{itemize}
+\end{bsp}
+
+\begin{bem}
+	$0 \neq f \in Quot(R)[T]$\\
+	Dann exisitert ein $a \in Quot(R), a \neq 0$ und ein primitives Polynom $\tilde{f} \in R[T]$ mit $f = a \tilde{f}$.
+\end{bem}
+	
+\begin{satz}
+	(Satz von Gauß) Es gilt:\\
+	(a) $R[T]$ ist faktoriell\\
+	(b) Ein Polynom $q \in R[T]$ ist genau dann ein Primelement in $R[T]$, wenn gilt:
+	\begin{itemize}
+		\item[] (i) $q \in R$ und $q$ ist Primelement in $R$
+		\item[] oder
+		\item[] (ii)  $q$ ist primitiv in $R[T]$ und Primelement in $Quot(R)[T]$
+	\end{itemize} 
+\end{satz}
+
+\begin{folg}
+	$f \in R[T]$ primitiv. Dann sind äquivalent:\\
+	(i) $f$ ist Primelement in $R[T]$\\
+	(ii) $f$ ist Primelement in $Quot(R)[T]$
+\end{folg}
+
+\begin{folg}
+	$n \in \NN$. Dann ist $R[T_1, \ldots, T_n]$ faktoriell. 
+\end{folg}
+
+\begin{bsp}
+	$ $\\
+	(a) $K$ Körper $\Rightarrow K[T_1, \ldots, T_n]$ faktoriell\\
+	(b) $\ZZ[T_1, \ldots, T_n]$ faktoriell
+\end{bsp}
+
+\textbf{Anmerkung:} $R[T]$ und $Quot(R)[T]$ sind faktorielle Ringe, d.h. ''Primelemente'' und ''irreduzible Elemente'' sind äquivalent. Im Folgenden werden wir immer von irreduziblen Polynomen sprechen.
+
+\begin{bem}
+	$f \in Quot(R)[T]$ mit $\deg(f) \geq 1$. Sei $f = c \tilde{f}$ mit $c \in Quot(R)^*$, $\tilde{f} \in R[T]$ primitiv. Dann sind äquivalent:\\
+	(i) $f$ ist irreduzibel in $Quot(R)[T]$\\
+	(ii) $\tilde{f}$ ist irreduzibel in $Quot(R)[T]$\\
+	(iii) $\tilde{f}$ ist irreduzibel in $R[T]$
+\end{bem}
+
+\textbf{Ziel:} Kritierien, wann ein Polynom irreduzibel ist.
+
+\begin{satz}
+	(Reduktionskriterium) $p \in R$ Primelement, $f \in R[T], f \neq 0$, $p \nmid l(f)$\\
+	Wir betrachten den Ringhom. $\varphi: R[T] \rightarrow R/(p) [T]$, $\sum\limits_{i = 0}^{n} a_iT^i \mapsto \sum\limits_{i = 0}^n \bar{a_i} T^i$ (Koeffizientenprojektion)\\
+	Dann gilt:\\
+	(a) Ist $\varphi(f)$ irreduzibel in $R/(p)$ $[T]$, dann ist $f$ irreduzibel in $Quot(R)[T]$\\
+	(b) Ist $\varphi(f)$ irreduzibel in $R/(p)$ $[T]$, und ist $f$ primitiv, dann ist $f$ irreduzibel in $R[T]$ 
+\end{satz}
+
+\textbf{Anmerkung:} \begin{itemize}
+	\item Satz (drüber) wird häufig angewendet, wenn $R$ HIR, $p$ Primelement in $R$. Dann ist $(p)$ nach 6.3 maximales Ideal in $R$, also $R/(p)$ Körper, $R/(p)$ $[T]$ faktoriell
+	\item andere Anwendung: $R = K[T_1, \ldots, T_n]$, $K$ Körper, $p = T_n$ (ist Primelement) $\Rightarrow R/(p) = K[T_1, \ldots, T_{n-1}]$, Problem um eine Variable reduziert.
+\end{itemize}
+
+\begin{bsp}
+	$R = \ZZ$, $f = X^3 + 7X^2 + 4X -5 \in \ZZ[X]$ ist irreduzibel in $\ZZ[X]$ und in $\QQ[X]$ denn: Reduktionskriterium mit $p = 2: \varphi(f) = X^3+ X^2 + \bar{1} \in \FF_2[X]$ ist irreduzibel (andernfalls hätte $\varphi(f)$ wegen $\deg(\varphi(f)) = 3$ einen Teiler vom Grad 1, also eine Nullstelle in $\FF_2: \varphi(f) (\bar{0}) = \bar{1}, \varphi(f)(\bar{1}) = \bar{1}$) 
+\end{bsp}
+
+\begin{satz}
+	(Eisensteinisches Irreduzibilitästkriterium)\\
+	$f = a_nT^n + \ldots + a_0 \in R[T]$ primitiv mit $\deg(f) \geq 1$\\
+	$p \in R$ Primelement mit $p \nmid a_n$, $p | a_i$ für $0 \leq i < n$, $p^2 \nmid a_0$\\
+	Dann ist $f$ irreduzibel in $R[T]$ und in $Quot(R)[T]$ .
+\end{satz}
+
+\begin{bsp}
+	$ $\\
+	(a) $f = T^3 + 5T^2 + 5 \in \ZZ[T]$ ist irreduzibel in $\ZZ[T]$ und in $\QQ[T]$ (Eisenstein mit $p = 5$)\\
+	(b) $p$ Primzahl. Dann ist $f = T^{p-1} + T^{p-2} + \ldots + 1$ = $\frac{T^p-1}{T-1}$ irreduzibel in $\ZZ[T]$ und in $\QQ[T]$.\\
+	$f$ irreduzibel $\Leftrightarrow f(T+1)$ irreduzibel (vgl. Blatt 7, A2)\\
+	$f(T+1) = \frac{(T+1)^p -1}{T+1-1} = \frac{T^p + \binom{p}{1} T^{p-1} + \ldots + \binom{p}{p-1} T^2 + \binom{p}{p-1} T}{T} = T^{p-1} + \binom{p}{1}T^{p-2} + \ldots + \binom{p}{p-2}T + \binom{p}{p-1}$.\\
+	 Es gilt: $p|(p_i) = \frac{p!}{(p-i)! i!}$ für $i = 1, \ldots, p-1$, $p^2 \nmid \binom{p}{p-1} = p$\\
+	 $\Rightarrow f(T+1)$ irreduzibel nach Eisenstein-Kriterium $\Rightarrow f$ irreduzibel.\\
+	 (c) $k$ Körper, $R = k[t]$, $K := Quot(R) =: k(t)$ (Körper der rationalen Funktionen über $k$ in der Variablen $t$)\\
+	 Sei $f = T^n- t \in R[T]$.\\
+	 $R$ ist faktoriell, $t$ ist Primelement in $R$. $\Rightarrow f$ irreduzibel in $R[T]$ und in $K[T]$ (nach Eisenstein).
+\end{bsp}
+
+\part{Algebraische Körpererweiterungen}
+
+\chapter{Die Charakteristik} 
+
+In diesem Abschnitt sei $R$ stets ein kommutativer Ring\\
+
+\begin{bem}
+	Es gilt:\\
+	(a) Es gibt genau einen Ringhomomorphismus $\phi_R: \ZZ \rightarrow R$. Für diesen gilt:\\
+	\begin{align*}
+		\varphi_R(n) = n \cdot 1_R := \begin{cases}
+		\underbrace{1_R + \ldots + 1_R}_{n \text{-mal}}, \hspace{3mm} \text{ falls } n \in \NN\\
+		0_R, \hspace{20mm} \text{ falls } n = 0\\
+		-(\underbrace{1_R + \ldots + 1_R}_{(-n) \text{-mal}}), \hspace{2mm} \text{ falls } -n \in \NN
+		\end{cases}
+	\end{align*}
+	(b) $R$ nullteilerfrei $\Rightarrow \ker(\varphi_R) \subseteq \ZZ$ Primideal, insbesondere ist $\ker(\varphi) = \begin{cases}
+		(0) \hspace{3mm} \text{oder}\\
+		(p) \hspace{3mm} \text{ für eine Primzahl } p \in \NN
+	\end{cases}$
+\end{bem}
+
+\begin{defi}
+	$R$ nullteilerfrei, $\PP$ Menge der Primzahlen in $\NN$\\
+	Das eindeutig bestimmte $n \in \PP \cup \{0\}$ mit $\ker(\varphi_R) = (n)$ heißt die Charakteristik von $R$. Bezeichnung: $char(R)$.
+\end{defi}
+
+\textbf{Anmerkung:} Offenbar ist $char(R) = \min\{n \in \NN| n \cdot 1_R = 0\}$, falls dieses existiert, sonst $= 0$
+
+\begin{bsp}
+	$ $\\
+	(a) $char(\QQ) = char(\RR) = char(\CC) = 0$\\
+	(b) $p$ Primzahl, $\FF_p = \ZZ/p\ZZ \Rightarrow char(\FF_p) = p$ (hier ist $\varphi_{\ZZ/p\ZZ}: \ZZ \rightarrow \ZZ/p\ZZ$, $n \mapsto \bar{n}$ mit $\ker(\varphi_{\ZZ/p\ZZ}) = p\ZZ$)
+\end{bsp}
+
+\begin{bem}
+	$R$ nullteilerfrei, $S$ nullteilerfreier kommutativer Ring\\
+	(a) Existiert ein injektiver Ringhomomorphismus $i: R \hookrightarrow S$, dann ist $char(R) = char(S)$\\
+	(b) $R, S$ Körper mit $char(R) \neq char(S) \Rightarrow$ Es existiert kein Körperhomomorphismus von $R$ nach $S$.
+\end{bem}
+
+\begin{folg}
+	$R$ nullteilerfrei. Dann ist $char(R) = char(Quot(R))$
+\end{folg}
+
+\begin{bsp}
+	$ $\\
+	$p$ Primzahl, $K = \FF_p(t) = Quot(\FF_p[t])$ ist ein Körper mit $char(K) = p$ (und unendlich vielen Elementen)
+\end{bsp}
+
+\begin{defi}
+	$K$ Körper. Der Durchschnitt aller Teilkörper (Unterringe von $K$, die selbst Körper sind) von $K$ heißt der Primkörper von $K$
+\end{defi}
+
+\textbf{Anmerkung:} Dies ist selbst ein Körper, der kleinste Teilkörper von $K$
+
+\begin{bem}
+	$K$ Körper, $P \subseteq K$ Primkörper von $K$. Dann gilt:\\
+	(a) $char K = 0 \Leftrightarrow P \cong \QQ$\\
+	(b) $char K = p > 0 \Leftrightarrow P \cong \FF_p$
+\end{bem}
+
+\begin{defi}
+	$K$ Körper mit $char(K) = p > 0$.\\
+	Die Abbildung $\sigma_K: K \rightarrow K$, $a \mapsto a^p$ heißt der Frobeniushomomorphismus von $K$.
+\end{defi}
+
+\begin{bem}
+	$K$ Körper mit $char(K) = p > 0$. Dann gilt:\\
+	(a) $\sigma_K$ ist ein Körperhomomorphismus\\
+	(b) $K$ endlicher Körper $\Rightarrow \sigma_K$ ist Körperautomorphismus.
+\end{bem}
+
+\begin{bem}
+	$K$ Körper mit $char(K) = p > 0$, $P$ Primkörper von $K$.\\
+	Dann gilt: $P = \{a \in K| \sigma_K(a) = a\}$
+\end{bem}
+
+\chapter{Endliche und algebraische Körpererweiterungen}
+
+\begin{defi}
+	$L$ Körper, $K \subseteq L$ Teilkörper\\
+	Sprechweise: $L$ ist Erweiterungskörper von $K$, $L|K$ ist eine Körpererweiterung.\\
+	Vermöge $K \times L \rightarrow L$, $(x,y) \mapsto xy$ als skalare Multiplikation wird $L$ zu einem $K$-Vektorraum.\\
+	$[L:K] := dim_K L \in N \cup \{\infty\}$ heißt der Grad der Körpererweiterung $L|K$\\
+	$L|K$ heißt endlich, falls $[L:K]$ endlich ist.
+\end{defi}
+	
+\begin{bsp}
+	$ $\\
+	(a) $\CC|\RR$ ist eine Körpererweiterung mit $[\CC:\RR] = 2$\\
+	(b) $\RR|\QQ$ ist eine Körpererweiterung mit $[\RR: \QQ] = \infty$, denn: Falls $[\RR: \QQ] = n \in \NN$, dann wäre $\RR \cong \QQ^n$ abzählbar. $\lightning$\\
+	(c) $K$ Körper, $K(t) = Quot(K[t])$ $\Rightarrow K(t) |K$ ist eine Körpererweiterung mit $[K(t): K] = \infty$, denn: $(t^i)_{i \in \NN_0}$ ist $K$-linear unabhängig (und unendlich). 
+\end{bsp}
+
+\begin{bem}
+	$L|K$ Körpererweiterung. Dann sind äquivalent:\\
+	(i) $[L:K] = 1$\\
+	(ii) $L = K$
+\end{bem}
+
+\begin{satz}
+	(Gradsatz) $M|L|K$ Körpererweiterung. Dann gilt:\\
+	$[M:K] = [M:L][L:K]$
+\end{satz}
+
+\textbf{Anmerkung:} Ist $(x_i)_{i \in I}$ Basis von $M$ als $L$-Vektorraum und $(y_j)_{j \in J}$ Basis von $L$ als $K$-Vektorraum $\Rightarrow (x_iy_j)_{(i,j) \in I \times J}$ ist Basis von $M$ als $K$-Vektorraum.
+
+\begin{folg}
+	$M|L|K$ Körpererweiterung, $[M:K]$ Primzahl.\\
+	Dann ist: $L = K$ oder $L = M$
+\end{folg}
+
+\begin{defi}
+	$L |K$ Körpererweiterung, $\alpha_1, \ldots, \alpha_n \in L$\\
+	Die Familie $(\alpha_1, \ldots, \alpha_n)$ heißt algebraisch unabhängig (transzendent) über $K$\\
+	$\Leftrightarrow$ Der Ringhomomorphismus $\phi: K[X_1, \ldots, X_n] \rightarrow L, f \mapsto f(\alpha_1, \ldots, \alpha_n)$ ist injektiv\\
+	$\Leftrightarrow$ Es existiert kein $f \in K[X_1, \ldots, X_n]$, $f \neq 0$ mit $f(\alpha_1, \ldots, \alpha_n) = 0$\\
+	Andernfalls heißt die Familie algebraisch abhängig über $K$.\\
+	$n = 1:$ $\alpha \in L$ heißt algebraisch über $K$\\
+	$\Leftrightarrow (\alpha)$ ist algebraisch abhängig über $K$\\
+	$\Leftrightarrow$ Der Ringhomomorphismus. $\phi: K[X] \rightarrow L$, $f \mapsto f(\alpha)$ ist nicht injektiv\\
+	$\Leftrightarrow$ Es existiert ein $f \in K[X]$, $f \neq 0$ mit $f(\alpha) = 0$\\
+	Andernfalls heißt $\alpha$ transzendent über $K$.
+\end{defi}
+
+\begin{bsp}
+	$ $\\
+	(a) $\sqrt{2} \in \RR$ ist algebraisch über $\QQ$, denn für $f = X^2- 2\in \QQ[X]$ ist $f(\sqrt{2}) = 0$\\
+	(b) $\pi$ ist transzendent über $\QQ$ (Satz von Lindemann)\\
+	(c) $(\pi, \pi^2)$ ist algebraisch abhängig über $\QQ$, denn für $f = X_1^2-X_2 \in \QQ[X_1, X_2]$ ist $f(\pi, \pi^2) = 0$\\
+	(d) $\pi$ ist algebraisch über $\RR$, denn für $f = X - \pi \in \RR[X]$ ist $f(\pi) = 0$\\
+	(e) Ist $(e, \pi)$ transzendent über $\QQ$? Ungelöst
+\end{bsp}
+
+\begin{defi}
+	$L|K$ heißt algebraisch $\Leftrightarrow$ Jedes Element aus $L$ ist algebraisch über $K$.
+\end{defi}
+
+\begin{bsp}
+	$ $\\
+	(a) $\CC|\RR$ ist algebraisch, denn $\alpha = a + ib \in \CC$ mit $a, b \in \RR$ ist eine Nullstelle von $X^2 - 2aX + (a^2 + b^2) \in \RR[X]$\\
+	(b) $K$ Körper, $K(t)$ Körper der rationalen Funktionen über $K$ in der Variablen $t$\\
+	$K(t)|K$ ist nicht algebraisch, denn: $t \in K(t)$ ist nicht algebraisch über $K$:\\
+	Die Abbildung: $\phi: K[X] \rightarrow K(t)$, $f \mapsto f(t)$ ist injektiv (genauer: ein Isomorphismus von $K[X]$ auf dem Unterring $K[t] \subseteq K(t)$).
+\end{bsp}
+
+\begin{bem}
+	$L|K$ Körpererweiterung, $\alpha \in L$ algebraisch über $K$, $\phi: K[X] \rightarrow L$, $g \mapsto g(\alpha)$. Dann gilt:\\
+	(a) Es gibt genau ein normiertes Polynom kleinsten Grades $f \in K[X]$ mit $f(\alpha) = 0$\\
+	(b) $f$ ist irreduzibel\\
+	(c) $\ker(\phi) = (f)$\\
+	$f$ heißt das Minimalpolynom von $\alpha$ über $K$.
+\end{bem}
+
+\begin{bem}
+	$L|K$ Körpererweiterung, $\alpha \in L$. Dann gilt:\\
+	$K[\alpha] := \{c_0 + c_1 \alpha + \ldots + c_n \alpha^n|n \in \NN_0, c_1, \ldots, c_n \in K\} = im(\phi)$ für $\phi: K[X] \rightarrow L$, $g \mapsto g(\alpha)$ ist der kleinste Teilring von $L$, der $K$ und $\alpha$ umfasst und heißt der von $\alpha$ über $K$ erzeugte Teilring von $L$.\\
+	$K(\alpha) := Quot(K[\alpha]) \subseteq L$ ist der kleinste Teilkörper von $L$, der $K$ und $\alpha$ umfasst und heißt der von $\alpha$ über $K$ erzeugte Teilkörper von $L$ (''$K$ adjungiert $\alpha$'')
+\end{bem}
+
+\begin{satz}
+	$L|K$ Körpererweiterung, $\alpha \in L$ algebraisch über $K$, $f \in K[X]$ Minimalpolynom von $\alpha$ über $K$.\\
+	Dann gilt:\\
+	(a) $K[\alpha]$ ist ein Körper, d.h. $K[\alpha] = K(\alpha)$\\
+	(b) Der Homomorphismus $\phi: K[X] \rightarrow L$, $g \mapsto g(\alpha)$ induziert einen Isomorphismus $\overline{\phi}: K[X]/(f) \overset{\sim}{\rightarrow} K(\alpha$)\\
+	(c) $[K(\alpha): K] = \deg (f)$, insbesondere ist $K(\alpha)|K$ eine endliche Körpererweiterung.
+\end{satz}
+
+\begin{bsp}
+	$L|K$ Körpererweiterung, $\alpha \in L$ algebraisch über $K$, $\alpha \neq 0$. Wie findet man $\alpha^{-1} \in K[\alpha]$?\\
+	Sei $f = X^n+ c_{n-1} X^{n-1} + \ldots + c_0 \in K[X]$ Minimalpolynom über $K$\\
+	$n = 1$: $f = X+ c_0$, $f(\alpha) = 0$ $\Rightarrow \alpha + c_0 = 0 \Rightarrow \alpha = -c_0 \in K^* \Rightarrow \alpha^{-1} = -c_0^{-1} \in K \subseteq K[\alpha]$\\
+	$n \geq 2: c_0 \neq 0$, da $f$ irreduzibel.\\
+	$\Rightarrow 0 = \alpha^{-1} f(\alpha) = \alpha^{-1} (\alpha^n + c_{n-1} \alpha^{n-1} + \ldots + c_0)$\\
+	$\Rightarrow -c_0\alpha^{-1} = \alpha^{n-1} + c_{n-1} \alpha^{n-2} + \ldots + c_1$\\
+	$\Rightarrow \alpha^{-1} = -c_0^{-1} (\alpha^{n-1} + c_{n-1} \alpha^{n-2} + \ldots + c_1) \in K[\alpha]$
+\end{bsp}
+
+\begin{bem}
+	$L|K$ algebraische Körpererweiterung, $[L:K] < \infty$, $\alpha \in L$, $h_\alpha: L \rightarrow L$, $b \mapsto \alpha b$ (ist ein $K$-VR-Endomorphismus.) Dann stimmt das Minimalpolynom von $\alpha$ über $K$ mit dem Minimalpolynom von $h_\alpha$ überein.
+\end{bem}
+
+\begin{satz}
+	$L|K$ endliche Körpererweiterung. Dann ist $L|K$ algebraisch.
+\end{satz}
+
+\textbf{Anmerkung:} Es gibt eine algebraische Körpererweiterungen, die nicht endlich sind (vgl. Bsp. 10.24)\\
+
+\begin{folg}
+	$L|K$ Körpererweiterung, $\alpha \in L$ algebraisch über $K$.\\
+	Dann ist $K(\alpha)|K$ algebraisch.
+\end{folg}
+
+\begin{bem}
+	$L|K$ Körperweiterung, $S \subseteq L$. Dann gilt:\\
+	(a) $K[S] := \{f(\alpha_1, \ldots, \alpha_n)| n \in \NN_0, f \in K[X_1, \ldots, X_n], \alpha_1, \ldots, \alpha_n \in S\}$ ist der kleinste Teilring von $L$, der $K$ und $S$ umfasst.\\
+	(b) $K(S) := Quot(K[S])$ ist der kleinste Teilkörper von $L$, der $K$ und $S$ umfasst.\\
+	(c) $K(S) = \bigcup\limits_{T \subseteq S \text{ endl.}} K(T)$\\
+	Ist $S = \{\alpha_1, \ldots, \alpha_n\}$ endlich, so schreiben wir $K[S] = K[\alpha_1, \ldots, \alpha_n] = \{f(\alpha_1, \ldots, \alpha_n)| f \in K[X_1, \ldots, X_n]\}$\\
+	$K(S) = K(\alpha_1, \ldots, \alpha_n) = Quot(K[\alpha_1, \ldots, \alpha_n])$
+\end{bem}
+
+\begin{defi}
+	$L|K$ Körpererweiterung\\
+	Für $\alpha \in L$ heißt $[K(\alpha):K]$ der Grad von $\alpha$ über $K$.\\
+	$L|K$ heißt einfach $\Leftrightarrow$ Es existiert ein $\alpha \in L$ mit $L = K(\alpha)$.\\
+	$L|K$ heißt endlich erzeugt $\Leftrightarrow$ Es existiert ein $\alpha_1, \ldots, \alpha_n \in L$ mit $L = K(\alpha_1, \ldots, \alpha_n)$.
+\end{defi}
+
+\begin{bsp}
+	$\CC|\RR$ ist einfach wegen $\CC = \RR(i) = \RR[i]$
+\end{bsp}
+
+\begin{satz}
+	$L|K$ Körpererweiterungen, $\alpha_1, \ldots, \alpha_n \in L$ algebraisch über $K$, $L = K(\alpha_1, \ldots, \alpha_n)$\\
+	Dann gilt:\\
+	(a) $L = K[\alpha_1, \ldots, \alpha_n]$\\
+	(b) $L|K$ endlich, insbesondere algebraisch
+\end{satz}
+
+\begin{folg}
+	$L|K$ Körpererweiterung. Dann sind äquivalent:\\
+	(i) $L|K$ ist endlich.\\
+	(ii) $L$ wird über $K$ von endlich vielen algebraischen Elementen erzeugt, d.h. es existieren $\alpha_1, \ldots, \alpha_n \in L$, $\alpha_1, \ldots, \alpha_n$ algebraisch über $K$ mit $L = K(\alpha_1, \ldots, \alpha_n)$\\
+	(iii) $L|K$ ist eine endlich erzeugte algebraische Körpererweiterung, d.h. $L|K$ algebraisch und es existieren $\alpha_1, \ldots, \alpha_n \in L$ mit $L = K(\alpha_1, \ldots, \alpha_n)$
+\end{folg}
+
+\begin{folg}
+	$L|K$ Körpererweiterung. Dann sind äquivalent:\\
+	(i) $L|K$ ist algebraisch\\
+	(ii) $L$ wird über $K$ von algebraischen Elementen erzeugt.
+\end{folg}
+
+\begin{folg}
+	$L|K$ Körpererweiterung, $M := \{\alpha \in L| \alpha \text{ ist algebraisch über $K$}\}$. Dann gilt:\\
+	(a) $M$ ist eine Teilkörper von $L$, der sogenannte algebraische Abschluss von $K$ in $L$\\
+	(b) $M|K$ ist algebraisch
+\end{folg}
+
+\begin{bsp}
+	$K = \QQ$, $L = \CC$\\
+	$\QQ^{alg} := \{\alpha \in \CC| \alpha \text{ ist algebraisch über $\QQ$}\} =$ algebraischer Abschluss von $\QQ$ in $\CC$ ist eine algebraische Erweiterung von $\QQ$.
+	\begin{enumerate}
+		\item $[\QQ^{alg}: \QQ] = \infty$, denn:\\
+		Sei $n \in \NN$, $p$ Primzahl $\Rightarrow f := X^n-p \in \QQ[X]$ irreduzibel von Grad $n$ wegen dem Eisensteinkriterium, es existieren $\alpha \in \CC$ mit $f(\alpha) = 0 \Rightarrow \alpha \in \QQ^{alg}$, $\QQ(\alpha) \subseteq \QQ^{alg}$\\
+		Wegen $[\QQ(\alpha) : \QQ] = \deg(f) = n$ folgt $[\QQ^{alg}: \QQ] \geq n$
+		\item $\QQ^{alg}$ ist abzählbar, denn:\\
+		$P := \{ f \in \QQ[X] | f \text{ irreduzibel, normiert}\}$ ist abzählbar, denn$\QQ[X]$ ist abzählbar. $\QQ^{alg}$ ist als Menge aller NS in $\CC$ aller Polynome aus $P$ dann auch abzählbar. Insbesondere existiert in $\CC$ überabzählbar viele Elemente, die transzendent über $\QQ$ sind.
+	\end{enumerate}
+\end{bsp}
+
+\begin{satz}
+	$M|L|K$ Körpererweiterung, $\alpha \in M$. Dann gilt:\\
+	(a) $\alpha$ algebraisch über $L$ und $L|K$ algebraisch $\Rightarrow \alpha$ algebraisch über $K$\\
+	(b) $M|K$ algebraisch $\Leftrightarrow M|L$ algebraisch und $L|K$ algebraisch
+\end{satz}
+
+
+\chapter{Algebraischer Abschluss}
+
+\begin{satz}
+	$K$ Körper, $f \in K[X]$, $\deg(f) \geq 1$\\
+	Dann existiert eine endliche Körpererweiterung $L|K$, sodass $f$ eine Nullstelle in $L$ hat.
+\end{satz}
+
+\begin{defi}
+	$K$ Körper\\
+	$K$ heißt algebraisch abgeschlossen\\
+	$\Leftrightarrow$ Jedes $f \in K[X]$, $\deg(f) \geq 1$ besitzt eine Nullstelle in $K$\\
+	$\Leftrightarrow$ Jedes $f \in K[X], f \neq 0$ kann in der Form $f = c(X - \alpha_1) \cdot \ldots \cdot (X - \alpha_n)$ mit $n = \deg(f)$, $c \in K^*$, geschrieben werden.
+\end{defi}
+
+\begin{bem}
+	$K$ Körper. Dann sind äquivalent:\\
+	(i) $K$ ist algebraisch abgeschlossen\\
+	(ii) Es gibt keine echte algebraische Erweiterung $L|K$\\
+	(iii) Es gibt keine echte endliche Erweiterung $L|K$
+\end{bem}
+
+\begin{satz}
+	$K$ Körper. Dann existiert ein algebraisch abgeschlossener Erweiterungskörper von $K$
+\end{satz}
+
+\begin{folg}
+	$K$ Körper\\
+	Dann existiert ein algebraisch abgeschlossener Erweiterungskörper $\bar{K}$ von $K$, sodass $\bar{K}|K$ algebraisch ist. Mann nennt $\bar{K}$ einen algebraischen Abschluss von $K$
+\end{folg}
+
+\begin{bsp}
+	$\QQ^{alg}$ aus Bsp 10.24 ist ein algebraischer Abschluss von $\QQ$.\\
+	Aber: $\CC$ ist kein algebraischer Abschluss von $\QQ$
+\end{bsp}
+
+\textbf{Ziel:} Je zwei algebraische Abschlüsse von $K$ sind isomorph.
+
+\begin{defi}
+	$K, L$ Körper, $\sigma: K \rightarrow L$ Körperhomomorphismus, $f = a_nX^n+ \ldots + a_0 \in K[X]$\\
+	$f^{\sigma} := \sigma(a_n)X^n+ \ldots + \sigma(a_0) \in L[X]$
+\end{defi}
+
+\begin{bem}
+	$K, L$ Körper, $K'|K$ einfache algebraische Körpererweiterung, etwa $K' = K(\alpha)$, $f \in K[X]$ Minimalpolynom von $\alpha$ über $K$, $\sigma: K \rightarrow L$ Körperhomomorphismus. Dann gilt:\\
+	(a) Ist $\sigma': K' \rightarrow L$ Körperhomomorphismus, der $\sigma$ fortsetzt, d.h. $\sigma'|_K= \sigma$, dann ist $\sigma'(\alpha)$ eine Nullstelle von $f^{\sigma} \in L[X]$\\
+	(b) Zu jeder Nullstelle $\beta \in L$ von $f^{\sigma}$ gibt es genau eine Fortsetzung $\sigma': K' \rightarrow L$ von $\sigma$ mit $\sigma'(\alpha) = \beta$.\\
+	Insbesondere ist die Anzahl der Fortsetzungen $\sigma'$ von $\sigma$ nach $K'$ gleich der Anzahl der verschiedenen Nullstellen von $f^{\sigma}$ in $L$, also $\leq \deg(f)$.
+\end{bem}
+
+\begin{satz}
+	$K'|K$ algebraische Körpererweiterung, $L$ algebraisch abgeschlossener Körper, $\sigma: K\rightarrow L$ Körperhomomorphismus. Dann gilt:\\
+	(a) $\sigma$ besitzt eine Forsetzung $\sigma': K' \rightarrow L$\\
+	(b) Ist $K'$ algebraisch abgeschlossen und $L|\sigma(K)$ algebraisch, dann ist jede Fortsetzung von $\sigma$ nach $K'$ ein Isomorphismus.
+\end{satz}
+
+\begin{folg}
+	$K$ Körper, $\bar{K_1}, \bar{K_2}$ algebraische Abschlüsse von $K$.\\
+	Dann existiert ein Isomorphismus $\bar{K_1} \overset{\sim}{\rightarrow} \bar{K_2}$, der $id_K: K \rightarrow K$ fortsetzt.
+\end{folg}
+
+\textbf{Anmerkung:} Dieser Isomorphismus existiert, es gibt aber keine kanonische Wahl: Man sagt: $\bar{K_1}, \bar{K_2}$ sind unterkanonisch isomorph.
+
+\chapter{Normale Körpererweiterungen}
+
+In diesem Abschnitt sei $K$ stets ein Körper.\\
+
+\begin{defi}
+	$L|K$, $L'|K$ Körpererweiterungen, $\sigma: L \rightarrow L'$ Körperhomomorphismus\\
+	$\sigma$ heißt $K$-Homomorphismus $\Leftrightarrow$ $\sigma|_K = id_K$
+\end{defi}
+
+\begin{defi}
+	$F = (f_i)_{i \in I}$ Familie nichtkonstanter Polynome mit Koeffizienten in $K$.\\
+	Ein Erweiterungskörper $L$ von $K$ heißt ein Zerfällungskörper der Familie $F$ über $K$, wenn gilt:\\
+	(a) Jedes $f_i$ zerfällt über $L$ vollständig in Linearfaktoren und\\
+	(b) $L|K$ wird  von den Nullstellen der $f_i$, $i \in I$ in $L$ erzeugt.
+\end{defi}
+
+\textbf{Anmerkung}
+\begin{itemize}
+	\item $F = (f)$, $f \in K[X]$ nichtkonstant, $\bar{K}$ ein algebraischer Abschluss von $K$, $\alpha_1, \ldots, \alpha_n$ Nullstellen von $f$ in $\bar{K} \Rightarrow L:= K(\alpha_1, \ldots, \alpha_n)$ ein Zerällungskörper von $F$ über $K$ (kurz: Zerfällungskörper von $f$ über $K$)
+	\item $F = (f_1, \ldots, f_n) \Rightarrow$ Zerfällungskörper von $F$ ist ein Zerfällungskörper von $f_1 \cdot \ldots \cdot f_n$ und umgekehrt
+	\item $F = (f_i)_{i \in I}:$ Man erhält einen Zerfällungskörper, indem man sämtliche Nullstellen der $f_i$, $i \in I$ in einem festen algebraischen Abschluss von $K$ zu $K$ adjungiert.
+\end{itemize}
+	Somit: Existenz von Zerällungskörper ist stets gesichert.
+\begin{bsp}
+	$\QQ(\sqrt{2}, \sqrt{3})$ ist ein Zerfällungskörper der Familie $(X^2-2, X^2-3)$ über $\QQ$.
+\end{bsp}
+
+\begin{satz}
+	$F = (f_i)_{i \in I}$ Familie nicht-konstanter Polynome mit Koeffizienten in $K$, $L_1, L_2$ Zerfällungskörper von $F$. $\bar{L_2}$ ein algebraischer Abschluss von $L_2$.\\
+	Dann gilt: Jeder $K$-Homomorphismus $\bar{\sigma}: L_1 \rightarrow \overline{L}_2$ beschränkt sich zu einem $K$-Isomorphismus $\sigma: L_1 \overset{\sim}{\rightarrow} L_2$ (d.h. $\sigma(L_1) = L_2)$
+\end{satz}
+
+\begin{folg}
+	$F$ Familie nicht konstanter Polynome über $K$\\
+	Dann sind je zwei Zerfällungskörper von $F$ über $K$ (unkanonisch) $K$-isomorph.
+\end{folg}
+
+\begin{satz}
+	$L|K$ algebraische Körpererweiterung. Dann sind äquivalent:\\
+	(i) Jeder $K$-Homomorphismus $\tau: L \rightarrow \bar{L}$ in einen algebraischen Abschluss $\bar{L}$ von $L$ schränkt sich zu einem Automorphismus von $L$ ein, d.h. $\tau(L) = L$.\\
+	(ii) $L$ ist Zerfällungskörper einer Familie von Polynomen über $K$.\\
+	(iii) Jedes irreduzible Polynom aus $K[X]$, das in $L$ eine Nullstelle hat, zerfällt in $L[X]$ vollständig in Linearfaktoren.\\
+	$L|K$ heißt normal, wenn eine der obigen Bedingungen erfüllt ist.
+\end{satz}
+
+\textbf{Anmerkung:} zu (i): Ein algebraischer Abschluss $\bar{L}|L$ ist eine Körpererweiterung, d.h. kommt mit einer Einbettung $L \hookrightarrow \bar{L}$ daher. Es gibt aber im Allgemeinen mehr $K$-Homomorphismen von $L$ nach $\bar{L}$ als diesen einen.
+
+\begin{bsp}
+	$ $\\
+	(a) $\bar{K}$ ein algebraischer Abschluss von $K \Rightarrow \bar{K}|K$ normal, denn: Bedingung (iii) ist erfüllt.\\
+	(b) $K = \QQ$, $\alpha = \sqrt[3]{2} \in \RR$ (d.h. die eindeutig bestimmte reelle Nullstelle von $f= X^3 -2 \in \QQ[X]$)\\
+	$L = \QQ(\alpha)$, $\bar{L} = \QQ^{alg}$ ist ein algebraischer Abschluss von $L$\\
+	Wir betrachten den eindeutig bestimmten $\QQ$-Hom. $\sigma: \QQ(\alpha) \rightarrow \QQ^{alg}$ mit $\sigma(\alpha) = \alpha e^{2\pi i/3}$\\
+	(beachte: $f(\alpha^{2 \pi i/3}) = (\alpha e^{2 \pi i/3})^3 -2 = \alpha^3 \cdot 1 - 2 = 0$\\
+	Dies ist wohldefiniert, denn $\sigma(\alpha) = \alpha e^{2 \pi i/3}$ ist eine Nullstelle von $f$ in $\QQ^{alg}$.\\
+	Es ist $\sigma(\QQ(\alpha)) \neq \QQ(\alpha)$, denn: $\QQ(\alpha) \subseteq \RR$, $\sigma(\alpha) \notin  \RR$\\
+	Also ist $\QQ(\alpha)| \QQ$ nicht normal, da (i) verletzt.\\
+	Alternatives Argument: $f = X^3 -2 \in \QQ[X]$ (irreduzibel nach Eisenstein) besitzt die Nullstelle $\alpha = \sqrt[3]{2}$ in $\QQ(\sqrt[3]{2})$. Wäre $\QQ(\sqrt[3]{2})|\QQ$ normal, so würde $f$ in $\QQ(\sqrt[3]{2})[X]$ als auch in $\RR[X]$ in Linearfaktoren zerfallen $\lightning$ (also auch (iii) verletzt).
+\end{bsp}
+
+\begin{folg}
+	$M|L|K$ Körpererweiterung, $M|K$ normal. Dann ist auch $M|L$ normal.
+\end{folg}
+
+\begin{bem}
+	$L|K$ Körpererweiterung mit $[L:K] = 2$. Dann ist $L|K$ normal.
+\end{bem}
+
+\begin{bsp}
+	Normalität ist nicht transitiv in Köpertürmen $M|L|K$\\
+	Sei $f = X^4-2 \in \QQ[X] \overset{\text{Eisenstein}}{\Rightarrow} f$ irreduzibel in $\QQ[X]$.\\
+	Sei $\alpha = \sqrt[4]{2} \in \QQ^{alg}$ die eindeutig bestimmte positive reelle Nullstelle von $f$, setze $M := \QQ(\alpha) \Rightarrow [M: \QQ] = \deg(f) = 4$\\
+	$M|\QQ$ ist nicht normal, denn: Für $\beta = i \alpha \in \QQ^{alg}$ ist $f(\beta) = 0$, aber $\beta \notin M$ wegen $M \subseteq \CC \backslash \RR$, $\beta \in \RR$\\
+	$\alpha^2 = \sqrt{2}$ ist Nullstelle von $X^2 - 2 \in \QQ[X] \overset{X^2-2 \text{ irred.}}{\Longrightarrow}$ $[\QQ(\alpha^2): \QQ] = 2$,\\
+	$4 = [M: \QQ] = [\underbrace{M:\QQ(\alpha^2)}_{=2}] [\underbrace{\QQ(\alpha^2): \QQ}_{= 2}] \overset{12.9}{\Rightarrow} M|\QQ(\alpha^2), \QQ(\alpha^2)|\QQ$ normal, aber $M|\QQ$ nicht normal.
+\end{bsp}
+
+\begin{defi}
+	$L|K$ algebraischer Körpererweiterung. Eine Körpererweiterung $L'|K$ mit $L' \supseteq L$ heißt normale Hülle von $L|K$, wenn gilt:\\
+	(a) $L'|K$ normal\\
+	(b) Kein echter Zwischenkörper $L \subsetneq M \subsetneq L'$ ist normal über $K$.
+\end{defi}
+
+\begin{satz}
+	$L|K$ algebraische Körpererweiterung. Dann gilt:\\
+	(a) Es gibt zu $L|K$ eine normale Hülle $L'|K$, diese ist bis auf (unkanonsiche) $L$-Isomorphie eindeutig bestimmt.\\
+	(b) $L|K$ endlich $\Rightarrow L'|K$ endlich\\
+	(c) Ist $M|L$ algebraisch, $M|K$ normal, dann kann man $L \subseteq L' \subseteq M$ wählen. Als Teilkörper von $M$ ist $L'$ eindeutig betimmt: Ist $(\sigma_j)_{j \in J}$ die Familie aller $K$-Homomorphismen von $L$ nach $M$, so ist $L' = K((\sigma_j(L))_{j \in J})$\\
+	Mann nennt $L'$ die normale Hülle von $L$ in $M$.
+\end{satz}
+
+\chapter{Separable Körpererweiterungen}
+In diesem Abschnitt sei $K$ stets ein Körper.\\
+
+\begin{defi}
+	$\bar{K}$ ein algebraischer Abschluss von $K$, $f \in K[X], \alpha
+	 \in \bar{K}$ mit $f(\alpha) = 0$\\
+	 $\alpha$ heißt eine Nullstelle der Vielfachheit $r$ von $f \Leftrightarrow$ In $\bar{K}[X]$ gilt $(X- \alpha)^r|f, (X-\alpha)^{r+1} \nmid f$\\
+	 $\alpha$ heißt mehrfache Nullstelle von $f$ $\Leftrightarrow$ Die Vielfachheit von $\alpha$ ist $> 1$\\
+	 $f$ heißt separabel $\Leftrightarrow f$ hat keine mehrfachen Nullstellen von $\bar{K}$\\
+	 Andernfalls heißt $f$ inseparabel.
+\end{defi}
+
+\textbf{Anmerkung:} Die (In-)separabilität von $f$ ist unabhängig von der Wahl von $\bar{K}$ (da je zwei algebraische Abschlüsse von $K$ stets $K$-isomorph sind).
+
+\begin{defi}
+	$f = a_nX^n + \ldots + a_0 \in K[X]$\\
+	Dann heißt $f' = na_kX^{n-1} + (n-1)a_{n-1}X^{n-2}+ \ldots + a_1 \in K[X]$ die formale Ableitung von $f$.
+\end{defi}
+
+\begin{bem}
+	$f,g \in K[X]$. Dann gilt:\\
+	(a) $(f+g)' = f' + g'$\\
+	(b) $(fg)' = f'g + fg'$
+\end{bem}
+
+\begin{bem}
+	$L|K$ Körpererweiterung, $f,g \in K[X]$. Dann gilt:\\
+	$ggT_{K[X]} (f,g) = ggT_{L[X]}(f,g)$
+\end{bem}
+
+\begin{bem}
+	$f \in K[X], \deg(f) \geq 1$\\
+	Dann gilt: Die mehrfache Nullstelle von $f$ in einem algebraischen Abschluss $\bar{K}$ von $K$ sind genau die gemeinsamen Nullstellen von $f$ und $f'$ in $\bar{K}$, d.h. die Nullstellen von $ggT_{K[X]} (f, f')$ in $\bar{K}$.
+\end{bem}
+
+\begin{bem}
+	$f \in K[X]$ irreduzibel, $\deg (f) \geq 1$. Dann sind äquivalent:\\
+	(i) $f$ ist separabel\\
+	(ii) $f' \neq 0$
+\end{bem}
+
+\textbf{Anmerkung:} ohne die Voraussetzung ''$f$ irred.'' wird $(ii) \Rightarrow (i)$ falsch: (z.B. $f = X^2 \in \QQ[X]$ hat $f' = 2X \neq 0$, aber $f = X^2$ ist inseparabel)
+
+\begin{folg}
+	$char(K) = 0$, $f \in K[X]$ irreduzibel\\
+	Dann ist $f$ separabel.
+\end{folg}
+
+\begin{bsp}
+	$f = X^p - t \in \FF_p(t)[X]$ ist irreduzibel nach Bsp 8.0.16(c), aber $f$ inseparabel wegen $f' = pX^{p-1} = 0$
+\end{bsp}
+
+\begin{bem}
+	$char(K) = p > 0$, $a \in K$, $r \in \NN$\\
+	Dann existiert in $\bar{K}$ genau eine $p^r$-te Wurzel aus $a$ (d.h. genau ein $\beta \in \bar{K}$ mit $\beta^{p^r} = a$).
+\end{bem}
+
+\begin{satz}
+	$char(K) = p > 0$. $f \in K[X]$ irreduzibel, $\bar{K}$ ein algebraischer Abschluss von $K$\\
+	$r := max\{m \in \NN_0| \text{ Es ex. } h \in K[X] \text{ mit } f(X) = h(X^{p^m})\}$, $g \in K[X]$ mit $f(X) = g(X^{p^r})$.\\
+	Dann gilt:\\
+	(a) Jede Nullstelle von $f$ in $\bar{K}$ hat Vielfache $p^r$\\
+	(b) $g$ ist irreduzibel und separabel\\
+	(c) Die Nullstelle von $f$ in $\bar{K}$ sind genau die $p^r$-ten Wurzeln der Nullstellen von $g$ in $\bar{K}$
+\end{satz}
+
+\begin{bsp}
+	$f = X^p - t \in \FF_p(t)[X]$ (vgl. Bsp. 13.0.8). Hier ist $r = 1, g = X-t$ (dann $f = g(X^p)$)
+\end{bsp}
+
+\begin{defi}
+	$L|K$ algebraische Körpererweiterung, $\alpha \in L$\\
+	$\alpha$ heißt separabel über $K$ $\Leftrightarrow$ Es gibt ein separables Polynom $f \in K[X]$ mit $f(\alpha) = 0$ $\Leftrightarrow$ Das Minimalpolynom von $\alpha$ über $K$ ist separabel\\
+	$L|K$ heißt separabel $\Leftrightarrow$ Jedes Element $\alpha \in L$ ist separabel über $K$\\
+	$K$ heißt vollkommen (perfekt) $\Leftrightarrow$ Jede algebraische Erweiterung von $K$ ist separabel.
+\end{defi}
+
+\begin{folg}
+	$char(K) = 0$. Dann ist $K$ vollkommen.
+\end{folg}
+
+\begin{bsp}
+	$\alpha \in \overline{\FF_p(t)}$ Nullstelle von $X^p-t \in \FF_p(t)[X]$\\
+	$\Rightarrow$ Die Erweiterung $\FF_p(t)(\alpha)|\FF_p(t)$ ist nicht separabel, da $X^p-t \in \FF_p(t)[X]$ (Minimalpolynom von $\alpha$, da irreduzibel) inseparabel. Insbesondere ist $\FF_p(t)$ nicht vollkommen.
+\end{bsp}
+
+\begin{defi}
+	$L|K$ algebraische Körpererweiterung, $\bar{K}$ ein algebraischer Abschluss von $K$\\
+	$[L:K]_s := \# Hom_K(L, \bar{K})$ heißt der Separabilitätsgrad von $L$ über $K$.
+\end{defi}
+
+\textbf{Anmerkung:} Die ist unabhängig von der Wahl von $\bar{K}$ (da je zwei algebraische Abschlüsse von $K$ $K$-isomorph sind)
+
+\begin{bem}
+	$\bar{K}$ ein algebraischer Abschluss von $K$, $\alpha \in \bar{K}$, $f \in K[X]$ Minimalpolynom von $\alpha$ über $K$\\
+	Dann gilt:\\
+	(a) $[K(\alpha):K]_s$ = Anzahl der verschiedenen Nullstellen von $f \in \bar{K}$\\
+	(b) $\alpha$ separabel über $K$ $\Leftrightarrow [K(\alpha): K]_s = [K(\alpha):K]$\\ 
+	(c) Gilt $char(K) = p > 0$, und ist $p^r$ die Vielfachheit der Nullstelle von $\alpha$ von $f$, so ist $[K(\alpha):K] = p^r[K(\alpha):K]_s$
+\end{bem}
+
+\begin{satz}
+	$M|L|K$ algebraische Körpererweiterung. Dann gilt:\\
+	$[M:K]_s = [M:L]_s [L:K]_s$
+\end{satz}
+
+\begin{satz}
+	$L|K$ endliche Körpererweiterung. Dann gilt:\\
+	(a) Falls $char(K) = 0$, dann $[L:K] = [L:K]_s$\\
+	(b) Falls $char(K) = p > 0$, dann existiert ein $r \in \NN_0$ mit $[L:K] = p^r[L:K]_s$\\
+	Insbesondere gilt stets: $[L:K]_s|[L:K]$
+\end{satz}
+
+\begin{satz}
+	$L|K$ endliche Körpererweiterung. Dann sind äquivalent:\\
+	(i) $L|K$ separabel\\
+	(ii) Es gibt über $K$ separable Elemente $\alpha_1, \ldots, \alpha_n \in L$ mit $L = K(\alpha_1, \ldots, \alpha_n)$\\
+	(iii) $[L:K]_s = [L:K]$
+\end{satz}
+
+\begin{folg}
+	$L|K$ endliche Körpererweiterung, $char(K) = p > 0$, $p \nmid [L:K]$\\
+	Dann ist $L|K$ separabel.
+\end{folg}
+
+\begin{folg}
+	$L|K$ algebraisch. Dann sind äquivalent:\\
+	(i) $L|K$ separabel\\
+	(ii) $L$ wird über $K$ von separablen Elementen erzeugt.\\
+	Ist eine der Bedingungen erfüllt, dann $[L:K] = [L:K]_s$
+\end{folg}
+
+\begin{folg}
+	$M|L|K$ algebraische Körpererweiterung. Dann sind äquivalent:\\
+	(i) $M|K$ separabel\\
+	(ii) $M|L$ separabel und $L|K$ separabel
+\end{folg}
+
+\begin{defi}
+	$K$ heißt separabel abgeschlossen $\Leftrightarrow$ Es existiert keine nichttriviale separable Erweiterung von $K$
+\end{defi}
+
+\begin{bsp}
+	$K$ algebraisch abgeschlossen $\Leftrightarrow K$ separabel abgeschlossen.
+\end{bsp}
+
+\begin{satz}
+	Es gibt einen separablen abgeschlossenen Erweiterungskörper $K^{sep}$ von $K$, sodass $K^{sep}|K$ algebraisch und separabel ist. Man nennt $K^{sep}$ einen separablen Abschluss von $K$. $K^{sep}$ ist bis auf (unkan.) $K$-Isomorphie eindeutig bestimmt. 
+\end{satz}
+
+\begin{bsp}
+	$K$ vollkommen $\Rightarrow$ Jeder algebraische Abschluss von $K$ ist auch ein separabler Abschluss von $K$.
+\end{bsp}
+
+\begin{satz}
+	(Satz vom primitiven Element)\\
+	$L|K$ endlich separable Körpererweiterung. Dann existiert ein $\alpha \in L$ mit $L = K(\alpha)$, d.h. $L|K$ ist einfach. Man nennt $\alpha$ ein primitives Element von $L|K$.
+\end{satz}
+
+\textbf{Anmerkung:} Beweis hat gezeigt: Für $\# K = \infty$ sind fast alle Elemente $a + \lambda b$, $\lambda \in K$ primitive Elemente von $K(a,b)$ (für $a, b$ separabel über $K$). 
+
+\begin{bsp}
+	$a, b \in \QQ \Rightarrow \sqrt{a} + \sqrt{b}$ ist ein primitives Element von $\QQ(\sqrt{a}, \sqrt{b})|\QQ$, denn: $\QQ(\sqrt{a} + \sqrt{b}) = \QQ(\sqrt{a}, \sqrt{b})$\\
+	$''\subseteq''$ klar\\
+	$''\supseteq'' \underbrace{a-b}_{\in \QQ} = (\sqrt{a}-\sqrt{b})(\underbrace{\sqrt{a}+\sqrt{b}}_{\QQ(\sqrt{a} + \sqrt{b})}) \Rightarrow \sqrt{a} - \sqrt{b} \in \QQ(\sqrt{a}+\sqrt{b})$\\
+	Es ist $\sqrt{a} = \frac{1}{2}((\sqrt{a}+\sqrt{b})+(\sqrt{a} - \sqrt{b})) \in \QQ(\sqrt{a} + \sqrt{b})$\\
+	analog für $\sqrt{b} \in \QQ(\sqrt{a} + \sqrt{b})$
+\end{bsp}
+
+\chapter{Endliche Körper}
+
+\begin{bem}
+	$\FF$ endlicher Körper. Dann gilt:\\
+	(a) $char(\FF) = p$ für eine Primzahl $p$\\
+	(b) Der Primkörper von $\FF$ ist kanonisch isomorph zu $\FF_p$\\
+	(c) $\FF$ enthält genau $q = p^n$ Elemente, $n = [\FF: \FF_p]$\\
+	(d) $\FF$ ist Zerällungskörper des Polynom $X^q - X$ über $\FF_p$\\
+	(e) $\FF|\FF_p$ ist eine normale Körpererweiterung
+\end{bem}
+
+\begin{satz}
+	$p$ Primzahl. Dann gilt:\\
+	(a) Zu jedem $n \in \NN$ existiert ein Erweiterungskörper $\FF_q|\FF_p$ mit $q = p^n$ Elementen. Dieser ist als Zerfällungskörper des separablen Polynoms $X^q - X \in \FF_p[X]$ eindeutig bis auf (unkanonische) Isomorphie bestimmt. $\FF_q$ besteht aus den $q$ Nullstellen von $X^q - X \in \FF_p[X]$ in einem algebraischen Abschluss von $\FF_p$\\
+	(b) $\FF$ endlicher Körper der Charakteristik $p$ $\Rightarrow$ Es existieren eindeutig bestimmte $n \in \NN$, sodass $\FF \cong \FF_{p^n}$ 
+\end{satz}
+
+\textbf{Anmerkung:} Es gilt zwar $\FF_p = \ZZ/p\ZZ$, aber für $n > 1$ gilt stets $\FF_{p^n} \ncong \ZZ/p^n\ZZ$ (rechts steht ein nicht-nullteilerfreier Ring).
+
+\begin{folg}
+	$p$ Primzahl. Man bette die Körper $\FF_q, q = p^n$, $n \in \NN$ ein einen festen algebraischen Abschluss $\bar{\FF_p}$ von $\FF_p$ ein. Dann gelten:\\
+	(a) $\FF_q \subseteq \FF_{q'}$ mit $q = p^n$, $q' = p^{n'} \Leftrightarrow n|n'$\\
+	(b) Die Erweiterung des Typs $\FF_{q'}|\FF_q$ sind bis auf Isomorphie die einzigen Erweiterungen zwischen endlichen Körpern der Charakteristik $p$
+\end{folg}
+
+\begin{folg}
+	$K$ endlicher Körper. Dann gilt:\\
+	(a) Ist $L|K$ eine algebraische Erweiterung, dann ist $L|K$ normal und separabel\\
+	(b) $K$ ist vollkommen
+\end{folg}
+
+\begin{satz}
+	$p$ Primzahl, $r \in \NN$, $q = p^r$, $\FF_{q'}|\FF_q$ endliche Körpererweiterungen von Grad $n$. Dann ist $Aut_{\FF_q}(\FF_{q'})$ eine zyklische Gruppe der Ordnung $n$, erzeugt vom relativen Frobeniusautomorphismus $\sigma = \sigma_{\FF_{q'}}^r: \FF_{q'} \rightarrow \FF_{q'}$, $a \mapsto a^q$\\
+	(hierbei ist $\sigma_{\FF_{q'}}: \FF_{q'} \rightarrow \FF_{q'}$, $a \mapsto a^p$ der Frobeniusautomorphismus aus 9.0.9)
+\end{satz}
+
+\begin{satz}
+	$R$ nullteilerfreier kommutativer Ring, $H \subseteq R^*$ endliche Untergruppe.\\
+	Dann ist $H$ zyklisch.
+\end{satz}
+
+\begin{folg}
+	$p$ Primzahl, $n \in \NN$, $q = p^n$. Dann ist $\FF_q^*$ eine zyklische Gruppe der Ordnung $q - 1$.
+\end{folg}
+
+\part{Galoistheorie}
+
+\textbf{Idee:}\\
+$K$ Körper, $f \in K[X]$, $L$ ein Zerfällungskörper von $f$ über $K$. Wir studieren die Nullstellen von $f$ mit Hilfe der gruppentheoretischen Eigenschaften von $Aut_{K(L)}$.\\
+In diesem Kapitel sei $K$ stets ein Körper.\\
+
+\chapter{Galoiserweiterungen}
+
+\begin{defi}
+	$L|K$ algebraische Körpererweiterung\\
+	$L|K$ heißt galoisch (Galoiserweiterung): $\Leftrightarrow L|K$ normal und separabel. In diesem Fall heißt $Gal(L|K):=Aut_K(L)$ die Galoisgruppe von $L|K$.
+\end{defi}
+
+\begin{bsp}
+	$ $\\
+	(a) $f \in K[X]$ separabel, $L$ Zerfällungskörper von $f$ $\Rightarrow L|K$ galoisch\\
+	(b) $p$ Primzahl, $r \in \NN$, $q = p^r \Rightarrow$ Jede algebraische Erweiterung $\FF|\FF_q$ ist galoisch (Folgerung 14.0.4(a)). Ist $\FF_{q'}|\FF_{q}$ eine endliche Erweiterung mit $q' = q^n$,  dann ist $Gal(\FF_{q'}|\FF_{q})$ zyklisch von der Ordnung $n$. Ein Erzeuger ist der relative Frobenius $\FF_{q'} \rightarrow \FF_{q'}$, $a \mapsto a^q$ (Satz 14.0.5)
+\end{bsp}
+
+\begin{bem}
+	$L|K$ endlich normale Körpererweiterung. Dann gilt:\\
+	(a) $ord(Aut_K(L)) \leq [L:K]$\\
+	(b) $L|K$ galoisch $\Leftrightarrow ord(Aut_K(L)) = [L:K]$
+\end{bem}
+
+\begin{bsp}
+	$\CC|\RR$ ist galoisch $[\CC:\RR] = 2 \Rightarrow ord((Gal(\CC|\RR)) = 2$. Das nichttriviale Element ist die komplexe Konjugation.
+\end{bsp}
+
+\begin{bem}
+	$L|K$ Galoiserweiterung. $E$ Zwischenkörper vom $L|K$ (d.h. $K \leq E \leq L$). Dann gilt:\\
+	(a) $L|E$ ist galoisch und $Gal(L|E)$ ist in natürlich Weise eine Untergruppe von $Gal(L|K)$\\
+	(b) Ist $E|K$ galoisch, so beschränkt sich jeder $K$-Automorphismus von $L$ zu einem $K$-Automorphismus von $E$ und $\pi: Gal(L|K) \rightarrow Gal(E|K)$, $\sigma \mapsto \sigma|_E$ ist eine surjektiver Gruppenhomorphismus mit $\ker(\pi) = Gal(L|E)$ 
+\end{bem}
+
+\begin{satz}
+	$L$ Körper, $G \leq Aut(L)$ Untergruppe.\\
+	$L^G := \{a \in L| \sigma(a) = a \text{ für alle } \sigma \in G\}$ heißt Fixkörper $L$ unter $G$ (insbesondere ist $L^G$ ein Körper!). Es gilt:\\
+	(a) Ist $G$ endlich, oder $L|L^G$ algebraisch, dann ist $L|L^G$ galoisch.\\
+	(b) Ist $G$ endlich, dann ist $L|L^G$ endlich galoisch mit $Gal(L|L^G) = G$\\
+	(c) Ist $L|L^G$ algebraisch und $G$ nicht endlich, dann ist $L|L^G$ eine unendliche Galoiserweiterung und $Gal(L|L^G)$ enthält $G$ als Untergruppe.
+\end{satz}
+
+\begin{folg}
+	$L|K$ normale Körpererweiterung $G = Aut_K(L)$. Dann gilt:\\
+	(a) $L|L^G$ ist eine Galoiserweiterung mit Galoisgruppe $G$.\\
+	(b) Ist $L|K$ separabel, dann ist $K = L^G$
+\end{folg}
+
+\begin{satz}
+	(Hauptsatz der Galoistheorie)\\
+	$L|K$ endliche Galoiserweiterung, $G = Gal(L|K)$. Dann gilt:\\
+	(a) Die Abbildungen:\\
+	$\{\text{Untergruppen von $G$}\} \overset{\phi}{\longrightarrow} \text{Zwischenkörper von $L|K$}$\\
+	$\hspace*{32.7mm} \underset{\psi}{\longleftarrow}$\\
+	$\hspace*{29mm}H \longmapsto L^H$\\
+	$\hspace*{18mm}Gal(L|E) \longmapsfrom E$\\
+	sind (inklusionsumkehrend), bijektiv und invers zueinander.\\
+	(b) $L^H|K$ normal (d.h. galoisch) $\Leftrightarrow H \underline{\vartriangleleft} G$\\
+	In diesem Fall induziert die Einschränkungsabbildung\\
+	\begin{align*}
+	G \rightarrow Gal(L^H|K), \hspace{2mm} \sigma \mapsto \sigma|_{L^H}
+	\end{align*}
+	einen Isomorphismus $G/H \overset{\cong}{\rightarrow} Gal(L^H|K)$.
+\end{satz}
+
+\textbf{Anmerkung:} Der Beweis von (a) zeigt: Ist $L|K$ unendlich, so ist immer noch $\phi \circ \psi = id$, insbesondere ist $\psi$ injektiv (aber im Allgemeinen nicht mehr surjektiv).
+
+\begin{folg}
+	$L|K$ endlich separable Körpererweiterung $\Rightarrow L|K$ hat nur endlich viele Zwischenkörper.
+\end{folg}
+
+\textbf{Anmerkung:} Es gibt endlich inspeparable Erweiterungen mit unendlich vielen Zwischenkörpern.\\
+
+\begin{defi}
+	$L$ Körper, $E, E' \leq L$ Teilkörper\\
+	$EE' := E(E') = E'(E)$ heißt das Kompositum von $E$ und $E'$.
+\end{defi}
+
+\textbf{Anmerkung:} $EE'$ ist der kleinste Teilkörper von $L$, der $E$ und $E'$ enthält.\\
+
+\begin{bsp}
+	$ $\\
+	$L = \RR$, $E = \QQ(\sqrt{2})$, $E' = \QQ(\sqrt{5})$, $EE' = \QQ(\sqrt{2}, \sqrt{5})$
+\end{bsp}
+
+\begin{folg}
+	$L|K$ endliche Galoiserweiterung, $EE'$ Zwischenkörper von $L|K$, $H = Gal(L|E)$, $H'= Gal(L'|E)$ (sind Untergruppen von $Gal(L|K)$). Dann gilt:\\
+	(a) $E \subseteq E' \Leftrightarrow H \supseteq H'$ (d.h. $\phi$, $\psi$ aus 15.0.8 sind inklusionsumkehrend)\\
+	(b) $EE' = L^{H \cap H'}$\\
+	(c) $E \cap E' = L^{<H,H'>}$
+\end{folg}
+
+\begin{defi}
+	$L|K$ endliche Galoiserweiterung\\
+	$L|K$ heißt abelsch (bzw. zyklisch) $\Leftrightarrow Gal(L|K)$ ist abelsch (bzw. zyklisch)
+\end{defi}
+
+\begin{folg}
+	$L|K$ endlich abelsche (bzw. zyklische) Galoiserweiterung. Dann gilt:\\
+	Für jeden Zwischenkörper $E$ von $L|K$ sind $L|E$ und $E|K$ endliche abelsche (bzw. zyklische) Galoiserweiterung. 
+\end{folg}
+
+\begin{satz}
+	$L|K$ Körpererweiterung, $E$, $E'$ Zwischenkörper, sodass $E|K$ und $E'|K$ endlich galoisch. Dann gilt:\\
+	(a) (Translationssatz) $EE'|K$ ist eine endliche Galoiserweiterung, und der Homomorphismus\\
+	\begin{align*}
+		\varphi: Gal(EE'|E) \rightarrow Gal(E'|E \cap E'), \hspace{3mm} \sigma \mapsto \sigma|_{E'}
+	\end{align*}
+	ist ein Isomorphismus\\
+	(b) Der Homomorphismus $\psi: Gal(EE'|K) \rightarrow Gal(E|K) \times Gal(E'|K)$, $\sigma \mapsto (\sigma|_{E}, \sigma|_{E'})$ ist injektiv.\\
+	Gilt $E \cap E' = K$, ist $\psi$ auch surjektiv, d.h. ein Isomorphismus.
+\end{satz}
+
+\begin{bem}
+	$L|K$ endlich Galoiserweiterung, $a \in L$ mit $L = K(a)$, $H \subseteq Gal(L|K)$ Untergruppe.\\
+	Wir setzen $f_H := \prod\limits_{\sigma \in H} (X - \sigma(a)) = \sum\limits_{i = 0}^m c_iX^i \in L[X]$, $m = ord(H)$. Dann gilt:\\
+	(a) $f_H$ ist das Minimalpolynom von $a$ über $L^H$\\
+	(b) $L^H = K(c_0, \ldots c_{m-1})$
+\end{bem}
+
+\chapter{Galoisgruppe von Polynomen}
+
+\begin{defi}
+	$f \in K[X]$ separabel, $\deg f \geq 1$, $L$ Zerfällungskörper von $f$ über $K$\\
+	$Gal(f) := Gal(L|K)$ heißt die Galoisgruppe von $f$ über $K$.
+\end{defi}
+
+\begin{satz}
+	$f \in K[X]$ separabel, $\deg(f) \geq 1$, $L$ Zerfällungskörper von $f$ über $K$, $\alpha_1, \ldots, \alpha_n$, die Nullstelle von $f$ in $L$. Dann gilt:\\
+	(a) Die Abbildung $\varphi: Gal(L|K) \rightarrow S(\{\alpha_1, \ldots, \alpha_n\}) \cong S_n$, $\sigma \mapsto \sigma|_{\{\alpha_1, \ldots, \alpha_n\}}$ ist ein injektiver Gruppenhomomorphismus, d.h. man kann $Gal(L|K)$ als Untergruppe von $S_n$ auffassen.\\
+	(b) $[L:K] = ord(Gal(L|K))|n!$\\
+	(c) $f$ irreduzibel $\Leftrightarrow Gal(L|K)$ operiert transitiv auf $\{\alpha_1, \ldots, \alpha_n\}$, d.h. für alle $1 \leq i, j \leq n$ existiert $\sigma \in Gal(L|K)$ mit $\sigma(\alpha_i) = \alpha_j$ 
+\end{satz}
+
+\begin{folg}
+	$L|K$ endliche Galoiserweiterung, $[L:K] = n$\\
+	Dann lässt sich $Gal(L|K)$ als Untergruppe der $S_n$ auffassen.
+\end{folg}
+
+\begin{bsp}
+	$char(K) \neq 2$, $f = X^2 + aX + b \in K[X]$ habe keine Nullstellen in $K$.\\
+	$\Rightarrow f$ irreduzibel, $f' = 2X +a \neq 0$ $\Rightarrow f$ separabel\\
+	Sei $\overline{K}$ ein algebraischer Abschluss von $K$, $\alpha, \beta \in \overline{K}$ Nullstellen von $f$ $\Rightarrow \alpha \beta = b \Rightarrow \beta = \frac{b}{\alpha}\\ \Rightarrow K(\alpha)$ ist Zerfällungskörper von $f$ über $K$, $[K(\alpha):K] = 2$\\ $\Rightarrow Gal(f) = Gal(K(\alpha)|K)$ zyklische Gruppe der Ordnung 2, erzeugt von $\sigma: K(\alpha) \rightarrow K(\alpha)$, $\alpha \mapsto \beta$
+\end{bsp}
+
+\begin{defi}
+	$f \in K[X]$, $\overline{K}$ algebraischer Abschluss von $K$, $n = \deg(f)$, $\alpha_1, \ldots, \alpha_n$ Nullstelle von $f$ in $\overline{K}$\\
+	$\varDelta_f := \prod\limits_{1 \leq i < j \leq n} (\alpha_i - \alpha_j)^2$ heißt die Diskriminante von $f$
+\end{defi}
+
+\begin{bem}
+	$f \in K[X]$. Dann gilt:\\
+	(a) $f = X^2 + aX + b \Rightarrow \varDelta_f = a^2-4b$\\
+	(b) $f = X^3 + aX + b \Rightarrow \varDelta_f = -4a^3 - 27b^2$
+\end{bem}
+
+\begin{bem}
+	$f \in K[X]$. Dann gilt:\\
+	(a) $f$ separabel $\Leftrightarrow \varDelta_f \neq 0$\\
+	(b) $\varDelta_f \in K$. Insbesondere ist $\varDelta_f$ unabhängig von der Wahl von $\bar{K}$
+\end{bem}
+
+\begin{bem}
+	$char(K) \neq 2$, $f \in K[X]$ separabel, $\alpha_1, \ldots, \alpha_n$ Nullstellen von $f$ in $\bar{K}$, $L := K(\alpha_1, \ldots, \alpha_n)$\\
+	$\varphi: Gal(L|K) \rightarrow S_n$ wie in 16.0.2. Dann sind äquivalent:\\
+	(i) $\varDelta_f$ ist ein Quadrat in $K$\\
+	(ii) $\varphi(Gal(L|K)) \subseteq A_n$
+\end{bem}
+
+\textbf{Anmerkung:} Ist $\beta_1, \ldots, \beta_n$ eine Umnummerierung von $\alpha_1, \ldots, \alpha_n$ etwa $\beta_i = \alpha_{\pi(i)}$ für ein $\pi \in S_n$, ist $\psi: Gal(L|K) \hookrightarrow S_n$ die Abbildung aus 16.0.2 zu $\beta_1, \ldots, \beta_n$, dann gilt für $Gal(L|K)$, $i \in \{1, \ldots, n\}:$ $\beta_{\psi(\sigma)(i)} = \sigma(\beta_i) = \sigma(\alpha_{\pi(i)} = \alpha_{\varphi(\sigma)(\pi(i))} = \beta_{\pi^{-1}(\varphi(\sigma)(\pi(i)))}$, d.h. $\psi(\sigma) = \pi^{-1} \varphi(\sigma) \pi$, insbesondere ist $sgn(\psi(\sigma)) = sgn(\varphi(\sigma))$.\\
+Insbesondere macht es Sinn, $sgn(\sigma) := sgn(\varphi(\sigma))$ und von ''$Gal(f) \subseteq A_n$'' zu sprechen.
+
+\begin{bem}
+	$char(K) \neq 2,3$, $f = X^3 + aX + b \in K[X]$ irreduzibel. Dann gilt:\\
+	(a) $f$ ist separabel\\
+	(b) $Gal(f) \cong \begin{cases}
+	A_3, \text{ falls } \varDelta_f = -4a^3 - 27b^2 \text{ ein Quadrat in $K$ ist}\\
+	S_3, \text{ falls } \varDelta_f = -4a^3 - 27b^2 \text{ kein Quadrat in $K$ ist}
+	\end{cases}$
+\end{bem}
+
+\begin{bsp}
+	$ $\\
+	(a) $f = X^3 - X +1 \in \QQ[X]$ ist irreduzibel, $\varDelta_f = -4(-1)^3 - 27 = -23$ kein Quadrat in $\QQ \Rightarrow Gal(f) \cong S_3$\\
+	(b) $f = X^3 - 3X +1 \in \QQ[X]$ ist irreduzibel, $\varDelta_f = -4(-3)^3 - 27 =  81 = 9^2  \Rightarrow Gal(f) \cong A_3$
+\end{bsp}
+
+\begin{bem}
+	$T_1, \ldots, T_n$ Variablen, $k$ Körper, $L = k(T_1, \ldots, T_n)$ = $Quot(k[T_1, \ldots, T_n])$. Dann gilt:\\
+	(a) Jedes Element $\pi \in S_n$ induziert einen Automorphismus von $L$:
+	\begin{align*}
+		\frac{g(T_1, \ldots, T_n)}{h(T_1, \ldots, T_n)} \longmapsto  \frac{g(T_{\pi(1)}, \ldots, T_{\pi(n)})}{h(T_{\pi(1)}, \ldots, T_{\pi(n)})},
+	\end{align*}
+	dadurch erhalten wir eine Inklusion $S_n \subseteq Aut(L)$\\
+	$K := L^{S_n}$ heißt der Körper der symmetrischen rationalen Funktionen in $n$ Variablen $T_1, \ldots, T_n$ mit Koeffizienten in $k$.\\
+	(b) $L|K$ ist eine Galoiserweiterung mit $Gal(L|K) \cong S_n$, insbesondere ist $[L:K] = n!$ 
+\end{bem}
+
+\begin{defi}
+	$T_1, \ldots, T_n$ Variablen, $k$ Körper. Wir definieren Polynome $s_0(T_1, \ldots, T_n), \ldots, s_n(T_1, \ldots, T_n) \in k[T_1, \ldots, T_n]$ durch:
+	\begin{align*}
+		\prod\limits_{i = 1}^n (X - T_i) = \sum\limits_{j = 0}^n (-1)^j s_j(T_1, \ldots, T_n) X^{n-j} \in k[T_1, \ldots, T_n][X]
+	\end{align*}
+	$s_j(T_1, \ldots, T_n)$ heißt das $j$-te elementarsymmetrische Polynome in $T_1, \ldots, T_n$.\\
+	Ist die Anzahl der Variablen aus dem Kontext klar, schreibt man kurz $s_j$
+\end{defi}
+
+\begin{bsp}
+	$ $\\
+	$n = 1: X - T_1 \overset{!}{=} s_0(T_1) X - s_1(T_1) \Rightarrow s_0(T_1) = 1$, $s_1(T_1) = T_1$\\
+	$n = 2: (X-T_1)(X-T_2) = X^2 - (T_1 + T_2)X + T_1T_2 \overset{!}{=} s_0(T_1,T_2)X^2 - s_1(T_1,T_2)X + s_2(T_1,T_2)\\
+	\Rightarrow s_0(T_1,T_2) = 1$, $s_1(T_1,T_2) = T_1 + T_2$, $s_2(T_1,T_2) = T_1T_2$\\
+	allgemein: $s_0(T_1, \ldots, T_n) = 1$, $s_1(T_1, \ldots, T_n) = T_1 + \ldots + T_n$, $s_2(T_1, \ldots, T_n) = T_1T_2 + T_1T_3 + \ldots + T_{n-1}T_n$, $s_n(T_1, \ldots, T_n) = T_1 \cdot \ldots \cdot T_n$
+\end{bsp}
+
+\begin{bem}
+	$T_1, \ldots, T_n$ Variablen $k$ Körper, $L = k(T_1, \ldots, T_n)$, $K = L^{S_n}$, $f = \prod\limits_{i = 1}^n(X- T_i) \in L[X]$. Dann gilt:\\
+	(a) $s_j \in K$ für $j = 1, \ldots, n$, insbesondere $f \in K[X]$\\
+	(b) $k(s_1, \ldots, s_n) \subseteq K$\\
+	(c) $L$ ist Zerfällungskörper von $f$ über $K$\\
+	(d) $f$ ist irreduzibel in $K[X]$\\
+	(e) $f$ ist separabel\\
+	(f) $Gal(f) \cong S_n$ (über $K$)
+\end{bem}
+
+\begin{satz}
+	(Hauptsatz über symmetrisch rationale Funktionen)\\
+	$T_1, \ldots, T_n$ Variablen, $k$ Körper, $L = k(T_1, \ldots, T_n)$, $K = L^{S_n}$. Dann gilt:\\
+	(a) $K = k(s_1, \ldots, s_n)$\\
+	(b) $s_1, \ldots, s_n$ sind algebraisch unabhängig über $k$\\
+	Insbesondere lässt sich jede symmetrisch rationale Funktion eindeutig als rationale Funktion in den elementarsymmetrischen Polynomen darstellen, d.h. für alle $f \in K$ existieren eindeutig bestimmte $g \in k(T_1, \ldots, T_n)$, sodass $f(T_1, \ldots, T_n) = g(s_1, \ldots, s_n)$
+\end{satz}
+
+\begin{defi}
+	$T_1, \ldots, T_n$ Variablen, $k$ Körper\\
+	$p(X) = X^n + T_1X^{n-1} + \ldots, T_{n-1} X + T_n \in k(T_1, \ldots, T_n)[X]$\\
+	heißt das allgemeine Polynom $n$-ten Grades über $k$.\\
+	Die Gleichung $p(X) = 0$ heißt die allgemeine Gleichung $n$-ten Grades über $k$.
+\end{defi}
+
+\begin{satz}
+	$k$ Körper, $T_1, \ldots, T_n$ Variablen. Dann gilt:\\
+	(a) Das allgemeine Polynom $n$-ten Grades $p(X) \in k(T_1, \ldots, T_n)[X]$ ist irreduzibel und separabel\\
+	(b) $Gal(p(X)) \cong S_n$
+\end{satz}
+
+
+\chapter{Einheitswurzeln} 
+
+\begin{bem}
+	$n \in \NN$. Dann sind äquivalent:\\
+	(i) $f = X^n -1 \in K[X]$ ist separabel\\
+	(ii) $char(K) \nmid n$
+\end{bem}
+
+\begin{defi}
+	$n \in \NN$ mit $char(K) \nmid n$, $\bar{K}$ ein algebraischer Abschluss von $K$. Ein Element $\zeta \in \bar{K}$ heißt eine $n$-te Einheitswurzel (EW) $\Leftrightarrow \zeta^n = 1$.\\
+	Die Menge der $n$-ten Einheitswurzel in $\bar{K}$ wir mit $\mu_n$ bezeichnet und ist offenbar eine Untergruppe von $\bar{K}^*$ 
+\end{defi}
+
+\begin{satz}
+	$n \in \NN$ mit $char(K) \nmid n$\\
+	Dann ist $\mu_n$ eine zyklische Gruppe der Ordnung $n$
+\end{satz}
+
+\begin{defi}
+	$n \in \NN$ mit $char(K) \nmid n$\\
+	$\zeta \in \mu_n$ heißt eine primitive $n$-te Einheitswurzel $\Leftrightarrow \zeta$ ist ein Erzeuger der zyklischen Gruppe $\mu_n$. 
+\end{defi}
+
+\begin{bsp}
+	$K = \CC$, $\zeta_n = e^{2\pi i/n}$ ist eine primitive $n$-te Einheitswurzel.
+\end{bsp}
+
+\begin{defi}
+	Die Abbildung $\varphi: \NN \rightarrow \NN$, $n \mapsto ord((\ZZ/n\ZZ)^*)$ heißt die Eulersche $\varphi$-Funktion. 
+\end{defi}
+
+\begin{bem}
+	$n \in \NN$. Dann gilt:\\
+	(a) $\varphi(n) = \#\{a \in \NN_0| 0 \leq a < n, ggT(a,n) = 1\}$ \\
+	(b) $m, n \in \NN$ teilerfremd $\Rightarrow \varphi(mn) = \varphi(m) \varphi(n)$\\
+	(c) $p$ Primzahl, $r \in \NN \Rightarrow \varphi(p^r) = \varphi^{r-1}(p-1)$\\
+	(d) $n = p_1^{e_1} \cdot \ldots \cdot p_r^{e_r}$ Primfaktorzerlegung von $n \Rightarrow \varphi(n) = \prod\limits_{i = 1}^{r} p_i^{e_i -1} (p_i -1) = n \prod\limits_{p \text{ PZ mit } p|n} (1- \frac{1}{p})$\\
+\end{bem}
+
+\begin{bem}
+	$n \in \NN$, $a \in \ZZ$. Dann sind äquivalent:\\
+	(i) $\bar{a}$ erzeugt die additive zyklische Gruppe $\ZZ/n\ZZ$\\
+	(ii) $\bar{a}$ ist Einheit im Ring $\ZZ/n\ZZ$\\
+	(iii) $ggT(a,n) = 1$\\
+	Insbesondere enthält $\ZZ/n\ZZ$ genau $\varphi(n)$ Elemente, die $\ZZ/n\ZZ$ erzeugen.
+\end{bem}
+
+\begin{bem}
+	$n \in \NN$ mit $char(K) \nmid n$, $\zeta \in \bar{K}$ primitive $n$-te Einheitswurzel. Dann gilt:\\
+	(a) Es gibt genau $\varphi(n)$ primitive $n$-te Einheitswurzeln in $\bar{K}$.\\
+	(b) Die primitiven $n$-ten Einheitswurzeln in $\bar{K}$ sind genau von der Form $\zeta^r$ mit $1 \leq r < n$, $ggT(r,n) = 1$
+\end{bem}
+
+\begin{bem}
+	$n \in \NN$ mit $char(K) \nmid n$, $\zeta \in \mu_n$ primitive $n$-te Einheitswurzel\\
+	Dann ist $K(\mu_n) = K(\zeta)|K$ eine endliche Galoiserweiterung.
+\end{bem}
+
+\begin{satz}
+	$n \in \NN$ mit $char(K) \nmid n$, $\zeta_n \in \bar{K}$ primitive $n$-te Einheitswurzel. Dann gilt:\\
+	(a) $K(\zeta_n)|K$ ist eine endliche abelsche Galoiserweiterung mit Grad $\leq \varphi(n)$\\
+	(b) Es existiert ein injektiver Gruppenhomomorphismus
+	\begin{align*}
+	\chi: Gal(K(\zeta_n)|K) \hookrightarrow (\ZZ/n\ZZ)^*,
+	\end{align*}  
+	sodass für jede $n$-te Einheitswurzel $\zeta \in K(\zeta_n)$ und jedes $\sigma \in Gal(K(\zeta_n)|K)$ gilt: $\sigma(\zeta) = \zeta^{\chi(\sigma)}$ (hierbei ist $\zeta^{\bar{a}} := \zeta^a$ für $\bar{a} \in \ZZ/n\ZZ$).\\
+	$\chi$ heißt der zyklotomische Charakter.
+\end{satz}
+
+\textbf{Ziel:} Für $K = \QQ$ ist $\chi$ ein Isomorphismus.
+
+\begin{defi}
+	$n \in \NN, \zeta_n \in \bar{\QQ}$ primitive $n$-te Einheitswurzel\\
+	$\QQ(\zeta_n)$ heißt $n$-ter Kreisteilungskörper\\
+	$\phi_n = \prod\limits_{\zeta \text{ prim. $n$-te Einheitswurzel in } \bar{\QQ}} (X- \zeta) \in \QQ(\zeta_n)[X]$ heißt das $n$-te Kreisteilungspolynom.
+\end{defi}
+
+\begin{bem}
+	$n \in \NN$. Dann gilt:\\
+	(a) $\phi_n \in \QQ[X]$\\
+	(b) $\deg(\phi_n) = \varphi(n)$\\
+	(c) $p$ Primzahl $\Rightarrow \phi_p = X^{p-1} + X^{p-2} + \ldots + X+1$
+\end{bem}
+
+\textbf{Anmerkung:} (a) zeigt insbesondere, dass $\phi_n$ unabhängig von der Wahl von $\bar{\QQ}$
+
+\begin{satz}
+	$n \in \NN$. Dann gilt:\\
+	(a) $\phi_n \in \ZZ[X]$\\
+	(b) $\phi_n$ ist irreduzibel in $\ZZ[X]$ 
+\end{satz}
+
+\begin{folg}
+	$n \in \NN$, $\zeta_n$ primitive $n$-te Einheitswurzel in $\bar{\QQ}$. Dann gilt:\\
+	(a) $[\QQ(\zeta_n): \QQ] = \varphi(n)$\\
+	(b) Der zyklotomische Charakter $\chi: Gal(\QQ(\zeta_n)|\QQ) \rightarrow (\ZZ/n\ZZ)^*$ aus 17.0.11(b) ist (für $K = \QQ$) ein Isomorphismus.
+\end{folg}
+
+\begin{defi}
+	$K$ Körper, $n \in \NN$ mit $char(K) \nmid n$, $\bar{K}$ ein algebraischer Abschluss von $K$.\\
+	$\phi_{n,K} := \prod\limits_{\zeta \text{prim. n-te EW in } \bar{K}} (X - \zeta)$ $\in K[X]$ heißt das n-te Kreisteilungspolynom über $K$.
+\end{defi}
+
+\textbf{Anmerkung:} $\phi_{n,K} \in K[X]$ folgt analog zu 17.0.13(a)
+
+\begin{bem}
+	$K$ Körper, $n \in \NN$ mit $char(K) \nmid n$, $\psi: \ZZ \rightarrow K$ kanonischer Homomorphismus (vgl. 9.0.1(a))\\
+	Dann gilt: $\phi_{n,K} = \phi_n^\psi$
+\end{bem}
+
+\begin{satz}
+	$q$ Primzahlpotenz, $n \in \NN$ mit $ggT(q,n) = 1$, $\psi: \ZZ \rightarrow \FF_q$ kanonischer Homomorphismus, $\zeta \in \bar{\FF_q}$ primitive n-te Einheitswurzel $\sigma \in Gal(\FF_q (\zeta_n)|\FF_q)$ relativer Frobeniusautomorphismus (vgl. 14.0.15), $\chi: Gal(\FF_q (\zeta_n)|\FF_q) \rightarrow (\ZZ/n\ZZ)^*$ zyklotomischer Charakter. Dann gilt:\\
+	(a) $\chi(\sigma) = \bar{q}$\\
+	(b) $\chi$ induziert einen Isomorphismus zwischen $Gal(\FF_q(\zeta_n)|\FF_q)$ und der von $\bar{q}$ erzeugten Untergruppe von $(\ZZ/n\ZZ)^*$\\
+	(c) $[\FF_q(\zeta_n) : \FF_q] = ord_{(\ZZ/n\ZZ)^*} (\bar{q})$\\
+	(d) $\phi_{n, \FF_q} = \phi_n^\psi$ ist irreduzibel in $\FF_q[X] \Leftrightarrow \bar{q}$ erzeugt $(\ZZ/n\ZZ)^*$
+\end{satz}
+
+\part{Fortführung der Gruppentheorie}
+
+
+\chapter{Gruppenoperationen} 
+
+\begin{defi}
+	$G$ Gruppe (im Folgenden stets multiplikativ geschrieben), $M$ Menge. Eine Operation (Aktion, Wirkung) von $G$ auf $M$ ist eine Abbildung\\
+	\begin{align*}
+		G \times M \rightarrow M, \hspace{3mm} (g,x) \mapsto gx
+	\end{align*}
+	sodass gilt:\\
+	(a) $1x = x$ für alle $x \in M$\\
+	(b) $(gh)x = g(hx)$ für alle $g, h \in G$, $x \in M$
+\end{defi}
+
+\begin{bsp}
+	$ $\\
+	(a) Die Multiplikation $G \times G \rightarrow G$, $(g,h) \mapsto gh$ ist eine $G$-Operation auf $M = G$, die Linkstranslation.\\
+	(b) Durch $G \times G \rightarrow G$, $(g,h) \mapsto ghg^{-1}$ ist eine Operation von $G$ auf $M = G$ gegeben, die Konjugation.\\
+	(c) $L|K$ Galoiserweiterung $\Rightarrow G = Gal(L|K)$ operiert auf $M = L$ (bzw. $M = L^*$) via $G \times L \rightarrow L$, $(\sigma, x) \mapsto \sigma(x)$ (bzw. $G \times L^* \rightarrow L^*$, $(\sigma,x) \mapsto \sigma(x))$ 
+\end{bsp}
+
+\begin{bem}
+	$G$ Gruppe, $M$ Menge. Dann gilt: Die Abbildungen
+	\begin{center}
+		$\left\{ \begin{matrix}
+		\text{Gruppenhom.}\\
+		G \rightarrow S(M)\\
+		\end{matrix}  \right\} 
+	\begin{matrix}
+	\longrightarrow\\
+	\longleftarrow 
+	\end{matrix} \left\{ \begin{matrix}
+		\text{Operationen von } G\\
+		   \text{auf } M\\
+		\end{matrix} \right\}$ \\
+		
+	 $ \hspace{12mm} \varphi: G \rightarrow S(M) \hspace{2mm} \longmapsto \hspace{2mm} G \times M \rightarrow M$, $(g,x) \mapsto \varphi(g)$\\
+	
+	$\hspace{2mm} G \rightarrow S(M)$, $g \mapsto \tau_g \hspace{2mm} \longmapsfrom \hspace{2mm} G \times M \rightarrow M$, $(g,x) \mapsto gx$\\
+\end{center}
+	mit $\tau_g: M \rightarrow M$, $x \mapsto gx$\\
+	sind bijektiv und invers zueinander. 
+\end{bem}
+
+\begin{bem}
+	$G$ Gruppe. Wir setzen für $g \in G:$ $int_g: G \rightarrow G$, $h \mapsto ghg^{-1}$\\
+	Dann gilt:\\
+	(a) $int_g \in Aut(G) \subseteq S(G)$ für alle $g \in G$\\
+	(b) Die Abbildung $int: G \rightarrow Aut(G)$, $g \mapsto int_g$ ist ein Gruppenhomomorphismus
+\end{bem}
+
+\begin{defi}
+	$G$ Gruppe, $int: G \rightarrow Aut(G)$ wie in 18.0.4\\
+	$int(G) \subseteq Aut(G)$ heißt die Gruppe der inneren Automorphismen von $G$.\\
+	$Z(G):= \ker(int) = \{g \in G| int_g = id_G\} = \{ g\in G| int_g(h) = ghg^{-1} = h \text{ $\forall$} h \in G\} = \{g \in G| gh = hg \text{ $\forall$} h \in G\}$\\
+	heißt das Zentrum von $G$.
+\end{defi}
+
+\begin{bsp}
+	$Z(S_3) = \{id\}$
+\end{bsp}
+
+\begin{bem}
+	$G$ Gruppe. Dann gilt:\\
+	(a) $Z(G) \underline{\vartriangleleft} G$, $Z(G)$ abelsch\\
+	(b) $G/Z(G) \cong int(G)$\\
+	(c) $G$ abelsch $\Leftrightarrow int(G) = \{id_G\}$\\
+	(d) $G/Z(G)$ zyklisch $\Leftrightarrow G$ abelsch.
+\end{bem}
+
+\begin{defi}
+	$G$ Gruppe, $M$ Menge, $G$ operiere auf $M$, $x \in M$.\\
+	$Gx := \{gx| g \in G\} \subseteq M$ heißt die Bahn von $X$ (Orbit von $X$)\\
+	$G_x := \{g \in G|gx = x\} \subseteq G$ heißt der Stabilisator (Isotropiegruppe, Standgruppe) von $X$
+\end{defi}
+
+\begin{bem}
+	$G$ Gruppe, $M$ Menge, $G$ operiere auf $M$. Dann gilt:\\
+	(a) Für alle $x \in M$ ist $G_x \subseteq G$ eine Untergruppe\\
+	(b) Durch $x \sim y \Leftrightarrow$ Es existiert ein $g \in G$ mit $gx = y$ ist eine Äquivalenzrelation auf $A$ gegeben: Die Äquivalenzklasse von $x \in M$ ist die Bahn von $x$.\\
+	(c) $M$ ist die disjunkte Vereinigung von Bahnen.\\
+	(d) Für $x \in M$ induziert $G \rightarrow M$, $g \mapsto gx$ eine Bijektion $G/G_x \overset{\sim}{\rightarrow} Gx$\\
+	Hierbei bezeichnet $G/G_x$ die Menge der Linksnebenklassen von $G_x$ in $G$.\\
+	(Beachte: $G_x$ ist im Allgemeinen kein Normalteiler von $G$).
+\end{bem}
+
+\begin{satz}
+	(Bahnengleichung)\\
+	$G$ Gruppe, $M$ endliche Menge, $G$ operiere auf $M$. $x_1, \ldots, x_n$ Vertretersystem der Bahnen von $M$. Dann gilt:
+	\begin{center}
+		$\# M = \sum\limits_{i = 1}^n \# Gx_i = \sum\limits_{i = 1}^n (G:G_{x_i})$
+	\end{center}
+\end{satz}
+
+\begin{defi}
+	$G$ Gruppe, $S \subset G$ Teilmenge\\
+	$Z_s := \{g \in G| gs = sg \text{ für alle } s \in S\}$ heißt der Zentralisator von $S$ in $G$\\
+	$N_s := \{g \in G| gS = Sg\}$ heißt der Normalisator von $S$ in $G$.
+\end{defi}
+
+\begin{bem}
+	$G$ Gruppe, $S \subseteq G$ Teilmenge. Dann gilt:\\
+	(a) $Z_s, N_s$ sind Untergruppen von $G$\\
+	(b) $Z_s \subseteq N_s$\\
+	(c) $S \subseteq G$ Untergruppe $\Rightarrow N_s$ ist die größte Untergruppe $H$ in $G$, sodass $S \underline{\vartriangleleft} H$.
+\end{bem}
+
+\begin{satz}
+	$G$ endlicher Gruppe, $x_1, \ldots, x_n$ Vertretersystem der Bahnen in $G \backslash Z(G)$ bzgl. der Konjugation (vgl. 18.2(b)). Dann gilt:\\
+	\begin{center}
+		$ord(G) = ord(Z(G)) + \sum\limits_{i = 1}^n (G: Z_{\{x_i\}})$ 
+	\end{center}
+\end{satz}
+
+\chapter{Sylowgruppen} 
+
+\begin{defi}
+	$G$ endliche Gruppe, $p$ Primzahl\\
+	$G$ heißt $p$-Gruppe $\Leftrightarrow$ Es existiert ein $n \in \NN_0$ mit $ord(G) = p^n$\\
+	$H \subseteq G$ Untergruppe heißt $p$-Sylowgruppe von $G$ $\Leftrightarrow H$ ist eine $p$-Gruppe mit $p \nmid (G:H) \Leftrightarrow$ Es existiert ein $k \in \NN_0$, $m \in \NN$ mit $ord(G) = p^km$, $ord(H) = p^k$ und $p \nmid m$
+\end{defi}
+
+\textbf{Anmerkung:} $\{1\}$ ist eine $p$-Gruppe für alle Primzahlen $p$\\
+Für alle Primzahlen $p$ mit $p \nmid ord(G)$ ist $\{1\} \subseteq G$ eine $p$-Sylowgruppe.
+
+\begin{bsp}
+	$G = A_4 \Rightarrow ord(G) = 12 = 2^2\cdot3$\\
+	$G$ besitzt genau eine $2$-Sylowgruppe (mit $4$ Elementen), nämlich $<(12) (34), (13) (24)>$.\\
+	und 4 3-Sylowgruppen (mit jeweils 3 Elementen), nämlich $<(123)>, <(124)>, <(134)>, <(234)>$.
+\end{bsp}
+
+\begin{bem}
+	$G$ endliche Gruppe $p$ Primzahl. Dann gilt:\\
+	(a) $G$ $p$-Gruppe, $g \in G \Rightarrow ord(g)$ ist eine $p$-Potenz\\
+	(b) $H \subseteq G$ $p$-Sylowgruppe, $H' \subseteq G$ $p$-Gruppe mit $H \subseteq H' \Rightarrow H = H'$
+\end{bem}
+
+\begin{satz}
+	$p$ Primzahl, $G$ $p$-Gruppe, $ord(G) > 1$. Dann gilt:\\
+	(a) $p|ord(Z(G))$\\
+	(b) $Z(G) \neq \{1\}$
+\end{satz}
+
+\begin{folg}
+	$p$ Primzahl, $G$ Gruppe der Ordnung $p^2$. Dann ist $G$ abelsch.
+\end{folg}
+
+\begin{satz}
+	(Sylowsätze)\\
+	$G$ endliche Gruppe, $p$ Primzahl. Dann gilt:\\
+	(a) $G$ besitzt eine $p$-Sylowgruppe\\
+	(b) Ist $H \subseteq G$ eine $p$-Untergruppe, dann existiert eine $p$-Sylowgruppe $S \subseteq G$ mit $H \subseteq S$.\\
+	(c) Ist $S \subseteq G$ eine $p$-Sylowgruppe, dann ist jede zu $S$ konjugierte Untergruppe von $G$ eine $p$-Sylowgruppe von $G$. Je zwei $p$-Sylowgruppen von $G$ sind konjugiert zueinander.\\
+	(d) Für die Anzahl $s_p$ der $p$-Sylowgruppen von $G$ gilt: $s_p|ord(G)$, $s_p \equiv 1 (mod p)$
+\end{satz}
+
+\begin{folg}
+	$G$ endliche Gruppe, $p$ Primzahl. Dann gilt:\\
+	(a) $p |ord(G) \Leftrightarrow$ Es existiert ein $g \in G$ mit $ord(g) = p$\\
+	(b) $G$ $p$-Gruppe $\Leftrightarrow$ Für alle $g \in G$ existiert ein $r \in \NN_0$ mit $ord(g) = p^r$
+\end{folg}
+
+\begin{folg}
+	$G$ endliche Gruppe, $p$ Primzahl. Dann gilt:\\
+	Besitzt $G$ genau eine $p$-Sylowgruppe $S$, dann ist $S \underline{\vartriangleleft} G$
+\end{folg}
+
+\begin{bsp}
+	$G$ Gruppe mit 30 Elementen $\Rightarrow G$ besitzt einen nichttrivialen Normalteiler, denn:\\
+	$ord(G) = 30 = 2 \cdot 3 \cdot 5 \Rightarrow$ Für $p \in \{2,3,5\}$ gilt $s_p|30$ und $s_p \equiv 1 (mod p) \Rightarrow s_2 \in \{1,3,5,15\}$, $s_3 \in \{1,10\}$, $s_5 \in \{1,6\}$.\\
+	Annahme: $s_2, s_3, s_5 > 1 \Rightarrow s_3 = 10$, $s_5 = 6$\\
+	Sind $H_1$, $H_2$ verschiedene 5-Sylowgruppen von $G$, dann $H_1 \cap H_2 \subsetneq H_1$, $ord(H_1 \cap H_2) | ord(H_1) = 5$ und somit $H_1 \cap H_2 = \{1\}$\\
+	$\Rightarrow G$ enthält $s_5 \cdot (5-1) = 6 \cdot 4 = 24$ Elemente der Ordnung 5\\
+	Analog: $G$ enthält $s_3 \cdot (3-1) = 10 \cdot 2 = 20$ Elemente der Ordnung 3\\
+	$\Rightarrow ord(G) > 44 \lightning$ zu $ord(G) = 30$
+\end{bsp}
+
+\chapter{Auflösbare Gruppen} 
+
+\begin{defi}
+	$G$ Gruppe. $a,b \in G$, $H, H' \subseteq G$ Untergruppen\\
+	$[a,b] := aba^{-1}b^{-1}$ heißt der Kommutator von $a$ und $b$\\
+	$[H, H'] := <\{[h,h']| h \in H, h' \in H'\}>$\\
+	$[G, G]$ heißt der Kommutator von $G$\\
+\end{defi}
+
+\begin{bem}
+	$G$ Gruppe. Dann gilt:\\
+	(a) $[G,G]$ besteht aus allen endlichen Produkten von Kommutatoren aus $G$.\\
+	(b) $[G, G] \underline{\vartriangleleft} G$\\
+	(c) $G/[G, G]$ abelsch\\
+	(d) Ist $N \underline{\vartriangleleft} G$, sodass $G/N$ abelsch ist, dann ist $N \supseteq [G, G]$
+\end{bem}
+
+\begin{bem}
+	Es gilt:\\
+	(a) $[S_n, S_n] = A_n$ für $n \geq 2$\\
+	(b) $[A_n, A_n] = \begin{cases}
+	\{()\} \hspace{5 mm} \text{für } n = 2,3\\
+	V_4 := \{(), (12) \circ (34), (13) \circ (24), (14) \circ (23)\} \hspace{2mm} \text{ für } n = 4\\
+	A_n \hspace{5mm} \text{ für } n \geq 5\\
+	\end{cases}$
+\end{bem}
+
+\begin{defi}
+	$G$ Gruppe $D^{\circ} G := G, D^{i+1} G := [D^i G, D^i G]$ für alle $i \in \NN_0$\\
+	$D^iG$ heißt der $i$-te iterierte Kommutator.
+\end{defi}
+
+\begin{bem}
+	$G$ Gruppe. Dann ist $G = D^{\circ} G \supseteq D^1G \supseteq D^2G \supseteq \ldots \supseteq D^iG \supseteq \ldots$ eine Kette von Untergruppen von $G$ mit $D^{i+1}G \underline{\vartriangleleft} D^i G$ und $D^i G/ D^{i+1}G$ abelsch für alle $i \in \NN_0$
+\end{bem}
+
+\begin{defi}
+	$G$ Gruppe. Eine Kette von Untergruppen $G = G_0 \supseteq G_1 \supseteq \ldots \supseteq G_n = \{1\}$ heißt eine Normalreihe von $G \Leftrightarrow G_{i+1} \underline{\vartriangleleft} G_i$ für alle $i \in \{0, \ldots, n-1\}$\\
+	$G_i/G_{i+1}$, $i = 0, \ldots, n-1$ heißen die Faktoren der Normalreihe.\\
+	$G$ heißt auflösbar $\Leftrightarrow G$ besitzt eine Normalreihe, deren sämtliche Faktoren abelsch sind. 
+\end{defi}
+
+\begin{satz}
+	$G$ Gruppe. Dann sind äquivalent:\\
+	(i) $G$ ist auflösbar\\
+	(ii) Es existiert ein $n \in \NN_0$ mit $D^nG = \{1\}$
+\end{satz}
+
+\begin{bsp}
+	Jede abelsche Gruppe ist auflösbar: $D^1G = [G, G] = \{1\}$
+\end{bsp}
+
+\begin{bem}
+	Die symmetrische Gruppe $S_n$ ist auflösbar für $n \leq 4$, nicht auflösbar für $n \geq 5$
+\end{bem}
+
+\begin{satz}
+	$G$ endlich auflösbare Gruppe. Dann gilt:\\
+	Jede echt absteigende Normalreihe von $G$ mit abelschen Faktoren lässt sich zu einer Normalreihe verfeinern, deren Faktoren zyklisch von Primzahl-Ordnung sind.
+\end{satz}
+
+\begin{bem}
+	$G$ auflösbare Gruppe, $H \subseteq G$ Untergruppe. Dann ist $H$ auflösbar.
+\end{bem}
+
+\begin{bem}
+	$G$ Gruppe, $H \underline{\vartriangleleft} G$. Dann sind äquivalent:\\
+	(i) $G$ auflösbar\\
+	(ii) $H$ und $G/H$ auflösbar
+\end{bem}
+
+\begin{satz}
+	$p$ Primzahl, $G$ $p$-Gruppe\\
+	Dann ist $G$ auflösbar und es existiert eine Normalreihe\\
+	\begin{center}
+		$G = G_0 \supseteq G_1 \supseteq \ldots \supseteq G_n = \{1\}$,
+	\end{center}
+	sodass $G_i/G_{i+1}$ zyklisch der Ordnung $p$ sind.
+\end{satz}
+
+
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

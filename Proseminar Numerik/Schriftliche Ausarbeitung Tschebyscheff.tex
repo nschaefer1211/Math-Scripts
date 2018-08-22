@@ -1,0 +1,435 @@
+\documentclass[12pt,a4paper,numbers=endperiod]{scrartcl}
+
+\usepackage[a4paper, left=25mm, right=25mm, top=25mm, bottom=25mm]{geometry}
+\usepackage[ngerman]{babel}			
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{stmaryrd}
+\usepackage{ulem}
+\usepackage{lscape}
+\usepackage{setspace}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage[all]{xy}
+\usepackage{pstricks,pst-plot}
+\usepackage{pst-node}
+\usepackage{pstricks,pst-plot,pst-node}
+\SpecialCoor
+\usepackage{amsmath,listings}
+\usepackage{bigdelim}
+\usepackage{arydshln}
+\usepackage{amsmath}
+\usepackage{amssymb}			
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{nicefrac}
+\usepackage{tikz}
+  \usetikzlibrary{matrix}
+  \usetikzlibrary{fit}
+  \usetikzlibrary{backgrounds}
+  \usetikzlibrary{arrows}
+  \usetikzlibrary{shapes}
+
+\setkomafont{sectioning}{\rmfamily\bfseries} 
+\setlength\parindent{0pt}
+
+\theoremstyle{definition}
+\newtheorem{satz}{Satz}[section]
+\newtheorem{lemm}[satz]{Lemma}
+\newtheorem{prop}[satz]{Proposition} 
+\newtheorem{theo}[satz]{Theorem}
+\newtheorem{kor}[satz]{Korollar}
+\newtheorem{defi}[satz]{Definition}
+\newtheorem{bem}[satz]{Bemerkung}
+\newtheorem{bsp}[satz]{Beispiel}
+\newtheorem{folg}[satz]{Folgerung}
+\newtheorem{nota}[satz]{Notation}
+\newtheorem{defisatz}[satz]{Definition/Satz}
+\newtheorem{whg}[satz]{Wiederholung}
+
+
+\newcommand{\xfrac}[2]{%
+	\mbox{\raisebox{0.4ex}{\ensuremath{\displaystyle #1}\hspace{0.2ex}}%
+		{\raisebox{-0.1ex}{\Large /}}%
+		\raisebox{-0.2ex}{\ensuremath{\displaystyle #2}}%
+	}%
+}
+\newcommand{\spr}{\text{spr}}
+\newcommand{\sgn}{\text{sgn}} 
+\newcommand{\arccosh}{\text{ arccosh}}
+
+
+
+
+\def\QQ{{\mathbb Q}}
+\def\CC{{\mathbb C}}
+\def\RR{{\mathbb R}}
+\def\NN{{\mathbb N}}
+\def\ZZ{{\mathbb Z}}
+\def\PP{{\mathbb P}}
+\def\FF{{\mathbb F}}
+
+
+\def\Namen{} % Namen eintragen
+\def\Datum{} % Datum eintragen
+\def\Titel{} % Vortragstitel eintragen
+% Die Titelzeilen werden aus diesen Angaben automatisch erzeugt.
+\begin{document}
+\Namen \hfill \Datum\par
+
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+
+\begin{center}
+{\LARGE\textbf{Proseminar Numerische Verfahren}}\par
+\vspace{0.25\baselineskip}
+{\large\textsc{Die Tschebyscheff-Beschleunigung}}
+\end{center}
+\hrule
+
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+
+
+
+
+\begin{center}
+	{\large\itshape Nikolaus Schäfer}
+\end{center}
+
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+
+\begin{center}
+	{\large Dozent: Prof. Dr. Rannacher}
+\end{center}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+
+\begin{center}
+	{\large \text{\today}}
+\end{center}
+
+
+\newpage
+\vspace{0.125\baselineskip}
+\tableofcontents %Inhaltsverzeichnis (wird automatisch erzeugt
+\newpage
+\onehalfspacing
+\section{Einleitung}
+
+In der Mathematik und speziell in dem Teilgebiet der numerischen Mathematik müssen sehr häufig Probleme der Art
+\begin{gather}
+	 \textbf{Ax = b}
+\end{gather}
+gelöst werden, mit einer reellen quadratischen Matrix $A = (a_{ij})_{i,j = 1}^n \in \RR^{n \times n}$ und einem Vektor $b = (b_j)_{j = 1}^n \in \RR^n$.\\ Wenn wir Probleme mit $n \gg
+ 1000$ betrachten, dann wird neben der Komplexität des Algorithmus auch der Speicherplatz zunehmend wichtig. Deswegen werden lineare Gleichungssysteme mit solch hoher Dimension iterativ gelöst. Die direkten Verfahren zur Lösung linearer Gleichungssysteme (Gauß-Elimination, Cholesky-Zerlegung etc.) gehen von beliebigen vollbesetzen Matrizen aus. Diese Eigenschaft steht jedoch in zahlreichen, wichtigen Fällen Problemen $Ax = b$ gegenüber bei denen, neben der Höhe der Dimension $n$, die Matrix $A$ eine spezielle Struktur besitzt (z.B. Bandstruktur, Symmetrie). Diese Struktur sollte von den Lösungsalgorithmen ausgenutzt werden. Die einfachste Lösung für das Problem (1) erhalten wir indem wir die Gleichung in eine Fixpunktgleichung umformen: 
+\begin{align}
+	Ax = b \Leftrightarrow Cx = Cx - Ax + b \Leftrightarrow x = (I - C^{-1}A)x + C^{-1}b,
+\end{align}
+
+wobei $C \in GL(n)$ eine geeignete reguläre Matrix ist.
+Dann, startend mit einem Anfangswert $x_0$, benutzt man eine simple Fixpunktiteration: 
+\begin{gather}
+	x^t = \underbrace{(I-C^{-1}A)}_{=:B}x^{t-1} + \underbrace{C^{-1}b}_{=:c}, \hspace{4mm} t = 1,2,..
+\end{gather}
+Zur Lösung dieser Gleichung haben wir schon zahlreiche Verfahren kennengelernt (Jacobi-Verfahren, Gauß-Seidel-Verfahren, SOR-Verfahren). Diese Verfahren interessieren sich jedoch nur für das gerade aktuelle Element der Folgen der Iterierten. Im $t$-ten Schritt eines Iterationsverfahrens also für $x^{t-1}$. Die restlichen Iterierten $x^0, \ldots, x^{t-2}$ werden nicht berücksichtigt. Es gibt aber auch Verfahren, bei denen alle Iterierten $x^0, \ldots, x^{t-1}$ in die Berechnung einer verbesserten Approximation $y^t$ der Lösung einfließen können. Eines dieser Verfahren ist die \textbf{Tschebyscheff-Beschleunigung}. Es wird sich herausstellen, dass dieses semiiterative Verfahren, mit gewissen Annahmen über die Matrizen $A$ und $B$, ähnlich effizient wie die bisher untersuchten iterativen Verfahren implementiert werden kann, aber zum Teil deutlich bessere Konvergenzeigenschaften besitzt. 
+
+\newpage
+\section{Die Tschebyscheff-Beschleunigung}
+
+Für diese Art der Konvergenzbeschleunigung der Fixpunktiteration
+\begin{align*}
+	x^t = Bx^{t-1} +c, \hspace{3mm} t = 1,2,...	
+\end{align*}
+zum Problem (1) betrachten wir eine reelle, symmetrische Koeffizientenmatrix $A$ und eine reelle diagonalisierbare Iterationsmatrix $B$ \footnote{Die Anforderungen werden später noch größer. Zunächst muss aber $B$ diagonalisierbar sein, damit der spektrale Abbildungssatz (Begründung für Gleichung \textbf{(9)}) für reelle Koffezientenmatrizen gilt}. 
+Angenommen die Fixpunktiteration konvergiert gegen die Lösung $x \in \RR^n$ des Gleichungssystems
+\begin{gather}
+	Ax = b \Leftrightarrow x = Bx + c,
+\end{gather}
+also $\spr(B) < 1$ \footnote{Konvergenzkriterien für das Jacobi-Verfahren und das Gauß-Seidel-Verfahren, die $\spr(B)<1$ implizieren, werden in Bemerkung 2.1 nochmals aufgegriffen}, dann bleibt die Frage, wie man aus der Folge der Vektoren $x^t$ eine zweite (sekundäre) Folge $y^t$ konstruieren kann, die möglichst schneller gegen die Lösung $x$ konvergiert, als $x^t$ selbst. Die Idee der Tschebyscheff-Beschleunigung ist es eine Linearkombination
+\begin{gather}
+	y^t = \sum\limits_{s = 0}^t \gamma_s^tx^s \hspace{4mm} t \geq 1
+\end{gather}
+aus den Werten $x^0, \ldots, x^t$ zu konstruieren. Bei geeigneter Wahl der Koeffizienten $\gamma_s^t$ soll die Ersatzfolge $\{y^0,y^1, \ldots\}$ schneller konvergieren als die Ausgangsfolge $\{x^0, x^1, \ldots\}$.\\
+Falls $x^0 = \ldots = x^t = x$ bereits die Lösung ist, so fordern wir, dass auch $y^t = x$, woraus sofort folgt, dass 
+\begin{gather}
+	\sum\limits_{s = 0}^t \gamma_s^t = 1,
+\end{gather}  
+Für den Fehler $y^t - x$ gilt insbesondere, dass 
+\begin{equation}
+\begin{gathered}
+	y^t -x = \sum\limits_{s = 0}^t \gamma_s^t(x^s -x) = \sum\limits_{s = 0}^t \gamma_s^t(Bx^{s-1} + c - (Bx + c))\hspace{33,5mm}\\
+	= \sum\limits_{s = 0}^t \gamma_s^t B(x^{s-1} - x) = \ldots =\sum\limits_{s = 0}^t \gamma_s^t B^s(x^0 -x) = p_t(B)(x^0 -x)
+\end{gathered}
+\end{equation}
+mit einem Polynom $p_t \in P_t$ von Grad $t$ gegeben durch
+\begin{gather}
+	p_t(z) = \sum\limits_{s = 0}^t \gamma_s^tz^s, \hspace{4mm} p_t(1) = 1
+\end{gather}
+
+Da diese Iteration von einer Folge von Iterationsmatrizen $p_t(B),$ $t \geq 1$, bestimmt wird, müssen wir, um das Konvergenzverhalten zu untersuchen, den Spektralradius von $p_t(B)$ anschauen.\\ 
+
+Es gilt: 
+\begin{gather}
+	\lambda(p_t(B)) = p_t(\lambda(B))
+\end{gather}
+
+Nach dem Fixpunktsatz (siehe Rannacher [1] \footnote{[1] R. Rannacher: \textit{Numerical Linear Algebra},\\ Lecture Notes, Heidelberg University, http://numerik.uni-hd.de/$\sim$lehre/notes/ } 3.1) konvergiert das Verfahren umso schneller, je kleiner der Spektralradius von $p_t(B)$ ist. Wir betrachten also das folgende Optimierungsproblem: 
+\begin{gather}
+	\min\limits_{p_t \in P_t, p_t(1) = 1} \hspace{1mm} \max\limits_{\lambda \in \sigma(B)} |p_t(\lambda)|
+\end{gather}
+
+Oft ist es aber so, dass man die Eigenwerte von $B$ nicht kennt. Meistens kann man höchstens eine Einschränkung, $\spr(B) \leq 1 - \delta$ mit einem kleinen $\delta >0$, vornehmen. Deswegen müssen wir das Optimierungsproblem abschwächen auf: 
+\begin{gather}
+	\spr(p_t(B)) \leq \min_{p_t \in P_t, p_t(1) = 1} \max\limits_{|x| \leq 1- \delta} |p_t(x)| 
+\end{gather}
+
+Dieses ist eindeutig lösbar, wenn $\sigma(B) \subseteq \RR$.\\
+
+Um dies zu gewährleisten nehmen wir im folgenden an, neben der Symmetrie der reellen Koeffizientenmatrix $A = L + D + L^T$, dass die \textbf{Iterationmatrix $B$  ähnlich zu einer symmetrischen Matrix} ist, da dann gilt: $B$ ist diagonalisierbar und $\sigma(B) \subseteq \RR$
+\begin{bem}
+	$ $\\
+	Im Allgemeinen ist die Iterationsmatrix $B$ selbstverständlich keine symmetrische Matrix. Sie muss noch nicht mal ähnlich zu einer symmetrischen Matrix sein (z.B. bei der Gauß-Seidel-Methode mit $H_1 = -(D+L)^{-1}L^T$).\\
+	Die Iterationsmatrix der Jacobi-Methode mit $J = -D^{-1}(L+L^T))$ ist zwar symmetrisch, aber damit das Jacobi-Verfahren auch konvergiert muss die Systemmatrix $A$ strikt diagonaldominant sein.\\
+	Eine weitere interessante Anmerkung ist, dass in vielen Problemen der Praxis symmetrisch positiv definite Systemmatrizen betrachtet werden. Dies reicht aber für die Konvergenz des Jacobi-Verfahrens nicht aus. Als Abhilfe kann man nach Möglichkeit \footnote{sofern die Iterationsmatrix ähnlich zu einer symmetrischen Matrix ist} dann das symmetrische Gauß-Seidel-Verfahren benutzen, da das Gauß-Seidel Verfahren für eine symmetrisch positiv definite Systemmatrix $A$ immer konvergiert. 
+\end{bem}
+
+Die Lösung des Optimierungsproblems \textbf{(11)} basiert auf den bereits bekannten Tschebyscheff-Polynomen. 
+
+\textbf{Die Tschebyscheff-Polynome:}\\
+	Die (reellen) Tschebyscheff-Polynome lassen sich wie folgt darstellen (siehe z.B. Stoer \& Burlisch [2] \footnote{[2] J. Stoer and R. Bulirsch: \textit{Numerische Mathematik 1/2}, Springer, 2007 (10. Edition)} oder Rannacher [3] \footnote{[3] R. Rannacher: \textit{Numerische Mathematik 0 (Einführung in die Numerische Mathematik)},\\ Lecture Notes, Heidelberg, University, http://numerik.uni-hd.de/$\sim$lehre/notes/}):
+	\begin{gather}
+	T_t(x) = 
+	\begin{cases}
+	(-1)^t \cosh(t \arccosh(-x)), \hspace{2mm} x \leq -1\\
+	\cos(t \arccos(x)), \hspace{14,8mm} -1 \leq x \leq 1\\
+	\cosh(t \arccosh(x)), \hspace{14,5mm} x \geq 1
+	\end{cases}
+	\end{gather}
+	Das t-te Tschebyscheff-Polynom ist durch die folgende Rekursion definiert:
+	\begin{gather}
+	T_0(x) = 1, \hspace{3mm} T_1(x) = x, \hspace{3mm} T_{t+1}(x)= 2xT_t(x) - T_{t-1}(x), \hspace{3mm} t \geq 1
+	\end{gather}
+	In einigen Fällen, wie im Beweis des folgenden Theorems, kann die globale Repräsentation der Tschebyscheff-Polynome nützlich sein:
+	\begin{gather}
+	T_t(x) = \frac{1}{2} [(x + \sqrt{x^2-1})^t + (x- \sqrt{x^2-1})^t], \hspace{3mm} x \in \RR
+	\end{gather}\\
+
+
+Mit Hilfe dieser Polynome lässt sich nun unser Minimierungsproblem lösen:
+
+\begin{theo} (Minmax-Problem) 
+	$ $\\
+	Sei $[a,b] \subseteq \RR$ ein nicht-leeres Intervall and sei $c \in \RR \backslash [a,b]$.\\
+	Dann ist das Minimum
+	\begin{gather}
+	\min\limits_{p \in P_t, p(c) = 1} \hspace{1mm} \max\limits_{a \leq x \leq b} |p(x)|
+	\end{gather}
+	eindeutig durch die folgenden Polynome gegeben:
+	\begin{gather}
+	p(x) := C_t(x) = \frac{T_t(1+ 2 \frac{x-b}{b-a})}{T_t(1+ 2 \frac{c-b}{b-a})}, \hspace{4mm} x \in [a,b]
+	\end{gather}
+	Für $a < b < c$ gilt dann: 
+	\begin{gather}
+		\min\limits_{p \in P_t, p(c) = 1} \hspace{1mm} \max\limits_{a \leq x \leq b} |p(x)| = \frac{1}{T_t(1 + 2\frac{c-b}{b-a})} = \frac{2 \gamma^t}{1+ \gamma^{2t}} \leq 2 \gamma^t,
+	\end{gather}
+	wobei,  \centering{$\gamma = \frac{\sqrt{\kappa}-1}{\sqrt{\kappa} +1}$, \hspace{2 mm} $\kappa := \frac{c-a}{c-b}$}\\
+\end{theo}
+\newpage
+
+\begin{proof}
+	$ $
+	\begin{enumerate}
+		\item 
+	Da sich durch eine affine Transformation die Maximumsnorm nicht ändert, versuchen wir zunächst eine affine Transformation zu finden, damit wir uns auf das Intervall $[-1,1]$ beschränken können.\\
+	Betrachte die affine Abbildung
+	\begin{align*}
+	\varphi: [a,b] \overset{\cong}{\longrightarrow} [-1,1] \hspace{48 mm}\\
+	x \longmapsto y = \varphi(x) = 2 \frac{x-a}{b-a} -1 = \frac{2x -a -b}{b-a}
+	\end{align*}
+	mit der Umkehrabbildung
+	\begin{align*}
+	\alpha: [-1,1] \overset{\cong}{\longrightarrow} [a,b], \hspace{30mm}\\
+	y \longmapsto f(y) = \frac{1-y}{2} a + \frac{1+y}{2} b.
+	\end{align*}
+	Ist nun $p_t \in P_t$ mit $\deg(p_t) = t$ und führendem Koeffizienten 1 die Lösung des 
+	Minimaxproblems
+	\begin{align*}
+	\min\limits_{p \in P_t, p(c) = 1} \hspace{1mm} \max\limits_{-1 \leq x \leq 1} |p(x)|
+	\end{align*} 
+	so ist $\hat{p}_t(x) := p_t(\alpha(y))$ die Lösung des ursprünglichen Problems \textbf{(15)} mit führendem Koeffizienten $\frac{(b-a)^t}{2^t}$.\\
+	Deshalb können wir uns also auf den Fall $[a,b] = [-1,1]$, $c \in \RR \backslash [-1,1]$ einschränken.\\ 
+	
+	\item 
+	Nun gilt:
+	\begin{gather}
+	C_t(x) = \frac{T_t(1 + 2 \frac{x-1}{1-(-1)})}{T_t(1 + 2\frac{c-1}{1-(-1)})} = \frac{T_t(x)}{T_t(c)} = \tilde{C}T_t(x), \text{ wobei } \tilde{C} = T_t(c)^{-1}
+	\end{gather}
+	Das Tschebyscheff-Polynom $T_t(x) = \cos(t \arccos(x))$ nimmt die Werte $\pm 1$ für ein $k \in \{0,\ldots,t \}$ genau dann an, wenn
+	\begin{align*}
+	t \cdot \arccos(x) = k \cdot \pi \Leftrightarrow \arccos(x) = \frac{k\pi}{t} \Leftrightarrow x_k = \cos(k\pi/t)
+	\end{align*}
+	Darüber hinaus alterniert $T_t(x)$ zwischen $1$ und $-1$, was bedeutet, dass $T_t(x_k)$ und $T_t(x_{k+1})$ unterschiedliche Vorzeichen haben. Insbesondere folgt daraus, dass auch $C_t(x_k)$ und $C_t(x_{k+1})$ unterschiedliche Vorzeichen haben.\\
+	Da $C_t(x)$ also $t+1$ mal die Werte $\pm \tilde{C}$ annimmt und stetig ist gilt insbesondere, dass $C_t(x)$\\ $t$ Nullstellen hat.\\
+	Weiterhin folgt aus $\max\limits_{x \in [-1,1]} |T_t(x)| = 1$, dass $\max\limits_{x \in [-1,1]} |C_t(x)| = |\tilde{C}|$.\\
+	
+	\item
+	Wir wollen nun durch einen Widerspruch zeigen, dass $|\tilde{C}|$ tatsächlich das eindeutige Minimum für ein Polynom $t$-ten Grades ist.\\
+	Wir nehmen also an es gäbe ein Polynom $q \in P_t$, sodass\\
+	 $\max\limits_{x \in [-1, 1]} |q(x)| < \max\limits_{x \in [-1,1]} |C_t(x)| = |\tilde{C}|$ und $q(c) = 1$.\\
+	Definiere $r := C_t - q$.\\
+	Da $\sgn(r(x_k)) = \sgn(C_t(x_k))$ für $k \in \{0, \ldots, t\}$, wechselt $r$ im Intervall $[-1,1]$ das Vorzeichen $t$-mal. Somit hat $r$ mindestens $t$ Nullstellen in $[-1,1]$.\\ Darüber hinaus ist $r(c) = C_t(c) - q(c) = 0$. Also muss $r \in P_t$ sogar mindestens $t+1$ Nullstellen haben, was bedeutet, dass $r$ das Nullpolynom sein muss, da $\deg(r) \leq t$. Dies stellt aber einen Widerspruch dar, da dann $q = C_t$ gilt und somit auch $\max\limits_{x \in [-1, 1]} |q(x)| = |\tilde{C}|$.\\
+	Nach Definition von $T_t(x)$ gilt $|T_t(x)| \leq 1$ $\forall x \in [-1,1]$. Somit gilt:\\
+	\begin{gather}
+	\max\limits_{x \in [a,b]} |C_t(x)| = \frac{1}{T_t(1 + 2 \frac{c-b}{b-a})}
+	\end{gather}\\
+	Nun bleibt zu zeigen, dass $\frac{1}{T_t(1 + 2\frac{c-b}{b-a})} = \frac{2 \gamma^t}{1+ \gamma^{2t}} \leq 2 \gamma^t$\\
+	Wir verwenden die Darstellung
+	\begin{align*}
+	T_t(x) = \frac{1}{2} [(x + \sqrt{x^2-1})^t + (x- \sqrt{x^2-1})^t], \hspace{3mm} x \in \RR
+	\end{align*}
+	Da 
+	\begin{align*}
+		1 + 2\frac{c-b}{b-a} = \frac{b-a}{b-a} + 2\frac{c-b}{b-a} = \frac{2c-b-a}{b-a} = \frac{c-b+c-a}{b-a} = \frac{c-b}{b-a} \frac{c-a}{b-a}\hspace{30mm}\\ = (\frac{c-a}{c-b} +1)\cdot \frac{c-b}{b-a} = \frac{\frac{c-a}{c-b} +1}{\frac{b-a}{c-b}} = \frac{\frac{c-a}{c-b} +1}{\frac{-(-b)-a+c-c}{c-b}} = \frac{\frac{c-a}{c-b} +1}{\frac{c-a}{c-b} - \frac{c-b}{c-b}} = \frac{\frac{c-a}{c-b} +1}{\frac{c-a}{c-b} - 1} = \frac{\kappa +1}{\kappa -1} \hspace{20mm}
+	 \end{align*}
+	 und
+	 \begin{align*}
+	  	\frac{\kappa +1}{\kappa -1} + \sqrt{\bigg(\frac{\kappa +1}{\kappa -1}\bigg)^2 -1} = \frac{\kappa +1}{\kappa -1} + \frac{2\sqrt{\kappa}}{\kappa -1} = \frac{(\sqrt{\kappa}+1)^2}{\kappa-1} = \frac{\sqrt{\kappa}-1}{\sqrt{\kappa} +1}
+	 \end{align*}
+	 gilt:
+	 \begin{equation}
+	 \begin{gathered}
+	 	\frac{1}{T_t(1 + 2 \frac{c-b}{b-a})} = \frac{1}{T_t(\frac{\kappa +1}{\kappa -1})} = \frac{1}{\frac{1}{2} [(\frac{\sqrt{\kappa} +1}{\sqrt{\kappa} -1})^t + (\frac{\sqrt{\kappa} -1}{\sqrt{\kappa} +1})^t]} \hspace{20mm}\\
+	 	 = \frac{2 (\frac{\sqrt{\kappa} -1}{\sqrt{\kappa} +1})^t}{[(\frac{\sqrt{\kappa} +1}{\sqrt{\kappa} -1})^t + (\frac{\sqrt{\kappa} -1}{\sqrt{\kappa} +1})^t] \cdot (\frac{\sqrt{\kappa} -1}{\sqrt{\kappa} +1})^t} = \frac{2 \gamma^t}{1+ \underbrace{\gamma^{2t}}_{>0}} \leq 2 \gamma^t, \text{ da } 1+ \gamma^{2t} >1
+	 \end{gathered}
+	 \end{equation}
+	 \end{enumerate} 
+\end{proof}
+
+\subsection{Anwendung auf die Tschebyscheff-Beschleunigung} 
+
+Weiterhin nehmen wir an, dass $B$ ähnlich zu einer symmetrischen Matrix ist, und dass\\
+$\spr(B) < 1$. Zusätzlich nehmen wir nun an, dass wir den Parameter $\spr(B) := \rho \in (-1,1)$ kennen, sodass $\sigma(B) \subset [-\rho, \rho]$ \footnote{$\rho$ lässt sich z.B. durch die Potenzmethode recht schnell und effektiv schätzen}. 
+Man beachte nun, dass $T_t(1) = \cos(t \cdot \arccos(1)) = \cos(0) = 1$.\\
+Mit $a = -\rho$, $b = \rho$ und $c = 1$ können wir also die Polynome $p_t = C_t$ aus \textbf{(16)} benutzen um die $y^t$ aus \textbf{(5)} zu definieren.\\
+
+Allerdings müsste man durch diese Art der Auswertung der $y^t$ alle Iterierten $x^t$ speichern, was für große Probleme oft nicht möglich ist. Als Abhilfe kann man sich nun die Rekursionsformel \textbf{(14)} der Tschebyscheff-Polynome zur Hand nehmen, die die jeweiligen Iterierten $y^t$ überträgt.\\
+
+Die Polynome $p = C_t$ aus \textbf{(16)} genügen der Rekursionsformel durch: 
+\begin{gather}
+	p_0(x) = 1, \hspace{3mm} p_1(x) =\frac{T_1\big(1+ 2 \frac{x - \rho}{\rho - (-\rho)} \big)}{T_1\big(1 + 2 \frac{1-\rho}{\rho - (-\rho)}\big)} = \frac{T_1\big( 1+ \frac{x}{\rho} - \frac{\rho}{\rho}\big)}{T_1\big(1+ \frac{1}{\rho} - \frac{\rho}{\rho}\big)}  =  \frac{T_1(x/\rho)}{T_1(1/\rho)} = \frac{x/\rho}{1/\rho} = x
+\end{gather}
+und
+\begin{equation}
+\begin{gathered}
+	p_{t+1} = \frac{T_{t+1}(x/\rho)}{T_{t+1}(1/\rho)} = \frac{\frac{2x}{\rho} T_t(x/\rho) - T_{t-1}(x/\rho)}{\mu_{t+1}} = \frac{\frac{2x}{\rho} \frac{\mu_t T_t(x/\rho)}{\mu_t} - \frac{\mu_{t-1}T_{t-1}(x/\rho)}{\mu_{t-1}}}{\mu_{t+1}}\\
+	= \frac{\frac{2x}{\rho}\mu_t p_t(x) - \mu_{t-1}p_{t-1}(x)}{\mu_{t+1}}, \hspace{3mm} t \geq 1, \hspace{3mm} \mu_t := T_t(1/\rho) \hspace{20mm}
+\end{gathered}
+\end{equation}
+Außerdem gelten die folgenden wichtigen Relationen:
+\begin{gather}
+	\mu_0 = 1, \hspace{3mm} \mu_1 = 1/\rho, \hspace{3mm} \mu_{t+1} = \frac{2}{\rho} \mu_t - \mu_{t-1}
+\end{gather}
+Diese folgen direkt aus der Definition der Rekursionsformel von $T_t(x)$.\\
+Mit diesen Vorbereitungen können wir nun die Tschebyscheff-Beschleunigung implementieren.\\
+Mit $x := \lim\limits_{t \rightarrow \infty} x^t$, $e^0 := x^0 -x$ erhalten wir für den Fehler $y^t -x = \tilde{e}^t = p_t(B)e^0:$
+\begin{align*}
+y^{t+1} = x + \tilde{e}^{t+1} = x + p_{t+1}(B)e^0 = x + 2 \frac{\mu_t}{\rho \mu_{t+1}}Bp_t(B)e^0 - \frac{\mu_{t-1}}{\mu_{t+1}} p_{t-1}(B)e^0 \hspace{10mm}\\
+= x + 2 \frac{\mu_t}{\rho\mu_{t+1}}B \tilde{e}^t - \frac{\mu_{t-1}}{\mu_{t+1}} \tilde{e}^{t-1}
+= x + 2 \frac{\mu_t}{\rho\mu_{t+1}} B (y^t -x) - \frac{\mu_{t-1}}{\mu_{t+1}}(y^{t-1} -x) \hspace{7.5mm} \\
+= 2 \frac{\mu_t}{\rho \mu_{t+1}}By^t - \frac{\mu_{t-1}}{\mu_{t+1}} y^{t-1} + \frac{1}{\mu_{t+1}}(\mu_{t+1} - \frac{2}{\rho} \mu_tB + \mu_{t-1})x \hspace{31.3mm}
+\end{align*}
+
+Durch die Verwendung von \textbf{(23)} gilt:
+\begin{align*}
+	\frac{1}{\mu_{t+1}}(\mu_{t+1} - \frac{2}{\rho} \mu_tB + \mu_{t-1})x = \frac{1}{\mu_{t+1}}(\frac{2}{\rho} \mu_t - \mu_{t-1} - \frac{2}{\rho} \mu_tB + \mu_{t-1})x
+	\hspace{19mm}\\ = \frac{2 \mu_t}{\rho \mu_{t+1}}(1-B)x = \frac{2 \mu_t}{\rho \mu_{t+1}}(x-Bx) \hspace{68mm}
+\end{align*}
+
+Aus der Fixpunktrelation $x = Bx + c$ folgt außerdem $c = x - Bx$ und somit können wir $x$ aus der Rekursion entfernen und erhalten:
+\begin{gather}
+	y^{t+1} = 2 \frac{\mu_t}{\rho \mu_{t+1}}By^t - \frac{\mu_{t-1}}{\mu_{t+1}} y^{t-1} + 2\frac{\mu_t}{\rho \mu_{t+1}}c, \hspace{3mm} y^0 = x^0, \hspace{3mm} y^1 = x^1 = Bx^0+c
+\end{gather}
+
+Nun sehen wir, dass die Tschebyscheff-Beschleunigung für $x^t = Bx^{t-1} + c$ daraus besteht die Rekursionsformeln \textbf{(23) und (24)} auszuwerten. Die Kosten dieser Auswertung ist ähnlich zu der von $x^t = Bx^{t-1} + c$ bei der die kostenaufwändigste Rechnung die Matrixmultiplikation $By^t$ ist.\\
+
+Um den Beschleunigungseffekt zu quantifizieren, schreiben wir die sekundäre Iteration in der Form:
+\begin{align*}
+y^t - x = \sum\limits_{s=0}^t \gamma_s^t (x^s -x) = p_t(B)(x^0-x)
+\end{align*}
+wobei $\gamma_s^t$ die Koeffizienten des Polynoms $p_t$ sind. Es gilt:
+\begin{align*}
+	p_t(x) = C_t(x) = \frac{T_t(x/\rho)}{T_t(1/\rho)}
+\end{align*}
+
+Durch \textbf{(17)} aus Theorem 2.2 folgt nun:
+\begin{align*}
+\spr(p_t(B)) = \max\limits_{\lambda \in \sigma(B)} |p_t(\lambda)| = \frac{2 \gamma^t}{1+ \gamma^{2t}} \leq 2 \gamma^t, \gamma := \underbrace{\frac{\sqrt{\kappa} -1}{\sqrt{\kappa}+1}}_{<1, \text{ da } \sqrt{\kappa} > 1}, \kappa := \frac{1+\rho}{1-\rho}
+\end{align*}
+
+Für das asymptotische Konvergenzverhalten der ersten Iteration gilt:
+\begin{gather}
+	 \limsup\limits_{t \rightarrow \infty} \bigg(\frac{||x^t-x||}{||x^0-x||}\bigg)^{\frac{1}{t}} = \spr(B) \leq \rho = 1-\delta \hspace{30mm}
+\end{gather}
+und für die sekundäre Iteration mit den optimierten $y^t$ gilt vergleichsweise
+\begin{equation}
+\begin{gathered}
+	\limsup\limits_{t \rightarrow \infty} \bigg(\frac{||y^t-x||}{||x^0-x||}\bigg)^{\frac{1}{t}} \leq \gamma = \frac{\sqrt{\frac{1+\rho}{1-\rho}}-1}{\sqrt{\frac{1+\rho}{1-\rho}}+1} = \frac{\sqrt{\frac{1+(1-\delta)}{1-(1-\delta)}}-1}{\sqrt{\frac{1+(1-\delta)}{1-(1-\delta)}}+1} = \frac{\frac{\sqrt{2-\delta}}{\sqrt{\delta}} - \frac{\sqrt{\delta}}{\sqrt{\delta}}}{\frac{\sqrt{2-\delta}}{\sqrt{\delta}} + \frac{\sqrt{\delta}}{\sqrt{\delta}}} \hspace{10mm}\\
+	= \frac{\sqrt{2-\delta}-\sqrt{\delta}}{\sqrt{2-\delta}+\sqrt{\delta}} = \underbrace{\frac{\sqrt{2-\delta}}{\sqrt{2-\delta}+\sqrt{\delta}}}_{\leq 1} - \underbrace{\frac{1}{\sqrt{2-\delta}+\sqrt{\delta}}}_{=:c'<1}\sqrt{\delta} \leq 1 - c'\sqrt{\delta} \hspace{3mm}
+\end{gathered}
+\end{equation}
+was uns für $0 < \delta \ll 1$ eine erhebliche Verbesserung bei der Konvergenzgeschwindigkeit gibt.
+
+\subsection{Fazit}
+Liegt also ein konvergentes Iterationsverfahren vor mit einer symmetrischen Systemmatrix $A$ und einer Iterationsmatrix $B$, die ähnlich zu einer symmetrischen Matrix ist, so kann die Tschebyscheff-Beschleunigung verwendet werden um eine erhebliche Verbesserung der Konvergenzgeschwindigkeit zu erzielen. 
+Der Nachteil dieses Verfahrens liegt darin, dass wir den Parameter $\rho = \spr(B)$ wissen bzw. schätzen müssen. Obwohl das SOR-Verfahren \footnote{Das SOR-Verfahren beruht auf einem Parameter $\omega$ der basierend auf $\spr(B_J)$ (= Spektralradius der Iterationsmatrix der Jacobi-Methode) geeignet gewählt werden kann, um die Konvergenz zu beschleunigen}, die Tschebyscheff-Beschleunigung und das CG-Verfahren nahezu gleich aufwändig sind, ist das CG-Verfahren viel praktischer, da bei diesem Verfahren kein Parameter geschätzt werden muss.
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+\end{document}

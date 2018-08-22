@@ -1,0 +1,3186 @@
+\documentclass[10pt,a4paper,numbers=endperiod]{scrreprt}
+
+\usepackage[a4paper, left=25mm, right=25mm, top=25mm, bottom=25mm]{geometry}
+\usepackage[ngerman]{babel}			
+\usepackage[utf8]{inputenc}
+\usepackage{mathrsfs}
+\usepackage{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{stmaryrd}
+\usepackage{ulem}
+\usepackage{lscape}
+\usepackage{setspace}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage[all]{xy}
+\usepackage{pstricks,pst-plot}
+\usepackage{pst-node}
+\usepackage{pstricks,pst-plot,pst-node}
+\SpecialCoor
+\usepackage{amsmath,listings}
+\usepackage{bigdelim}
+\usepackage{arydshln}
+\usepackage{newtxtext}
+\usepackage{newtxmath}
+\usepackage{amssymb}			
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{nicefrac}
+\usepackage{tikz}
+\usetikzlibrary{matrix}
+\usetikzlibrary{fit}
+\usetikzlibrary{backgrounds}
+\usetikzlibrary{arrows}
+\usetikzlibrary{shapes}
+\usetikzlibrary{decorations.pathmorphing}
+\usepackage{tikz-cd}
+
+
+\DeclareMathOperator{\coker}{coker}
+
+\setkomafont{sectioning}{\rmfamily\bfseries} 
+\setlength\parindent{0pt}
+
+\theoremstyle{definition}
+\newtheorem{satz}{Satz}[section]
+\newtheorem{lemm}[satz]{Lemma}
+\newtheorem{prop}[satz]{Proposition} 
+\newtheorem{theo}[satz]{Theorem}
+\newtheorem{kor}[satz]{Korollar}
+\newtheorem{defi}[satz]{Definition}
+\newtheorem{bem}[satz]{Bemerkung}
+\newtheorem{bsp}[satz]{Beispiel}
+\newtheorem{folg}[satz]{Folgerung}
+\newtheorem{nota}[satz]{Notation}
+\newtheorem{defisatz}[satz]{Definition/Satz}
+\newtheorem{whg}[satz]{Wiederholung}
+
+\newcommand{\xfrac}[2]{%
+	\mbox{\raisebox{0.4ex}{\ensuremath{\displaystyle #1}\hspace{0.2ex}}%
+		{\raisebox{-0.1ex}{\Large /}}%
+		\raisebox{-0.2ex}{\ensuremath{\displaystyle #2}}%
+	}%
+}
+\newcommand{\verteq}{\rotatebox{90}{$\,=$}}
+\newcommand{\vertri}{\rotatebox{90}{$\underset{f}{\overset{\sim}{\leftarrow}}$}}
+\newcommand{\vertle}{\rotatebox{90}{$\underset{\sim}{\rightarrow}$}}
+\newcommand{\point}{\text{\textbullet}} 
+
+
+
+
+\def\QQ{{\mathbb Q}}
+\def\CC{{\mathbb C}}
+\def\RR{{\mathbb R}}
+\def\NN{{\mathbb N}}
+\def\ZZ{{\mathbb Z}}
+\def\PP{{\mathbb P}}
+\def\FF{{\mathbb F}}
+
+
+\def\Namen{} % Namen eintragen
+\def\Datum{} % Datum eintragen
+\def\Titel{} % Vortragstitel eintragen
+% Die Titelzeilen werden aus diesen Angaben automatisch erzeugt.
+\begin{document}
+\Namen \hfill \Datum\par
+\vspace{0.25\baselineskip}
+\hrule
+\vspace{\baselineskip}
+\begin{center}
+{\LARGE\textbf{Algebra 2}}\par
+\vspace{0.25\baselineskip}
+{\large\textsc{Uni Heidelberg}}
+\end{center}
+
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}  
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+
+\begin{center}
+	{\large\text{Mit Liebe gemacht von:}}\\
+	\vspace{0.3\baselineskip}
+	{\large\textsc{Nikolaus Schäfer}}
+\end{center}
+
+\newpage
+\vspace{0.125\baselineskip}
+\tableofcontents %Inhaltsverzeichnis (wird automatisch erzeugt
+\newpage
+
+\part{Moduln} 
+
+In dieser Vorlesung steht die Bezeichnung ''Ring'' stets für einen (nicht notwendig kommutativen) Ring mit 1.\\ 
+In diesem Kapitel sei $R$ ein Ring
+
+\chapter{Grundlagen über Moduln} 
+\onehalfspacing
+
+\begin{defi}
+	Ein \textbf{$R$-Linksmodul} ist eine abelsche Gruppe $(M, +)$ zusammen mit einer Abbildung $R \times M \rightarrow M$, $(a,x) \mapsto ax$ (skalare Multiplikation), sodass für alle $a, b \in R$, $x, y \in M$ gilt:\\
+	(a) $a(x+y) = ax + ay$\\
+	(b) $(a+b)x = ax + bx$\\
+	(c) $a(bx) = (ab)x$\\
+	(d) $1x = x$\\
+	Ein \textbf{$R$-Rechtsmodul} ist eine abelsche Gruppe $(M, +)$ zusammen mit einer Abbildung $M \times R \rightarrow M$, $(x,a) \mapsto xa$, sodass für alle $a, b \in R$, $x,y \in M$ gilt:\\
+	(a') $(x+y)a = xa + ya$\\
+	(b') $x(a+b) = xa + xb$\\
+	(c') $x(ab) = (xa)b$\\
+	(d') $x1 = x$
+\end{defi}
+
+\textbf{Anmerkung:} Es bezeichnet $R^{\text{op}}$ den zu $R$ entgegengesetzten Ring, d.h. Menge $R$ mit derselben Addition, sowie Multiplikation $a_{\text{op}} \cdot b := b\cdot a$. Ist $M$ ein $R$-Rechtsmodul, so wird $M$ durch $ax := xa$ zu einem $R^{\text{op}}$-Linksmodul.\\
+Beachte: Es ist dann $a(bx) = (bx)a = (xb)a = x(ba) = (ba)x = (a_{\text{op}}\cdot b)x$ für $a,b \in R$, $x, y \in M$.\\
+Analog andersherum.\\
+
+Im Folgenden betrachten wir in der Regel nur $R$-Linksmoduln, und unter einem \textbf{$R$-Modul} verstehen wir einen $R$-Linksmodul
+\begin{itemize}
+	\item Forderung (a) impliziert, dass für alle $a \in R$ die Abbildung:
+	\begin{align*}
+		\ell_a: M \rightarrow M, \hspace{2mm} x \mapsto ax
+	\end{align*}
+	zum Ring $End(M)$ aller Gruppenhomomorphismen $M \rightarrow M$ gehört.\\
+	(mit $(f+g)(x) = f(x) + g(x)$, $(f \cdot g)(x) := (f \circ g)(x) = f(g(x))$ für $f, g \in End(M)$, $x \in M$).\\
+	Nach (b)-(d) ist die Abbildung $\varphi: R \rightarrow End(M)$, $a \mapsto \ell_a$ ein Ringhomomorphismus.\\
+	Umgekehrt macht jeder Ringhomomorphismus $\varphi: R \rightarrow End(M)$ eine abelsche Gruppe $(M,+)$ zu einem $R$-Modul via $ax := \varphi(a)(x)$
+	\item  Für alle $x \in M$ ist $0x = 0$, $(-1)x = -x$, und für alle $a \in R$ ist $a0 = 0$ (leicht zu sehen)
+\end{itemize}
+
+\begin{bsp}
+	$ $\\
+	(a) $K$ Körper. Dann $K$-Modul = $K$-Vektorraum\\
+	(b) Jede abelsche Gruppe $G$ ist ein $\ZZ$-Modul via \begin{align*}
+		\ZZ \times G \rightarrow G, \hspace{2mm} (n,x) \mapsto nx := \begin{cases}
+		\underbrace{x + \ldots + x}_{\text{n-mal}} \hspace{10 mm} n > 0\\
+		\hspace{5mm} 0 \hspace{18mm} n = 0\\
+		-(\underbrace{x + \ldots + x}_{\text{(-n)-mal}}) \hspace{8.5mm} n < 0
+		\end{cases}
+	\end{align*}
+	Für jeden Ring $R$ gibt es genau einen Ringhomomorphismus $\ZZ \rightarrow R$ (analog zu Algebra 1), insbesondere gibt es für jede abelsche Gruppe $G$ genau einen Ringhomomorphismus $\ZZ \rightarrow End(G)$, d.h. genau eine Struktur als $\ZZ$-Modul, sodass die Moduladdition mit der gegebenen Addition auf $G$ übereinstimmt (nämlich obige).
+\end{bsp}
+
+\begin{defi}
+	$M, M'$ $R$-Moduln, $\varphi: M \rightarrow M'$\\
+	$\varphi$ heißt \textbf{$R$-Modulhomomorphismus ($R$-linear)}, wenn für alle $x,y \in M$, $a \in R$ gilt:\\
+	(a) $\varphi(x+y) = \varphi(x) + \varphi(y)$\\
+	(b) $\varphi(ax) = a \varphi(x)$\\
+	$Hom_R(M, M')$ bezeichnet die Menge der $R$-Modulhomomorphismen von $M$ nach $M'$.
+\end{defi}
+
+\textbf{Anmerkung:} $Hom_R(M, M')$ ist eine abelsche Gruppe bzgl. $(f+g)(x) := f(x) + g(x)$ für $f, g \in Hom_R(M, M')$
+
+\begin{bsp}
+	$M$ $R$-Modul, $\varphi \in Hom_R(M, M) =: End_R(M) \subseteq End_{\ZZ}(M) = End(M)$\\
+	Den Polynomring $R[X]$ kann man wie über kommutativen Ringen definieren, die Einsetzungsabbildung
+	\begin{align*}
+		R[X] \rightarrow R, \hspace{2mm} \sum\limits_{i = 0}^n a_iX^i \mapsto \sum\limits_{i = 0}^n a_ib^i \hspace{7mm} \text{ für ein } b \in R
+	\end{align*}
+	ist aber im Allgemeinen kein Ringhomomorphismus (''X vertauscht mit Elementen aus $R$, $b$ im Allgemeinen nicht'')\\
+	Die Abbildung $\psi: R[X] \rightarrow End(M)$, $\sum\limits_{i = 0}^n a_iX^i \mapsto \sum\limits_{i = 0}^n a_i \varphi^i$, da $\varphi$ $R$-linear. Somit wird $M$ zum $R[X]$-Modul.
+\end{bsp}
+
+\begin{defi}
+	$M, M'$ $R$-Moduln, $\varphi: M \rightarrow M'$ $R$-linear\\
+	$\varphi$ heißt:\\
+	Monomorphismus $\Leftrightarrow \varphi$ injektiv (Notation: $M \hookrightarrow M'$)\\
+	Epimorphismus $\Leftrightarrow \varphi$ surjektiv (Notation: $M \twoheadrightarrow M'$)\\
+	Isomorphismus $\Leftrightarrow \varphi$ bijektiv (Notation: $M \overset{\sim}{\rightarrow} M'$)\\
+	Existiert ein Isomorphismus zwischen $M, M'$ so heißen $M, M'$ isomorph.\\
+	Notation: $M \cong M'$
+\end{defi}
+
+\textbf{Anmerkung:} $\varphi$ Isomorphismus $\Rightarrow \varphi^{-1}$ Isomorphismus
+
+\begin{bem}
+	$M, M'$ $R$-Moduln. Dann gilt:\\
+	(a) $R$ kommutativ $\Rightarrow Hom_R(M, M')$ ist ein $R$-Modul via $(a \varphi)(x) := a \varphi(x)$ für $a \in R$, $\varphi \in Hom_R(M, M')$, $x \in M$\\
+	(b) $End_R(M) = Hom_R(M, M)$ ist ein Unterring von $End(M) = End_{\ZZ}(M)$\\
+	(c) Die Abbildung $\phi: Hom_R(R,M) \rightarrow M$, $\varphi \mapsto \varphi(1)$ ist ein Isomorphismus abelscher Gruppen (hierbei $R$ in natürlicher Weise als $R$-Modul). Ist $R$ kommutativ, so ist $\phi$ ein Isomorphismus von $R$-Moduln.\\
+	(d) $End_R(R) \cong R^{\text{op}}$
+\end{bem}
+
+\begin{defi}
+	$M$ $R$-Modul, $N \subseteq M$\\
+	$N$ heißt \textbf{($R$-)Untermodul} von $M$, wenn gilt:\\
+	(a) $0 \in N$\\
+	(b) $x+y \in N$ für alle $x, y \in N$\\
+	(c) $ax \in N$ für alle $a\in R$, $x \in N$
+\end{defi}
+
+\begin{bsp}
+	$ $\\
+	(a) Betrachte $R$ als $R$-Linksmodul. Dann sind die Untermoduln von $R$ genau die Linksideale in $R$. (analog die Rechtsideale für $R$ als $R$-Rechtsmodul).\\
+	(b) $M$ $R$-Modul $\Rightarrow \{0\}$ (meist kurz als 0 geschrieben), $M \subseteq M$ sind Untermoduln (triviale Untermoduln).\\
+	\hspace{2mm} $(M_i)_{i \in I}$ Familie von Untermoduln von $M$. $\Rightarrow \bigcap\limits_{i \in I} M_i \subseteq M$ ist ein Untermodul\\
+	\hspace{2 mm} $\sum\limits_{i \in I} M_i := \{ \sum\limits_{i \in I} x_i | x_i \in M_i, x_i = 0 \text{ für fast alle } i \in I\} \subseteq M$ ist ein Untermodul\\
+	(c) $M, M'$ $R$-Moduln, $\varphi \in Hom_R(M, M')$, $N \subseteq M$ Untermodul, $N' \subseteq M'$ Untermodul\\
+	$\Rightarrow \varphi(N) \subseteq M'$ ist ein Untermodul, $\varphi^{-1}(N') \subseteq M$ ist ein Untermodul.\\
+	$im(\varphi) := \varphi(M)$ heißt das Bild von $\varphi$\\
+	$\ker(\varphi) := \varphi^{-1}(\{0\})$ heißt der Kern von $\varphi$.\\
+	Es gilt: $\varphi$ injektiv $\Leftrightarrow \ker(\varphi) = 0$, $\varphi$ surjektiv $\Leftrightarrow im(\varphi) = M'$
+\end{bsp}
+
+\begin{bem}
+	$M$ $R$-Modul, $N \subseteq M$ Untermodul\\
+	Dann ist die Faktorgruppe $M/N$ via $a(x+N) := ax + N$, $a \in R$, $x \in M$, ein $R$-Modul, der \textbf{Faktormodul} von $M$ nach $N$.\\
+	Die kanonische Abbildung $\pi: M \rightarrow M/N$, $m \mapsto m+N$ ist ein Modulepimorphismus mit $\ker \pi = N$.
+\end{bem}
+
+\begin{bsp}
+	$I \subseteq R$ Linksideal, $M$ $R$-Modul\\
+	$\Rightarrow IM := \{ \sum\limits_{i = 1}^n a_ix_i | n \in \NN, a_i \in I, x_i \in M\} \subseteq M$ ist ein Untermodul von $M$.\\
+	Ist $I$ ein zweiseitiges Ideal, dann ist $R/I$ ein Ring.\\
+	(beachte: Zweiseitigkeit von $I$ geht ein bei der Wohldefiniertheit der Multiplikation:
+	\begin{align*}
+		R/I \times R/I \to R/I, \hspace{2mm} (a + I, b+ I) \mapsto ab+I
+	\end{align*}
+	$M/IM$ ist ein $R/I$-Modul mittels $(a+I)(x+M) := ax+IM$ $(a \in R, x \in M)$.
+\end{bsp}
+
+\begin{satz}
+	$M, M'$ $R$-Moduln, $N \subseteq M$ Untermodul, $\pi: M \rightarrow M/N$ kanonische Projektion, $\varphi: M \rightarrow M'$ $R$-Modulhomomorphismus. Dann sind äquivalent:\\
+	(i) $N \subseteq \ker \varphi$\\
+	(ii) Es existiert genau ein Modulhomomorphismus $\bar{\varphi}: M/N \to M'$ mit $\bar{\varphi} \circ \pi = \varphi$:\\
+	$\begin{xy}
+	\xymatrix{
+		M \ar[rr]^{\varphi} \ar[dr]_\pi &     &  M' \\
+		& M/N \ar@{.>}[ur]_{\overline{\varphi}}  
+	}
+	\end{xy}$
+\end{satz}
+
+\begin{satz}
+	(Homomorphiesatz)\\
+	$M, M'$ $R$-Moduln, $\varphi: M \rightarrow M'$ Homomorphismus\\
+	Dann existiert ein $R$-Modulisomorphismus $\bar{\varphi}: M/\ker(\varphi) \overset{\sim}{\rightarrow} im \varphi$ mit $\bar{\varphi}(x + \ker \varphi) = \varphi(x)$ für alle $x \in M$
+\end{satz}
+
+\begin{satz}
+	(Isomorphiesätze)
+	$M$ $R$-Modul, $N_1, N_2 \subseteq M$ Untermoduln. Dann gilt:\\
+	(a) $N_1/N_1 \cap N_2 \overset{\sim}{\rightarrow} (N_1+N_2)/N_2$, $x + N_1 \cap N_2 \mapsto x + N_2$\\
+	ist ein Isomorphismus.\\
+	(b) Ist $N_2 \subseteq N_1$, so ist\\
+	$(M/N_2)/(N_1/N_2) \overset{\sim}{\rightarrow} M/N_1$, $(x+N_2) N_1/N_2 \mapsto x+ N_1$\\
+	ist ein Isomorphismus.
+\end{satz}
+
+\begin{satz}
+	$M$ $R$-Modul, $N \subseteq M$ Untermodul, $\pi: M \rightarrow M/N$ kanonische Abbildung. Dann gibt es eine Bijektion:
+	\begin{eqnarray*}	
+	\{\text{Untermoduln } M' \text{ von } M \text{ mit } M' \supseteq N\} &\longrightarrow& \{\text{Untermoduln von } M/N\}\\
+	M' &\longmapsto& \pi(M')\\
+	\pi^{-1}(L) &\longmapsfrom& L 
+	\end{eqnarray*}
+	die inklusionserhaltend ist.
+\end{satz}
+
+\begin{bem}
+	$(M_i)_{i \in I}$ Familie von $R$-Moduln\\
+	Dann gilt: $\prod\limits_{i \in I} M_i$ ist ein $R$-Modul mit komponentenweiser Addition und skalarer Multiplikation und heißt das \textbf{direkte Produkt} der $M_i$.\\
+	Die Projektionsabbildung $P_j: \prod\limits_{i \in I} M_i \rightarrow M_j$, $(m_i)_{i \in I} \mapsto m_j$ sind $R$-Modulhomomorphismen.
+\end{bem}
+
+\begin{satz}
+	(UE Produkt) $(M_i)_{i \in I}$ Familie von $R$-Moduln\\
+	Dann gilt: Für jeden $R$-Modul $M$ ist die Abbildung:
+	\begin{align*}
+		Hom_R(M, \prod\limits_{i \in I} M_i) \rightarrow \prod\limits_{i \in I} Hom_R(M, M_i), \hspace{3mm} \varphi \mapsto (\varphi_i \circ \varphi)_{i \in I} 
+	\end{align*}
+	eine Bijektion, d.h. für jede Familie $(\varphi_i)_{i \in I}$ von $R$ Modulhomomorphismen. $\varphi_i: M \rightarrow M_i$ existiert genau ein $R$-Modulhomomorphismus $\varphi: M \rightarrow \prod_{i \in I} M_i$ mit $\varphi_i \circ \varphi = \varphi_i$ für alle $i \in I$ (nämlich der durch $\varphi(x) := (\varphi_i(x))_{i \in I})$
+\end{satz}
+
+\begin{defi}
+	$(M_i)_{i \in I}$ Familie von $R$-Moduln\\
+	Der Untermodul
+	\begin{align*}
+		\bigoplus\limits_{i \in I} M_i := \{(m_i)_{i \in I} \in \prod\limits_{i \in I} M_i | \text{ fast alle } m_i = 0\} \subseteq \prod\limits_{i \in I} M_i
+	\end{align*}
+	heißt die \textbf{direkte Summe} der $M_i$.\\
+	Die Inklusionsabbildungen $q_j: M_j \rightarrow \bigoplus\limits_{i \in I} M_i$, $x \mapsto (x_i)_{i \in I}$ mit $x_i = \begin{cases}
+	 x \hspace{3mm} i = j\\
+	 0 \hspace{3mm} \text{sonst}
+	\end{cases}$\\
+	sind $R$-Modulhomomorphismen
+\end{defi}
+
+\textbf{Anmerkung:} Ist $I$ endlich, dann ist $\bigoplus\limits_{i \in I} M_i = \prod\limits_{i \in I} M_i$
+
+\begin{satz}
+	(UE Summe) $(M_i)_{i \in I}$ Familie von $R$-Moduln\\
+	Dann gilt: Für jeden $R$-Modul $M$ ist die Abbildung
+	\begin{align*}
+	Hom_R(\bigoplus\limits_{i \in I} M_i, M) \rightarrow \prod\limits_{i \in I} Hom_R(M_i, M), \hspace{3mm} \psi \mapsto (\psi \circ q_i)_{i \in I} 
+	\end{align*}
+	eine Bijektion, d.h. für jede Familie $(\psi_i)_{i \in I}$ von $R$-Modulhomomorphismen $\psi_i: M_i \rightarrow M$ existiert genau ein $R$-Modulhomomorphismus $\psi: \bigoplus\limits_{i \in I} M_i \rightarrow M$ mit $\psi \circ q_i = \psi_i$\\
+	(nämlich der durch $\psi((m_i)_{i \in I}) = \sum\limits_{i \in I} \psi_i(m_i)$ definierte.)
+\end{satz}
+
+\textbf{Notation:} $I$ Indexmenge, $M$ $R$-Modul\\
+$M^I := \prod_{i \in I} M$, $M^{(I)} = \bigoplus\limits_{i \in I} M_i$, $M^r := M^{\{1, \ldots, r\}} = M^{(\{1, \ldots, r\})}$
+
+\begin{bem}
+	$M$ $R$-Modul, $(M_i)_{i \in I}$ Familie von Untermoduln von $M$.\\
+	Dann erhalten wir (aus UE $\bigoplus$ mit $\psi_i: M_i \hookrightarrow M$ Inklusionsabbildung) einen $R$-Modulhomomorphismus
+	\begin{align*}
+		\psi: \bigoplus\limits_{i \in I} M_i \rightarrow M, \hspace{3mm} (m_i)_{i \in I} \mapsto \sum\limits_{i \in I} m_i \hspace{2mm} \text{mit} \hspace{2mm} im(\psi) = \sum\limits_{i \in I} M_i
+	\end{align*}
+	Ist $\psi$ injektiv, so heißt die Summe $\sum\limits_{i \in I} M_i$ direkt, und wir schreiben auch $\bigoplus\limits_{i \in I} M_i$ für $\sum_{i \in I} M_i$
+\end{bem}
+
+\textbf{Anmerkung:} In dieser Situation von 1.0.19 gilt
+\begin{itemize}
+	\item $\sum\limits_{i \in I} M_i$ direkt $\Leftrightarrow \sum\limits_{i \in J} M_i$ direkt für alle endlichen Teilmengen $J \subseteq I$
+	\item $M_1 + M_2 = M_1 \oplus M_2 \Leftrightarrow M_1 \cap M_2 = 0$
+\end{itemize}
+
+\begin{defi}
+	$M$ $R$-Modul, $x \in M$\\
+	Die Abbildung $f_x: R \rightarrow M$, $a \mapsto ax$ ist ein $R$-Modulhomomorphismus, das Linksideal
+	\begin{align*}
+	ann_R(x) := \ker(f_x) = \{a \in R| ax = 0\}
+	\end{align*}
+	heißt der \textbf{Annulator} von $x$.\\
+	Das Bild $im(f_x) = Rx = \{ax| a \in R\}$ heißt der \textbf{von $x$ erzeugte Untermodul von $M$}.\\
+	Allgemeiner heißt für eine Teilmenge $X \subseteq M$ und $N$ Untermodul mit $X \subseteq N$:
+	\begin{eqnarray*}
+		 RX := <X>_R := \sum\limits_{x \in X} Rx = im(R^{(X)} &\rightarrow& M) = \bigcap\limits_{X \subseteq N \subseteq M} N\\
+		 (a_x)_x \in X &\mapsto& \sum_{x \in X} a_x X 
+	\end{eqnarray*}
+	der \textbf{von $X$ erzeugte Untermodul von $M$}.
+\end{defi}
+
+\begin{defi}
+	$M$ $R$-Modul, $(x_i)_{i \in I}$ Familie von Elementen aus $M$, $\psi: R^{(I)} \rightarrow M$, $(a_i)_{i \in I} \mapsto \sum\limits_{i \in I} a_i x_i$\\
+	$(x_i)_{i \in I}$ heißt\\
+	\textbf{Erzeugendensystem} von $M$ über $R$ $\Leftrightarrow \psi$ surjektiv $\Leftrightarrow$ $M$ stimmt mit den von $(x_i)_{i \in I}$ erzeugten Untermodul von $M$ überein\\
+	\textbf{linear unabhängig} $\Leftrightarrow$ $\psi$ injektiv\\
+	\textbf{Basis} von $M$ über $R$ $\Leftrightarrow$ $\psi$ bijektiv\\
+	$M$ heißt \textbf{endlich erzeugt} $\Leftrightarrow M$ besitzt ein endliches Erzeugendensystem\\
+	$M$ heißt \textbf{frei} $\Leftrightarrow$ $M$ besitzt eine Basis
+\end{defi}
+
+\textbf{Anmerkung:} \begin{itemize}
+	\item Ist $R = K$ ein Körper, so sind alle $K$-Moduln frei (LA1)
+	\item Im Allgemeinen ist dies jedoch falsch: $\ZZ/2 \ZZ$ ist eine abelsche Gruppe ( = $\ZZ$-Modul), die nicht frei als $\ZZ$-Modul ist.
+	\item Jeder $R$-Modul $M$ ist ein Faktormodul eines freien $R$-Moduls, denn:
+	\begin{align*}
+		R^{(M)} \rightarrow M, \hspace{2mm} (a_x)_{x \in M} \mapsto \sum\limits_{x \in M} a_x x \hspace{3mm} \text{ist surjektiv}
+	\end{align*}
+	\item Basen eines freien $R$-Moduls können unterschiedliche Länge haben
+\end{itemize}
+
+\begin{satz}
+	$A$ kommutativer Ring, $A \neq 0$, $n_1, n_2 \in N$\\
+	Dann gilt: $A^{n_1} \cong A^{n_2} \Rightarrow n_1 = n_2$
+\end{satz}
+
+\begin{defi}
+	$A$ kommutativer Ring, $M$ freier $A$-Modul mit endlicher Basis\\
+	Die Kardinalität dieser Basis heißt der \textbf{Rang} von $M$. (unabhängig von der Wahl einer endlichen Basis nach 1.22)
+\end{defi}
+
+\chapter{Exakte Folgen}
+
+\begin{defi}
+	Eine \textbf{exakte Folge (exakte Sequenz)} von $R$-Moduln ist eine Familie $(f_i)_{i \in I}$ von $R$-Modulhomomorphismen.
+	$f_i: M_i \rightarrow M_{i+1}$ für ein (endliches oder unendliches) Intervall $I \subseteq \ZZ$, sodass \begin{align*}
+	im(f_i) = \ker f_{i+1} \text{  für alle } i \in I \text{ mit } i+1 \in I \text{ gilt}
+	\end{align*}
+	Schreibweise: \hspace*{3mm} $\ldots \longrightarrow M_{i-1} \overset{f_{i-1}}{\longrightarrow} M_i \overset{f_i}{\longrightarrow} M_{i+1} \longrightarrow \ldots$\\
+	Eine exakte Folge der Form
+	\begin{align}
+		\label{item1} 0 \longrightarrow M' \overset{f}{\longrightarrow M} \overset{g}{\longrightarrow} M'' \longrightarrow 0 
+	\end{align}
+	heißt eine \textbf{kurze exakte Folge} (hierbei sind die äußeren Abbildungen die Nullabbildungen.)\\
+	Die Exaktheit von $\ref{item1}$ bedeutet explizit: 
+	\begin{itemize}
+		\item $f$ injektiv
+		\item $g$ surjektiv
+		\item $im(f) = \ker(g)$
+	\end{itemize}
+\end{defi}
+
+\textbf{Anmerkung:} $M$, $N$, $R$-Moduln, $f: M \longrightarrow N$ $R$-Modulhomomorphismus\\
+Falls $f$ injektiv, dann ist $0 \longrightarrow M \overset{f}{\longrightarrow} N \longrightarrow N/im(f) \longrightarrow 0$ exakt.\\
+Falls $f$ surjektiv, so ist $0 \longrightarrow \ker(f) \longrightarrow M \overset{f}{\longrightarrow} N \longrightarrow 0$ exakt.\\
+
+Ist $0 \longrightarrow M' \overset{f}{\longrightarrow} M \overset{g}{\longrightarrow} M'' \longrightarrow 0$ eine exakte Folge von $R$-Moduln, und setzen wir $N := \ker(g)$, so induziert $g$ einen Isomorphismus $\bar{g}: M/N \overset{\sim}{\longrightarrow} M''$, und $f$ beschränkt sich zu einen Isomorphismus $f: M' \overset{\sim}{\longrightarrow} N$.\\
+(d.h.  $0 \longrightarrow M' \overset{f}{\longrightarrow} M \overset{g}{\longrightarrow} M'' \longrightarrow 0$\\
+\hspace*{15mm}$\vertri$ \hspace*{3.5mm} $\verteq$ \hspace*{8.3mm} $\vertle$\\
+\hspace*{6.5mm} $0 \longrightarrow N \hookrightarrow M \longrightarrow M/N \longrightarrow 0$\\
+ist ein kommutierendes Diagramm mit exakten Zeilen)\\
+
+Ist $M_i' \longrightarrow M_i \longrightarrow M_i''$, $i \in I$ eine Familie exakter Folgen von $R$-Moduln, dann sind auch die Folgen
+\begin{align*}
+	\prod\limits_{i \in I} M_i' \longrightarrow \prod\limits_{i \in I} M_i \longrightarrow \prod\limits_{i \in I} M_i'' \text{  sowie  } \bigoplus\limits_{i \in I} M_i' \longrightarrow \bigoplus\limits_{i \in I} M_i \longrightarrow \bigoplus\limits_{i \in I} M_i'' 
+\end{align*}
+(mit komp. Abb.) exakt.
+\newpage
+\begin{satz}
+	$ $\\
+	\begin{tikzpicture}
+	\node (01) at (1,5) {$ 0 $};
+	\node (A1) at (3,5) {$ M' $};
+	\node (B1) at (5,5) {$ M $};
+	\node (C1) at (7,5) {$ M'' $};
+	\node (02) at (9,5) {$ 0 $};
+	\draw[->] (01) edge (A1);
+	\draw[->] (C1) edge (02);
+	\draw[->] (A1) edge node[above] {$ f $} (B1);
+	\draw[->] (B1) edge node[above] {$ g $} (C1);
+	\draw[->, densely dotted] (C1) edge [bend left = 25] node[below] {$ s $} (B1);
+	\draw[->, densely dotted] (B1) edge [bend left = 25] node[below] {$ t $} (A1);
+	\end{tikzpicture}
+	
+	kurze exakte Folge von $R$-Moduln. 
+	Dann sind äquivalent:\\
+	(i) Es existiert ein Untermodul $N' \subseteq M$ mit $M = \ker(g) \oplus N' = im(f) \oplus N'$\\
+	(ii) Es existiert ein $R$-Modulhomomorphismus $s: M'' \rightarrow M$ mit $g \circ s = id_{M''}$\\
+	(iii) Es existiert ein $R$-Modulhomomorphismus $t: M \rightarrow M'$ mit $t \circ f = id_{M'}$\\
+	Ist eines dieser äquivalenten Bedingungen erfüllt, sagt man, dass die kurze exakte Folge \textbf{spaltet}. In diesem Fall gilt: $M \cong M' \oplus M''$. Der Homomorphismus $s$ heißt ein \textbf{Schnitt} von $g$. 
+\end{satz}
+
+\begin{satz}
+	$0 \longrightarrow M' \overset{f}{\longrightarrow} M \overset{g}{\longrightarrow} M'' \rightarrow 0$ exakte Folge von $R$-Moduln, $M''$ freier $R$-Modul\\
+	Dann spaltet die obige Folge.
+\end{satz}
+
+\begin{folg}
+	$0 \longrightarrow M' \overset{f}{\longrightarrow} M \overset{g}{\longrightarrow} M'' \rightarrow 0$ exakte Folge von $R$-Moduln, $M'$, $M''$ freie $R$-Moduln\\
+	Dann ist auch $M$ ein freier $R$-Modul.
+\end{folg}
+
+\textbf{Anmerkung:} Ist $R$ kommutativ und haben $M$, $M'$ endliche Basen, dann zeigt der Beweis:
+\begin{align*}
+ 	rg(M) = rg(M') + rg(M'')
+\end{align*}
+
+\begin{bem}
+	$0 \longrightarrow M' \overset{f}{\longrightarrow} M \overset{g}{\longrightarrow} M'' \longrightarrow 0$ exakte Folge von $R$-Moduln.\\
+	Dann gilt:\\
+	(a) $M$ endlich erzeugt $\Rightarrow M''$ endlich erzeugt\\
+	(b) $M'$, $M''$ endlich erzeugt $\Rightarrow M$ endlich erzeugt
+\end{bem}
+
+\textbf{Anmerkung:} Aus $M$ endlich erzeugt folgt im Allgemeinen nicht, dass $M'$ endlich erzeugt ist.
+
+\begin{bsp}
+	$K$ Körper, $R = K[X_1,X_2, \ldots]$\\
+	$R$ ist als $R$-Modul offensichtlich endlich erzeugt (von 1)\\
+	Setze $I := \{f \in R| \text{ konstanter Term von $f$ ist } = 0\}$\\
+	Dann ist $I$ ein Ideal in $R$, aber $I$ ist nicht endlich erzeugt als $R$-Modul, denn:\\
+	Angenommen es existiert $f_1, \ldots, f_r \in I$ mit $I = \sum\limits_{i = 1}^r Rf_i\\
+	\Rightarrow \exists n \in \NN$, sodass $f_1, \ldots, f_r \in K[X_1, \ldots, X_r] \subseteq R$\\
+	Problem: $X_{n+1} \notin I$ (denn: andernfalls $X_{n+1} = a_1f_1+ \ldots + a_rf_r$ mit $a_1, \ldots, a_r \in R$, denn: Setze $X_1 = \ldots = X_n = 0$, $X_{n+1} = 1$, also $1 = 0$) $\lightning$ 
+\end{bsp}
+
+\begin{bem}
+	$M_1, \ldots, M_r$ $R$-Moduln. Dann sind äquivalent:\\
+	(i) $M = \bigoplus\limits_{i = 1}^r M_i$ ist endlich erzeugt\\
+	(ii) $M_1, \ldots, M_r$ sind endlich erzeugt
+\end{bem}
+
+\textbf{Anmerkung:} Ist $M = \bigoplus\limits_{i \in I} M_i$ mit $|I| = \infty$, $M_i \neq 0$ für alle $i \in I$, dann ist $M$ nicht endlich erzeugt, denn:\\
+Für $x_1, \ldots, x_s \in M$ existiert ein $J \subsetneq I$ mit $x_1, \ldots, x_s \in \bigoplus\limits_{j \in J} M_j$, also $\sum\limits_{i = 1}^s Rx_i \subseteq \bigoplus\limits_{j \in J} M_j \subsetneq \bigoplus\limits_{i \in I} M_i$
+\newpage
+\begin{bem}
+	\textbf{(Fünferlemma)}\\
+	kommutatives Diagramm aus $R$-Moduln mit exakten Zeilen:\\
+	
+	\begin{tikzpicture}
+
+	\node (01) at (1,2) {$ N_1 $};
+	\node (A0) at (3,2) {$ N_2 $};
+	\node (B0) at (5,2) {$ N_3 $};
+	\node (C0) at (7,2) {$ N_4 $};
+	\node (D0) at (9,2) {$ N_5 $};
+	\node (00) at (1,4) {$ M_1 $};
+	\node (A1) at (3,4) {$ M_2 $};
+	\node (B1) at (5,4) {$ M_3 $};
+	\node (C1) at (7,4) {$ M_4 $};
+	\node (02) at (9,4) {$ M_5 $};
+	\draw[->] (01) edge (A0);
+	\draw[->] (C0) edge (D0);
+	\draw[->] (00) edge (A1);
+	\draw[->] (C1) edge (02);
+	\draw[->] (A1) edge node[right] {$ \varphi_2 $} (A0);
+	\draw[->] (00) edge node[right] {$ \varphi_1 $} (01);
+	\draw[->] (C1) edge node[right] {$ \varphi_4 $} (C0);
+	\draw[->] (B1) edge node[right] {$ \varphi_3 $} (B0);
+	\draw[->] (02) edge node[right] {$ \varphi_5 $} (D0);
+	\draw[->] (A1) edge  (B1);
+	\draw[->] (B1) edge  (C1);
+	\draw[->] (A0) edge  (B0);
+	\draw[->] (B0) edge  (C0);
+	\end{tikzpicture}
+	
+	$\varphi_1$ surjektiv, $\varphi_2, \varphi_4$ Isomorphismen, $\varphi_5$ injektiv.\\
+	Dann ist $\varphi_3$ ein Isomorphismus.
+\end{bem}
+
+\textbf{Anmerkung:} Wird meist in der Situation $M_1 = N_1 = M_5 = N_5 = 0$ angewendet
+
+\begin{bem}
+	\textbf{(Schlangenlemma)}\\
+	kommutatives Diagramm von $R$-Modulhomomorphismen mit exakten Zeilen\\
+	\begin{tikzpicture}
+	\node (01) at (1,2) {$ 0 $};
+	\node (A0) at (3,2) {$ N' $};
+	\node (B0) at (5,2) {$ N $};
+	\node (C0) at (7,2) {$ N'' $};
+	\node (A1) at (3,4) {$ M' $};
+	\node (B1) at (5,4) {$ M $};
+	\node (C1) at (7,4) {$ M'' $};
+	\node (02) at (9,4) {$ 0 $};
+	\draw[->] (01) edge (A0);
+	\draw[->] (C1) edge (02);
+	\draw[->] (A1) edge node[right] {$ \varphi' $} (A0);
+	\draw[->] (B1) edge node[right] {$ \varphi $} (B0);
+	\draw[->] (C1) edge node[right] {$ \varphi'' $} (C0);
+	\draw[->] (A1) edge node[above] {$ f' $} (B1);
+	\draw[->] (B1) edge node[above] {$ f $} (C1);
+	\draw[->] (A0) edge node[below] {$ g' $} (B0);
+	\draw[->] (B0) edge node[below] {$ g $} (C0);
+	\end{tikzpicture}
+	
+	Dann existiert eine exakte Folge
+	\begin{align*}
+	\ker \varphi' \longrightarrow \ker \varphi \longrightarrow \ker \varphi'' \overset{\delta}{\longrightarrow} coker \varphi' \longrightarrow coker \varphi \longrightarrow \varphi''
+	\end{align*}
+	wobei $\delta$ die sogenannte Übergangsabbildung ist (Konstruktion siehe Beweis) und die restliche Abbildungen durch $f'$, $f$, $g'$, $g$ induziert sind.\\
+	Ist $f'$ injektiv, dann auch $\ker \varphi' \longrightarrow \ker \varphi$ injektiv. Ist $g$ surjektiv, dann auch $coker \varphi \longrightarrow \varphi''$.
+\end{bem}
+
+\chapter{Noethersche und Artinsche Moduln}
+
+\begin{defi}
+	$M$ $R$-Modul\\
+	$M$ heißt noethersch $\Leftrightarrow$ Jeder Untermodul von $M$ ist endlich erzeugt.
+\end{defi}
+
+\textbf{Anmerkung:} $M$ noethersch $\Rightarrow M$ endlich erzeugt
+
+\begin{bsp}
+	$K$ Körper, $V$ $K$-Vektorraum. Dann gilt: $V$ noethersch $\Leftrightarrow$ $V$ endlichdimensional.
+\end{bsp}
+
+\begin{satz}
+	$M$, $R$-Modul. Dann sind äquivalent:\\
+	(i) $M$ noethersch\\
+	(ii) Jede aufsteigende Kette $M_0 \subseteq M_1 \subseteq M_2 \ldots$ von Untermoduln wird stationär, d.h. es existiert ein $n \in \NN_0$, sodass $M_i = M_n$ für alle $i \geq n$\\
+	(iii) Jede nichtleere Menge von Untermoduln von $M$ enthält ein maximales Element.\\
+	Man sagt in diesem Fall auch: Die Untermoduln von $M$ erfüllen die aufsteigende Kettenbedingung.\\
+\end{satz}
+
+\begin{bem}
+	$0 \rightarrow M' \overset{f}{\rightarrow} M \overset{g}{\rightarrow} M'' \rightarrow 0$ exakte Folge von $R$-Moduln\\
+	Dann sind äquivalent:\\
+	(i) $M$ noethersch\\
+	(ii) $M'$ und $M''$ sind noethersch
+\end{bem}
+
+\begin{bem}
+	$M_1, \ldots, M_r$ $R$-Moduln. Dann sind äquivalent:\\
+	(i) $\bigoplus\limits_{i = 1}^r M_i$ noethersch\\
+	(ii) $M_1, \ldots, M_r$ noethersch
+\end{bem}
+
+\begin{defi}
+	$R$ heißt linksnoethersch (bzw. rechtsnoethersch), wenn $R$ als Links-(bzw. Rechts-) modul über sich selbst noethersch ist. $R$ heißt noethersch, wenn $R$ links- und rechtsnoethersch ist.
+\end{defi}
+
+\textbf{Anmerkung:} Es gibt Ringe, die rechtsnoethersch, aber nicht linksnoethersch sind (und umgekehrt)
+
+\begin{bsp}
+	$ $\\
+	(a) $R$ Schiefkörper (Divisionsring) (d.h. $R \backslash \{0\}$ ist eine Gruppe bzgl. '' $\cdot$'').\\
+	Dann ist $R$ noethersch, denn: Wegen $Ra = R = aR$ für alle $a \in R \backslash \{0\}$ sind die einzigen Linksideale (Rechtsideale) in $R$ durch $0, R$ gegeben, diese sind endlich erzeugt.\\
+	(b) $K$ Körper, $R = K[X_1, X_2, \ldots]$ ist nicht noethersch nach Bsp. 2.6
+\end{bsp}
+
+\begin{bem}
+	$R$ linknoetherscher Ring, $M$ endlich erzeugter $R$-Modul\\
+	Dann ist $M$ noethersch
+\end{bem}
+
+\begin{bem}
+	$R$ linksnoetherscher Ring, $I \subseteq R$ zweiseitiges Ideal\\
+	Dann ist $R/I$ linksnoethersch
+\end{bem}
+
+\textbf{Anmerkung:} Unterringe noetherscher Ringe sind im Allgemeinen nicht noethersch
+
+\begin{bem}
+	$M, N$ $R$-Moduln mit $M \cong M \oplus N$, $N \neq 0$\\
+	Dann ist M nicht noethersch.
+\end{bem}
+
+\begin{satz}
+	$R$ linksnoetherscher Ring, $R \neq 0$, $n_1, n_2 \in \NN$.\\
+	Dann gilt: $R^{n_1} \cong R^{n_2} \Rightarrow n_1 = n_2$
+\end{satz}
+
+\textbf{Anmerkung:} \begin{itemize}
+		\item Obiger Satz zeigt, dass der Begriff des Ranges freier Moduln auch für endlich erzeugte freie Moduln über linksnoetherschen Ringen wohldefiniert ist
+		\item Jeder Körper ist linksnoethersch $\Rightarrow$ Erhalten neuen Beweis für Ergebnis aus LA1 
+\end{itemize}
+
+\begin{satz}
+	(Hilbertscher Basissatz)\\
+	$R$ linksnoethersch Ring. Dann ist $R[X]$ linksnoethersch
+\end{satz}
+
+\begin{folg}
+	$ $\\
+	(a) $R$ linksnoetherscher Ring $\Rightarrow R[X_1, \ldots, X_n]$ linksnoethersch\\
+	(b) $A, B$ kommutative Ringe, $\varphi: A \rightarrow B$ Ringhomomorphismus, sodass $B$ von $\varphi(A)$ un einer endlichen Menge $\{x_1, \ldots, x_r\}$ als Ring erzeugt wird. Dann gilt:\\
+	$A$ noethersch $\Rightarrow B$ noethersch
+\end{folg}
+
+\begin{defi}
+	$M$ $R$-Modul\\
+	$M$ heißt artinsch $\Leftrightarrow$ Für jede absteigende Kette $M_1 \supseteq M_2 \supseteq \ldots$ von Untermoduln von $M$ gibt es ein $n \in \NN$ mit $M_i = M_n$ für alle $i \geq n$ 
+	\textbf{(absteigende Kettenbedingung)} 
+\end{defi}
+
+\begin{defi}
+	$R$ heißt linksartinsch (bzw. rechtsartinsch), wenn $R$ als Links- bzw. Rechtsmodul über sich selbst artinsch ist. $R$ heißt artinsch, wenn $R$ links- und rechtsartinsch ist.
+\end{defi}
+
+\begin{bsp}
+	$ $\\
+	(a) Jeder endliche Ring ist artinsch (und noethersch)\\
+	(b) $\ZZ$ ist kein artinscher Ring, denn $\ZZ \supsetneq 2 \ZZ \supsetneq 4 \ZZ \supsetneq 8 \ZZ \supsetneq \ldots$\\
+	(c) $M$ endliches Monoid, $K$ Körper, $R = K[M]$ Monoidring (vgl. Algebra 1- Übungen) $\Rightarrow R$ linksartinsch, denn: $K[M]$ ist ein endlichdimensionaler $K$-Vektorraum, jeder $K[M]$-Untermodul von $K[M]$ ist ein $K$-Vektorraum von $K[M]$. Ebenso: $K[M]$ rechtsartinsch, d.h. $R = K[M]$ ist artinsch.
+\end{bsp}
+
+\begin{bem}
+	$0 \rightarrow M' \overset{f}{\rightarrow} M \overset{g}{\rightarrow} M'' \rightarrow 0$ exakte Folge von $R$-Moduln\\
+	Dann sind äquivalent:\\
+	(i) $M$ artinsch\\
+	(ii) $M'$, $M''$ artinsch
+\end{bem}
+
+\begin{folg}
+	$M_1, \ldots, M_n$ $R$-Moduln. Dann sind äquivalent:\\
+	(i) $\bigoplus\limits_{i = 1}^n M_i$ artinsch\\
+	(ii) $M_1, \ldots, M_n$ sind artinsch
+\end{folg}
+
+\begin{folg}
+	$R$ linksartinscher Ring, $M$ endlich-erzeugter $R$-Modul. Dann ist $M$ artinsch
+\end{folg}
+
+\begin{defi}
+	$M$ $R$-Modul\\
+	$M$ heißt endlich koerzeugt $\Leftrightarrow$ Für jede Familie $(M_i)_{i \in I}$ von Untermoduln von $M$ mit $\bigcap\limits_{i \in I} M_i = 0$ existiert eine endliche Teilmenge $J \subseteq I$ mit $\bigcap\limits_{j \in J} M_j = 0$.
+\end{defi}
+
+\textbf{Anmerkung:} $N \subseteq M$ Untermodul. Dann:
+\begin{itemize}
+	\item $M/N$ endlich koerzeugt $\Leftrightarrow$ Für jede Familie $(M_i)_{i \in I}$ von Untermoduln von $M$ mit $\bigcap\limits_{i \in I} M_i = N$ existiert eine endliche Teilmenge $J \subseteq I$ mit $\bigcap\limits_{j \in J} M_j = N$
+	\item $N$ endlich erzeugt $\Leftrightarrow$ Für jede Familie $(M_i)_{i \in I}$ von Untermoduln von $M$ mit $\sum\limits_{i \in I} M_i = N$ existiert eine endliche Teilmege $J \subseteq I$ mit $\sum\limits_{j \in J} M_j = N$
+\end{itemize}
+
+\begin{satz}
+	$M$ $R$-Modul. Dann sind äquivalent:\\
+	(i) $M$ ist artinsch\\
+	(ii) Jede nichtleere Menge von Untermoduln von $M$ enthält ein minimales Element\\
+	(iii) Jeder Faktormodul von $M$ ist endlich koerzeugt
+\end{satz}
+
+\part{Homologische Algebra} 
+
+In diesem Kapitel sei $R$ stets ein Ring\\
+
+\chapter{Kategorien} 
+
+\begin{defi}
+	Eine Kategorie $\mathcal{C}$ besteht aus \begin{itemize}
+		\item einer Klasse $Ob \mathcal{C}$ von Objekten
+	\end{itemize}
+	einer Menge $Mor_{\mathcal{C}} (A,B)$ von Morphismen für alle $A, B \in Ob \mathcal{C}$ \begin{itemize}
+		\item einer Verknüpfung
+	\end{itemize}
+	\begin{align*}
+		\circ: Mor_{\mathcal{C}}(B,C) \times Mor_{\mathcal{C}} (A,B) \longrightarrow Mor_{\mathcal{C}} (A,C)	\end{align*}
+	für alle $A, B, C \in Ob \mathcal{C}$,\\
+	wobei folgende Axiome gelten:\\
+	\textbf{(K1)} $Mor_{\mathcal{C}} \cap Mor_{\mathcal{C}} (A', B') = \emptyset$, falls $A \neq A'$ oder $B \neq B'$\\
+	\textbf{(K2)} Für alle $A, B, C, D \in Ob \mathcal{C}$, $f \in Mor_{\mathcal{C}} (A, B)$, $g \in Mor_{\mathcal{C}} (B, C)$, $h \in Mor_{\mathcal{C}} (C, D)$ gilt:
+	\begin{align*}
+		h \circ (g \circ f) = (h \circ g) \circ f \hspace*{5mm} \text{ (Assoziativität)} 
+	\end{align*}
+	\textbf{(K3)} Für jedes $A \in Ob \mathcal{C}$ existiert ein Morphismus $id_A \in Mor_{\mathcal{C}}(A,A)$, sodass für alle $B \in Ob \mathcal{C}$, $f \in Mor_{\mathcal{C}} (A, B)$, $g \in Mor_{\mathcal{C}} (B,A)$ gilt: $f \circ id_A = f$, $id_A \circ g = g$
+\end{defi}
+
+\textbf{Anmerkung:} \begin{itemize}
+	\item Man sagt ''Klasse'' statt Menge, um Paradoxien wie die ''Menge aller Mengen'' zu vermeiden. Trotzdem schreiben wir $A \in Ob \mathcal{C}$, um zu sagen, dass $A$ zu $Ob \mathcal{C}$ gehört (und werden $Ob \mathcal{C}$ im Folgenden wie eine Menge behandeln).
+	\item In den folgeden Abschnitten werden wir mengentheoretisch Probleme ignorieren und häufig von Mengen sprechen, auch wenn es sich nur um Klassen handelt
+	\item Für $f \in Mor_{\mathcal{C}}$ schreiben wir auch $f: A \rightarrow B$. $A$ heißt Quelle und $B$ heißt Ziel von $f$; wegen (K1) sind diese eindeutig bestimmt.
+	\item Für $A \in Ob \mathcal{C}$ ist $id_A$ eindeutig bestimmt (analoges Argument wie bei Monoiden: $id_A = id_A' \circ id_A = id_A'$) 
+\end{itemize}
+
+\begin{bsp}
+	\begin{itemize}
+		\item Mengen: Kategorie der Mengen mit Abbildungen von Mengen als Morphismen
+		\item Ringe: Kategorie der Ringe mit Ringhomomorphismen als Morphismen
+		\item $R$-Modul: Kategorie der $R$-(Links)-Moduln mit $R$-Modulhomomorphismen als Morphismen
+		\item Topologien: Kategorien der topologischen Räume mit stetigen Abbildungen als Morphismen
+		\item $Ob \mathcal{C} = \{*\}$, $Mor_{\mathcal{C}} (*, *) := M$, wobei $M$ Monoid, $\circ$ = Verknüpfung in $M$.
+	\end{itemize}
+\end{bsp}
+
+\begin{defi}
+	$\mathcal{C}$ Kategorie. Die zu $\mathcal{C}$ duale Kategorie $\mathcal{C}^{op}$ ist die Kategorie mit \begin{itemize}
+		\item $Ob \mathcal{C}^{op} = Ob \mathcal{C}$
+		\item $Mor_{\mathcal{C}^{op}} (A,B) := Mor_{\mathcal{C}} (B, A)$ für $A, B \in Ob \mathcal{C}^{op} = Ob \mathcal{C}$
+		\item $\circ_{op} Mor_{\mathcal{C}^{op}} (A,B) \times Mor_{\mathcal{C}^{op}} (B, C) \longrightarrow Mor_{\mathcal{C}^{op}} (A,C)$, $(f,g) \longmapsto f \circ g$ für $A, B, C \in Ob \mathcal{C}$
+	\end{itemize}
+\end{defi}
+
+\textbf{Anmerkung:} \begin{itemize}
+	\item Übergang von $\mathcal{C}$ zu $\mathcal{C}^{op} \hat{=}$ Pfeile umdrehen
+	\item $(\mathcal{C}^{op})^{op} = \mathcal{C}$
+\end{itemize}
+
+\begin{defi}
+	$\mathcal{C}, \mathcal{D}$ Kategorien\\
+	Ein (kovarianter) Funktor $F: \mathcal{C} \rightarrow \mathcal{D}$ besteht aus einer Abbildung \begin{align*}
+		Ob \mathcal{C} \longrightarrow Ob \mathcal{D}, \hspace*{2mm} A \longmapsto FA
+	\end{align*}
+	und Abbildungen \begin{align*}
+		Mor_{\mathcal{C}} (A, B) \longrightarrow Mor_{\mathcal{D}} (FA, FB), \hspace*{2mm} f \longmapsto F(f)
+	\end{align*}
+	für alle $A, B \in Ob \mathcal{C}$, sodass gilt:\\
+	\textbf{F1)} $F(g \circ f) = F(g) \circ F(f)$ für alle $f \in Mor_{\mathcal{C}}(A, B)$, $g \in Mor_{\mathcal{C}}(B,C)$, $A, B, C \in Ob \mathcal{C}$\\
+	\textbf{F2)} $F(id_A) = id_{FA}$ für alle $A \in Ob \mathcal{C}$
+\end{defi}
+
+\begin{bsp}
+	$ $\\
+	(a) Vergiß-Funktoren, z.B. $R$-Mod $\rightarrow$ Mengen, $R$-Mod $\rightarrow \ZZ$-Mod, $\ldots$\\
+	(b) $\mathcal{C}$ Kategorie $\Rightarrow$ Jedes Objekt $X \in Ob \mathcal{C}$ induziert einen Funktor \begin{align*}
+		Mor_{\mathcal{C}} (X, -): \mathcal{C} \longrightarrow \text{ Mengen }, A \longmapsto Mor_{\mathcal{C}} (X, A)
+	\end{align*}
+	Für $f \in Mor_{\mathcal{C}}(A, B)$ ist hierbei $f_*^X := Mor_{\mathcal{C}} (X, -) (f)$ gegeben durch \begin{align*}
+		f_*^X : Mor_{\mathcal{C}}(X, A) \longrightarrow Mor_{\mathcal{C}}(X, B), \hspace{2mm} g \longmapsto f \circ g  \hspace{7 mm} \begin{xy}
+		\xymatrix{
+			X \ar[r]^{g} \ar[dr]_{f_*^X}   &   A \ar[d]^f \\
+			 &   B 
+		}
+		\end{xy}
+	\end{align*}
+	(c) $M \in R$-Mod\\
+	$\Rightarrow Hom_R(M, -): R$-Mod $\rightarrow \ZZ-$Mod, $N \mapsto Hom_R(M,N)$ ist ein Funktor
+\end{bsp}
+
+\begin{defi}
+	$\mathcal{C}$, $\mathcal{D}$ Kategorien
+	Ein kontravarianter Funktor $F$ von $\mathcal{C}$ nach $\mathcal{D}$ ist ein Funktor $F: \mathcal{C}^{op} \rightarrow \mathcal{D}$, d.h. besteht aus einer Abbildung \begin{align*}
+		Ob \mathcal{C} \longrightarrow Ob \mathcal{D}, \hspace*{2mm} A \longmapsto FA
+	\end{align*}
+	und Abbildungen \begin{align*}
+	Mor_{\mathcal{C}} (A, B) \longrightarrow Mor_{\mathcal{D}} (FB, FA), \hspace*{2mm} f \longmapsto F(f)
+	\end{align*}
+	für alle $A, B \in Ob \mathcal{C}$, sodass gilt:\\
+	\textbf{(F1')} $F(g \circ f) = F(f) \circ F(g)$ für $f \in Mor_{\mathcal{C}}(A,B)$, $g \in Mor(B, C)$, $A, B, C \in Ob \mathcal{C}$\\
+	\textbf{(F2')} $F(id_A) = id_{FA}$ für alle $A \in Ob \mathcal{C}$
+\end{defi}
+
+\begin{bsp}
+	$ $\\
+	(a) $\mathcal{C}$ Kategorie $\Rightarrow$ Jedes Objekt $Y \in Ob \mathcal{C}$ induziert einen kontravarianten Funktor \begin{align*}
+	Mor_{\mathcal{C}} (-, Y): \mathcal{C} \longrightarrow \text{ Mengen }, \hspace*{2mm} A \longmapsto Mor_{\mathcal{C}} (A, Y)
+	\end{align*}
+	Für $f \in Mor_{\mathcal{C}}(A, B)$ ist $f_Y^* := Mor_{\mathcal{C}}(-, Y)(f)$ gegeben durch \begin{align*}
+		f_Y^*: Mor_{\mathcal{C}} (B, Y) \longrightarrow Mor_{\mathcal{C}} (A, Y), \hspace*{2mm} g \longmapsto g \circ f \hspace*{7mm} \begin{xy}
+		\xymatrix{
+			A \ar[r]^{f_Y^*(g)} \ar[d]_f   &   Y\\
+			B \ar[ur]_g &
+		}
+		\end{xy}
+	\end{align*}
+	(b) $N \in R$-Mod\\
+	$\Rightarrow Hom_R(-, N): R$-Mod $\rightarrow \ZZ$-Mod, $M \mapsto Hom_R(M, N)$\\
+	ist ein kontravarianter Funktor.
+\end{bsp}
+
+\textbf{Anmerkung:} \begin{itemize}
+	\item Sind $F: \mathcal{C} \rightarrow \mathcal{D}$, $G: \mathcal{D} \rightarrow \mathcal{E}$ Funktoren, so ist auf naheliegende Weise der Funktor $G \circ F: \mathcal{C} \longrightarrow \mathcal{E}$
+	\item Unter Funktoren werden kommutative Diagramme auf kommutativen Diagrammen abgebildet
+\end{itemize}
+
+\begin{defi}
+	$\mathcal{C}$, $\mathcal{D}$ Kategorien\\
+	Das Produkt $\mathcal{C} \times \mathcal{D}$ ist diejenige Kategorie mit\\ $Ob(\mathcal{C} \times D) = Ob \mathcal{C} \times Ob \mathcal{D}$, $Mor_{\mathcal{C} \times \mathcal{D}} ((A_1, B_1), (A_2, B_2)) = Mor_{\mathcal{C}} (A_1, A_2) \times Mor_{\mathcal{D}} (B_1, B_2)$\\
+	und ''komponentenweisem $\circ$''
+\end{defi}
+
+\begin{defi}
+	$\mathcal{C}$, $\mathcal{D}$, $\mathcal{E}$ Kategorien\\
+	Ein Bifunktor $F$ ''von $\mathcal{C}$ kreuz $\mathcal{D}$ nach $\mathcal{E}$'' ist ein Funktor $F: \mathcal{C} \times \mathcal{D} \rightarrow \mathcal{E}$
+\end{defi}
+
+\begin{bsp}
+	$ $\\
+	(a) $\bigoplus: R$-Mod $\times R$-Mod $\rightarrow R$-Mod, $(M,N) \mapsto M \oplus N$ ist ein Bifunktor.\\
+	(b) $\mathcal{C}$ Kategorie $\Rightarrow \mathcal{C}^{op} \times \mathcal{C} \rightarrow \text{ Mengen }$, $(M, N) \mapsto Mor_{\mathcal{C}}(M, N)$ ist ein Bifunktor.
+\end{bsp}
+
+\begin{defi}
+	$\mathcal{C}$ Kategorie, $A, B \in Ob \mathcal{C}$, $f: A \rightarrow B$\\
+	$f$ heißt Monomorphismus $\Leftrightarrow$ Für alle $C \in Ob \mathcal{C}$, $g_1, g_2: C \rightarrow A$ gilt: $f \circ g_1 = f \circ g_2 \Rightarrow g_1 = g_2$\\
+	\hspace*{37.5mm}$\Leftrightarrow$ Für alle $C \in Ob \mathcal{C}$ ist $f_*^C: Mor_{\mathcal{C}} (C, A) \rightarrow Mor_{\mathcal{C}} (C, B)$ injektiv\\
+	$f$ heißt Epimorphismus $\Leftrightarrow$ Für alle $C \in Ob \mathcal{C}$, $g_1, g_2: B \rightarrow C$ gilt: $g_1 \circ f = g_2 \circ f \Rightarrow g_1 = g_2$\\
+	\hspace*{34.1mm}$\Leftrightarrow$ Für alle $C \in Ob \mathcal{C}$ ist $f_C^*: Mor_{\mathcal{C}} (B, C) \rightarrow Mor_{\mathcal{C}} (A, C)$ injektiv\\
+	$f$ heißt Isomorphismus $\Leftrightarrow$ Es existiert ein $g: B \rightarrow A$ mit $f \circ g = id_B$ und $g \circ g = id_A$
+\end{defi}
+
+\textbf{Anmerkung:} In der Situation von 4.0.11 gilt: \begin{itemize}
+	\item $f$ Monomorphismus in $\mathcal{C} \Leftrightarrow f$ Epimorphismus in $\mathcal{C}^{op}$
+	\item $f$ Isomorphismus in $\mathcal{C} \Leftrightarrow f$ Isomorphismus in $\mathcal{C}^{op}$
+	\item Ist $f$ ein Isomorphismus und $g: B \rightarrow A$ mit $f \circ g = id_B$ und $g \circ f = id_A$, dann ist $g$ eindeutig bestimmt (und wird mit $f^{-1}$ bezeichnet) denn:\\
+	$g_1, g_2: B \rightarrow A$ mit dieser Eigenschaft $\Rightarrow g_1 = g_1 \circ id_B = g_1 \circ (f \circ g_2) = (g_1 \circ f) \circ g_2 = id_A \circ g_2 = g_2$
+	\item In Mengen ist $f$ Monomorphismus $\Leftrightarrow f$ injektiv, $f$ Epimorphismus $\Leftrightarrow f$ surjektiv, $f$ Isomorphismus $\Leftrightarrow f$ bijektiv. Im Allgemeinen ist dies für Kategorien, in denen die Morphismen Abbildungen sind, jedoch falsch (vgl. Bsp. 4.0.13)
+\end{itemize}
+
+\begin{bem}
+	$\mathcal{C}$ Kategorie, $A, B \in Ob \mathcal{C}$, $f: A \rightarrow B$ Isomorphismus\\
+	Dann ist $f$ ein Monomorphismus und ein Epimorphismus
+\end{bem}
+
+\textbf{Anmerkung:} Die Umkehrung von 4.0.12 ist im Allgemeinen falsch, siehe nächstes Bsp.
+
+\begin{bsp}
+	$ $\\
+	(a) Sei $\mathcal{C}$ = Top die Kategorie der topologischen Räume mit stetigen Abbildungen\\
+	Wir betrachten $id: (\RR, \text{ diskrete Topologie}) \rightarrow (\RR, \text{ Standardtopologie})$. Dies ist eine stetige Abbildung, Monomorphismus und Epimorphismus, aber kein Isomorphismus (kein stetiges Inverses)\\
+	(b) Sei $\mathcal{C}$ = Ringe, $f: \ZZ \hookrightarrow \QQ$ Inklusion\\
+	$f$ ist ein Monomorphismus und Epimorphismus\\
+	(denn: Für $g_1, g_2: \QQ \rightarrow R$ Ringhomomorphismus in einen Ring $R$ mit $g_1 \circ f = g_2 \circ f$, d.h. $g_1|_\ZZ = g_2|_\ZZ$ folgt $g_1 = g_2$ wegen universeller Eigenschaft $\QQ$ als Quotientenkörper von $\ZZ$)\\
+	aber kein Isomorphismus.\\
+	Insbesondere ist ein Epimorphismus in $\mathcal{C}$ im obigen Sinne (''kategorieller Epimorphismus'') nicht dasselbe wie ein surjektiver Ringhomomorphismus. 
+\end{bsp}
+
+\begin{defi}
+	$\mathcal{C}$, $\mathcal{D}$ Kategorien, $F, G: \mathcal{C} \rightarrow \mathcal{D}$ Funktoren\\
+	Eine natürliche Transformation $t$ von $F$ nach $G$ (Bez.: $t: F \Rightarrow G$) ist eine Familie $(t_A)_{A \in Ob \mathcal{C}}$ von Morphismen $t_A \in Mor_{\mathcal{D}}(FA, GA)$, sodass \begin{align*}
+		\begin{xy}
+		\xymatrix{
+			FA \ar[r]^{t_A} \ar[d]_{F(f)}    &   GA \ar[d]^{G(f)}  \\
+			FB \ar[r]^{t_B} &   GB
+		}
+		\end{xy}
+	\end{align*}
+	für alle $A, B \in Ob \mathcal{C}$, $f: A \rightarrow B$ kommutiert.\\
+	Sprechweise auch: $t_A: FA \rightarrow GA$ ist natürlich in $A$. 
+\end{defi}
+
+\begin{bsp}
+	$ $\\
+	(a) $\mathcal{C}$ Kategorie, $A, B \in Ob \mathcal{C}$, $f: A \rightarrow B$\\
+	$\Rightarrow f^* = (f_Y^*)_{Y \in Ob \mathcal{C}}: Mor_{\mathcal{C}} (B, -) \Rightarrow Mor_{\mathcal{C}}(A, -)$\\
+	ist eine natürliche Transformation von Funktoren $\mathcal{C} \rightarrow$ Mengen, denn für $Y_1, Y_2 \in Ob \mathcal{C}$, $g: Y_1 \rightarrow Y_2$ kommutiert das Diagramm \begin{align*}
+	\begin{xy}
+	\xymatrix{
+		Mor_\mathcal{C} (B, Y_1) \ar[r]^{f_{Y_1}^*} \ar[d]_{g_*^B}    &   Mor_\mathcal{C} (A, Y_1) \ar[d]^{g_*^A} \\
+		Mor_\mathcal{C} (B, Y_2) \ar[r]_{f_{Y_2}^*} &   Mor_\mathcal{C} (A, Y_2)
+	}
+	\end{xy}
+	\end{align*}
+	denn: Für: $\varphi: B \rightarrow Y_1$ ist \begin{align*}
+	(g_*^A \circ f_{Y_1}^*)(\varphi) = g_*^A (\varphi \circ f) = g \circ \varphi \circ f = f_{Y_2}^* (g \circ \varphi) = (f_{Y_2}^* \circ g_*^B) (\varphi) 
+	\end{align*}
+	(b) Sei $K$-VR die Kategorie der $K$-Vektorräume über einem festen Körper $K$ (lineare Abbildungen als Morphismen). Für $V \in K$-Vektorraum sei $V^* := Hom_K(V, K)$ der Dualraum.\\
+	Die kanonische Abbildungen $\varphi_v: V \rightarrow V^{**}$, $w \mapsto \varphi_v(w): V^* \rightarrow K$ ist natürlich in $V$,\\
+	\hspace*{81mm}	$\psi \mapsto \psi(w)$\\
+	denn für $V, W \in K$-VR, $f: V \to W$ lineare Abbildung kommutiert das Diagramm\\ 
+	$\begin{xy}
+		\xymatrix{
+			V \ar[r]^{\varphi_v} \ar[d]_{f}    &   V^{**} \ar[d]^{f^{**}} \\
+			W \ar[r]_{\varphi_w} & W^{**}  
+		}
+	\end{xy}$  (mit $f^{**}: V^{**} \to W^{**}$, $(\varphi: V^* \to K) \mapsto f^{**}(\varphi): W^* \rightarrow K$, $\psi \mapsto \varphi(\underbrace{\psi \circ f}_{\in V^*})$\\
+	d.h. $\varphi: id_v \Rightarrow \_^{**}$ ist eine natürliche Transformation von $id: K$-VR $\to K$-VR nach $\_^{**}: K$-VR $\to K$-VR
+\end{bsp}
+
+\begin{defi}
+	$\mathcal{C}$, $\mathcal{D}$ Kategorien, $F, G: \mathcal{C} \to \mathcal{D}$ Funktoren, $t: F \Rightarrow G$ natürliche Transformation\\
+	$t$ heißt natürliche Äquivalenz $\Leftrightarrow$ Für alle $A \in Ob \mathcal{C}$ ist $t_A: FA \to GA$ ein Isomorphismus in $\mathcal{D}$ (Notation: $t: \overset{\sim}{\Rightarrow} G$)
+\end{defi}
+
+\textbf{Anmerkung:} Ist $t: F \overset{\sim}{\Rightarrow} G$ eine natürliche Äquivalenz, denn es existiert eine natürliche Äquivalenz $t^{-1}: G \overset{\sim}{\Rightarrow} G$ via $t^{-1}_A = (t_A)^{-1}: GA \to FA$
+
+\begin{bsp}
+	Es bezeichne $K$-VR$_{< \infty}$ die Kategorie der endlichdimensionalen $K$-VR\\
+	Dann ist die natürliche Transformation $\varphi: id \Rightarrow \_^{**}$ aus Bsp. 2.0.15 eine natürliche Äquivalenz
+\end{bsp}
+
+\begin{defi}
+	$\mathcal{C}$, $\mathcal{D}$ Kategorien, $F: \mathcal{C} \to \mathcal{D}$ Funktor\\
+	$F$ heißt Kategorienäquivalenz $\Leftrightarrow$ Es gibt einen Funktor $G: \mathcal{D} \to \mathcal{C}$ und natürliche Äquivalenzen $F \circ G \overset{\sim}{\Rightarrow} id_\mathcal{D}$, $G \circ F \overset{\sim}{\Rightarrow} id_\mathcal{C}$
+\end{defi}
+
+\begin{bsp}
+	Der Funktor $\_^*: K$-VR$_{< \infty} \to (K$-VR$_{< \infty})^{op}$, $V \mapsto V^*$ ist eine Kategorieäquivalenz, denn mit $\tilde{\_^*}: (K$-VR$_{< \infty})^{op} \to K$-VR$_{< \infty}$, $W \mapsto W^*$ gilt offenbar $\tilde{\_^*} \circ \_^* = \_^{**}$, und $\varphi: id \overset{\sim}{\Rightarrow} \_^{**}$ ist eine natürliche Äquivalenz, analog andersherum (d.h. die Kategorie $K$-VR$_{< \infty}$ ist selbstdual).
+\end{bsp}
+
+\begin{satz}
+	(Yoneda-Lemma)\\
+	$\mathcal{C}$ Kategorie, $A \in Ob \mathcal{C}$, $F: \mathcal{C} \to$ Mengen Funktor\\
+	Dann gibt es eine Bijektion \begin{eqnarray*}
+	\phi: \{\text{natürliche Transformation } t: Mor_\mathcal{C} (A, -) \Rightarrow F\} &\longrightarrow& F(A)\\
+	t &\longmapsto& t_A(id_A)
+	\end{eqnarray*}
+\end{satz}
+
+\begin{folg}
+	$\mathcal{C}$ Kategorie, $A, B \in Ob \mathcal{C}$\\
+	Dann ist die Abbildung \begin{eqnarray*}
+		\underline{\psi}: Mor_\mathcal{C} (B, A) &\longrightarrow& \{\text{natürliche Transformation } Mor_\mathcal{C} (A, -) \Rightarrow Mor_\mathcal{C} (B, -)\}\\
+		\psi: B \to A &\longmapsto& \psi^*: Mor_\mathcal{C} (A, -) \to Mor_\mathcal{C} (B,-)
+	\end{eqnarray*}
+	bijektiv
+\end{folg}
+
+\textbf{Anmerkung:} \begin{itemize}
+	\item Folgerung 4.0.21 liefert einen sogenannten Funtor $\mathcal{C}^{op} \longrightarrow Funk(\mathcal{C}, \text{ Mengen})$, $A \mapsto Mor_\mathcal{C} (A,-)$, wobei $Funk(\mathcal{C}, \text{ Mengen})$ die Funktorkategorie von $\mathcal{C}$ nach Mengen bezeichnet (Objekte: Funktoren: $\mathcal{C} \rightarrow $ Mengen, Morphismen: natürliche Tranformation) (''Yoneda- Einbettung'')
+	\item Folgerung 4.0.21 liefert insbesondere ein Verallgemeinerung des Satzes von Cayley aus der Gruppentheorie: Für eine Gruppe $G$ ist $G \hookrightarrow S(G)$, $g \mapsto \tau_g$ (Linkstransformation mit $g \in G$) ein injektiver Gruppenhomomorphismus.\\
+	Wende 4.0.21 an auf: \begin{itemize}
+		\item $\mathcal{C}$ = Kategorie mit $Ob \mathcal{C} = \{ \cdot\}$, $Mor_\mathcal{C} ( \cdot, \cdot ) = G$
+		\item $A = B = \cdot$
+		\end{itemize}
+	$\Rightarrow$ Erhalten Bijektion: \begin{eqnarray*}
+	 	G = Mor_\mathcal{C}(\cdot, \cdot) &\longrightarrow& \{\text{natürliche Transformation } Mor_\mathcal{C}(\cdot, -) \Rightarrow Mor_\mathcal{C} (\cdot, -)\}\\
+	 	g &\longmapsto& g^*: Mor_\mathcal{C} (\cdot, -) \Rightarrow Mor_\mathcal{C} (\cdot, -) \hspace*{3mm} (\hat{=} \tau_g: G \to G) 
+	\end{eqnarray*}
+\end{itemize}
+
+\chapter{Abelsche Kategorien} 
+
+\begin{defi}
+	$\mathcal{C}$ Kategorien, $A \in Ob \mathcal{C}$\\
+	$A$ heißt Anfangsobjekt $\Leftrightarrow$ Für alle $M \in Ob \mathcal{C}$ ist $Mor_\mathcal{C} (A, M)$ einelementig\\
+	\hspace*{25mm} Endobjekt $\Leftrightarrow$ Für alle $M \in Ob \mathcal{C}$ ist $Mor_\mathcal{C} (M, A)$ einelemetig
+\end{defi}
+
+\textbf{Anmerkung:} \begin{itemize}
+	\item Falls sie existieren sind Anfangs- bzw. Endobjekte eindeutig bestimmt bis auf eindeutigen Isomorphismus (denn: $A_1$, $A_2$ Anfangsobjekte $\Rightarrow Mor_\mathcal{C} (A_1, A_2) = \{\alpha\}$, $Mor_\mathcal{C} (A_1, A_2) = \{\beta\}$, $Mor_\mathcal{C} (A_1, A_1) = \{id_{A_1}\}$, $Mor_\mathcal{C} (A_2, A_2) = \{id_{A_2}\}$, insbesondere $\beta \circ \alpha = id_{A_1}$, $\alpha \circ \beta = id_{A_2}$
+\end{itemize}
+
+\begin{defi}
+	$\mathcal{C}$ Kategorie\\
+	$0 \in Ob \mathcal{C}$ heißt Nullobjekt $\Leftrightarrow 0$ ist sowohl Anfangs- als auch Endobjekt.\\
+	Existiert in $\mathcal{C}$ ein Nullobjekt $0$, so enthält $Mor_\mathcal{C} (A, B)$ für alle $A, B \in Ob \mathcal{C}$ ein ausgezeichnetes Element, der Nullmorphismus $A \to 0 \to B$
+\end{defi}
+
+\textbf{Anmerkung:} Der Nullmorphismus in $Mor_\mathcal{C} (A, B)$ ist unabhängig von der Wahl des Nullobjekts:\\
+$\begin{xy}
+\xymatrix{
+	A \ar[r] \ar[dr]    &   0 \ar[r] \ar[d]  & B \\
+	 & \tilde{0} \ar[ur] & 
+}
+\end{xy}$ 
+
+\begin{bsp}
+	$ $\\
+	(a) In Mengen ist $\emptyset$ ein Anfangsobjekt, jede einelementige Menge ist ein Endobjekt.\\
+	Insbesondere existiert in Mengen kein Nullobjekt.\\
+	(b) In Ringe ist $\ZZ$ ein Anfangsobjekt und der Nullring ein Endobjekt. In Ringe existiert also kein Nullobjekt\\
+	(c) In $R$-Mod ist der Nullmodul ein Nullobjekt
+\end{bsp}
+
+\begin{defi}
+	$\mathcal{C}$ Kategorie, $(A_i)_{i \in I}$ Familie von Objekten aus $\mathcal{C}$\\
+	Ein Produkt $A, (p_i)_{i \in I})$ von $(A_i)_{i \in I}$ ist ein Objekt $A \in Ob \mathcal{C}$ zusammen mit Morphismen $p_i: A \to A_i$, sodass für alle $B \in Ob \mathcal{C}$ die Abbildung \begin{align*}
+	 	Mor_\mathcal{C} (B, A) \longrightarrow \prod\limits_{i \in I} Mor_\mathcal{C} (B, A_i), \hspace*{3mm} f \longmapsto (p_i \circ f)_{i \in I}
+	\end{align*}
+	bijektiv ist, d.h. für jede Familie $(f_i)_{i \in I}$ von Morphismen $f_i: B \to A_i$ existiert ein eindeutig bestimmtes $f: B \to A$ mit $f_i = p_i \circ f$ für alle $i \in I$.
+\end{defi}
+
+\begin{bem}
+	$\mathcal{C}$ Kategorie, $(A_i)_{i \in I}$ Familie von Objekten aus $\mathcal{C}$, $(A, (p_i)_{i \in I}$), $(A', (P_i')_{i \in I})$ Produkte von $(A_i)_{i \in I}$. Dann exisitert ein eindeutig bestimmter Isomorphismus $f: A \to A'$, sodass für alle $i \in I$ gilt: $p_i' \circ f = p_i$ \begin{align*}
+		\begin{xy}
+			\xymatrix{
+			A \ar[rr]^f \ar[dr]_{p_i} & & A' \ar[dl]_{p_i'}\\
+			& A_i &
+		}
+		\end{xy}
+	\end{align*}
+\end{bem}
+
+\begin{bsp}
+	$ $\\
+	(a) In Mengen ist das Produkt das kartesische Produkt\\
+	(b) In $R$-Mod ist das Produkt das direkte Produkt\\
+	(c) In der Kategorie der endlichen abelschen Gruppen existiert kein Produkt der Familie $(\ZZ/n \ZZ)_{n \in \NN}$
+\end{bsp}
+
+\begin{bem}
+	$\mathcal{C}$ Kategorie, $(A_i)_{i \in I}$ Familie von Objekten aus $\mathcal{C}$\\
+	Ein Koprodukt $(A, (q_i)_{i \in I})$ von $(A_i)_{i \in I}$ ist ein Objekt $A \in Ob \mathcal{C}$ zusammen mit Morphismen $q_i: A_i \to A$, sodass $(A, (q_i)_{i \in I})$ ein Produkt von $(A_i)_{i \in I}$ in $\mathcal{C}^{op}$ ist, d.h. für alle $B \in Ob \mathcal{C}$ ist die Abbildung \begin{align*}
+		Mor_\mathcal{C} (A, B) \longrightarrow \prod\limits_{i \in I} Mor_\mathcal{C} (A_i, B), \hspace*{3mm} f \longmapsto (f \circ q_i)_{i \in I}
+	\end{align*}
+	bijektiv ist.\\
+	Falls existent, ist ein Koprodukt von $(A_i)_{i \in I}$ eindeutig bestimmt bis auf eindeutige Isomorphie (analog 5.0.5). Wir sprechen dann von \underline{dem} Koprodukt und schreiben $A = \bigoplus\limits_{i \in I} A_i$ $(= \coprod\limits_{i \in I} A_i )$
+\end{bem}
+
+\begin{bsp}
+	$ $\\
+	(a) In Mengen ist da Koprdukt die disjunkte Vereinigung\\
+	(b) In $R$-Mod ist das Koprodukt die direkte Summe\\
+	(c) In der Kategorie der Gruppen existiert ein Koprodukt, das sogenannte freie Produkt (...)
+\end{bsp}
+
+\begin{defi}
+	$\mathcal{A}$ Kategorie\\
+	$\mathcal{A}$ heißt additiv, wenn gilt,\\
+	(A1) $\mathcal{A}$ hat ein Nullobjekt\\
+	(A2) In $\mathcal{A}$ existieren endliche Produkte\\
+	(A3) Für alle $A, B \in Ob \mathcal{A}$ trägt $Mor_\mathcal{A} (A, B)$ die Struktir einer abelschen Gruppe mit dem Nullmorphismus als neutralem Element, sodass für alle $A, B, C \in Ob \mathcal{A}$ die Verknüpfung \begin{align*}
+		Mor_\mathcal{A} (B, C) \times Mor_\mathcal{A} (A, B) \overset{\circ}{\longrightarrow} Mor_\mathcal{A} (A, C)
+	\end{align*}
+	bilinear ist
+\end{defi}
+
+\textbf{Anmerkung:} In einer additiven Kategorie $\mathcal{A}$ schreiben wir auch $Hom_\mathcal{A}$ für $Mor_\mathcal{A}$
+
+\begin{bsp}
+	$ $\\
+	(a) $R$-Mod ist eine additive Kategorie\\
+	(b) Ringe ist keine additive Kategorie (kein Nullobjekt, vgl. 5.3(b))
+\end{bsp}
+
+\begin{satz}
+	$\mathcal{A}$ additive Kategorie, $A_1, A_2 \in Ob \mathcal{A}$, $(A_1 \times A_2, (p_1, p_2))$ Produkt von $A_1 \times A_2$.\\
+	$i_1: A_1 \to A_1 \times A_2$ sei via UE gegeben durch $id_{A_1}: A_1 \to A_1$, $0: A_1 \to A_2$\\
+	Analog sei $i_2: A_2 \to A_1 \times A_2$ via UE gegeben durch $0: A_2 \to A_1$, $id:A_2 \to A_2$.\\
+	Dann ist $(A_1 \times A_2, (i_1, i_2))$ ein Koprodukt von $A_1, A_2$ in $\mathcal{A}$.
+\end{satz}
+
+\begin{folg}
+	$\mathcal{A}$ additive Kategorie\\
+	Dann existieren in $\mathcal{A}$ endliche Koprodukte
+\end{folg}
+
+\begin{defi}
+	$\mathcal{A}, \mathcal{B}$ additive Kategorien, $F: \mathcal{A} \to \mathcal{B}$ Funktor\\
+	$F$ heißt additiv $\Leftrightarrow$ Für alle $A, A' \in Ob \mathcal{A}$ is die Abbildung \begin{align*}
+		Hom_\mathcal{A} (A, A') \longrightarrow Hom_\mathcal{B} (FA, FA'), \hspace*{3mm} f \longmapsto F(f)
+	\end{align*}
+	ein Homomorphismus abelscher Gruppen
+\end{defi}
+
+\textbf{Anmerkung:} $F$ additiv $\Rightarrow F(A \oplus A') = F(A) \oplus F(A')$ 
+
+\begin{bem}
+$\mathcal{A}$ additive Kategorie, $A, A' \in Ob \mathcal{A}$, $f: A \to A'$\\
+Ein Kern $(B, i)$ von $f$ ist ein Objekt $B \in Ob \mathcal{A}$ zusammen mit einem Morphismus $i: B \to  A$, sodass $f \circ i = 0$ ist und für alle $C \in Ob \mathcal{A}$ die Abbildung \begin{align*}
+ Hom _\mathcal{A} (C, B) \longrightarrow \{ g \in Hom _\mathcal{A} (C, A) | f \circ g = 0 \}, \hspace*{3mm} h \longmapsto i \circ h
+\end{align*}
+bijektiv ist, d.h. für alle $g: C \to A$ mit $f \circ g = 0$ exisitert ein eindeutig bestimmter Morphismus $h: C \to B$ mit $g = i \circ h$: \begin{align*}
+	\begin{xy}
+		\xymatrix{
+					B \ar[r]^i & A \ar[r]^f & A'\\
+					C \ar@{.>}[u]^h \ar[ur]_g & &	
+	}
+	\end{xy}
+\end{align*}
+Ist $(B', i')$ ein weiterer Kern von $f$, dann existiert ein eindeutig bestimmter Isomorphismus $\alpha: B \to B'$ mit $i = i' \circ \alpha$: \begin{align*}
+	\begin{xy}
+		\xymatrix{
+					B \ar[rr]^\alpha \ar[dr]_{i} & & B' \ar[dl]^{i'}\\
+					& A &
+				 }
+	\end{xy}
+\end{align*}
+Wir nennen $(B, i)$ daher auch \underline{den} Kern von $f$ und schreiben $\ker f = (B, i)$ bzw. kürzer $\ker f = B$ oder auch $\ker f = i$ (kontextabhängig)
+\end{bem}
+
+\textbf{Anmerkung:} Existenz von Kernen ist im Allgemeinen nicht gegeben
+
+\begin{bsp}
+	In $R$-Mod ist der kategorielle kern gegeben durch die Inklusion des gewöhnlichen Kerns: \begin{align*}
+		\begin{xy}
+		\xymatrix{
+			\ker f \ar@{^{(}->}[r]^i & A \ar[r]^f & A'\\
+			C \ar@{.>}[u]^h \ar[ur]_g & &	
+		}
+		\end{xy}
+	\end{align*}
+	$f \circ g = 0 \Rightarrow im (g) \subseteq \ker f$,  setze $h:= g|^{\ker f}: C \to \ker f$, dann ist $i \circ h =g$ und $h$ ist eindeutig mit dieser Bedingung.
+\end{bsp}
+
+\begin{bem}
+	$\mathcal{A}$ additive Kategorie, $A, A' \in Ob \mathcal{A}$, $f: A \to A'$, $(\ker f, i)$ Kern von $f$.\\
+	Dann ist $i$ eine Monomorphismus.
+\end{bem}
+
+\begin{bem}
+	Dual zum Kern definiert man den Kokern (Notation: $coker(f)$)\\
+	Die Aussagen 5.0.14, 5.0.16 gelten dual.
+\end{bem}
+
+\begin{defi}
+	$\mathcal{A}$ additive Kategorie, $A, A' \in Ob \mathcal{A}$, $f: A \to A'$\\
+	$im(f) := \ker(coker(f))$ heißt das Bild von $f$\\
+	$coim(f) := coker(\ker(f))$ heißt das Kobild von $f$
+\end{defi}
+
+\textbf{Anmerkung:} $im(f)$ kommt mit einem Monomorphismus $i': im(f) \to A'$, $coim(f)$ mit einem Epimorphismus $q': A \to coim(f)$
+
+\begin{bsp}
+	Sei $\mathcal{A} = R$-Mod, $f: A \to A'$ $R$-Modulhomomorphismus\\
+	Dann ist $im(f) = \ker\left(A'/im(f),\hspace*{1mm} A' \to A'/im(f)\right) = \left(im(f), \hspace*{1mm} im(f) \hookrightarrow A'\right)$,\\
+	$coim(f) = coker\left(\ker(f), \hspace*{1mm} \ker(f) \hookrightarrow A\right) = \left(A/\ker(f), \hspace*{1mm} A \twoheadrightarrow A/\ker(f)\right)$
+\end{bsp}
+
+\begin{bem}
+	$\mathcal{A}$ additive Kategorie, $A, B \in Ob \mathcal{A}$, $f: A \to B$, sodass $\ker(f)$, $coker(f)$, $im(f)$, $coim(f)$ existieren, ($im(f), i'$) Bild von $f$, $(coim(f), q')$ Kobild von $f$.\\
+	Dann existiert ein eindeutig bestimmter Morphismus $\bar{f}: coim(f) \to im(f)$ mit $f = i' \circ \bar{f} \circ q':$ \begin{align*}
+	\begin{xy}
+	\xymatrix{
+		A \ar[r]^f \ar[d]^{q'}  & B \\
+		coim(f) \ar@[red]@{.>}[r]_f & im(f) \ar[u]_{i'}	
+	}
+	\end{xy}
+	\end{align*}
+\end{bem}
+
+\begin{defi}
+	$\mathcal{A}$ additive Kategorie\\
+	$\mathcal{A}$ heißt abelsche Kategorie, wenn gilt:\\
+	\textbf{(Ab 1)} Jeder Morphismus in $\mathcal{A}$ hat Kern und Kokern\\
+	\textbf{(Ab 2)} (Homomorphiesatz) Für jeden Morphismus $f: A \to A'$ in $\mathcal{A}$ ist der induzierte Morphismus $\bar{f}: coim(f) \to im(f)$ ein Isomorphismus
+\end{defi}
+
+\begin{bsp}
+	$ $\\
+	(a) $R$-Mod ist eine abelsche Kategorie\\
+	(b) Die Kategorie der freien $\ZZ$-Moduln ist additiv, aber nicht abelsch: (Ab 1) nicht erfüllt\\
+	(c) Die Kategorie der abelsche topologischen Gruppen ist eine additive Kategorie, die (Ab 1) erfüllt, aber nicht (Ab 2): $id: \underset{\text{diskrete Topologie}}{(\RR, +)} \to \underset{\text{Standardtopologie}}{(\RR, +)}$, $\bar{id} = id$ ist kein Isomorphismus
+\end{bsp}
+
+\textbf{Anmerkung:} $\mathcal{A}$ abelsche Kategorie $\Rightarrow \mathcal{A}^{op}$ abelsche Kategorie (einziger nichttrivialer Punkt: Existenz endlicher Produkte, dies folgt jedoch aus 5.0.11)
+
+\begin{satz}
+	$\mathcal{A}$ abelsche Kategorie, $A, A' \in Ob \mathcal{A}$, $f: A \to A'$ Monomorphismus und Epimorphismus.\\
+	Dann ist $f$ ein Isomorphismus
+\end{satz}
+
+\begin{bem}
+	$\mathcal{A}$ abelsche Kategorie, $A, A' \in Ob \mathcal{A}$, $f: A \to A'$. Dann gilt:\\
+	(a) $f$ Monomorphismus $\Leftrightarrow \ker(f) = 0$\\
+	(b) $f$ Epimorphimus $\Leftrightarrow coker(f) = 0$
+\end{bem}
+
+\begin{defi}
+	$\mathcal{A}$ abelsche Kategorie, $A, A', A'' \in Ob \mathcal{A}$\\
+	$A' \overset{f}{\longrightarrow} A \overset{g}{\longrightarrow} A''$ heißt exakte Folge $\Leftrightarrow im(f) \cong \ker(g)$ in dem Sinne, dass es einen Isomorphismus $im(f) \overset{\alpha}{\longrightarrow} \ker(g)$ gibt, sodass das Diagramm \begin{align*}
+	\begin{xy} 
+		\xymatrix{
+		& A &\\
+		im(f) \ar[ur]^{i'} \ar[rr]_\alpha & & \ker(g) \ar[ul]_i 
+	 }
+ 	\end{xy}
+	\end{align*}
+	kommutiert (wobei ($\ker(g), i$) Kern von $g$, $(im(f), i')$ Bild von $f$).
+\end{defi}
+
+\begin{satz}
+	$\mathcal{A}$ abelsche Kategorie. Dann gilt:\\
+	(a) In $\mathcal{A}$ gilt das Fünferlemma\\
+	(b) In $\mathcal{A}$ gilt das Schlangenlemma\\
+	(c) Eine Folge $M' \overset{f}{\to} M \overset{g}{\to} M'' \to 0$ in $\mathcal{A}$ ist genau dann exakt, wenn für jeden $\mathcal{N} \in Ob \mathcal{A}$ die Folge abelscher Gruppen \begin{align*}
+		0 \to Hom_\mathcal{A}(M'', N) \to Hom_\mathcal{A}(M, N) \to Hom_\mathcal{A}(M', N)
+	\end{align*}
+	exakt ist.\\
+	(d) Eine Folge $0 \to N' \to N \to N''$ in $\mathcal{A}$ ist genau dann exakt, wenn für jedes $M \in Ob \mathcal{A}$ die Folge abelscher Gruppen \begin{align*}
+		0 \to Hom_\mathcal{A} (M, N') \to Hom_\mathcal{A}(M, N) \to Hom_\mathcal{A}(M, N'')
+	\end{align*}
+	exakt ist.
+\end{satz}
+
+\begin{defi}
+	$\mathcal{A}, \mathcal{B}$ abelsche Kategorien, $F: \mathcal{A} \to \mathcal{B}$ additiver Funktor.\\
+	$F$ heißt exakt $\Leftrightarrow F$ überführt kurze exakte Folgen in $\mathcal{A}$ in kurze exakte Folgen in $\mathcal{B}$\\
+	linksexakt $\Leftrightarrow$ Für jede exakte Folge $0 \to M' \to M \to M''$ in $\mathcal{A}$ ist die Folge $0 \to FM' \to FM \to FM''$ exakt.\\
+	rechtsexakte $\Leftrightarrow$ Für jede exakte Folge $M' \to M \to M'' \to 0$ in $\mathcal{A}$ ist die Folge $FM' \to FM \to FM'' \to 0$ exakt.
+\end{defi}
+
+\textbf{Anmerkung:} $F$ exakt $\Leftrightarrow F$ links- und rechtsexakt $\Leftrightarrow$ Für alle exakte Folgen $A' \to A \to A''$ in $\mathcal{A}$ ist $FA' \to FA \to FA''$ exakt
+
+\begin{defi}
+	$\mathcal{A}$ abelsche Kategorie, $I, P \in Ob \mathcal{A}$\\
+	$I$ heißt injektiv $\Leftrightarrow$ Für jeden Monomorphismus $i: A \hookrightarrow B$ und jeden Morphismus $f: A \to I$ existiert ein Morphismus $g: B \to I$ mit $g \circ i = f$, d.h. $i_I^*: Hom_\mathcal{A} (B, I) \to Hom_\mathcal{A} (A, I)$ surjektiv $\xymatrix{ A \ar[d]_f \ar@{^{(}->}[r]^i & B \ar@[red]@{.>}[dl]^g\\
+	I &
+	}$\\
+	$P$ heißt projektiv $\Leftrightarrow P$ ist injektiv in $\mathcal{A}^{op}$, d.h. für jeden Epimorphismus $p: B \twoheadrightarrow A$ und jeden Morphismus $f: P \to A$ existiert ein Morphismus $g: P \to B$ mit $p \circ g = f:$ $\xymatrix{
+		& P \ar[d]_f \ar@[red]@{.>}[dl]^g\\
+		B \ar\ar@{->>}[r]_p & A
+	}$
+\end{defi}
+
+\begin{bem}
+	$\mathcal{A}$ abelsche Kategorie, $I \in Ob \mathcal{A}$. Dann sind äquivalent:\\
+	(i) $I$ injektiv\\
+	(ii) Der Funktor $Hom_\mathcal{A} (-, I): \mathcal{A}^{op} \to \ZZ$-Mod ist exakt.
+\end{bem}
+
+\begin{bem}
+	$\mathcal{A}$ abelsche Kategorie, $P \in Ob \mathcal{A}$. Dann sind äquivalent:\\
+	(i) $P$ projektiv\\
+	(ii) Der Funktor $Hom_\mathcal{A} (P, -): \mathcal{A} \to \ZZ$-Mod ist exakt.
+\end{bem}
+
+\begin{defi}
+	$\mathcal{C}, \mathcal{D}$ (additive) Kategorien, $F: \mathcal{C} \to \mathcal{D}$, $G: \mathcal{D} \to \mathcal{C}$ (additive) Funktoren\\
+	$F$ heißt linksadjungiert zu $G$ (und $G$ rechtsadjungiert zu $F$)\\
+	$\Leftrightarrow$ Es gib eine natürliche Äquivalenz \begin{align*}
+		Mor_\mathcal{C} (-, G-) \overset{\sim}{\Rightarrow} Mor_\mathcal{D}(F-,-)
+	\end{align*}
+	von Bifunktoren $\mathcal{C}^{op} \times \mathcal{D} \to$ Mengen (bzw. $\mathcal{C}^{op} \times \mathcal{D} \to \ZZ$-Mod im additiven Fall).\\
+	Notation: $F \dashv G$ 
+\end{defi}
+
+\begin{bsp}
+	$F: \text{Mengen} \to K$-VR, $M \mapsto K^{(M)}$, $G: K\text{-VR} \to$ Mengen Vergiss-Funktor\\
+	Es ist $Mor_{\text{Mengen}}(M, V) \underset{bij.}{\cong} Mor_{K-VR} (K^{(M)}, V)$ für alle Mengen $M$ und $K$-VR, wobei die naheliegenden Diagramme kommutieren, d.h. wir haben eine natürliche Äquivalenz \begin{align*}
+		Mor_{\text{Mengen}}(-, G-) \overset{\sim}{\Rightarrow} Mor_{K_VR} (F-, -), \text{ also } F \dashv G
+	\end{align*}
+\end{bsp}
+
+\begin{satz}
+	$\mathcal{A}, \mathcal{B}$ abelsche Kategorien, $F: \mathcal{A} \to \mathcal{B}$, $G: \mathcal{B} \to \mathcal{A}$ additive Funktoren mit $F \dashv G$.\\
+	Dann gilt:\\
+	(a) $F$ ist rechtsexakt\\
+	(b) Ist $F$ exakt, dann überführt $G$ injektive Objekte aus $\mathcal{B}$ in injektive Objekte aus $\mathcal{A}$\\
+	(c) $G$ ist linksexakt\\
+	(d) Ist $G$ exakt, dann überführt $F$ projektive Objekte aus $\mathcal{A}$ in projektive Objekte aus $\mathcal{B}$.
+\end{satz}
+
+\begin{defi}
+	$\mathcal{C}, \mathcal{D}$ Kategorien, $F: \mathcal{C} \to \mathcal{D}$ Funktor\\
+	$F$ heißt volltreu $\Leftrightarrow$ Für alle $A, B \in Ob \mathcal{C}$ ist die Abbildung $Mor_\mathcal{C} (A, B) \longrightarrow Mor_\mathcal{D} (FA, FB)$, $f \mapsto F(f)$ bijektiv.
+\end{defi}
+
+\begin{satz}
+	(Einbettungssatz von Freyd-Mitchell)\\
+	$\mathcal{A}$ kleine abelsche Kategorie (d.h. $Ob \mathcal{A}$ ist eine Menge)\\
+	Dann exisitiert ein Ring $R$ und ein volltreuer exakter Funktor $F: \mathcal{A} \to R$-Mod
+\end{satz}
+
+\textbf{Anmerkung:} \begin{itemize}
+	\item $F$ induziert eine Äquivalenz zwischen $\mathcal{A}$ und einer vollen Unterkategorie von $R$-Mod (d.h. $\mathcal{C}$ ist eine Unterkategorei von $R$-Mod mit $Hom_\mathcal{C}(A, B) = Hom_{R-Mod} (A, B)$ für alle $A, B \in Ob \mathcal{C}$).
+	\item In $\mathcal{A}$ berechnete Kerne und Kokerne entsprechen über diese Äquivalenz Kernen und Kokernen in $R$-Mod\\
+	(Achtung: injektive/projektive Objekte korrespondieren im Allgemeinen nicht zu injektiven/projektiven $R$-Moduln).
+\end{itemize}
+
+\chapter{Projektive und injektive Moduln}
+
+\begin{satz}
+	$0 \to N' \overset{f}{\to} N \overset{g}{\to} N''$ Folge von $R$-Moduln. Dann sind äquivalent:\\
+	(i) $0 \to N' \overset{f}{\to} N \overset{g}{\to} N''$ exakt\\
+	(ii) Für jeden $R$-Modul $M$ ist die Folge abelscher Gruppen \begin{align*}
+		0 \to Hom_R (M, N') \overset{f_*^M}{\to} Hom_R(M,N) \overset{g_*^M}{\to} Hom_R(M, N'')
+	\end{align*}
+	exakt\\
+	Insbesondere ist der Funktor $Hom_R(M, -): R$-Mod $\to \ZZ$-Mod linksexakt.
+\end{satz}
+
+\textbf{Anmerkung:} Der Funktor $Hom_R(M, -)$ ist im Allgemeinen nicht exakt.
+
+\begin{bsp}
+	Sei $R = \ZZ$, $M = \ZZ/2 \ZZ$\\
+	Wir betrachten dei exakte Folge $0 \to \ZZ \overset{f}{\to} \ZZ \overset{\pi}{\to} \ZZ/2\ZZ \to 0$ von $\ZZ$-Moduln mit $f: \ZZ \to \ZZ$, $x \mapsto 2x$, $\pi$ kanonische Projektion\\
+	Die Abbildung $\pi_*^M: Hom_\ZZ(\ZZ/2\ZZ, \ZZ) \to Hom_\ZZ(\ZZ/2\ZZ, \ZZ/2\ZZ)$ ist nicht surjektiv, denn:\\
+	Für $\varphi \in Hom_\ZZ (\ZZ/2\ZZ, \ZZ)$ gilt: $0 = \varphi(\bar{0}) = \varphi(\bar{1} + \bar{1}) = \varphi(2 \cdot \bar{1}) = 2 \varphi(\bar{1})$, also $\varphi(\bar{1}) = 0$, d.h. $\varphi = 0$.\\
+	Insbesondere ist $\pi_*^M(\varphi) = \pi_*^M(0) = 0 \neq id_{\ZZ/2\ZZ}$.\\
+	Mit anderen Worten: $\ZZ/2\ZZ$ ist kein projektiver $\ZZ$-Modul
+\end{bsp}
+
+\begin{satz}
+	$P$ $R$-Modul. Dann sind äquivalent:\\
+	(i) $P$ ist ein projektiver $R$-Modul\\
+	(ii) $Hom_R (P, -): R$-Mod $\to \ZZ$-Mod ist exakt\\
+	(iii) Für jeden Epimorphismus $\pi: M \twoheadrightarrow N$ von $R$-Moduln und jedem Homomorphismus $\varphi: P \to N$ existiert ein Homomorphismus $\psi: P \to M$ mit $\pi \circ \psi \varphi$: $\xymatrix{
+		& P \ar[d]_\varphi \ar@[red]@{.>}[dl]^\psi\\
+		M \ar\ar@{->>}[r]_p\pi & N
+	}$
+	(iv) Jede kurze exakte Folge $0 \to L \to M \to P \to 0$ von $R$-Moduln spaltet.\\
+	(v) Es gibt einen $R$-Modul $P'$, sodass $P \oplus P'$ ein freier $R$-Modul ist (d.h. $P$ ist direkter Summand einer freien $R$-Moduls). 
+\end{satz}
+
+\begin{folg}
+	$ $\\
+	(a) Jeder freie $R$-Modul ist ein projektiver $R$-Modul\\
+	(b) Jeder $R$-Modul ist Faktormodul eines projektiven $R$-Moduls
+\end{folg}
+
+\begin{satz}
+	$M' \overset{f}{\to} M \overset{g}{\to} M'' \to 0$ Folge von $R$-Moduln. Dann sind äquivalent:\\
+	(i) $M' \overset{f}{\to} M \overset{g}{\to} M'' 0$ ist exakt.\\
+	(ii) Für jeden $R$-Modul $N$ ist die Folge abelscher Gruppen \begin{align*}
+		0 \to Hom_R(M'', N) \overset{g_N^*}{\to} Hom_R(M, N) \overset{f_N^*}{\to} Hom_R(M', N)
+	\end{align*}
+	exakt.\\
+	Insbesondere ist der kontravariante Funktor: $Hom_R(-, N) : R$-Mod $\to \ZZ$-Mod linksexakt.
+\end{satz}
+
+\textbf{Anmerkung:} $Hom_R(-,N)$ ist im Allgemeinen nicht exakt.
+
+\begin{bsp}
+	Sei $R = \ZZ$, $N = \ZZ$\\
+	Wir betrachten die exakte Folge $0 \to \ZZ \overset{f}{\to} \ZZ \overset{\pi}{\to} \ZZ/2\ZZ \to 0$ von $\ZZ$-Moduln mit $f: \ZZ \to \ZZ$, $x \mapsto 2x$, $\pi$ kanonische Projektion\\
+	Die Abbildung $f_\ZZ^*: Hom_\ZZ (\ZZ, \ZZ) \to Hom_\ZZ (\ZZ, \ZZ)$ ist nicht surjektiv, denn für alle $\varphi \in Hom_\ZZ (\ZZ, \ZZ)$ ist $(f^*_\ZZ (\varphi)) (x) = (\varphi \circ f)(x) = \varphi(2x) = 2 \varphi (x) \in 2 \ZZ$, insbesondere ist $f_\ZZ^* (\varphi) \neq id_\ZZ$.\\
+	Mit anderen Worten: $\ZZ$ ist kein injektiver $\ZZ$-Modul.
+\end{bsp}
+
+\begin{satz}
+	$Q$ $R$-Modul. Dann sind äquivalent:\\
+	(i) $Q$ ist ein injektiver $R$-Modul\\
+	(ii) $Hom_R(-,Q): R$-Mod $\to \ZZ$-Mod ist exakt\\
+	(iii) Für jeden Monomorphismus $\iota: L \to M$ von $R$-Moduln und jedem Homomorphismus $\varphi: L \to Q$ existiert ein Homomorphismus $\psi: M \to Q$ von $R$-Moduln mit $\psi \circ \iota = \varphi$ \begin{align*}
+		\xymatrix{ L \ar[d] \ar@{^{(}->}[r]^\sim & M \ar@[red]@{.>}[dl]^\psi\\
+			Q &
+		}
+	\end{align*} 
+	(iv) Jede kurze exakte Folge $0 \to Q \to M \to N \to 0$ von $R$-Moduln spaltet.
+\end{satz}
+
+\begin{bsp}
+	$K$ Körper, $V$ $K$-Vektorraum\\
+	Dann ist $V$ ein injektiver $K$-Modul, denn für jede exakte Folge $0 \to V \to M \to N \to 0$ von $K$-Moduln ist $N$ ein freier $K$-Modul, d.h. die Folge spaltet.
+\end{bsp}
+
+\begin{satz}
+	(Baer-Kriterium)\\
+	$Q$ $R$-Modul. Dann sind äquivalent:\\
+	(i) $Q$ ist ein injektiver $R$-Modul\\
+	(ii) Für jedes Linksideal $I \subseteq R$ und jede $R$-lineare Abbildung $\varphi: I \to Q$ existiert eine $R$-lineare Abbildung $\psi: R \to Q$ mit $\psi|_I = \varphi$ \begin{align*}
+	\xymatrix{ I \ar[d]_\varphi \ar@{^{(}->}[r] & R \ar@{.>}[dl]^\psi\\
+		Q &
+	}
+	\end{align*}
+\end{satz}
+
+\begin{defi}
+	$A$ Integritätsbereich (kommutativer nullteilerfreier Ring), $M$ $A$-Modul\\
+	$M$ heißt teilbar $\Leftrightarrow$ Für alle $a \in A \backslash \{0\}$ ist $aM = M$\\
+	\hspace*{21.2mm} $\Leftrightarrow$ Für alle $x \in M$, $a \in A \backslash \{0\}$ existiert ein $y \in M$ mit $x = ay$
+\end{defi}
+
+\begin{bem}
+	$A$ Integritätsbereich, $M$ injektiver $A$-Modul.\\
+	Dann ist $M$ teilbar.
+\end{bem}
+
+\begin{bem}
+	$A$ Hauptidealring, $M$ $A$-Modul\\
+	Dann sind äquivalent:\\
+	(i) $M$ injektiv\\
+	(ii) $M$ teilbar
+\end{bem}
+
+\begin{bsp}
+	$ $\\
+	(a) $K$ Körper, $V$ $K$-Vektorraum $\Rightarrow$ $V$ teilbarer $K$-Modul, also injektiver $K$-Modul.\\
+	Ist $char(K) = 0$, dann ist $V$ teilbarer $\ZZ$-Modul, also injektiver $\ZZ$-Modul
+	(b) Faktormoduln teilbarer $\ZZ$-Moduln sind teilbar, somit sind Faktormoduln injektiver $\ZZ$-Moduln wieder injektive $\ZZ$-Moduln.\\
+	(c) Nach (a) sind $\QQ$, $\RR$ injektive $\ZZ$-Moduln, nach (b) also auch $\QQ/\ZZ$, $\RR/\ZZ$
+\end{bsp}
+
+\textbf{Ziel:} injektive $R$-Moduln = direkte Faktoren von kofreien $R$-Moduln\\
+
+\textbf{Anmerkung:} $M$ $\ZZ$-Modul\\
+Dann ist $Hom_\ZZ(R, M)$ via $(a\varphi)(r) := \varphi(ra)$ ein $R$-Modul\\
+(beachte: $b(a\varphi)(r) = (a\varphi)(rb) = \varphi(rba) = ((ba) \varphi)(r))4$\\
+
+\begin{bem}
+	Dann ist $Hom_\ZZ(R,M)$ ein injektiver $R$-Modul.\\
+	Insbesondere ist $R^V := Hom_\ZZ(R, \QQ/\ZZ)$ ein injektiver $R$-Modul
+\end{bem}
+
+\begin{defi}
+	$M$ $R$-Modul\\
+	$M$ heißt kofrei $\Leftrightarrow$ Es existiert eine Menge $I$ mit $M \cong (R^V)^I = \prod\limits_{i \in I} R^V$
+\end{defi}
+
+\begin{bem}
+	$(M_i)_{i \in I}$ Familie von $R$-Moduln. Dann gilt:\\
+	(a) $\bigoplus\limits_{i \in I} M_i$ ist ein projektiver $R$-Modul $\Leftrightarrow$ $M_i$ projektiver $R$-Moduln für alle $i \in I$\\
+	(b) $\prod\limits_{i \in I} M_i$ ist injektiver $R$-Modul $\Leftrightarrow M_i$ injektiver $R$-Moduln für alle $i \in I$.
+\end{bem}
+
+\begin{satz}
+	$M$ kofreier $R$-Modul. Dann ist $M$ ein injektiver $R$-Modul.
+\end{satz}
+
+\begin{bem}
+	$M$ $R$-Modul, $m \in M$, $m \neq 0$\\
+	Dann existiert ein $R$-Modulhomomorphismus $\varphi: M \to R^V$ mit $\varphi(m) \neq 0$
+\end{bem}
+
+\begin{satz}
+	Jeder $R$-Modul ist Untermodul eines kofreien, also insbesondere eines injektiven $R$-Moduls.
+\end{satz}
+
+\begin{folg}
+	$Q$ $R$-Modul. Dann sind äquivalent:\\
+	(i) $Q$ ist injektiv\\
+	(ii) Es gibt einen $R$-Modul $Q'$, sodass  $Q \times Q'$ ein kofreier $R$-Modul ist (d.h. $Q$ ist direkter Faktor eines kofreien $R$-Moduls)
+\end{folg}
+
+\chapter{Komplexe} 
+
+In diesem Abschnitt sei $\mathcal{A}$ stets eine abelsche Kategorie\\
+
+\begin{defi}
+	Ein Komplex $A^\point$ in $\mathcal{A}$ ist eine Familie $(A^i, d_i)_{i \in \ZZ}$ von Objekten $A^i \in Ob \mathcal{A}$ und Morphismen $d_i: A^i \to A^{i+1}$ (Differentiale) \begin{align*}
+	\ldots A^{-1} \overset{d_{-1}}{\to} A^0 \overset{d_0}{\to} A_1 \overset{d_1}{\to} A_2 \to \ldots
+	\end{align*} 
+	sodass $d_i \circ d_{i-1} = 0$ für alle $i \in \ZZ$ gilt.\\
+	Ein Komplexhomomorphismus $f: A^\point \to B^\point$ von einem Komplex $A^\point$ in $\mathcal{A}$ in einem Komplex $B^\point$ in $\mathcal{A}$ ist eine Familie $f = (f_i)_{i \in \ZZ}$ von Homomorphismen $f_i: A^i \to B^i$, sodass für alle $i \in \ZZ$ gilt:\\
+	$d_i \circ f_i = f_{i+1} \circ d_i$, d.h. das Diagramm  \begin{align*}
+	\begin{tikzpicture}{
+		\node (00) at (1,4) {$ \ldots $};
+		\node (01) at (3,4) {$ A^{i-1} $};
+		\node (02) at (5,4) {$ A^i $};
+		\node (03) at (7,4) {$ A^{i+1} $};
+		\node (04) at (9,4) {$ \ldots $};
+		\node (10) at (1,2) {$ \ldots $};
+		\node (11) at (3,2) {$ B^{i-1} $};
+		\node (12) at (5,2) {$ B^i $};
+		\node (13) at (7,2) {$ B^{i+1} $};
+		\node (14) at (9,2) {$ \ldots $};
+		\draw[->] (00) edge (01);
+		\draw[->] (03) edge (04);
+		\draw[->] (10) edge (11);
+		\draw[->] (13) edge (14);
+		\draw[->] (01) edge node[above] {$ d_{i-1} $} (02);
+		\draw[->] (02) edge node[above] {$ d_i $} (03);
+		\draw[->] (11) edge node[below] {$ d_{i-1} $} (12);
+		\draw[->] (12) edge node[below] {$ d_i $} (13);
+		\draw[->] (01) edge node[left] {$ f_{i-1} $} (11);
+		\draw[->] (02) edge node[left] {$ f_i $} (12);
+		\draw[->] (03) edge node[left] {$ f_{i+1} $} (13);} 
+	\end{tikzpicture} \end{align*} 
+	kommutiert
+\end{defi}
+
+\textbf{Anmerkung:} Komplexe in $\mathcal{A}$ zusammen mit Komplexhomomorphismen bilden eine abelsche Kategorie (Kerne, Kokerne, endliche Produkte separat an jeder Stelle bilden) 
+
+\begin{bem}
+	$A^\point$ Komplex in $\mathcal{A}$\\
+	Dann induzieren die Differentiale in natürlicher Weise Monomorphismen $im(d_{i-1}) \to \ker(d_i)$, $i \in \ZZ$
+\end{bem}
+
+\begin{defi}
+	$A^\point$ Komplex in $\mathcal{A}$\\
+	$Z^i(A^\point) := \ker(d_i)$ heißen die $i$-Kozykel von $A^\point$\\
+	$B^i(A^\point) := im(d_{i-1})$ heißen die $i$-Koränder von $A^\point$\\
+	$H^i(A^\point) := \coker(im(d_{i-1}) \to \ker (d_i)) = \coker(B^i(A^\point) \to Z^i(A^\point))$ heißt die $i$-te Kohomologie von $A$.
+\end{defi}
+
+\textbf{Anmerkung:} Ein Komplexhomomorphismus $f: A^\point \to B^\point$ induziert Homomorphismen $Z^i(f): Z^i A^\point \to Z^i B^\point$, $B^i(f): B^iA^\point \to B^i B^\point$, $H^i(f): H^i A^\point \to H^i B^\point$ 
+
+\begin{satz}
+	(Lange exakte Kohomologiefolge)\\
+	$0 \to A^\point \to B^\point \to C^\point \to 0$ kurze exakte Folge von Komplexen in $\mathcal{A}$ (d.h. die Morphismen sind Komplexhomomorphismen und für jedes $i \in \ZZ$ ist $0 \to A^i \to B^i \to C^i \to 0$ existent)\\
+	Dann existiert eine natürliche lange exakte Folge \begin{align*}
+	\ldots \to H^i(A^\point) \to H^i(B^\point) \to H^i(C^\point) \to H^{i+1}(A^\point) \to H^{i+1}(B^\point) \to H^{i+1}(C^\point) \to \ldots
+	\end{align*}
+\end{satz}
+
+\begin{defi}
+	$A \in Ob \mathcal{A}$\\
+	Eine injektive Auflösung von $A$ ist ein Komplex \begin{align*}
+	I^\point: I^0 \overset{d_0}{\to} I^1 \overset{d_1}{\to} I^2 \to \ldots
+	\end{align*}
+	bestehend aus injektiven Objekten $I^i$ aus $\mathcal{A}$ mit $I^i = 0$ für $i <0$ zusammen mit einem Morphismus $\epsilon: A \to I^0$, sodass der augmentierte Komplex \begin{align*}
+	0 \to A \overset{\epsilon}{\to} I^0 \overset{d_0}{\to} I^1 \overset{d_1}{I^2} \to \ldots
+	\end{align*}
+	exakt ist (Notation: $A \to I^\point$ injektive Auflösung von $A$)\\
+	
+	Eine projektive Auflösung von $A$ ist eine injektive Auflösung von $A$ in $\mathcal{A}^{op}$, d.h. ein Komplex \begin{align*}
+	P^\point : \ldots \to P^{-2} \to P^{-1} \to \P^0
+	\end{align*}
+	aus projektiven Objekten $P^i$ aus $\mathcal{A}$ mit $P^i = 0$ für $i > 0$ zusammen mit einem Morphismus $\epsilon: P^0 \to A$ sodass der augmentierte Komplex \begin{align*}
+		\ldots \to P^{-2} \to P^{-1} \to P^0 \overset{\epsilon}{\to} A \to 0
+	\end{align*}
+	exakt ist (Notation: $P^\point \to A$ projektive Auflösung $A$)
+\end{defi}
+
+\textbf{Anmerkung:} Man schreibt in obiger Situation auch $P_i = P^{-i}$ und $H_i(-) = H^{-i}(-)$
+
+\begin{defi}
+	$\mathcal{A}$ hat genügend viele Injektive $\Leftrightarrow$ Für jedes $A \in Ob(\mathcal{A})$ existiert ein injektives Objekt $I \in Ob \mathcal{A}$ und ein Monomorphismus $i: A \to I$\\
+	$\mathcal{A}$ hat genügend viele Projektive $\Leftrightarrow$ $\mathcal{A}^{op}$ hat genügend viele Injektive.
+\end{defi}
+
+\begin{bsp}
+	$R$-Mod hat nach 6.0.19 genügend viele Injektive und nach 6.0.4 genügend viele Projektive.
+\end{bsp}
+
+\begin{bem}
+	$A \in Ob \mathcal{A}$. Dann gilt:\\
+	(a) Hat $\mathcal{A}$ genügend viele Injektive, dann hat $A$ eine injektive Auflösung\\
+	(b) Hat $\mathcal{A}$ genügend viele Projektive, dann hat $A$ eine projektive Auflösung
+\end{bem}
+
+\begin{satz}
+	(Hufeisenlemma)\\
+	$\mathcal{A}$ habe genügend viele Injektive. Gegeben sei ein Diagramm (schwarz) \begin{align*}
+		\begin{tikzpicture}{
+		\node (01) at (3,8) {$ 0 $};
+		\node (02) at (5,8) {$ \color{green}{0} $};
+		\node (03) at (7,8) {$ \color{green}{0} $};
+		\node (10) at (1,6) {$ 0 $};
+		\node (11) at (3,6) {$ A' $};
+		\node (12) at (5,6) {$ I'^0 $};
+		\node (13) at (7,6) {$ I'^1 $};
+		\node (14) at (9,6) {$ \ldots $};
+		\node (20) at (1,4) {$ \color{green}{0} $};
+		\node (21) at (3,4) {$ A $};
+		\node (22) at (5,4) {$ \color{green}{I^0} $};
+		\node (23) at (7,4) {$ \color{green}{I^1} $};
+		\node (24) at (9,4) {$ \ldots $};
+		\node (30) at (1,2) {$ 0 $};
+		\node (31) at (3,2) {$ A'' $};
+		\node (32) at (5,2) {$ I''^0 $};
+		\node (33) at (7,2) {$ I''^1 $};
+		\node (34) at (9,2) {$ \ldots $};
+		\node (41) at (3,0) {$ 0 $};
+		\node (42) at (5,0) {$ \color{green}{0} $};
+		\node (43) at (7,0) {$ \color{green}{0} $};
+		\draw[->] (01) edge (11);
+		\draw[green][->] (02) edge (12);
+		\draw[green][->] (03) edge (13);
+		\draw[->] (10) edge (11);
+		\draw[->] (11) edge (12);
+		\draw[->] (12) edge (13);
+		\draw[->] (13) edge (14);
+		\draw[->] (11) edge (21);
+		\draw[green][->] (12) edge (22);
+		\draw[green][->] (13) edge (23);
+		\draw[green][->] (20) edge (21);
+		\draw[green][->] (21) edge (22);
+		\draw[green][->] (22) edge (23);
+		\draw[green][->] (23) edge (24);
+		\draw[->] (21) edge (31);
+		\draw[green][->] (22) edge (32);
+		\draw[green][->] (23) edge (33);
+		\draw[->] (30) edge (31);
+		\draw[->] (31) edge (32);
+		\draw[->] (32) edge (33);
+		\draw[->] (33) edge (34);
+		\draw[->] (31) edge (41);
+		\draw[green][->] (32) edge (42);
+		\draw[green][->] (33) edge (43);}
+		\end{tikzpicture} \end{align*} 
+	in $\mathcal{A}$, wobei die linke Spalte exakt sei, $A' \to I'^{\point}$ eine injektive Auflösung von $A'$, $A'' \to I''^\point$ eine injektive Auflösung von $A''$. Dann lässt sich das Diagramm so zu einem kommutativen Diagramm ergänzen \color{green}{(grün)}\color{black}, dass $A \to I^\point$ eine injektive Auflösung von $A$ ist und die Spalten alle exakt sind.
+\end{satz}
+
+Frage: In welchem Verhältnis stehen zwei injektive Auflösungen eines Objekts? 
+
+\begin{defi}
+	$A^\point, B^\point$ Komplexe in $\mathcal{A}$, $f,g : A^\point \to B^\point$ Komplexhomomorphismus.\\
+	$f, g$ heißen homotop ($f \sim g$) $\Leftrightarrow$ Es existieren Homomorphismen $s^i: A^{i+1} \to B^i$ für alle $i \in \ZZ$ mit \begin{align*}
+		f_i - g_i = d_{i-1} \circ s^{i-1} + s^i \circ d_i
+	\end{align*} \begin{align*}
+	\begin{tikzpicture}{
+	\node (30) at (1,2) {$ \ldots $};
+	\node (31) at (3,2) {$ A^{i-1} $};
+	\node (32) at (5,2) {$ A^i $};
+	\node (33) at (7,2) {$ A^{i+1} $};
+	\node (34) at (9,2) {$ \ldots $};
+	\node (40) at (1,0) {$ \ldots $};
+	\node (41) at (3,0) {$ B^{i-1} $};
+	\node (42) at (5,0) {$ B^i $};
+	\node (43) at (7,0) {$ B^{i+1} $};
+	\node (44) at (9,0) {$ \ldots $};
+	\draw[->] (30) edge (31);
+	\draw[->] (31) edge (32);
+	\draw[->] (32) edge node[above] {$d_i$} (33);
+	\draw[->] (33) edge (34);
+	\draw[->] ([xshift= 1* 0.1 cm]31.south) -- ([xshift= 1* 0.1cm]41.north);
+	\draw[->] ([xshift=-1* 0.1 cm]31.south) -- ([xshift= -1* 0.1cm]41.north);
+	\draw[->] ([xshift= 1* 0.1 cm]32.south) -- node[right] {$g_i$} ([xshift= 1* 0.1cm]42.north);
+	\draw[->] ([xshift=-1* 0.1 cm]32.south) -- node[left] {$f_i$} ([xshift= -1* 0.1cm]42.north);
+	\draw[->] ([xshift= 1* 0.1 cm]33.south) -- ([xshift= 1* 0.1cm]43.north);
+	\draw[->] ([xshift=-1* 0.1 cm]33.south) -- ([xshift= -1* 0.1cm]43.north);
+	\draw[green][->] (32) edge node[below] {$s^{i-1}$} (41);
+	\draw[green][->] (33) edge node[below] {$s^i$} (42);
+	\draw[->] (40) edge (41);
+	\draw[->] (41) edge node[below] {$d_{i-1}$} (42);
+	\draw[->] (42) edge (43);
+	\draw[->] (43) edge (44);}	
+	\end{tikzpicture}	
+	\end{align*}
+\end{defi}
+\textbf{Anmerkung:} \begin{itemize}
+	\item Homotopie von Komplexhomomorphismen ist eine Äquivalenzrelation
+	\item Sind $f, g: A^\point \to B^\point$ Komplexhomomorphismen mit $f \sim g$ und $F: \mathcal{A} \to \mathcal{B}$ ein additiver Funktor von $\mathcal{A}$ in  eine abelsche Kategorie $\mathcal{B}$, dann erhalten wir einen Komplexhomomorphismen $Ff, Fg: FA^\point \to FB^\point$ mit $Ff \sim Fg$
+\end{itemize}
+
+\begin{bem}
+	$A^\point$, $B^\point$ Komplexe in $\mathcal{A}$, $f,g: A^\point \to B^\point$ Komplexhomomorphismen mit $f \sim g$\\
+	Dann gilt: $H^i(f) = H^i(g): H^i(A^\point) \to H^i(B^\point)$
+\end{bem}
+\newpage
+\begin{defi}
+	$A^\point$, $B^\point$ Komplexe in $\mathcal{A}$, $f: A^\point \to B^\point$ Komplexhomomorphismus\\
+	$f$ heißt \textbf{Homotopieäquivalenz} $\Leftrightarrow$ es existiert ein $g:B^\point \to A^\point$ Komplexhomomorphismus mit $g \circ f \sim id_{A^\point}$ und \hspace*{49mm} $f \circ g \sim id_{B^\point}$\\
+	\hspace*{11mm} \textbf{Quasiisomorphismus} $\Leftrightarrow$ für alle $i \in \ZZ$ ist $H^if: H^iA^\point \to H^iB^\point$ ein Isomorphismus
+\end{defi}
+
+\begin{bem}
+	$A^\point, B^\point$ Komplexe in $\mathcal{A}$, $f: A^\point \to B^\point$ Homotopieäquivalenz\\
+	Dann ist $f$ ein Quasiisomorphismus 
+\end{bem}
+
+\textbf{Anmerkung:} Nicht jeder Quasiisomorphismus ist eine Homotopieäquivalenz
+
+\begin{satz}
+	Gegeben sei folgendes Diagramm von Komplexen in $\mathcal{A}$ \begin{align*}
+	\begin{tikzpicture}{
+		\node (30) at (1,2) {$0$};
+		\node (31) at (3,2) {$ A $};
+		\node (32) at (5,2) {$ E^0 $};
+		\node (33) at (7,2) {$ E^1 $};
+		\node (34) at (9,2) {$ \ldots $};
+		\node (40) at (1,0) {$ 0 $};
+		\node (41) at (3,0) {$ B $};
+		\node (42) at (5,0) {$ I^0 $};
+		\node (43) at (7,0) {$ I^1 $};
+		\node (44) at (9,0) {$ \ldots $};
+		\draw[->] (30) edge (31);
+		\draw[->] (31) edge node[above] {$\epsilon$} (32);
+		\draw[->] (32) edge (33);
+		\draw[->] (33) edge (34);
+		\draw[->] (31) edge node[left] {$\varphi$} (41);
+		\draw[red][->, densely dotted] (32) edge node[right] {$f_0$} (42);
+		\draw[red][->, densely dotted] (33) edge node[right] {$f_1$} (43);
+		\draw[->] (40) edge (41);
+		\draw[->] (41) edge node[below] {$\eta$} (42);
+		\draw[->] (42) edge (43);
+		\draw[->] (43) edge (44);}
+	\end{tikzpicture}
+	\end{align*}
+	sodass gilt: \begin{itemize}
+		\item Die obere Zeile ist exakt
+		\item Alle $I^i$, $i \geq 0$ sind injektiv
+	\end{itemize}
+	Dann existiert ein Komplexhomomorphismus $f: E^\point \to I^\point$, der $\varphi$ fortsetzt in dem Sinne, dass $f_0 \circ \epsilon = \eta \circ \varphi$. Ist $g: E^\point \to I^\point$ ein weiterer solcher Komplexhomomorphismen, dan ist $g \sim f$
+\end{satz}
+
+\begin{folg}
+	$A \in Ob \mathcal{A}$, $A \overset{\epsilon}{\longrightarrow} I^\point$, $A \overset{\eta}{\longrightarrow} J^\point$ injektive Auflösungen von $A$. Dann existiert eine Homotopieäquivalenz $f: I^\point \to J^\point$ mit $f_0 \circ \epsilon = \eta$, diese ist eindeutig bestimmt bis auf Homotopie.
+\end{folg}
+
+\begin{folg}
+	$I^\point$ exakter Komplex von injektiven Objekten in $\mathcal{A}$ mit $I^i = 0$ für $i << 0$. Dann ist $0^\point \to I^\point$ eine Homotopieäquivalenz.
+\end{folg}
+
+\chapter{Abgeleitete Funktoren} 
+
+In diesem Abschnitt sei $\mathcal{A}$ eine abelsche Kategorie mit genügend vielen Injektiven, $\mathcal{B}$ eine abelsche Kategorie und $F: \mathcal{A} \to \mathcal{B}$ ein linksexakter additiver Funktor
+
+\begin{bem}
+	$i \geq 0$. Für jedes Objekt $A \in Ob \mathcal{A}$ fixieren wir eine injektive Auflösung $A \to I^\point$ von $A$ und setzen \begin{align*}
+		R^iF(A) := H^i(FI^\point)
+	\end{align*}
+	Ist $\varphi: A \to A'$ ein Morphismus in $\mathcal{A}$ und sind $A \to I^\point$, $A' \to I'^\point$ injektive Auflösungen von $A, A'$, dann existieren ein bis auf Homotopie eindeutig bestimmten $f: I^\point \to I'^\point$, das $\varphi$ fortsetzt.\\
+	Wir setzen $R^iF(\varphi) := H^i(Ff)$.\\
+	Auf diese Weise wird $R^iF: \mathcal{A} \to \mathcal{B}$ zu einem additiven Funktor.\\
+	Wird auf dieselbe Art und Weise mit einer anderen Wahl von injektiven Auflösungen ein Funktor $\hat{R^iF}: \mathcal{A} \to \mathcal{B}$ konstruiert, dann sind $R^iF(A)$ und $\hat{R^iF}(A)$ kanonisch isomorph für alle $A \in Ob \mathcal{A}$, und es gibt eine natürliche Äquivalenz $R^iF \overset{\sim}{\Rightarrow} \hat{R^iF}$\\
+	$R^iF$ heißt der \textbf{i-te rechtsabgeleitete Funktor} von $F$.
+\end{bem}
+
+\begin{bem}
+	Es gilt:\\
+	(a) $R^\circ F = F$\\
+	(b) Ist $F$ exakt, dann ist $R^iF = 0$ für alle $i > 0$
+\end{bem}
+
+\begin{satz}
+	$0 \to A' \to A \to A'' \to O$ exakte Folge in $\mathcal{A}$.\\
+	Dann existieren natürliche Morphismen \begin{align*}
+		\delta^i: R^iF(A'') \longrightarrow R^{i+1}F(A') \hspace*{3mm} \text{für jedes } i \geq 0,
+	\end{align*}
+	sodass die Folge \begin{eqnarray*}
+		0 &\to& FA' \to FA \to FA''\\
+		&\overset{\delta^0}{\to}& R^1FA' \to R^1FA \to R^1FA''\\
+		&\to& \ldots\\
+		&\vdots&\\
+		&\to& R^iFA' \to R^iFA \to R^iFA''\\
+		&\overset{\delta^i}{\to}& R^{i+1}FA' \to R^{i+1}FA \to R^{i+1}FA''\\
+		&\to& \ldots
+	\end{eqnarray*}
+	exakt ist. Ist \begin{align*}
+	\begin{tikzpicture}{
+	\node (30) at (1,2) {$0$};
+	\node (31) at (3,2) {$ A' $};
+	\node (32) at (5,2) {$ A $};
+	\node (33) at (7,2) {$ A'' $};
+	\node (34) at (9,2) {$ 0 $};
+	\node (40) at (1,0) {$ 0 $};
+	\node (41) at (3,0) {$ B' $};
+	\node (42) at (5,0) {$ B $};
+	\node (43) at (7,0) {$ B'' $};
+	\node (44) at (9,0) {$ 0 $};
+	\draw[->] (30) edge (31);
+	\draw[->] (31) edge (32);
+	\draw[->] (32) edge (33);
+	\draw[->] (33) edge (34);
+	\draw[->] (40) edge (41);
+	\draw[->] (41) edge (42);
+	\draw[->] (42) edge (43);
+	\draw[->] (43) edge (44);
+	\draw[->] (31) edge (41);
+	\draw[->] (32) edge (42);
+	\draw[->] (33) edge (43);}
+	\end{tikzpicture}
+	\end{align*}
+	ein kommutatives Diagramm, wobei die untere Zeile exakt ist, so kommutiert für alle $i \geq 0$ das Diagramm \begin{align*}
+	\begin{xy}
+	\xymatrix{
+		R^iF(A'') \ar[r]^{\delta^i} \ar[d]   &   R^{i+1}F(A') \ar[d]\\
+		R^iF(B'') \ar[r]_{\delta_i} & R^{i+1}F(B') 
+	}
+	\end{xy}
+	\end{align*}
+\end{satz}
+
+\begin{defi}
+	$A \in Ob \mathcal{A}$\\
+	$A$ heißt \textbf{F-azylisch} $\Leftrightarrow$ $R^iF(A) = 0$ für alle $i \geq 1$
+\end{defi}
+
+\begin{bem}
+	$A \in Ob \mathcal{A}$ injektiv\\
+	Dann ist $A$ F-azyklisch
+\end{bem}
+
+\begin{satz}
+	$A \to J^\point$ Auflösung von $A$ durch F-azyklische Objekte, d.h. $J^\point$ ist ein Komplex mit $J^i = 0$ für $i < 0$ und $J^i$ F-azyklisch für $i \geq 0$, sodass der augmentierte Komplex \begin{align*}
+		 0 \longrightarrow A \longleftrightarrow J^1 \longrightarrow J^2 \longrightarrow \ldots
+	\end{align*}
+	exakt ist.\\
+	Dann gibt es einen kanonischen Isomorphismus $R^iF(A) \cong H^i(FJ^\point)$ für alle $i \geq 0$
+\end{satz}
+
+\textbf{Anmerkung:} Die Theorie der linksabgeleiteten rechtsexakten Funktoren lässt sich analog entwickeln:\\
+$\mathcal{A}$ abelsche Kategorie mit genügend vielen Projektiven, $\mathcal{B}$ abelsche Kategorie, $F: \mathcal{A} \to \mathcal{B}$ rechtsexakter Funktor. Wir wählen für jedes Objekt $A \in Ob \mathcal{A}$ eine projektive Auflösung $P_\point \to A$ und setzen \begin{align*}
+	 L_iF(A) := H_i(FP_\point)
+\end{align*}
+Rest analog
+
+\chapter{$delta$-Funktoren} 
+
+Im Folgenden seien $\mathcal{A}, \mathcal{B}$ abelsche Kategorien\\
+
+\begin{defi}
+	Ein \textbf{$\delta$-Funktor} $H = (H^n)_{n \geq 0}$ ist eine Familie additiver Funktoren $H^n: \mathcal{A} \to \mathcal{B}$ zusammen mit Homomorphismen $\delta: H^n(C) \to H^{n+1}(A)$ für alle $n \geq 0$ und jede kurze exakte Folge\\
+	$0 \to A \to B \to C \to 0$, sodass gilt: 
+	(D1) $\delta$ ist funktoriell, d.h. ist \begin{align*}
+	\begin{tikzpicture}{
+		\node (30) at (1,2) {$0$};
+		\node (31) at (3,2) {$ A $};
+		\node (32) at (5,2) {$ B $};
+		\node (33) at (7,2) {$ C $};
+		\node (34) at (9,2) {$ 0 $};
+		\node (40) at (1,0) {$ 0 $};
+		\node (41) at (3,0) {$ A' $};
+		\node (42) at (5,0) {$ B' $};
+		\node (43) at (7,0) {$ C' $};
+		\node (44) at (9,0) {$ 0 $};
+		\draw[->] (30) edge (31);
+		\draw[->] (31) edge (32);
+		\draw[->] (32) edge (33);
+		\draw[->] (33) edge (34);
+		\draw[->] (40) edge (41);
+		\draw[->] (41) edge (42);
+		\draw[->] (42) edge (43);
+		\draw[->] (43) edge (44);
+		\draw[->] (31) edge (41);
+		\draw[->] (32) edge (42);
+		\draw[->] (33) edge (43);}
+	\end{tikzpicture}
+	\end{align*}
+	ein kommutierendes Diagramm in $\mathcal{A}$ mit exakten Zeilen dann kommutiert \begin{align*}
+	\begin{xy}
+	\xymatrix{
+		H^n(C) \ar[r]^{\delta} \ar[d]   &   H^{n+1}(A) \ar[d]\\
+		H^n(C') \ar[r]_{\delta} & H^{n+1}(A') 
+	}
+	\end{xy}
+	\end{align*}
+	in $\mathcal{B}$ für alle $n \geq 0$.\\
+	(D2) Für jede kurze exakte Folge $0 \to A \to B \to C \to 0$ in $\mathcal{A}$ ist eine lange Folge \begin{align*}
+	\ldots \longrightarrow H^n(A) \longrightarrow H^n(B) \longrightarrow H^n(C) \overset{\delta}{\longrightarrow} H^{n+1}(A) \longrightarrow \ldots
+	\end{align*}
+	exakt in $\mathcal{B}$
+\end{defi}
+
+\begin{bsp}
+	$\mathcal{A}$ habe genügend  viele Injektive, $F: \mathcal{A} \to \mathcal{B}$ linksexakt\\
+	$\Rightarrow H:= (R^nF)_{n \geq 0}$ ist ein $\delta$-Funktor nach 8.0.3
+\end{bsp}
+
+\begin{defi}
+	$H = (H^n)_{n \geq 0}: \mathcal{A} \to \mathcal{B}$ $\delta$-Funktor\\
+	$H$ heißt \textbf{universell} $\Leftrightarrow$ Für jeden $\delta$-Funktor $H' = (H'^n)_{n \geq 0}: \mathcal{A} \to \mathcal{B}$ setzt sich jede natürliche Transformation $f^0: H^0 \Rightarrow H'^0$ eindeutig zu einem Homomorphismus von $\delta$-Funktoren fort, d.h. zu einer Familie $f = (f^n)_{n \geq 0}$ von natürlichen Transformationen $f^n: H^n \Rightarrow H'^n$, die auf naheliegende Weise mit den $\delta$'s verträglich sind.
+\end{defi}
+
+\begin{bem}
+	Sind $F, G$ universelle $\delta$-Funktoren mit $F^\circ = G^\circ$, dann gibt es eine kanonische natürliche Äquivalenz von $\delta$-Funktoren $F \overset{\sim}{\Rightarrow}$. 
+\end{bem}
+
+\begin{defi}
+	$F: \mathcal{A} \to \mathcal{B}$ additiver Funktor.\\
+	$F$ heißt auslöschbar $\Leftrightarrow$ Für jedes $A \in Ob \mathcal{A}$ existiert ein $A' \in Ob \mathcal{A}$ und ein Monomorphismus $u: A \hookrightarrow A'$ mit $F(u) = 0$
+\end{defi}
+
+\begin{satz}
+	$H = (H^n)_{n \geq 0}: \mathcal{A} \to \mathcal{B}$ $\delta$-Funktor, sodass $H^n$ auslöschbar für alle $n \geq 1$.\\
+	Dann ist $H$ universell.
+\end{satz}
+
+\begin{folg}
+	$\mathcal{A}$ have genügend viele Injektive, $F: \mathcal{A} \to \mathcal{B}$ linksexakt.\\
+	Dann ist $(R^nF)_{n \geq 0}$ ein universeller $\delta$-Funktor. 
+\end{folg}
+
+\chapter{Ext und Erweiterungen} 
+
+\begin{defi}
+	$M, N$ $R$-Moduln\\
+	Wir setzen $Ext_R^n(M,N) := R^n Hom_R(M,-)(N)$ für $n \geq 0$\\
+	Explizit: Wähle eine injektive Auflösung $N \to I^\point$ von $N$, dann ist \begin{align*}
+		Ext_R^n(M, N) = H^n(Hom_R(M, I^\point))
+	\end{align*}
+\end{defi}
+
+\begin{satz}
+	$M, N$ $R$-Moduln\\
+	Dann gibt es kanonische Isomorphismen \begin{align*}
+		Ext_R^n(M, N) \cong R^n Hom_R(-,N)(M)
+	\end{align*}
+	für alle $n \geq 0$, insbesondere kann $Ext_R^n (M, N)$ auch über eine projektive Auflösung $P_\point \to M$ von $M$ berechnet werden via $Ext_R^n(M, N) = H^n (Hom_R(P_\point, N))$
+\end{satz}
+
+\begin{satz}
+	$A$ Hauptidealring, $M, N$ $A$-Moduln\\
+	Dann gilt: $Ext_A^n (M, N) = 0$ für alle $n \geq 2$
+\end{satz}
+
+\begin{bem}
+	$M, N$ $R$-Moduln\\
+	$\mathcal{E} (M, N) := \{\text{exakte Folgen } 0 \to N \to E \to M \to 0 \text{ von $R$-Moduln}\}$
+	Wir definieren auf $\mathcal{E}(M, N)$ eine Relation ''$\sim$'' wie folgt:\\
+	$0 \to N \to E \to M \to 0$ $\sim$ $0 \to N \to E' \to M \to 0$\\
+	$\Leftrightarrow$ Es existiert ein Homomorphismus $\alpha: E \to E'$, sodass \begin{align*}
+	\begin{tikzpicture}{
+		\node (30) at (1,2) {$0$};
+		\node (31) at (3,2) {$ N $};
+		\node (32) at (5,2) {$ E $};
+		\node (33) at (7,2) {$ M $};
+		\node (34) at (9,2) {$ 0 $};
+		\node (40) at (1,0) {$ 0 $};
+		\node (41) at (3,0) {$ N $};
+		\node (42) at (5,0) {$ E' $};
+		\node (43) at (7,0) {$ M $};
+		\node (44) at (9,0) {$ 0 $};
+		\draw[->] (30) edge (31);
+		\draw[->] (31) edge (32);
+		\draw[->] (32) edge (33);
+		\draw[->] (33) edge (34);
+		\draw[->] (40) edge (41);
+		\draw[->] (41) edge (42);
+		\draw[->] (42) edge (43);
+		\draw[->] (43) edge (44);
+		\draw[->] (31) edge node[left] {id} (41);
+		\draw[->] (32) edge node[right] {$\alpha$} (42);
+		\draw[->] (33) edge node[right] {id} (43);}
+	\end{tikzpicture}
+	\end{align*}
+	kommutiert (nach dem Fünferlemma ist $\alpha$ ein Isomorphismus)\\
+	''$\sim$'' ist eine Äquivalenzrelation  auf $\mathcal{E}(M, N)$.\\
+	Wir setzen $E(M, N) := \mathcal{E}(M,N)/\sim$\\
+	$E(M,N)$ enthält ein ausgezeichnetes Element, die Äquivalenzklasse der spaltenden exakten Folge $0 \to N \to N \oplus M \to M \to 0$
+\end{bem}
+
+\begin{satz}
+	$M, N$ $R$-Moduln\\
+	Dann gibt es eine Bijektion $\Psi: E(M, N) \longrightarrow Ext_R^1(M, N)$
+\end{satz}
+
+\textbf{Anmerkung:} Das im Beweis konstruierte $\Psi$ ist unabhängig von der Wahl $\epsilon: P \twoheadrightarrow M$ und bildet die Klasse der spaltenden Erweiterungen auf das Nullelement in $Ext_R^1 (M, N)$ ab.
+
+\part{Kommutative Algebra} 
+
+In diesem Kapitel sei $A$ stets ein kommutativer Ring (mit Eins)
+
+\chapter{Grundlagen} 
+
+\begin{defi}
+	$A$ heißt \textbf{lokal} $\Leftrightarrow A$ besitzt genau ein maximales Ideal $\mathfrak{m}$.\\
+	In diesem Fall heißt $k := A/ \mathfrak{m}$ der \textbf{Restklassenkörper} von $A$. 
+\end{defi}
+
+\begin{bem}
+	$\mathfrak{m}\subseteq A$ maximales Ideal. Dann sind äquivalent:\\
+	(i) $A$ ist lokal mit maximales Ideal $m$\\
+	(ii) $A \backslash \mathfrak{m} \subseteq  A^*$\\
+	(iii) $A \backslash \mathfrak{m} = A^*$\\
+	(iv) $1 + \mathfrak{m} \subseteq A^*$
+\end{bem}
+
+\begin{defi}
+	$x \in A$. $x$ heißt nilpotent $\Leftrightarrow$ Es existiert ein $n \in \NN$ mit $x^n = 0$.
+\end{defi}
+
+\textbf{Anmerkung:} Ist $A \neq 0$, dann ist jedes nilpotente Element ein Nullteiler, Umkehrung ist im alllgemeinen falsch.
+
+\begin{bem}
+	$\mathcal{M}(A) := \{x \in A| x \text{ ist nilpotent}\}$ ist ein Ideal in $A$, das Nilradikal von $A$. Der Ring $A/\mathcal{M}(A)$ hat keine nilpotenten Elemente $\neq 0$
+\end{bem}
+
+\begin{satz}
+	$\mathcal{M}(A) = \bigcap\limits_{\mathfrak{p} \subseteq A \text{ Primid}} \mathfrak{p}$
+\end{satz}
+
+\begin{bem}
+	$\mathfrak{p}_1, \ldots, \mathfrak{p}_n$ Primideale in $A$, $\mathfrak{a} \subseteq A$ Ideal mit $\mathfrak{a} \subseteq \bigcup\limits_{i = 1}^n \mathfrak{p}_i$.\\
+	Dann existiert ein $j \in \{1, \ldots, n\}$ mit $\mathfrak{a} \subseteq \mathfrak{p}_j$
+\end{bem}
+
+\begin{bem}
+	$\mathfrak{a}_1, \ldots, \mathfrak{a}_n \subseteq A$ Ideale, $\mathfrak{p}$ Primideal in $A$ mit $\mathfrak{p} \supseteq \bigcap\limits_{i = 1}^n \mathfrak{a}_i$.\\
+	Dann existiert ein $j \in \{1, \ldots, n\}$ mit $\mathfrak{p} \supseteq \mathfrak{a}_j$.\\
+	Ist $\mathfrak{p} = \bigcap\limits_{i = 1}^n \mathfrak{a}_i$, dann existiert ein $j \in \{1, \ldots, n\}$ mit $\mathfrak{p} = \mathfrak{a}_j$
+\end{bem}
+
+\begin{bem}
+	$\mathfrak{a}, \mathfrak{b} \subseteq A$ Ideale, $a \in A$\\
+	$\mathfrak{a}: \mathfrak{b} := \{ x \in A| x \mathfrak{b} \subseteq \mathfrak{a}\}$ heißt der \textbf{Idealquotient} $\mathfrak{a}$ durch $\mathfrak{b}$\\
+	$\mathfrak{b} : \mathfrak{b}$ ist ein Ideal in $A$.\\
+	$ann(\mathfrak{a}) := (0): \mathfrak{a} = \{x \in A| x \mathfrak{a} = 0\}$ heißt der Annullator von $\mathfrak{a}$\\
+	$ann(a) := ann((a)) = \{x \in A| xa = 0\}$
+\end{bem}
+
+\textbf{Anmerkung:} \begin{itemize}
+	\item $\mathfrak{a} \mathfrak{b} \subseteq \mathfrak{c} \Leftrightarrow a \subseteq \mathfrak{c} : \mathfrak{b}$
+	\item Die Menge der Nullteiler von $A$ is gegeben durch $\bigcup\limits_{x \in A \backslash
+	 \{0\}} ann(x)$
+\end{itemize}
+
+\begin{bsp}
+	$A = \ZZ$, $m,n \in \ZZ$ mit $(m,n) \neq (0) \Rightarrow (m):(n) = (\frac{m}{ggT(m,n)})$ 
+\end{bsp}
+
+\begin{defi}
+	$\mathfrak{a} \subseteq A$ Ideal\\
+	$\sqrt{\mathfrak{a}} := \{x \in A| \text{Es ex. } n \in \NN \text{ mit } x^n \in \mathfrak{a}\}$ heißt das \textbf{Radikal} von $\mathfrak{a}$
+\end{defi}
+
+\textbf{Anmerkung:} \begin{itemize}
+	\item $\sqrt{(0)} = \mathcal{M}(A)$
+	\item Ist $\pi: A \to A/\mathfrak{a}$ die kanonische Projektion, dann ist\\
+	$\sqrt{\mathfrak{a}} = \{x \in A| \text{Es ex.} n \in \NN \text{ mit } x^n \in \mathfrak{a}\} = \{x \in A| \pi(x) \in \mathcal{M}(A/\mathfrak{a})\}\\ = \pi^{-1}(\mathcal{M}(A/\mathfrak{a})) = \pi^{-1}(\bigcap\limits_{\mathfrak{p} \subseteq A/\mathfrak{a} PI} \mathfrak{p}) = \bigcap\limits_{\stackrel{\mathfrak{p} \subseteq A PI}{\text{mit } \mathfrak{p} \supseteq \mathfrak{a}}} \mathfrak{p}$ \hspace*{3mm} (insbesondere is $\sqrt{\mathfrak{a}}$ ein Ideal)
+\end{itemize}
+
+\begin{defi}
+	$B$ kommutativer Ring, $f: A \to B$ Ringhomomorphismus, $\mathfrak{a} \subseteq A$ Ideal, $\mathfrak{b} \subseteq B$ Ideal.\\
+	$\mathfrak{a}^e := Bf(a) = \{\sum\limits_{endl} b_i f(a_i)| b_i \in B, a_i \in \mathfrak{a}\}$ heißt die \textbf{Erweiterung} von $\mathfrak{a}$ auf $B$.\\
+	$\mathfrak{b}^c := f^{-1}(\mathfrak{b})$ heißt die \textbf{Kontraktion} von $\mathfrak{b}$ auf $A$.
+\end{defi}
+
+\textbf{Anmerkung:} \begin{itemize}
+	\item $\mathfrak{a}^e, \mathfrak{b}^c$ sind Ideale in $B$ bzw. $A$
+	\item Wir können $f$ faktorisieren in $A \overset{p}{\twoheadrightarrow} im f \overset{i}{\hookrightarrow} B$\\
+	Die Situation für $p$ ist einfach, $i$ ist kompliziert.
+	\item $\mathfrak{q} \subseteq B$ Primideal $\Rightarrow \mathfrak{q}^c \subseteq A$ Primideal wegen $A/\underbrace{f^{-1}(\mathfrak{q})}_{\mathfrak{q}^c} \hookrightarrow \underbrace{B/\mathfrak{q}}_{\text{nullteilerfrei}}$ 
+	\item Ist $\mathfrak{p} \subseteq A$ Primideal, dann ist $\mathfrak{p}^e \subseteq B$ im Allgemeinen kein Primideal\\
+	(Übung: $p$ Primzahl mit $p = 1(\mod 4)$. Unter $f: \ZZ \hookrightarrow \ZZ[i]$ ist $(p)^e$ ein Produkt zweier verschiedener Primideale).
+\end{itemize}
+
+\begin{bem}
+	$B$ kommutativer Ring, $f: A \to B$ Ringhomomorphismus, $\mathfrak{a} \subseteq A$ Ideal, $\mathfrak{b} \subseteq B$ Ideal.\\
+	Dann gilt:\\
+	(a) $\mathfrak{a} \subseteq \mathfrak{a}^{ec}$\\
+	(b) $\mathfrak{a}^e = \mathfrak{a}^{ece}$\\
+	(c) $\mathfrak{b} \supseteq \mathfrak{b}^{ce}$\\
+	(d) $\mathfrak{b}^c = \mathfrak{b}^{cec}$
+\end{bem}
+
+\begin{satz}
+	$B$ kommutativer Ring, $f: A \to B$ Ringhomomorphismus\\
+	$C := \{\mathfrak{a} \subseteq A \text{ Ideal}|\mathfrak{a} \text{ ist Kontraktion eines Ideals aus } B\}$\\
+	$E := \{\mathfrak{b} \subseteq B \text{ Ideal}| \mathfrak{b} \text{ ist Erweiterung eines Ideals aus} A\}$\\
+	Dann gilt:\\
+	(a) $C = \{\mathfrak{a} \subseteq A \text{ Ideal}| \mathfrak{a}^{ec} = \mathfrak{a}\}$\\
+	(b) $E = \{\mathfrak{b} \subseteq B \text{ Ideal}| \mathfrak{b}^{ce} = \mathfrak{b}\}$\\
+	(c) Die Abbildungen $\phi: C \to E$, $\mathfrak{a} \mapsto \mathfrak{a}^e$ und $\psi:  E \to C$, $\mathfrak{b} \mapsto \mathfrak{b}^c$\\ 
+	sind zueinander inverse, inklusionserhaltende Bijektionen.
+\end{satz}
+
+\textbf{Erinnerung an LA:} $T \in M(n \times n, A) \rightsquigarrow T^\# \in M(n \times n, A)$ ist die komplementäre Matrix zu $T$. Es ist $T^\# \cdot T = T \cdot T^\# = \det(T)E_n$. (LA Satz 17.20) 
+
+\begin{satz}
+	$M$ endlich-erzeugter $A$-Modul, $\mathfrak{a} \subseteq A$ Ideal, $\varphi \in End_A(M)$ mit $\varphi(M) \subseteq \mathfrak{a}M$.\\
+	Dann existiert ein $n \in \NN$, $a_0, \ldots, a_{n-1} \in \mathfrak{a}$ mit \begin{align*}
+		\varphi^n + a_{n-1} \varphi^{n-1} + \ldots + a_1 \varphi + a_0 id_M = 0
+	\end{align*}
+\end{satz}
+
+\begin{folg}
+	$M$ endlich-erzeugter $A$-Modul, $\mathfrak{a} \subseteq A$ Ideal, mit $\mathfrak{a}M = M$\\
+	Dann existiert ein $a \in A$ mit $A \equiv 1 (mod \mathfrak{a})$ mit $aM = 0$
+\end{folg}
+
+\begin{satz}
+	(Nakagama-Lemma)\\
+	$A$ lokaler Ring mit maximalem Ideal $\mathfrak{m}$, $M$ endlich-erz. $A$-Modul. $M/\mathfrak{m}M = 0$\\
+	Dann ist $M = 0$.
+\end{satz}
+
+\begin{folg}
+	$A$ lokaler Ring mit maximalem ideal $\mathfrak{m}$, $M$ endlich-erz. $A$-Modul, $N \subseteq M$ Untermodul mit $M = \mathfrak{m}
+	M + N$. Dann ist $M = N$.
+\end{folg}
+
+\begin{folg}
+	$A$ lokaler Ring mit maximalem Ideal $\mathfrak{m}$, $M$ endlich erzeugter $A$-Modul, $x_1,\ldots, x_n \in M$.\\
+	Dann sind äquivalent:\\
+	(i) $x_1, \ldots, x_n$ ist ein Erzeugendensystem von $M$\\
+	(ii) Die Bilder $\overline{x}_1, \ldots, \overline{x}_n$ von $x_1, \ldots, x_n$ in $M/\mathfrak{m}M$ erzeugen den $A/MN$-Vektorraum $M/\mathfrak{m}M$
+\end{folg}
+
+\textbf{Anmerkung:} Wichtig: $M$ endlich-erzeugt ist eine Voraussetzung in 11.0.18
+
+\chapter{Lokalisierung} 
+
+\textbf{Erinnerung} (an Algebra 1)\\
+$S \subseteq A$ Untermonoid bzgl. ''$\cdot$'' (d.h. $1 \in S$ und $a, b \in S \Rightarrow ab \in S$)\\
+Definiere Relation ''$\sim$'' aus $A \times S$ wie folgt:\\
+$(a_1, s_1) \sim (a_2, s_2) \Leftrightarrow$ Es existiert ein $t \in S$ mit $ta_2s_1 = ta_1s_2$\\
+''$\sim$'' ist Äquivalenzrelation, setze $S^{-1}A := A \times S/\sim$, $\frac{a}{s}$ bezeichnet die Äquivalenzklasse von $(a,s) \in A \times S$ $S^{-1}A$ ist ein kommutativer Ring via $\frac{a_1}{s_1} + \frac{a_2}{s_2} := \frac{a_1s_2 + a_2s_1}{s_1s_2}$, $\frac{a_1}{s_1} \cdot \frac{a_2}{s_2} = \frac{a_1a_2}{s_1s_2}$\\
+Es gibt einen kanonischen Ringhomomorphismus $\tau: A \to S^{-1} A$, $a \mapsto \frac{a}{1}$ (im Allgemeinen nicht injektiv)\\
+$\tau$ injektiv $\Leftrightarrow S$ besteht nur aus Nichtnullteilern\\
+
+Im Folgenden sei $S \subseteq A$ stets Untermonoid bzgl. ''$\cdot$'', Erweiterung und Kontraktion von Idealen sind bzgl. $\tau: A \to S^{-1}A$ zu verstehen.
+
+\begin{bem}
+	$\mathfrak{a} \subseteq A$ Ideal\\
+	$S^{-1} \mathfrak{a} := \mathfrak{a}^e = \{ \frac{a}{s}| a \in \mathfrak{a}, s \in S\} \subseteq S^{-1}A$ ist ein Ideal.\\
+	Es gilt: $S^{-1} \mathfrak{a} = S^{-1} A \Leftrightarrow \mathfrak{a} \cap S \neq \emptyset$
+\end{bem}
+
+\begin{bem}
+	$\mathfrak{p} \subseteq A$ Primideal mit $\mathfrak{p} \cap S = \emptyset$\\
+	Dann ist $S^{-1} \mathfrak{p}$ ein Primideal in $S^{-1}A$
+\end{bem}
+
+\begin{bem}
+	Es gilt:\\
+	(a) Für die Abbildung \begin{eqnarray*}
+		\{\text{Ideale in $A$}\} &\overset{\phi}{\longrightarrow}& \text{Ideale in $S^{-1}A$}\\
+			&\underset{\psi}{\longleftarrow}&\\
+		 \mathfrak{a} &\longmapsto& \mathfrak{a}^e = S^{-1} \mathfrak{a}\\
+		\mathfrak{b}^c = \tau^{-1}(\mathfrak{b}) &\longmapsfrom& \mathfrak{b}
+	\end{eqnarray*}
+	gilt: $\phi \circ \psi = id_{\{\text{Ideale in } S^{-1} A\}}$, insbesondere ist $\phi$ surjektiv und $\psi$ injektiv.\\
+	Beide Abbildungen sind inklusionserhaltend.\\
+	(b) Die Abbildung \begin{eqnarray*}
+		\{\text{Primideale in $A$ mit $\mathfrak{p} \cap S = \emptyset$}\} &\overset{\phi}{\longrightarrow}& \text{Primideale in $S^{-1}A$}\\
+		&\underset{\psi}{\longleftarrow}&\\
+		\mathfrak{p} &\longmapsto& \mathfrak{p}^e = S^{-1} \mathfrak{p}\\
+		\mathfrak{q}^c = \tau^{-1}(\mathfrak{q}) &\longmapsfrom& \mathfrak{q}
+	\end{eqnarray*}
+	sind bijektiv und invers zueinander, beide sind inklusionserhaltend. 
+\end{bem}
+
+\begin{bem}
+	$\mathfrak{p} \subseteq A$ Primideal, $S := A \backslash \mathfrak{p}$ (ist Untermonoid)\\
+	$A_{\mathfrak{p}} := S^{-1}A$ heißt die Lokalisierung von $A$ bei $\mathfrak{p}$.\\
+	$A_{\mathfrak{p}}$ ist ein lokaler Ring mit maximalem Ideal $S^{-1}\mathfrak{p}$.\\
+	Erweiterung und Kontraktion liefern inklusionserhaltende Bijektionen zweischen der Menge der Primideale in $A$, die in $\mathfrak{p}$ enthalten sind, und der Menge der Primideale in $A_{\mathfrak{p}}$
+\end{bem}
+
+\begin{bsp}
+	$A = \ZZ$, $\mathfrak{p} = (p)$ für eine Primzahl $p$\\
+	$\Rightarrow \ZZ_{(p)} = \{\frac{m}{n} \in \QQ| m, n \in \ZZ, ggT(m, n) = 1, p \nmid n\}$ ist lokal mit maximalen Ideal $p\ZZ_{(p)} = \{\frac{m}{n} \in \QQ| m, n \in \ZZ, ggT(m, n) = 1, p|m, p \nmid n\}$. 
+\end{bsp}
+
+\begin{bem}
+	$M$ $A$-Modul\\
+	Wir definieren eine Relation ''$\sim$'' auf $S \times M$ wie folgt: \begin{align*}
+		(s_1, m_1) \sim (s_2, m_2) \Leftrightarrow \text{Es existiert ein } t \in S \text{ mit } ts_2m_1 = ts_1m_2
+	\end{align*}
+	''$\sim$'' ist eine Äquivalenzrelation.\\
+	Wir setzen $S^{-1}M := (S \times M)/\sim$, $\frac{m}{s}$ bezeichnet die Äquivalenzklasse von $(s, m) \in S \times M$.\\
+	$S^{-1}M$ ist ein $S^{-1}A$-Modul via: \begin{align*}
+		\frac{m_1}{s_1} + \frac{m_2}{s_2} := \frac{s_2m_1 + s_1m_2}{s_1s_2}, \hspace*{2mm} \frac{a}{s} \cdot \frac{m}{t} := \frac{am}{st} \hspace*{3mm} (\text{für } m_1, m_2, m \in M, s_1, s_2, s, t \in S)
+	\end{align*}
+	$S^{-1}M$ heißt Quotientenmodul von $M$ nach $S$.\\
+	Es gibt eine natürliche Abbildung $\tau: M \to S^{-1}M$, $m \mapsto \frac{m}{1}$
+\end{bem}
+
+\textbf{Anmerkung:} $S^{-1}M$ ist auch eine $A$-Modul via $a \cdot \frac{m}{s} := \frac{a}{1} \cdot \frac{m}{s} = \frac{am}{s}$\\
+$\tau$ ist dann ein Homomorphismus von $A$-Moduln.
+
+\begin{satz}
+	$M, N$ $A$-Moduln, $\varphi: M \to N$ $A$-linear, $\tau_M: M \to S^{-1}M$, $\tau_N: N \to S^{-1}N$\\
+	Dann gibt es genau eine $S^{-1}$ $A$-lineare Abbildung \begin{align*}
+		S^{-1} \varphi: S^{-1} M \to S^{-1}N \hspace*{4mm} \begin{xy}
+		\xymatrix{
+			M \ar[r]^{\varphi} \ar[d]_{\tau_M}   &   N \ar[d]^{\tau_N}\\
+			S^{-1}M \ar@{-->}@[red][r]_{S^{-1} \varphi} & S^{-1}N
+		}
+		\end{xy}
+	\end{align*}
+	mit $S^{-1} \varphi \circ \tau_M = \tau_N \circ \varphi$\\
+	Auf diese Weise wird $S^{-1}\_: A-Mod \to S^{-1}A-Mod$\\
+	zu einem additiven Funktor.
+\end{satz}
+
+\begin{satz}
+	$S^{-1}\_: A-Mod \to S^{-1}A-Mod$ ist ein exakter Funktor
+\end{satz}
+
+\begin{folg}
+	$M$ $A$-Modul, $N \subseteq M$ Untermodul\\
+	Dann ist $S^{-1}N$ ist in natürlicher Weise Untermodul von $S^{-1}M$, und es gilt: $S^{-1}(M/N) \cong S^{-1} M/S^{-1}N$\\
+	(Wir identifizieren diese Moduln im Folgenden)
+\end{folg}
+
+\begin{bem}
+	$M, N$ $A$-Moduln, $\varphi: M \to N$ $A$-linear. Dann gilt:\\
+	(a) $\ker (S^{-1} \varphi) = S^{-1} (\ker \varphi)$
+	(b) $coker(S^{-1}\varphi) = S^{-1} (coker \varphi)$\\
+	(c) $im(S^{-1} \varphi) = S^{-1}(im \varphi)$
+\end{bem}
+
+\begin{bem}
+	Für die Abbildung: \begin{eqnarray*}
+		\{\text{$A$-Untermoduln von $M$}\} &\overset{\phi}{\longrightarrow}& \{\text{$S^{-1}A$-Untermoduln von $S^{-1}M$}\}\\
+		&\underset{\psi}{\longleftarrow}&\\
+		N &\longmapsto& S^{-1}N\\
+		\tau^{-1}(p) &\longmapsfrom& p
+	\end{eqnarray*}
+	gilt $\phi \circ \psi = id_{\{S^{-1}A - \text{Untermoduln von } S^{-1}M\}}$, inbesondere $\phi$ surjektiv und $\psi$ injektiv. Beide Abbildungen sind inklusionserhaltend
+\end{bem}
+
+\begin{folg}
+	Es gilt:\\
+	(a) $M$ endlich-erz. $A$-Modul $\Rightarrow S^{-1} M$ endlich-erz. $S^{-1}A$-Modul\\
+	(b) $M$ noetherscher $A$-Modul $\Rightarrow S^{-1}M$ noetherscher $S^{-1}A$-Modul
+\end{folg}
+
+\begin{defi}
+	$M$ $A$-Modul, $\mathfrak{p} \subseteq A$ Primideal\\
+	Wir setzen $S := A \backslash \mathfrak{p}$\\
+	$M_{\mathfrak{p}} := S^{-1}M$ heißt die Lokalisierung von $M$ bei $\mathfrak{p}$\\
+	Für einen Homomorphismus $\varphi: M \to N$ von $A$-Moduln ist entsprechend $\varphi_{\mathfrak{p}} = S^{-1}\varphi: M_{\mathfrak{p}} \to N_{\mathfrak{p}}$ definiert.
+\end{defi}
+
+\textbf{Anmerkung:} Eine Eigenschaft (E) eines $A$-Moduls $M$ nennt man eine ''lokale Eigenschaft'', wenn gilt:\\
+$M$ erfüllt (E) $\Leftrightarrow$ $M_{\mathfrak{p}}$ erfüllt (E) für jedes Primideal $\mathfrak{p} \subseteq A$.
+
+\begin{satz}
+	$M$ $A$-Modul. Dann sind äquivalent:\\
+	(i) $M = 0$\\
+	(ii) $M_{\mathfrak{p}} = 0$ für alle Primideale $\mathfrak{p} \subseteq A$\\
+	(iii) $M_{\mathfrak{m}} = 0$ für alle maximalen Ideale $\mathfrak{m} \subseteq A$
+\end{satz}
+
+\begin{folg}
+	$M' \overset{f}{\to} M \overset{g}{\to} M''$ Folge von $A$-Moduln.\\
+	Dann sind äquivalent:\\
+	(i) $M' \overset{f}{\to} M \overset{g}{\to} M''$ exakt\\
+	(ii) $M'_{\mathfrak{p}} \overset{f_{\mathfrak{p}}}{\to} M_{\mathfrak{p}} \overset{g_{\mathfrak{p}}}{\to} M''_{\mathfrak{p}}$ exakt für alle Primideale $\mathfrak{p} \subseteq A$\\
+	(iii) $M'_{\mathfrak{m}} \overset{f_{\mathfrak{m}}}{\to} M_{\mathfrak{m}} \overset{g_{\mathfrak{m}}}{\to} M''_{\mathfrak{m}}$ exakt für alle maximalen Ideale $\mathfrak{m} \subseteq A$\\	
+\end{folg}
+
+\begin{folg}
+	$M, N$ $A$-Moduln, $f: M \to N$ $A$-Modulnhomomorphismus.\\
+	Dann gilt:\\
+	(a) $f$ injektiv $\Leftrightarrow f_{\mathfrak{m}}$ injektiv für alle maximalen Ideale $\mathfrak{m} \subseteq A \Leftrightarrow f_\mathfrak{p}$ injektiv für alle Primideale $\mathfrak{p} \subseteq A$\\
+	(b) $f$ surjektiv $\Leftrightarrow f_\mathfrak{m}$ surjektiv für alle maximalen Ideale $\mathfrak{m} \subseteq A \Leftrightarrow f_{\mathfrak{p}}$ surjektiv für alle Primideale $\mathfrak{p} \subseteq A$\\
+	(c) $f = 0 \Leftrightarrow f_{\mathfrak{m}} = 0$ für alle maximalen Ideale $\mathfrak{m} \subseteq A \Leftrightarrow f_{\mathfrak{p}} = 0$ für alle Primideale $\mathfrak{p} \subseteq A$
+\end{folg}
+
+\begin{bem}
+	$A$ nullteilerfrei, $K = Quot(A)$\\
+	Die natürliche Abbildung $A \to K$ bzw. $A_\mathfrak{p} \to K$, $\mathfrak{p}$ Primideale in $A$, sind alle injektiv, fasse also $A$ bzw. $A_\mathfrak{p}$ als Unterringe von $K$ auf.\\
+	Dann gilt: \begin{align*}
+		A = \bigcap\limits_{\mathfrak{p} \subseteq A PI} A_\mathfrak{p} = \bigcap\limits_{\mathfrak{m} \subseteq A \text{ max. Id.}} A_\mathfrak{m}
+	\end{align*}
+\end{bem}
+
+\chapter{Tensorprodukt und flache Moduln} 
+
+\begin{defi}
+	$L, M, N$ $A$-Moduln, $\varphi: M \times N \to L$\\
+	$\varphi$ heißt $A$-bilinear $\Leftrightarrow$ Für jedes $n \in N$ ist die Abbildung $M \to L$, $m \mapsto \varphi(m, n)$ $A$-linear und für jedes $m \in M$ ist die Abbildung $N \to L$, $n \mapsto \varphi(m, n)$ $A$-lienar.
+\end{defi}
+
+\begin{defi}
+	$M, N$ $A$-Moduln\\
+	Ein Tensorprodukt von $M$ und $N$ über $A$ ist ein $A$-Modul $T$ zusammen mit einer $A$-bilineare Abbildung $\tau: M \times N \to T$, sodass folgende universelle Eigenschaft erfüllt ist:\\
+	Für jeden $A$-Modul $L$ und jede $A$-bilineare Abbildung $\varphi: M \times N \to L$ gibt es genau einen $A$-Modulhomomorphismus $\alpha: T \to L$, sodass $\alpha \circ \tau = \varphi$ ist: \begin{align*}
+		\begin{xy}
+		\xymatrix{
+			M \times N \ar[rr]_{bil.}^{\varphi} \ar[dr]_{\tau}   & &  L\\
+			& T \ar@[red]@{-->}[ur]_\alpha
+		}
+		\end{xy}
+	\end{align*}
+\end{defi}
+
+\begin{satz}
+	$M, N$ $A$-Moduln\\
+	Dann gilt:\\
+	(a) Es gibt ein Tensorprodukt von $M, N$ über $A$\\
+	(b) Sind $T, T'$ Tensorprodukte von $M, N$ über $A$ mit $A$-bilinearer Abilldung $\tau: M \times N \to T$, $\tau': M \times N \to T'$, dann existiert genau $A$-Modulhomomorphismus $\alpha: T \to T'$ mit $\alpha \circ \tau = \tau'$. $\alpha$ ist ein Isomorphismus.\\
+	Mit anderen Worten, das Tensorprodukt von $M, N$ ist eindeutig bestimmt bis auf einen eindeutigen Isomorphismus\\
+	(c) Ist $T$ eine Tensorprodukt von $M, N$ über $A$ mit $A$-bilinearer Abbildung $\tau: M \times N \to T$ und setzen wir für $m \in M, n \in N$ \begin{align*}
+		m \otimes n := \tau(m,n)
+	\end{align*}
+	dann wird $T$ erzeugt von den Elementen $m \otimes n$, $m \in M$, $n \in N$, d.h. jedes Element von $\tau$ ist von der Form $\sum\limits_{i = 1}^r (m_i \otimes n_i)$ mit $a_i \in A$, $m_i \in M$, $n_i \in N$.\\
+	Hierbei gilt:\begin{align*}
+		(m + m') \otimes n = m \otimes n + m' \otimes n, \hspace*{3mm} m \otimes (n + n') = m \otimes n + m \otimes n'\\
+		(am) \otimes n = a (m \otimes n) = m \otimes (an) \hspace*{20mm}
+	\end{align*}
+	für alle $m, m' \in M$, $n, n' \in N$, $a \in A$\\
+	Notation für Tensorprodukt von $M$ und $N$ über $A$: $M \otimes_A N$
+\end{satz}
+
+\textbf{Anmerkung:} Für $m \in M$ ist stets $m \otimes 0 = 0$, denn $m \otimes 0 = m \otimes (0 + 0) = m \otimes 0 + m \otimes 0$\\
+Analog: $0 \otimes n = 0$ für $n \in \NN$.
+
+\begin{bsp}
+	$ $\\
+	(a) $\QQ/\ZZ \otimes_\ZZ \QQ/\ZZ = 0$, denn:\\
+	Seien $a, b \in \QQ/\ZZ \Rightarrow$ es existiert ein $n \in \NN$ mit $na = 0$, es existiert ein $b' \in \QQ/\ZZ$ mit $nb' = b \Rightarrow a \otimes b = a \otimes (nb') = (na) \otimes b' = 0 \otimes b' = 0$\\
+	(b) $\ZZ/2\ZZ \otimes_\ZZ \ZZ/3\ZZ = 0$, denn:\\
+	Für $a \in \ZZ/2\ZZ$, $b \in \ZZ/3\ZZ$ ist $a \otimes b = (3a)\otimes b = a \otimes (3b) = a \otimes 0 = 0$
+\end{bsp}
+
+\begin{bem}
+	$M, M', N, N'$ $A$-Moduln, $f: M \to M'$, $g: N \to N'$ $A$-Modulhomomorphismus\\
+	Dann gibt es genau einen $A$-Modulhomomorphismus \begin{align*}
+		f \otimes g: M \otimes N \to M' \otimes N'
+	\end{align*}
+	mit ($f \otimes g$)($m \otimes n$) = $f(m) \otimes g(n)$ für alle $m \in M$, $n \in N$.
+\end{bem}
+
+\begin{folg}
+	$M, N$ $A$-Moduln\\
+	dann sind $M \otimes_A -: A-Mod \to A-Mod$ und $- \otimes_A N: A-Mod \to A-Mod$ additive Funktoren.\\
+	Hierbei setzen wir für $N_1, N_2 \in A-Mod$, $\varphi \in Hom_A(N_1, N_2)$ \begin{align*}
+		(M \otimes_A -)(\varphi) := id_m \otimes \varphi: M \otimes N_1 \to M \otimes N_2, \hspace*{3mm} m \otimes n \mapsto m \otimes \varphi(n)
+	\end{align*}
+	(analog für $- \otimes_A N$)
+\end{folg}
+
+\begin{bem}
+	$L, M, N$ $A$-Moduln, $(N_i)_{i \in I}$ Familie von $A$-Moduln.\\
+	Dann gibt es natürliche Isomorphismen\\
+	(a) $M \otimes_A A \cong M \cong A \otimes_A M$\\
+	(b) $M \otimes_A N \cong N \otimes_A M$\\
+	(c) $(L \otimes_A M) \otimes_A N \cong L \otimes_A (M \otimes N)$\\
+	(d) $M \otimes_A( \bigoplus\limits_{i \in I} N_i) \cong \bigoplus\limits_{i \in I} (M \otimes N_i)$
+\end{bem}
+
+\textbf{Anmerkung:} Das Tensorprodukt kommutiert im Allgemeinen nicht mit direkten Produkten (Übung)
+
+\begin{folg}
+	$M, N$ freie $A$-Moduln\\
+	Dann ist $M \otimes_A N$ ein freier $A$-Modul.
+\end{folg}
+
+\begin{bem}
+	$B$ kommutativer Ring, $f: A \to B$ Ringhomomorphismus, $M$ $A$-Modul.\\
+	Dann ist $B$ ein $A$-Modul via $A \times B \to B$, $(a,b) \mapsto f(a)b$,\\
+	und $M \otimes_A B$ ist ein $B$-Modul via $B \times (M \otimes_A B) \to M \otimes_A B$, $(b, \sum\limits_{i = 1}^r m_i \otimes b_i) \mapsto \sum\limits_{i = 1}^r m_i \otimes b b_i$
+\end{bem}
+
+\begin{bem}
+	$B$ kommutativer Ring, $M$ $A$-Modul, $L$ $B$-Modul, $N$ $A$-Modul und $B$-Modul mit $a(bx) = b(ax)$ für alle $a \in A, b \in B x \in N$ (''$N$ ist ein $(A, B)$-Bimodul'')\\
+	Dann ist $M \otimes_A N$ in natürlicher Weise ein $B$-Modul, $N \otimes_B L$ ein $A$-Modul, und es ist \begin{align*}
+		(M \otimes_A N) \otimes_B L \cong M \otimes_A (N \otimes_B L) \hspace*{4mm} (\text{Isomorphismus von $A$- und von $B$-Moduln})
+	\end{align*}
+\end{bem}
+
+\begin{bem}
+	$M$ $A$-Modul, $S \subseteq A$ Untermonoid bzgl ''$\cdot$''\\
+	Dann gibt es einen natürlichen Isomorphismus: (von $A$-Moduln und von $S^{-1}A$-Moduln) \begin{align*}
+		S^{-1}A \otimes_A M \cong S^{-1} M
+	\end{align*}
+\end{bem}
+
+\begin{bem}
+	$M, N$ $A$-Moduln, $S \subseteq A$ Untermonoid bzgl. ''$\cdot$''\\
+	Dann gibt es einen natürlichen Isomorphismus von $S^{-1}A$-Moduln \begin{align*}
+		S^{-1}M \otimes_{S^{-1}A} S^{-1}N \cong S^{-1}(M \otimes_A N)
+	\end{align*}
+\end{bem}
+
+\begin{bem}
+	$L, M, N$ $A$-Moduln\\
+	Dann gilt: $Hom_A(M \otimes_A N, L) \cong Hom_A(M, Hom_A(N, L))$ \hspace*{3mm} (natürl.)\\
+	Insbesondere ist $- \otimes_A N ???? Hom_A(N, -)$
+\end{bem}
+
+\begin{folg}
+	$M, N$ $A$-Moduln\\
+	Dann sind die Funktoren $M \otimes_A-$ und $-\otimes_A N$ rechtsexakt.\\
+\end{folg}
+
+\begin{bsp}
+	$ $\\
+	$-\otimes_A N$ ist im Allgemeinen nicht exakt:\\
+	Sei $A = \ZZ$, $N = \ZZ/2\ZZ$\\
+	Wir betrachten die exakte Folge $0 \to \ZZ \overset{f}{\to} \ZZ \overset{\pi}{\to} \ZZ/2\ZZ \to 0$, wobei $f: \ZZ \to \ZZ$, $x \mapsto 2x$, $\pi$ kanonische Projektion\\
+	Es ist $\ZZ \otimes_\ZZ \ZZ/2\ZZ \cong \ZZ/2\ZZ \neq 0$, und die Abbildung $f \otimes_A id_N: \ZZ \otimes_\ZZ \ZZ/2\ZZ \to \ZZ \otimes_\ZZ \ZZ/2\ZZ$ ist die Nullabbildung, denn für $x \in \ZZ$, $y \in \ZZ/2\ZZ$ ist $(f \otimes_A id_N)(x \otimes y) = f(x) \otimes y = 2x \otimes y = x \otimes 2y = x \otimes 0 = 0$
+\end{bsp}
+
+\begin{bem}
+	$M$ $A$-Modul, $\mathfrak{a} \subseteq A$ Ideal.\\
+	Dann gilt: $A/\mathfrak{a} \otimes_A M \cong M/\mathfrak{a}M$
+\end{bem}
+
+\begin{defi}
+	$M$ $A$-Modul\\
+	$M$ heißt flach $\Leftrightarrow -\otimes_AM$ ist exakt $\Leftrightarrow M \otimes_A-$ ist exakt
+\end{defi}
+
+\begin{bem}
+	$ $\\
+	$P$ projektiver $A$-modul. Dann ist $P$ flach
+\end{bem}
+
+\begin{bem}
+	$ $\\
+	$M, N$ flache Moduln. Dann ist $M \otimes_A N$ flach.
+\end{bem}
+
+\begin{bem}
+	$(M_i)_{i \in I}$ Familie von $A$-Moduln. Dann sind äquivalent:\\
+	(i) $\bigoplus_{i \in I} M_i$ flach\\
+	(ii) $M_i$ flach für alle $i \in I$
+\end{bem}
+
+\begin{bem}
+	$B$ kommutativer Ring, $f: A \to B$ Ringhomomorphismus, $M$ flacher $A$-Modul.\\
+	Dann ist $B \otimes_A M$ ein flacher $B$-Modul.
+\end{bem}
+
+\begin{bem}
+	$S \subseteq A$ Untermonoid bzgl ''$\cdot$''.\\
+	Dann ist $S^{-1}A$ einflacher $A$-Modul.
+\end{bem}
+
+\begin{bsp}
+	$ $\\
+	$A$ nullteilerfrei $\Rightarrow Quot(A)$ flacher $A$-Modul.
+\end{bsp}
+
+\begin{bem}
+	$M$ $A$-Modul. Dann sind äquivalent:\\
+	(i) $M$ ist ein flacher $A$-Modul\\
+	(ii) $M_\mathfrak{p}$ ist ein flacher $A_\mathfrak{p}$-Modul für alle Primideale $\mathfrak{p} \subset A$\\
+	(iii) $M_\mathfrak{m}$ ist ein flacher $A_\mathfrak{m}$-Modul für alle maximalen Ideale $\mathfrak{m} \subseteq A$
+\end{bem}
+
+\text{Erinngerung} (an LA2, 29.15) $M$ $A$-Modul\\
+$T(M) := \{x \in M| \text{es ex. ein } a \in A, a \text{ kein Nullteiler, mit } ax = 0\}$ Torsionsuntermodul von $M$.\\
+$M$ heißt torsionsfrei $\Leftrightarrow T(M) = \{0\}$
+
+\begin{bem}
+	$A$ nullteilerfrei, $M$ flacher $A$-Modul. Dann ist $M$ torsionsfrei.
+\end{bem}
+
+\begin{bem}
+	$M$ $A$-Modul. Dann sind äquivalent:\\
+	(i) Für jede Folge $N' \to N \to N''$ von $A$-Moduln gilt,\\
+	$N' \to N \to N''$ exakt $\Leftrightarrow N' \otimes_A M \to N \otimes_A M \to N'' \otimes_A M$ exakt.\\
+	(ii) $M$ ist flach und für alle maximalen Ideale $\mathfrak{a} \subseteq A$ ist $M/\mathfrak{m} \neq 0$\\
+	(iii) $M$ ist flach und für alle $A$-Moduln $N$ gilt: $N \otimes_A M = 0 \Rightarrow N = 0$\\
+	(iv) $M$ ist flach und für alle $A$-Modulhomomorphismen $\varphi: N_1 \to N_2$ gilt:\begin{align*}
+		\varphi \otimes_A id_M : N_1 \otimes_A M \to N_2 \otimes_A M
+	\end{align*}
+	ist die Nullabbildung $\Rightarrow \varphi = 0$.\\
+	
+	Ist eine dieser äquivalenten Bedingungen erfüllt, so heißt $M$ ein \textbf{treuflacher $A$-Modul}.
+\end{bem}
+
+\begin{bsp}
+	(a) $\QQ$ ist flacher $\ZZ$-Modul nach 13.22, aber kein treuflacher $\ZZ$-Modul, denn: $\QQ \otimes_\ZZ \ZZ/2\ZZ = 0$\\
+	(b) $A^{(I)}$ ist ein treuflacher $A$-Modul für $I \neq \emptyset$, denn: \begin{itemize}
+		\item $A^{(I)}$ ist flach, da freier $A$-Modul
+		\item Sei $N$ $A$-Modul mit $N \otimes_A A^{(I)]} = 0 \Rightarrow \bigoplus\limits_{i \in I} N = 0 \Rightarrow N = 0$
+	\end{itemize}
+	Insbesondere ist $A[X] \cong A^{(\NN_0)}$ ein treuflacher $A$-Modul
+\end{bsp}
+
+\chapter{Tor}
+
+\begin{defi}
+	$M, N$ $A$-Moduln\\
+	Wir setzen $Tor_n^A(M,N) := L_n(M \otimes_A -) (N)$ für $n \geq 0$\\
+	Explizit: Wähle eine projektive Auflösung  $Q_\point \to N$, dann ist $Tor_n^A(M, N) = H_n (M \otimes_A Q_\point)$
+\end{defi}
+
+\begin{satz}
+	$M$ $A$-Modul\\
+	Dann ist $(Tor_n^A(M, -))_{n \geq 0}$ ein universeller homologischer $\delta$-Funktor, d.h. \begin{itemize}
+		\item $Tor_n^A(M, -): A-Mod \to A-Mod$ sind additive Funktoren für alle $n \geq 0$
+		\item Für jede exakte Folge $0 \to N' \to N \to N'' \to 0$ gibt es Verbindungshomomorphismen $\delta: Tor_{n+1}^A(H, N'') \overset{\delta}{\to} Tor_{n-1}^A (M, N')$, sodass die lange Folge \begin{align*}
+			\ldots \to Tor_{n+1}^A(M, N'') \overset{\delta}{\to} Tor_n^A(M, N') \to Tor_n^A(M, N) \to Tor_n^A(M, N'') \overset{\delta}{\to} Tor_{n-1}^A(M, N') \to \ldots
+		\end{align*}
+		exakt ist, $\delta$ ist funktionell (vgl. 9.0.1)
+		\item Für jeden homologischen $\delta$-Funktor $H' = (H_n')_{n \geq 0}: A-Mod \to A-Mod$ setzt sich jede natürliche Transformation $f_0: M \otimes_A - \Rightarrow H_0'$ eindeutig zu einem homologischen $\delta$-Funktor fort.
+	\end{itemize}
+\end{satz}
+
+\begin{satz}
+	$M, N$, $A$-Moduln\\
+	Dann gibt es einen kanonischen Isomorphismus $Tor_n^A(M, N) \cong L_n(-\otimes_A N)(M)$ für alle $n \geq 0$, insbesondere kann $Tor_A^n(M, N)$ auch über eine projektive Auflösung $P_\point \to M$ von $M$ berechnet werden via $Tor_n^A(M, N) = H_n(P_\point \otimes_A N)$
+\end{satz}
+
+\begin{folg}
+	$M$ flacher $A$-Modul, $N$ $A$-Modul.\\
+	Dann ist $M$ $(-\otimes_AN)$-azyklisch.
+\end{folg}
+
+\begin{folg}
+	$M, N$ $A$-Moduln\\
+	Dann gilt: $Tor_n^A(M, N) \cong Tor_n^A(N,M)$ für alle $n \geq 0$
+\end{folg}
+
+\begin{bem}
+	$0 \to M' \to M \to M'' \to 0$ exakte Folge von $A$-Moduln, $M''$ flach, $N$ $A$-Modul\\
+	Dann ist die Folge \begin{align*}
+		0 \to M' \otimes_A N \to M \otimes_A N \to M'' \otimes_A N \to 0
+	\end{align*}
+	exakt.
+\end{bem}
+
+\begin{satz}
+	$A$ lokaler Ring mit maximalem Ideal $\mathfrak{m}$ und Restklassenkörper $k = A/\mathfrak{m}$, $M$ endlich-erz. $A$-Modul.\\
+	Dann sind äquivalent:\\
+	(i) $M$ ist frei\\
+	(ii) $M$ ist projektiv\\
+	(iii) $M$ ist flach\\
+	(iv) $Tor_1^A(A/\mathfrak{a}, M) = 0$ für jedes Ideal $\mathfrak{a} \subseteq A$.\\
+	Ist $A$ noethersch, dann sind (i) - (iv) äquivalent zu
+	(v) $Tor_1^A(k, M) = 0$
+\end{satz}
+
+\begin{folg}
+	$M$ endlich-erz. $A$-Modul. Dann sind äquivalent:\\
+	(i) $M$ flacher $A$-Modul\\
+	(ii) $M_\mathfrak{p}$ ist ein freier $A_\mathfrak{p}$-Modul für alle Primideale $\mathfrak{p} \subseteq A$\\
+	(iii) $M_\mathfrak{m}$ ist ein freier $A_\mathfrak{m}$-Modul für alle maximalen Ideale $\mathfrak{m} \subseteq A$
+\end{folg}
+
+\begin{satz}
+	$A$ HIR, $M, N$ $A$-Moduln\\
+	Dann ist $Tor_n^A(M, N) = 0$ für alle $n \geq 2$
+\end{satz}
+
+\begin{bem}
+	$M$ $A$-Modul, $a \in A$ kein Nullteiler.\\
+	Dann gilt: $Tor_1^A(A/(a), M) \cong \{x \in M| ax = 0\}$
+\end{bem}
+
+\chapter{Ganze Ringerweiterung und Dimension}
+
+In diesem Abschnitt bedeute "Ringerweiterung" stets Erweiterung kommutativer Ringe
+
+\begin{defi}
+	$B|A$ Ringerweiterung\\
+	$B|A$ heißt endlich $\Leftrightarrow B$ ist endlich-erz. als $A$-Modul\\
+	$b \in B$ heißt ganz über $A$ $\Leftrightarrow$ $A[b]|A$ ist endlich.\\
+	$B|A$ heißt ganz $\Leftrightarrow$ Alle $b \in B$ sind ganz über $A$.
+\end{defi}
+
+\textbf{Anmkerung:} $B|A$, $C|B$ endlicher Ringerweiterung $\Rightarrow C|A$ endliche Ringerweiterung, denn: $(b_i)_{i = 1, \ldots, n}$ Erzeugendensystem von $B$ als $A$-Modul, $(c_j)_{j = 1, \ldots, m}$ Erzeugendensystem von $C$ als $B$-Modul\\
+$\Rightarrow (b_ic_j)_{\stackrel{i = 1, \ldots, n}{j = 1, \ldots, m}}$ Erzeugendensystem von $C$ als $A$-Modul.
+
+\begin{satz}
+	$B|A$ Ringerweiterung, $b \in B$. Dann sind äquivalent:\\
+	(i) $b$ ist ganz über $A$\\
+	(ii) Es gibt $n \in \NN$, $a_{n-1}, \ldots, a_0 \in A$ mit \begin{align*}
+		b^n + a_{n-1} b^{n-1} + \ldots + a_1b + a_0 = 0 \hspace*{5 mm} (*)
+	\end{align*}
+	(iii) Es gibt einen Zwischenring $A \subseteq Z \subseteq B$, sodass $b \in Z$ ist und $Z|A$ endlich ist.\\
+	(iv) Es gibt einen $A[b]]$-Modul $M$ mit $ann_{A[b]} M = 0$, der als $A$-Modul endlich-erz. ist.
+\end{satz}
+
+\textbf{Anmerkung:} Ist $B|A$ eine Körpererweiterung, dann:\\
+$b \in B$ ganz über $A$ $\Leftrightarrow b$ algebraisch über $A$\\
+$B|A$ ganz $\Leftrightarrow B|A$ algebraisch.
+
+\begin{folg}
+	Es gilt:\\
+	(a) $B|A$ endlich $\Rightarrow B|A$ ganz\\
+	(b) $C|B|A$ Ringerweiterung, $c \in C$ ganz über $A$ $\Rightarrow c$ ganz über $B$.
+\end{folg}
+
+\begin{bsp}
+	$\ZZ[i]|\ZZ$ ist ganz, denn: $\ZZ[i]|\ZZ$ ist endlich, da $1, i$ Erzeugendensystem von $\ZZ[i]$ als $\ZZ$-Modul
+\end{bsp}
+
+\begin{satz}
+	$C|B|A$ Ringerweiterung. Dann sind äquivalent:\\
+	(i) $B|A$ ganz und $C|B$ ganz\\
+	(ii) $C|A$ ganz
+\end{satz}
+
+\begin{bem}
+	$B|A$ ganze Ringerweiterung, $\mathfrak{b} \subseteq B$ Ideal\\
+	Dann ist $B/\mathfrak{b} | A/\mathfrak{b} \cap A$ eine ganze Ringerweiterung.
+\end{bem}
+
+\begin{bem}
+	$B|A$ ganze Ringerweiterung, $S \subseteq A$ Untermonoid $''\cdot''$\\
+	Dann ist $S^{-1}B|S^{-1}A$ eine ganze Ringerweiterung.
+\end{bem}
+
+\begin{bem}
+	$B|A$ Ringerweiterung. Dann gilt:\\
+	$\overline{A}^B := \{b \in B| b \text{ ganz über } A\}$ ist ein Unterring von $B$ mit $A \subseteq \bar{A}^B$,\\
+	der \textbf{ganze Abschluss von $A$ in $B$}.\\
+	$A$ heißt \textbf{ganzabgeschlossen in $B$} $\Leftrightarrow$ $\bar{A}^B = A$\\
+	$\bar{A}^B|A$ ist eine ganze Ringerweiterung und $\bar{A}^B$ ist ganzabgeschlossen in $B$.
+\end{bem}
+
+\begin{bem}
+	$B|A$ Ringerweiterung, $S \subseteq A$ Untermonoid bzgl. $''\cdot''$\\
+	Dann gilt: $\overline{S^{-1}A}^{S^{-1}B} = S^{-1}(\bar{A}^B)$\\
+	Insbesondere gilt: $A$ ganzabgeschlossen in $B$ $\Rightarrow S^{-1}A$ ganzabgeschlossen in $S^{-1}B$.
+\end{bem}
+
+\begin{defi}
+	$A$ nullteilerfrei\\
+	Der \textbf{ganze Abschluss} von $A$ ist der ganze Abschluss von $A$ in $Quot(A)$.\\
+	$A$ heißt \textbf{normal(ganzabgeschlossen)} $\Leftrightarrow A$ stimmt mit seinem ganzen Abschluss überein.
+\end{defi}
+
+\begin{bem}
+	$A$ faktoriell. Dann ist $A$ normal.
+\end{bem}
+
+\begin{bsp}
+	$\bar{\ZZ}^{\QQ(i)} = \ZZ[i]$, denn: $\ZZ[i]|\ZZ$ ganz, $\ZZ[i]$ ist normal, da faktoriell
+\end{bsp}
+
+\begin{bem}
+	$A$ normal, $S \subseteq A$ Untermonoid bzgl. ''$\cdot$''\\
+	Dann ist $S^{-1}A$ normal.
+\end{bem}
+
+\begin{bem}
+	$A$ nullteilerfrei. Dann sind äquvialent:\\
+	(i) $A$ normal\\
+	(ii) $A_\mathfrak{p}$ normal für alle Primideale $\mathfrak{p} \subseteq A$\\
+	(iii) $A_\mathfrak{m}$ normal für alle maximalen Ideale $\mathfrak{m} \subseteq
+	 A$\
+\end{bem}
+
+\begin{bem}
+	$B|A$ ganze Ringerweiterung, $B$ nullteilerfrei.\\
+	Dann sind äquivalent:\\
+	(i) $A$ ist eine Körper\\
+	(ii) $B$ ist ein Körper
+\end{bem}
+
+\begin{defi}
+	$B|A$ Ringerweiterung, $\mathfrak{p} \subseteq B$, $\mathfrak{p}' \subseteq A$ Primideale\\
+	$\mathfrak{p}$ \textbf{liegt über} $\mathfrak{p}' \Leftrightarrow \mathfrak{p}' = \mathfrak{p} \cap A$.
+\end{defi}
+
+\begin{satz}
+	$B|A$ ganze Ringerweiterung. Dann gilt:\\
+	(a) (''Lying over'') Zu jedem Primideal $\mathfrak{p}' \subseteq A$ existiert ein Primideal $\mathfrak{p} \subseteq B$, sodass $\mathfrak{p}$ über $\mathfrak{p}'$ liegt.\\
+	(b) Sind $\mathfrak{p} \subseteq \mathfrak{q}$ Primideale in $B$, die über demselben Primideal $\mathfrak{p}' \subseteq A$ liegen, dann ist $\mathfrak{p} = \mathfrak{q}$\\
+	(c) Liegt das Primideal $\mathfrak{p}$ von $B$ über dem Primideal $\mathfrak{p}'$ von $A$, dann gilt: \begin{align*}
+		\mathfrak{p} \text{ maximales Ideal} \Leftrightarrow \mathfrak{p}' \text{ maximales Ideal}
+	\end{align*}
+\end{satz}
+
+\begin{folg}
+	$B|A$ ganze Ringerweiterung, $\mathfrak{p}_0 \subsetneq \mathfrak{p}_1 \subsetneq \ldots \subsetneq \mathfrak{p}_r$ Primidealkette in $B$\\
+	Dann ist $\mathfrak{p}_0 \cap A \subsetneq \mathfrak{p}_1 \cap A \subsetneq \ldots, \subsetneq \mathfrak{p}_r$ in $B$ mit $\mathfrak{p}_r \cap A$ eine Primideal-Kette in $A$
+\end{folg}
+
+\begin{folg}
+	(''Going up'') $B|A$ ganze Ringerweiterung,  $\mathfrak{p}'_0 \subsetneq \mathfrak{p}'_1 \subsetneq \ldots \subsetneq \mathfrak{p}'_r$ Primidealkette in $A$,\\
+	$\mathfrak{p}_0$ Primideal in $B$ mit $\mathfrak{p}_0 \cap A = \mathfrak{p}'_0$\\
+	Dann existiert eine Primidealkette $\mathfrak{p}_0 \subsetneq \mathfrak{p}_1 \subsetneq \ldots \subsetneq \mathfrak{p}_r$ in $B$ mit $\mathfrak{p}_i \cap A = \mathfrak{p}'_i$ für $i = 0, \ldots, r$
+\end{folg}
+
+\begin{defi}
+	$A \neq 0$\\
+	Eine endliche Kette von $n+1$ Primidealen $\mathfrak{p}_0 \supsetneq \mathfrak{p}_1 \supsetneq \ldots \supsetneq \mathfrak{p}_n$ heißt eine \textbf{Primidealkette der Länge $n$ in $A$}\\
+	Für ein Primideal $\mathfrak{p} \subseteq A$ heißt \begin{align*}
+		ht(\mathfrak{p}) := \sup \{n \in \NN_0| p = \mathfrak{p}_0 \supsetneq \mathfrak{p}_1 \supsetneq \ldots \supsetneq \mathfrak{p}_n \text{ ist eine Primideal-Kette der Länge $n$ in $A$}\}
+	\end{align*} 
+	die \textbf{Höhe} von $\mathfrak{p}$.\\
+	$\dim(A) := \sup \{ht(\mathfrak{p})| \mathfrak{p} \text{ Primideal in $A$}\}$ heißt die \textbf{(Krull-)Dimension} von $A$.
+\end{defi}
+
+\begin{bsp}
+	(a) $K$ Körper $\Rightarrow \dim(K) = 0$, denn $(0)$ ist das einzige Primideal in $K$\\
+	(b) $A$ HIR, der kein Körper ist $\Rightarrow \dim(A) = 1$\\
+	denn: Es existiert ein Primideal $\neq (0)$ in $A$, denn es existiert ein maximales Ideal $\neq (0)$ in $A$.\\
+	Sei $\mathfrak{p}$ Primideal in $A$, $\mathfrak{p} \neq 0$ $\Rightarrow$ Es existiert ein Primelement $\pi \in A$ mit $\mathfrak{p} = (\pi)$.\\
+	Es ist $ht(\mathfrak{p}) = 1$, denn ist $(0) \neq \mathfrak{q} \subseteq \mathfrak{p}$ Primideal, dann existiert ein $\tilde{\pi} \in A$ mit $\mathfrak{q} = (\tilde{\pi}) \Rightarrow \pi| \tilde{\pi}$ $\Rightarrow \pi$ assoziiert zu $\tilde{\pi} \Rightarrow \mathfrak{q} = \mathfrak{p}$, also $ht(\mathfrak{p}) = 1$
+\end{bsp}
+
+\begin{satz}
+	$B|A$ ganze Ringerweiterung, $\mathfrak{p}' \subseteq A$ Primideal. Dann gilt:\\
+	(a) $\dim(B) = \dim(A)$\\
+	(b) Für jedes Primideal $\mathfrak{p}$ von $B$ über $\mathfrak{p}'$ ist $\dim(A/\mathfrak{p}') = \dim(B/\mathfrak{p})$ und $ht(\mathfrak{p}) \leq ht(\mathfrak{p}')$\\
+	(c) Falls $ht(\mathfrak{p}') < \infty$, dann existiert Primideal $\mathfrak{p}$ von $B$ über $\mathfrak{p}'$ mit $ht(\mathfrak{p}) = ht(\mathfrak{p}')$
+\end{satz}
+
+\textbf{Anmerkung:} Im Allgemeinen ist $ht(\mathfrak{p}) \neq ht(\mathfrak{p}')$
+
+\begin{satz}
+	(''Going down'') $B|A$ ganze Erweiterung nullteilerfreier Ringe, $A$ normal, $\mathfrak{p}'_0 \supsetneq \mathfrak{p}'_1 \supsetneq \ldots \supsetneq \mathfrak{p}'_r$ Primideal-Kette in $A$, $\mathfrak{p}_0$ Primideal in $B$ über $\mathfrak{p}_0'$\\
+	Dann existiert eine Primideal-Kette $\mathfrak{p}_0 \supsetneq \mathfrak{p}_1 \supsetneq \ldots \supsetneq \mathfrak{p}_n$ in $B$ mit $\mathfrak{p}_i \cap A = \mathfrak{p}'_i$ für $i = 0, \ldots, r$\\
+	Insbesondere gilt: ist $\mathfrak{p}'$ ein Primideal in $A$ und $\mathfrak{p}$ ein Primideal in $B$ über $A$, dann ist $ht(\mathfrak{p}) = ht(\mathfrak{p}')$
+\end{satz}
+
+\chapter{Direkte und projektive Limiten} 
+
+\begin{defi}
+	$I$ Menge, $\leq$ Halbordnung auf $I$\\
+	$(I, \leq)$ heißt \textbf{gerichtet} $\Leftrightarrow$ Für alle $a, b \in I$ existiert ein $c \in I$ mit $a \leq c$ und $b \leq c$.\\
+	Für den Rest des Abschnitts sei $(I, \leq)$ stets eine gerichtete halbgeordnete Menge.
+\end{defi}
+
+\begin{defi}
+	Ein über $I$ indiziertes \textbf{direktes System} (induktives System) von $A$-Moduln besteht aus \begin{itemize}
+		\item einer Familie $(M_i)_{i \in I}$ von $A$-Moduln
+		\item einer Familie $(\varphi_{ij})_{i,j \in I, i \leq j}$ von $A$-Modulhomomorphismen $\varphi_{ij}: M_i \to M_j$ \textbf{Übergangsabbildugnen}
+		sodass gilt: \begin{itemize}
+			\item $\varphi_{ij} = id_{M_i}$ für alle $i \in I$\\
+			\item $\varphi_{ik} = \varphi_{jk} \circ \varphi_{ij}$ für alle $i,j,k \in I$ mit $i \leq j \leq k$
+		\end{itemize}
+	Im Folgenden schreiben wir dafür kurz $(M_i, \varphi_{ij})_I$
+	\end{itemize}
+\end{defi}
+
+\begin{bsp}
+	$ $\\
+	(a) $I = \NN$ mit ''$\leq$'', $M$ $A$-Modul, $M_1 \subseteq M_2 \subseteq \ldots$ Folge von Untermoduln von $M$, $\varphi_{ij}: M_i \hookrightarrow M_j$ Inklusion für $i \leq j$. Dies liefert ein direktes System von $A$-Moduln\\
+	(b) $M$ $A$-Modul, $I$ eine Menge von Untermoduln von $M$, die gerichtet bzgl. ''$\subseteq$'' sei. Setze $M_i := i$ für $i \in I$. Dann ist $(M_i)_{i \in I}$ ist ein direktes System von $A$-Moduln mit den Inklusionen als Übergangsabbildung.\\
+	(c) $M$ $A$-Modul, $I$ Menge der endlich-erz. Untermoduln von $M$ ist gerichtet bzgl. ''$\subseteq$'' (mit $M_1, M_2 \subseteq M$ endlich-erz. ist auch $M_1+M_2$ endlich-erz.), dies liefert ein Bsp. für (b)\\
+	(d) $I = \NN$ mit $|$-Halbordnung, $M_i = \ZZ/i \ZZ$ \begin{align*}
+			\varphi_{ij}: \ZZ/i \ZZ \to \ZZ/j \ZZ, a + i \ZZ \mapsto \frac{j}{i} a + j \ZZ \hspace*{3mm} \text{für } i|j
+	\end{align*}
+	liefert ein direktes System von $\ZZ$-Moduln
+\end{bsp}
+
+\begin{bem}
+	Ein Homomorphismus von direkten Systemen $(M_i, \varphi_{ij}^M)_I$ ins direkte System $(N_i, \varphi_{ij}^N)_I$ ist eine Familie $(f_i)_{i \in I}$ von $A$-Modulhomomorphismen $f_i: M_i \to N_i$, sodass $\varphi_{ij}^N \circ f_i = f_j \circ \varphi_{ij}^M$ für alle $i, j \in I$ mit $i \leq j$ gilt: \begin{align*}
+		\begin{xy}
+		\xymatrix{
+			M_i \ar[r]^{f_i} \ar[d]_{\varphi_{ij}^M} & N_i \ar[d]_{\varphi_{ij}^N}\\
+			M_j \ar[r]_{f_j} & N_j 
+		}
+		\end{xy}
+	\end{align*}
+	Die über $I$ indizierten direkten Systeme von $A$-Moduln bilden zusammen mit obigen Homomorphismen eine abelsche Kategorie (alles komponentenweise definiert)\\
+	Bezeichnung: I-Dir-A-Mod
+\end{bem}
+
+\begin{defi}
+	Ein \textbf{direkter Limes} des direkten Systems $(M_i, \varphi_{ij})_I$ von $A$-Moduln (induktiver Limes, Kolimes) ist eine $A$-Modul $M$ zusammen mit einer Familie $(\varphi_i)_{i \in I}$ von $A$-Modulhomomorphismen $\varphi_i: M_i \to M$, sodass $\varphi_i = \varphi_j \circ \varphi_{ij}$ für alle $i, j \in I$ mit $i \leq j$ ist, sodass folgende universelle Eigenschaft erfüllt ist:\\
+	Für jeden $A$-Modul $N$ und jede Familie $(\psi_i)_{i \in I}$ von $A$-Modulhomomorphismen $\psi_i: M_i \to N$\\
+	mit $\psi_i = \psi_j \circ \varphi_{ij}$ für alle $i \leq j$ existiert ein eindeutig bestimmter $A$-Modulhomomorphismus $\psi: M \to N$\\
+	mit $\psi_i = \psi \circ \varphi_i$ für alle $i \in I$.\\
+	Diagramm: \begin{align*}
+	\begin{tikzpicture}{
+		\node (01) at (5,6) {$ N $};
+		\node (02) at (5,4) {$ M $};
+		\node (03) at (2,2) {$ M_i $};
+		\node (04) at (8,2) {$ M_j $};
+		\draw[->] (04) edge node[above] {$ \psi_j $} (01);
+		\draw[->] (03) edge node[above] {$ \varphi_i $} (02);
+		\draw[->] (03) edge node[below] {$ \varphi_{ij} $} (04);
+		\draw[->] (04) edge node[above] {$ \varphi_j $} (02);
+		\draw[->, densely dotted] (02) edge node[right] {$ \psi $} (01);
+		\draw[->] (03) edge node[above] {$ \psi_i $} (01);
+	}
+	\end{tikzpicture} 
+	\end{align*}
+\end{defi}
+
+\begin{satz}
+	$(M_i, \varphi_{ij})_I$ direktes System von $A$-Moduln.\\
+	Dann gilt:\\
+	(a) Setzt man $L := \bigcup\limits_{i \in I}^\point M_i$ und für $x,y \in L$, $x = m_i \in M_i$ \begin{align*}
+	x \sim y \Leftrightarrow \text{ Es ex. } k \in I \text{ mit } i \leq k, j \leq k \text{ mit } \varphi_{ik}(x) = \varphi_{jk}(y)
+	\end{align*}
+	dann ist ''$\sim$'' eine Äquivalenzrelation auf $L$.\\
+	Hierbei ist $\bigcup\limits_{i \in I}^\point M_i := \bigcup\limits_{i \in I} (M_i \times \{i\})$, man identifiziert $M_i \times \{i\}$ mit $M_i$.\\
+	(b) Setzt man $M:= L/\sim$, dann wird $M$ auf natürliche Weise zu einem $A$-Modul und die Abbildung $\varphi_i: M_i \to M$, $x \mapsto \bar{x}$ sind $A$-Modulhomomorphismen.\\
+	Für jedes $m \in M$ existiert ein $i \in I$, $m_i \in M_i$ mit $m = \varphi_i(m_i)$\\
+	(c) $(M, (\varphi_i)_{i \in I})$ ist ein direkter Limes von $(M_i, \varphi_{ij})_I$\\
+	(d) Ist $(M', (\varphi_i')_{i \in I})$ ein weiterer direkter Limes des obigen direkten Systems, dann existiert ein eindeutig bestimmter Isomorphismus $\gamma: M \to M'$ mit $\gamma \circ \varphi = \varphi_i'$ für alle $i \in I$.\\
+	Notation: $M = \lim\limits_{\to i \in I} M_i$
+\end{satz}
+
+\begin{bsp}
+	(vgl. 16.0.3)\\
+	(a) $M_1 \subseteq M_2 \subseteq \ldots \subseteq M$ mit den Inklusionen als Übergangsabbildung.\\
+	$\lim\limits_{\to i \in \NN} M_i = \bigcup\limits_{i \in \NN} M_i \subseteq M$, wobei $\varphi: M_i \hookrightarrow \bigcup\limits_{i \in \NN} M_i$ Inklusion. \begin{align*}
+	\begin{tikzpicture}{
+		\node (01) at (5,6) {$ N $};
+		\node (02) at (5,4) {$ \bigcup\limits_{i \in \NN} M_i $};
+		\node (03) at (2,2) {$ M_i $};
+		\node (04) at (8,2) {$ M_j $};
+		\draw[->] (03) edge node[above] {$ \psi_i $} (01);
+		\draw[->] (04) edge node[above] {$ \psi_j $} (01);
+		\draw[right hook->] (03) edge node[above] {$ \varphi_i$} (02);
+		\draw[right hook->] (03) edge node[below] {$ \varphi_{ij}$} (04);
+		\draw[right hook->] (04) edge node[above] {$ \varphi_j$} (02);
+		\draw[->, densely dotted] (02) edge (01);
+	}
+	\end{tikzpicture} 
+	\end{align*}
+	$\psi_j \circ \varphi_{ij} = \psi_i$ für $i \leq j$, d.h. $\psi_j|_{M_i} = \psi_i$\\
+	(b) $(M_i)_{i \in I}$ bzgl., ''$\subseteq$'' gerichtete Familie von Untermoduln von $M$, indiziert über sich selbst\\
+	$\Rightarrow \lim\limits_{\to i \in I} M_i = \bigcup\limits_{i \in I} M_i$\\
+	(c) $(M_i)_{i \in I}$ Familie der endlich-erz. Untermoduln von $M$ $\Rightarrow \lim\limits_{\to i \in I} M_i = \bigcup\limits_{i \in I} M_i = M$,
+	denn: jedes Element aus $M$ liegt in einem endlich-erz. Untermodul von $M$.
+\end{bsp}
+
+\begin{bem}
+	$(f_i)_{i \in I}: (M_i, \varphi_{ij}^M)_I \longrightarrow (N_i, \varphi_{ij}^N)_I$ Homomorphismus direkter Systeme von $A$-Moduln.\\
+	Dann existiert ein eindeutig bestimmter Homomorphismus \begin{align*}
+		\lim\limits_{\to i \in I} f_i: \lim\limits_{\to i \in I} M_i \to \lim\limits_{\to i \in I N_i}
+	\end{align*}
+	mit ($\lim\limits_{\to} f_i) \circ \varphi_i^M = \varphi_i^N \circ f_i$ für alle $i \in I$: \begin{align*}
+	\begin{xy}
+		\xymatrix{
+			M_i \ar[r]^{f_i} \ar[d]_{\varphi_i^M} & N_i \ar[d]_{\varphi_i^N}\\
+			\lim\limits_{\to i \in I} M_i \ar[r]_{\lim\limits_{\to} f_i} & \lim\limits_{\to i \in I} N_i	
+	}
+	\end{xy}
+	\end{align*}
+\end{bem}
+
+\begin{folg}
+	$ $\\
+	$\lim\limits_{\to i \in I} - : I-Dir-A-Mod \longrightarrow A-Mod$ ist ein additiver Funktor.
+\end{folg}
+
+
+
+\begin{bsp}
+	(vgl. Bsp. 16.3(d)) $I = \NN$ mit ''$|$''-Halbordnung, $M_i = \ZZ/i\ZZ$,\\
+	$\varphi_{ij}: \ZZ/i\ZZ \to \ZZ/j\ZZ$, $a + i\ZZ \mapsto \frac{j}{i} a + j\ZZ$ für $i|j$\\
+	Setze $f_i: \ZZ/i\ZZ \overset{\sim}{\to} (\frac{1}{i}\ZZ)/\ZZ \subseteq \QQ/\ZZ$, $a + i\ZZ \mapsto \frac{a}{i} + \ZZ$\\
+	$\psi_{ij}: (\frac{1}{i}\ZZ)/\ZZ \hookrightarrow (\frac{1}{j})/\ZZ$, $\frac{a}{i} + \ZZ \mapsto \frac{a}{i} + \ZZ$ für $i|j$\\
+	$\Rightarrow ((\frac{1}{i}\ZZ)/\ZZ, \psi_{ij})_\NN$ ist ein direktes System von $\ZZ$-Moduln, und \begin{align*}
+		(f_i)_{i \in \NN}: (\ZZ/i\ZZ, \varphi_{ij})_\NN \to ((\frac{1}{i} \ZZ)/\ZZ, \psi_{ij})_\NN
+	\end{align*}
+	ist ein Isomorphismus direkter Systeme (beachte: $\psi_{ij} \circ f_i = f_j \circ \varphi_{ij}$ für $i|j$, denn:\\
+	$(\psi_{ij} \circ f_i)(a + i \ZZ) = \psi_{ij}(\frac{a}{i} + \ZZ) = \frac{a}{i} + \ZZ$,\\
+	$(f_j \circ p_{ij})(a + i\ZZ) = f_j(\frac{j}{i}a + j \ZZ) = \frac{ja}{ij} + \ZZ = \frac{a}{i} + \ZZ$\\
+	$\underset{16.0.9}{\Rightarrow} \lim_{\to i \in \NN} \ZZ/i\ZZ \cong \lim\limits_{\to i \in \NN} (\frac{1}{i} \ZZ)/\ZZ \underset{16.7(b)}{=} \bigcup\limits_{i \in \NN} (\frac{1}{i} \ZZ)/\ZZ = \QQ/\ZZ$
+\end{bsp}
+
+\begin{bem}
+	$(M_i, \varphi_{ij})_I$ direktes System von $A$-Moduln, $N$ $A$-Modul.\\
+	Dann gibt es einen natürlichen Isomorphismus \begin{align*}
+		\lim\limits_{\to i \in I} (M_i \otimes_A N) \cong (\lim\limits_{i \in I} M_i) \otimes_A N
+	\end{align*}
+\end{bem}
+
+\begin{satz}
+	Der Funktor $\lim\limits_{\to i \in I} -: I-Dir-A-Mod \to A$-Mod ist exakt.
+\end{satz}
+
+\textbf{Anmerkung:} $\lim\limits_{i \in I} -$ ist linksadjungiert zum ''konstanten System-Funktor'': \begin{eqnarray*}
+	I-const: A-Mod &\longrightarrow& I-Dir-A-Mod\\
+	M &\longmapsto& (M, id_M)_I
+\end{eqnarray*}
+denn: $Hom_{A-Mod} (\lim\limits_{\to i \in I} M_i, N) \cong Hom_{I-Dir-A-Mod} ((M_i, \varphi_{ij})_I, I-const(N))$
+
+\begin{folg}
+	$(M_i, \varphi_{ij})_I$ direkte System flacher $A$-Moduln\\
+	Dann ist $\lim\limits_{i \in I} M_i$ flach
+\end{folg}
+
+\begin{folg}
+	$M$ $A$-Modul, sodass jeder endlich-erz. Untermodul von $M$ flach ist. Dann ist $M$ flach.
+\end{folg}
+
+\begin{defi}
+	$J \subseteq I$ heißt \textbf{kofinal} $\Leftrightarrow$ Für jedes $i \in I$ existiert ein $j \in J$ mit $i \leq j$.
+\end{defi}
+
+\textbf{Anmerkung:} \begin{itemize}
+	\item Ist $J \subseteq I$ kofinal, dann ist $J$ gerichtet, denn: $i, j \in J \overset{J \text{ gerichtet}}{\Rightarrow}$ Es existiert ein $k \in I$ mit $i, j \leq k$ und es existiert ein $l \in J$ mit $k \leq l \Rightarrow i,j \leq l$.
+	\item Ist $(M_i, \varphi_{ij})_I$ ein direktes System, dann ist auch $(M, \varphi_{ij})_J$ ein direktes System und es gibt einen eindeutig bestimmten Homomorphismus \begin{align*}
+		\iota: \lim\limits_{\to i \in J} M_i \longrightarrow \lim\limits_{\to i \in I} M_i
+	\end{align*}
+	mit $iota \circ \varphi_i^J = \varphi_i^I$ für alle $i \in J$: \begin{align*}
+		\begin{tikzpicture}{
+			\node (01) at (5,6) {$ \lim\limits_{\to i \in I} M_i $};
+			\node (02) at (5,4) {$ \lim\limits_{\to i \in J} M_i $};
+			\node (03) at (2,2) {$ M_i $};
+			\node (04) at (8,2) {$ M_j $};
+			\draw[->] (03) edge node[above] {$ \varphi_i^I $} (01);
+			\draw[->] (04) edge node[above] {$ \varphi_j^I $} (01);
+			\draw[->] (03) edge node[above] {$ \varphi_i^J $} (02);
+			\draw[->] (03) edge node[below] {$ \varphi_{ij} $} (04);
+			\draw[->] (04) edge node[above] {$ \varphi_j^J $} (02);
+			\draw[red][->, densely dotted] (02) edge node[right] {$ \iota $} (01);
+			\draw[->] (03) edge node[above] {$ \varphi_i^I $} (01);
+		}
+		\end{tikzpicture} 
+	\end{align*}
+\end{itemize}
+
+\begin{bem}
+	$J \subseteq I$ kofinal, $(M_i, \varphi_{ij})_I$ direktes System von $A$-Moduln\\
+	Dann ist der natürliche Homomorphismus \begin{align*}
+		\iota: \lim\limits_{\to i \in I} M_i \longrightarrow \lim\limits_{\to i \in I} M_i
+	\end{align*}
+	ein Isomorphismus.
+\end{bem}
+
+\begin{defi}
+	Ein über $I$ indiziertes \textbf{projektives System} von $A$-Moduln besteht aus \begin{itemize}
+		\item eine Familie $(M_i)_{i \in I}$ von $A$-Moduln
+		\item einer Familie $(\varphi_{ij})_{i,j \in I, i \leq j}$ von $A$-Modulhomomorphismen $\varphi_{ij}: M_j \to M_i$ \textbf{(Übergangsabbildungen)}, sodass gilt: \begin{itemize}
+			\item $\varphi_{ij} = id_{M_i}$ für alle $i \in I$
+			\item $\varphi_{ik} = \varphi_{ij} \circ \varphi_{jk}$ für alle $i,j,k \in I$ mit $i \leq j \leq k$
+		\end{itemize}
+	\end{itemize}
+	Im Folgenden schreiben wir dafür kurz $(M_i, \varphi_{ij})_I$
+\end{defi}
+
+\begin{bsp}
+	$ $\\
+	(a) $I = \NN$ mit $\leq$, $M$ $A$-Modul, $M_1 \supseteq M_2 \supseteq \ldots$ Folge von Untermoduln von $M$, $\varphi_{ij}: M_j \hookrightarrow M_i$ Inklusion für $i \leq j$. Dies liefert ein projektives System von $A$-Moduln.\\
+	(b) $M$ $A$-Modul, $I$ Menge von Untermoduln von $M$, die gewichtet bzgl. ''$\supseteq$'' sei.\\
+	Setze $M_i = i$. Dann ist $(M_i)_{i \in I}$ ein projektives System mit den Inklusionen als Übergangsabbildung.\\
+	(c) $I = \NN$ mit $''|''$-Halbordnung, $M_i = \ZZ/i \ZZ$, $\varphi_{ij}: \ZZ/j \ZZ \twoheadrightarrow \ZZ/i \ZZ$, $a + j\ZZ \mapsto a + i \ZZ$ für $i|j$ liefert ein projektives System von $\ZZ$-Moduln\\
+	(d) $I = \NN$ mit ''$\leq$'', $p$ Primzahl, $M_i = \ZZ/p^i \ZZ$, $\varphi_{ij}: \ZZ/p^j \ZZ \twoheadrightarrow \ZZ/p^i \ZZ$, $a + p^j\ZZ \mapsto
+	 a + p^i \ZZ$ für $i \leq j$ liefert ein projektives System von $\ZZ$-Moduln
+\end{bsp}
+
+\begin{bem}
+	Ein Homomorphismus vom projektiven System $(M_i, \varphi_{ij}^M)_I$ ins projektive System $(N_i, \varphi_{ij}^N)_I$ ist eine Familie $(f_i)_{i \in I}$ von $A$-Modulhomomorphismen $f_i: M_i \to N_i$, sodass $\varphi_{ij}^N \circ f_j = f_i \circ \varphi_{ij}^M$ für alle $i, j \in I$ mit $i \leq j$: \begin{align*}
+		\begin{xy}
+		\xymatrix{
+			M_i \ar[r]^{f_i}    &  N_i \\
+			M_j\ar[u]_{\varphi_{ij}^M} \ar[r]_{f_j} & N_j \ar[u]_\varphi_{ij}^N
+		}
+	\end{xy}
+	\end{align*}
+	Die über $I$ indizierten projektiven System von $A$-Moduln bilden zusammen mit obgigen Homomorphismus eine abelsche Kategorie (alles komponentenweise definiert).\\
+	Bezeichnugn: $I-Pro-A-Mod$
+\end{bem}
+
+\begin{bsp}
+	Ein \textbf{projektiver Limes} des projektiven Systems $(M_i, \varphi_{ij})_I$ von $A$-Moduln ist ein $A$-Modul $M$ zusammen mit einer Familie $(\varphi_i)_{i \in I}$ von $A$-Modulhomomorphismen $\varphi_i: M \to M_i$, sodass $\varphi_i = \varphi_{ij} \circ \varphi_j$ für alle $i, j \in I$ mit $i \leq j$ ist, sodass folgende universelle Eigenschaft erfüllt ist:\\
+	Für jeden $A$-Modul $N$ und jede Familie $(\psi_i)_{i \in I}$ von $A$-Modulhomomorphismen $\psi_i: N \to M_i$ mit $\psi_i = \varphi_{ij} \circ \psi_j$ für alle $i \leq j$ existiert ein eindeutig bestimmter $A$-Modulhomomorphismus $\psi: N \to M$ mit $\psi_i = \varphi_i \circ \psi$  für alle $i \in I$. \begin{align*}
+	\begin{tikzpicture}{
+		\node (01) at (5,6) {$ N $};
+		\node (02) at (5,4) {$ M $};
+		\node (03) at (2,2) {$ M_i $};
+		\node (04) at (8,2) {$ M_j $};
+		\draw[->] (01) edge node[above] {$ \psi_i $} (03);
+		\draw[->] (01) edge node[above] {$ \psi_j $} (04);
+		\draw[->] (02) edge node[above] {$ \varphi_i $} (03);
+		\draw[->] (04) edge node[below] {$ \varphi_{ij} $} (03);
+		\draw[->] (02) edge node[above] {$ \varphi_j $} (04);
+		\draw[red][->, densely dotted] (01) edge node[right] {$ \psi $} (02);
+	}
+	\end{tikzpicture} 
+	\end{align*}
+\end{bsp}
+
+\begin{satz}
+	$(M_i,\varphi_{ij})_I$ projektives System von $A$-Moduln. Dann gilt:\\
+	Setzt man \begin{align*}
+		M := \{(m_i)_{i \in I} \in \prod_{i \in I} M_i | \varphi_{ij}(m_j) = m_i \text{ für alle } i \leq j\},\\
+		\varphi_i: M \to M_i, (m_j)_{j \in I} \mapsto m_i
+	\end{align*}
+	dann ist $(M, (\varphi_i)_{i \in I})$ ein projektiver Limes von $(M_i, \varphi_{ij})_I$.\\
+	Ist $(M', (\varphi_i')_{i \in I})$ ein weiterer projektiver Limes des obigen Systems, dann existiert ein eindeutig besimmter Isomorphismus $\gamma: M' \to M$ mit $\varphi \circ \gamma = \varphi_i'$ für alle $i \in I$.\\
+	Notation: $M = \lim\limits_{\leftarrow i \in I} M_i$
+\end{satz}
+
+\begin{bsp}
+	(vgl. Bsp 16.18)\\
+	(a) $M \supseteq M_1 \supseteq M_2 \supseteq \ldots$ mit Inklusionen als Übergangsabbildung\\
+	$\Rightarrow \lim\limits_{\leftarrow i \in \NN} M_i = \bigcap\limits_{i \in \NN} M_i \subseteq M$ (mit $\varphi_i: \bigcap\limits_{i \in I} M_i \hookrightarrow M_i$ Inklusionen) \begin{align*}
+	\begin{tikzpicture}{
+		\node (01) at (5,6) {$ N $};
+		\node (02) at (5,4) {$ \bigcap\limits_{i \in I} M_i $};
+		\node (03) at (2,2) {$ M_i $};
+		\node (04) at (8,2) {$ M_j $};
+		\draw[->] (01) edge node[above] {$ \psi_i $} (03);
+		\draw[->] (01) edge node[above] {$ \psi_j $} (04);
+		\draw[right hook->] (02) edge (03);
+		\draw[right hook->] (04) edge (03);
+		\draw[right hook->] (02) edge (04);
+		\draw[->, densely dotted] (01) edge (02);
+	}
+	\end{tikzpicture} 
+	\end{align*}
+	alternativ: $\bigcap\limits_{i \in \NN} M_i \longrightarrow \{(m_i)_{i \in \NN} \in \prod\limits_{i \in \NN} M_i | m_j = m_i \text{ für alle } i \leq j\}$\\
+	\hspace*{10 mm} $m \longmapsto (m)_{i \in \NN}$\\
+	(b) $(M_i)_{i \in I}$ bzgl. ''$\supseteq$'' gerichtete Familie von Untermoduln von $M$, indiziert über sich selbst\\
+	$\Rightarrow \lim\limits_{\leftarrow i \in I} M_i = \bigcap\limits_{i \in I} M_i$\\
+	(c) $\lim\limits_{\leftarrow i \in \NN} \ZZ/i \ZZ$ bezeichnet man mit $\hat{\ZZ}$\\
+	(d) $\lim\limits_{\leftarrow i \in \NN} \ZZ/p^i \ZZ$ bezeichnet man mit $\ZZ_p$
+\end{bsp}
+
+\begin{bem}
+	$(f_i)_{i \in I}: (M_i, \varphi_{ij}^M)_I \longrightarrow (N_i, \varphi_{ij}^N)_I$ Homomorphismus projektiver Systeme von $A$-Moduln.\\
+	Dann existiert ein eindeutig bestimmter Homomorphismus. \begin{align*}
+		\lim\limits_{\leftarrow i \in I} f_i: \lim\limits_{\leftarrow i \in I}	M_i \longrightarrow \lim\limits_{\leftarrow i \in I} N_i
+	\end{align*}
+	mit $\varphi_i^N \circ \lim\limits_{\leftarrow i \in I} f_i = f_i \circ \varphi_i^M$ für alle $i \in I$ (wobei $\varphi_i^N$ bzw. $\varphi_i^M$ die Strukturmorphismen zwischen $\lim\limits_{\leftarrow} N_i$ bzw. $\lim\limits_{\leftarrow} M_i$ sind): \begin{align*}
+	\begin{xy}
+	\xymatrix{
+		\lim\lim\limits_{\leftarrow i \in I} M_i \ar[r]_{\lim\limits_{\leftarrow} f_i} \ar[d]_ {\varphi_i^M} & \lim\limits_{\leftarrow i \in I} N_i \ar[d]_{\varphi_i^N}\\
+		M_i \ar[r]_{f_i} & N_i
+	}
+	\end{xy}
+	\end{align*}
+	Explizit: $(\lim\limits_{\leftarrow})((m_i)_{i \in I}) = (f_i(m_i))_{i \in I}$
+\end{bem}
+
+\begin{folg}
+	$ $\\
+	$\lim\lim\limits_{\leftarrow i \in I} -: I-Pro-A-Mod \longrightarrow A$-Mod ist ein additiver Funktor
+\end{folg}
+
+\begin{satz}
+	Der Funktor $\lim\limits_{\leftarrow i \in I} -: I-Pro-A-Mod \longrightarrow A$-Mod ist linksexakt.
+\end{satz}
+
+\textbf{Anmerkung:} $\lim\limits_{\leftarrow i \in I}-$ ist im Allgemeinen nicht rechtsexakt.
+
+\begin{bsp}
+	Wir betraachten die exakte Folge projektiver Systeme von $\ZZ$-Moduln über $I = \NN$: \begin{align*}
+	0 \longrightarrow (\ZZ, \cdot p)_\NN \overset{{(\cdot p^n)_{n \in \NN}}}{\longrightarrow} (\ZZ, id_\ZZ)_\NN \longrightarrow (\ZZ/p^n\ZZ, Projektionsabbildung) \longrightarrow 0
+	\end{align*}
+	\begin{tikzpicture}
+	\node (04) at (0,4) {$ n+1: $};
+	\node (05) at (0,2) {$ n: $};
+	\node (01) at (1,4) {$ 0 $};
+	\node (A0) at (3,4) {$ \ZZ $};
+	\node (B0) at (5,4) {$ \ZZ $};
+	\node (C0) at (7,4) {$ \ZZ/p^{n+1} \ZZ $};
+	\node (D0) at (9,4) {$ 0 $};
+	\node (00) at (1,2) {$ 0 $};
+	\node (A1) at (3,2) {$ \ZZ $};
+	\node (B1) at (5,2) {$ \ZZ $};
+	\node (C1) at (7,2) {$ \ZZ/p^n \ZZ $};
+	\node (02) at (9,2) {$ 0 $};
+	\draw[->] (01) edge (A0);
+	\draw[->] (C0) edge (D0);
+	\draw[->] (00) edge (A1);
+	\draw[->] (C1) edge (02);
+	\draw[->] (A0) edge node[right] {$ \cdot p $} (A1);
+	\draw[->] (B0) edge node[right] {$ id_\ZZ $} (B1);
+	\draw[->] (C0) edge node[right] {proj} (C1);
+	\draw[->] (A1) edge node[below] {$ \cdot p^n$} (B1);
+	\draw[->] (B1) edge node[below] {proj.} (C1);
+	\draw[->] (A0) edge node[above] {$ \cdot p^{n+1} $}  (B0);
+	\draw[->] (B0) edge node[above] {proj.} (C0);
+	\end{tikzpicture}
+	
+	Das projektive System $(\ZZ, \cdot p)_\NN$ ist via \begin{align*}
+	\begin{xy}
+		\xymatrix{
+			n+1 & \ZZ \ar[r]^{\cdot p^{n+1}} \ar[d]_{\cdot p} & p^{n+1}\ZZ \ar@{^{(}->}[d]\\
+			n & \ZZ \ar[r]_{\cdot p^n} & p^n\ZZ
+		}
+	\end{xy}
+	\end{align*}
+	isomorph zum System $p\ZZ \supseteq p^2\ZZ \supseteq \ldots$ von $\ZZ$-Untermoduln von $\ZZ$, d.h. projektiver Limes ist isomorph zu $\lim\limits_{\leftarrow n \in \NN} p^n\ZZ = \bigcap\limits_{n \in \NN} p^n \ZZ = 0$\\
+	Erhalte im projektiven Limes exakte Folge \begin{align*}
+		0 \to 0 \to \ZZ \overset{f}{\to} \ZZ_p \hspace*{3mm} \text{ mit } f: \ZZ \to \ZZ_p, \hspace*{2mm} x \mapsto (x + p^n\ZZ)_{n \in \NN}
+	\end{align*}
+	$f$ ist nicht surjektiv: Es existiert kein $x \in \ZZ$ mit $x \equiv 1 + p \ldots + p^{n-1} (mod p^n)$ für alle $n \in \NN$. $(p \neq 2)$\\
+	(alternativ: $\ZZ_p$ überabzählbar). 
+\end{bsp}
+
+\begin{defi}
+	$(M_i, \varphi_{ij})_\NN$ (bzgl. ''$\leq$'') projektives System von $A$-Moduln\\
+	Das System erfüllt die \textbf{Mittag-Leffler-Bedingung} (ML) 
+	$\Leftrightarrow$ Für jedes $i \in \NN$ wird die Folge \begin{align*}
+		M_i = \varphi_{ii} (M_i) \supseteq \varphi_{i, i+1} (M_{i+1}) \supseteq \varphi_{i, i+2} (M_{i+2}) \supseteq \ldots
+	\end{align*}
+	stationär
+\end{defi}
+
+\textbf{Anmerkung:} Sind die Homomorphismen $\varphi_{ij}$ alle surjektiv oder sind alle $M_i$ endlich, so ist (ML) erfüllt.\\
+Das System $(\ZZ, \cdot p)$ von der linken Seite der Folge in Bsp. 16.0.26 erfüllt (ML) nicht: \begin{align*}
+	\ZZ \supseteq p \ZZ \supseteq p^2 \ZZ \supseteq \ldots
+\end{align*}
+
+\begin{bem}
+	$ $\\
+	$0 \longrightarrow (K_i, \varphi_{ij}^K)_\NN \overset{{(f_i)_{i \in \NN}}}{\longrightarrow} (M_i, \varphi_{ij}^M)_\NN \overset{(g_i)_{i \in \NN}}{\longrightarrow} (N_i, \varphi_{ii}^N)_\NN \longrightarrow 0$ exakte Folge in $\NN-Pro-A-Mod$\\
+	$(K_i, \varphi_{ij}^K)_\NN$ erfülle (ML). Dann ist die Folge \begin{align*}
+		0 \longrightarrow  \lim\limits_{\leftarrow i \in \NN} K_i \longrightarrow \lim\limits_{\leftarrow i \in \NN} M_i \longrightarrow \lim\limits_{\leftarrow i \in \NN} N_i \longrightarrow 0
+	\end{align*}
+	exakt. 
+\end{bem}
+
+\begin{bem}
+	$J \subseteq I$ kofinal, $(M_i, \varphi_{ij})_I$ projektives System von $A$-Moduln.\\
+	Dann ist der natürlich Homomorphismus \begin{align*}
+		\epsilon: \lim\limits_{\leftarrow i \in I} M_i \longrightarrow \lim\limits_{\leftarrow i \in J} \hspace*{4mm} , \hspace*{4mm} (m_i)_{i \in I} \longmapsto (m_j)_{j \in J} 
+	\end{align*}
+	ein Isomorphismus. 
+\end{bem}
+
+\chapter{Diskrete Bewertungsringe} 
+
+\begin{defi}
+	$K$ Körper, $v: K \to \ZZ \cup \{ \infty\}$\\
+	$v$ heißt \textbf{diskrete Bewertung} auf $K$, wenn gilt:\\
+	(DB1) $v(x) = \infty \Leftrightarrow x = 0$\\
+	(DB2) $v(xy) = v(x) + v(y)$\\
+	(DB3) $v(x+y) \geq \min \{v(x), v(y)\}$\\
+	für alle $x,y \in K$.\\
+	In diesem Fall heißt $v$ \textbf{triviale Bewertung} $\Leftrightarrow v(K) = \{0, \infty\}$\\
+	\textbf{normierte Bewertung} $\Leftrightarrow$ $v$ surjektiv\\
+	$\underset{v(x^n) =  nv(x)}{\Leftrightarrow}$ Es existiert ein $x \in K$ mit $v(x) = 1$
+\end{defi}
+
+\textbf{Anmerkung:} $v(K^*)$ ist eine Untergruppe von $\ZZ$, denn $v|_{K^*}: K^* \longrightarrow \ZZ$ ist Gruppenhomomorphismus\\
+Somit $v(K^*) = m \ZZ$ für ein $m \in \NN_0$. Es gilt dann: \begin{itemize}
+	\item $v$ trivial $\Leftrightarrow m = 0$
+	\item Ist $v$ nichttrivial, so ist durch $v': K \to \ZZ \cup \{\infty\}$, $x \mapsto \begin{cases}
+	\frac{1}{m} v(x), \text{ falls} x \neq 0\\
+	\infty, \text{ falls} x = 0
+	\end{cases}$\\
+	eine normierte diskrete Bewertung gegeben.
+\end{itemize}
+
+\begin{bsp}
+	$A$ faktoriell, $p$ Primelement in $A$.\\
+	Jedes $x \in Quot(A)$, $x \neq 0$, lässt sich eindeutig schreiben als \begin{align*}
+		x = p^r \frac{a}{b} \hspace*{4mm} \text{ mit } p \nmid a, p \nmid b, r \in \ZZ
+	\end{align*}
+	Setze $v_p(x) := r$, $v_p(0) := \infty$, dann ist $v_p$ eine normierte diskrete Bewertung auf $Quot(A)$, denn: \begin{itemize}
+		\item (DB1), (DB2) klar
+		\item (DB3): Seien $x, y \in K$. Falls $x = 0$ oder $y = 0$, dann (DB3) klar\\
+		Falls $x, y \neq 0$, dann $x = p^r \frac{a}{b}$, $y = p^s \frac{c}{d}$ mit $r, s \in \ZZ$, $p \nmid a, p \nmid b, p \nmid c, p \nmid d$, OE $r \geq s$\\
+		$\Rightarrow x +y = p^r \frac{a}{b} + p^s \frac{c}{d} = p^s(p^{r-s} \frac{a}{b} + \frac{c}{d}) = p^s(\frac{p^{r-s}ad + bc}{bd})$\\
+		$\Rightarrow v_p(x+y) = \underbrace{v_p(p^s)}_{=s} + \underbrace{v_p(\frac{p^{r-s} ad + bc}{bd})}_{\geq 0} \geq s$
+		\item $v_p$ normiert wegen $v_p(p) = 1$.
+	\end{itemize}
+\end{bsp}
+
+\begin{satz}
+	$K$ Körpe, $v$ diskrete Bewertung auf $K$. Dann gilt:\\
+	(a) $0_v := \{x \in K| v(x) \geq 0\}$ ist ein nullteilerfreier Ring mit $Quot(0_V) =K$\\
+	(b) $O_v^* := \{x \in K| v(x) = 0\}$\\
+	(c) $0_v$ ist ein lokaler Ring mit maximalem Ideal \begin{align*}
+		\mathfrak{m}_v := \{x \in K| v(x) > 0\}
+	\end{align*}
+	(d) $0_v$ ist ein Hauptidealring\\
+	(e) $0_v$ ist ein Körper $\Leftrightarrow v$ ist trivial\\
+	(f) Ist $v$ normiert, dann gilt: \begin{align*}
+		p \in 0_v \text{ ist Primelement in } 0_v \Leftrightarrow v(p) = 1
+	\end{align*}
+	Die Primelemente von $0_v$ sind alle zueinander assoziiert, jedes Primelement erzeugt $\mathfrak{m}_v$.
+\end{satz}
+
+\begin{defi}
+	$A$ heißt \textbf{diskreter Bewertungsring} (DBR) $\Leftrightarrow$ $A$ ist ein lokaler HIR, der kein Körper ist.
+\end{defi}
+
+\begin{satz}
+	$A$ DBR, $p$ Primelement von $A$. Dann gilt:\\
+	(a) Jedes Element $x \in Quot(A)$, $x \neq 0$, lässt sich eindeutig darstellen als \begin{align*}
+		x = up^n
+	\end{align*}
+	mit $u \in A^*$, $n \in \ZZ$. Hierbei ist $n$ unabhängig von der Wahl von $p$\\
+	(b) Die Abbildung \begin{align*}
+		v = v_A: Quot(A) \to \ZZ \cup \{\infty\}, x \mapsto \begin{cases}
+		u, \text{ falls } x = up^n, u \in A^*\\
+		\infty, \text{ falls } x = 0
+		\end{cases}
+	\end{align*}
+	ist eine normierte diskrete Bewertung auf $Quot(A)$ mit $0_v = A$.
+\end{satz}
+
+\begin{folg}
+	$K$ Körper. Dann sind die Abbildungen \begin{eqnarray*}
+		\{\text{normierte diskrete Bewertungen $v$ auf $K$}\} & \longrightarrow & \{\text{Unterringe $A$ von $K$}| \text{$A$ ist DBR mit Quot(a) = K}\}\\
+		&\longleftarrow&\\
+		v &\longmapsto& 0_v\\
+		v_A &\longmapsfrom& A
+	\end{eqnarray*}
+	bijektiv und invers zueinander
+\end{folg}
+
+\begin{bem}
+	$A$ lokal, noethersch, nullteilerfrei, $\dim (A) = 1$, $\mathfrak{m}$ maximales Ideal von $A$, $\mathfrak{a} \subseteq A$ Ideal $\mathfrak{a} \neq 0$. Dann existiert ein $n \in \NN$ mit $\mathfrak{m}^n \subseteq \mathfrak{a}$.
+\end{bem}
+
+\begin{satz}
+	$A$ noethersch, lokal, nullteilerfrei mit maximalem Ideal $\mathfrak{m}$.\\
+	Dann sind äquivalent:\\
+	(i) $A$ ist ein DBR\\
+	(ii) $\dim(A) = 1$ und $A$ ist normal\\
+	(iii) $\mathfrak{m}$ ist ein Hauptideal $\neq (0)$\\
+	(iv) $A$ ist faktoriell und besitzt bis auf Assoziiertheit genau ein Primelement.
+\end{satz}
+
+
+
+
+
+
+
+\end{document}
+

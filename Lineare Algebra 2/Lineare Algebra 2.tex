@@ -1,0 +1,3122 @@
+\documentclass[10pt,a4paper,numbers=endperiod]{scrartcl}
+
+\usepackage[a4paper, left=25mm, right=25mm, top=25mm, bottom=25mm]{geometry}
+\usepackage[ngerman]{babel}			
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{stmaryrd}
+\usepackage{ulem}
+\usepackage{lscape}
+\usepackage{setspace}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage[all]{xy}
+\usepackage{pstricks,pst-plot}
+\usepackage{pst-node}
+\usepackage{pstricks,pst-plot,pst-node}
+\SpecialCoor
+\usepackage{amsmath,listings}
+\usepackage{bigdelim}
+\usepackage{arydshln}
+\usepackage{amsmath}
+\usepackage{amssymb}			
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{nicefrac}
+\usepackage{tikz}
+  \usetikzlibrary{matrix}
+  \usetikzlibrary{fit}
+  \usetikzlibrary{backgrounds}
+  \usetikzlibrary{arrows}
+  \usetikzlibrary{shapes}
+
+\setkomafont{sectioning}{\rmfamily\bfseries} 
+\setlength\parindent{0pt}
+
+\theoremstyle{definition}
+\newtheorem{satz}{Satz}[section]
+\newtheorem{lemm}[satz]{Lemma}
+\newtheorem{prop}[satz]{Proposition} 
+\newtheorem{theo}[satz]{Theorem}
+\newtheorem{kor}[satz]{Korollar}
+\newtheorem{defi}[satz]{Definition}
+\newtheorem{bem}[satz]{Bemerkung}
+\newtheorem{bsp}[satz]{Beispiel}
+\newtheorem{folg}[satz]{Folgerung}
+\newtheorem{nota}[satz]{Notation}
+\newtheorem{defisatz}[satz]{Definition/Satz}
+\newtheorem{whg}[satz]{Wiederholung}
+
+\newcommand{\xfrac}[2]{%
+	\mbox{\raisebox{0.4ex}{\ensuremath{\displaystyle #1}\hspace{0.2ex}}%
+		{\raisebox{-0.1ex}{\Large /}}%
+		\raisebox{-0.2ex}{\ensuremath{\displaystyle #2}}%
+	}%
+}
+
+
+
+
+\def\QQ{{\mathbb Q}}
+\def\CC{{\mathbb C}}
+\def\RR{{\mathbb R}}
+\def\NN{{\mathbb N}}
+\def\ZZ{{\mathbb Z}}
+\def\PP{{\mathbb P}}
+\def\FF{{\mathbb F}}
+
+
+\def\Namen{} % Namen eintragen
+\def\Datum{} % Datum eintragen
+\def\Titel{} % Vortragstitel eintragen
+% Die Titelzeilen werden aus diesen Angaben automatisch erzeugt.
+\begin{document}
+\Namen \hfill \Datum\par
+\vspace{0.25\baselineskip}
+\hrule
+\vspace{\baselineskip}
+\begin{center}
+{\LARGE\textbf{Lineare Algebra 2}}\par
+\vspace{0.25\baselineskip}
+{\large\textsc{Uni Heidelberg}}
+\end{center}
+
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}  
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+\vspace{\baselineskip}
+
+\begin{center}
+	{\large\text{Mit Liebe gemacht von:}}\\
+	\vspace{0.3\baselineskip}
+	{\large\textsc{Nikolaus Schäfer}}
+\end{center}
+
+\newpage
+\vspace{0.125\baselineskip}
+\tableofcontents %Inhaltsverzeichnis (wird automatisch erzeugt
+\newpage
+\section{Eigenwerte}
+\vspace{0.2\baselineskip}
+
+\onehalfspacing
+In diesem Abschnitt sei $n \in \NN$, $V$ ein $K$-VR und $\varphi \in End_K(V)$\\
+Frage: V endlich dimensional, existiert eine Basis $B = (v_1, \ldots, v_n)$ von V, sodass $M_B(\varphi)$ eine Diagonalmatrix ist, d.h. $M_B(\varphi) = \begin{pmatrix}
+\lambda_1&&0\\
+&\ddots&\\
+0&&\lambda_n
+\end{pmatrix}$ mit $\lambda_1,\ldots, \lambda_n \in K$? Für $i= 1,\ldots,n$ wäre dann $\varphi(v_i) = \lambda_iv_i$.\\
+
+\begin{defi}
+	$\lambda \in K, v\in V$\\
+	$\lambda$ heißt Eigenwert von $\varphi \Leftrightarrow$ Es existiert ein $v \in V, v \neq 0$ mit $\varphi(v) = \lambda v$\\
+	$v$ heißt Eigenvektor zum Eigenwert $\lambda \Leftrightarrow v \neq 0$ und $\varphi (v) = \lambda v$\\
+	$\varphi$ heißt diagonalisierbar $\Leftrightarrow V$ besitzt eine Basis aus EV von $\varphi$\\
+	(Falls $V$ endlichdimensional, ist dies äquivalent zu: Es gibt eine Basis $B$ von V und $\lambda_1, \ldots, \lambda_n \in K$ mit\\ $M_B(\varphi) = \begin{pmatrix}
+	\lambda_1&&0\\
+	&\ddots&\\
+	0&&\lambda_n
+	\end{pmatrix}$
+	Eigenwerte/Eigenvektoren/Diagonalisierbarkeit einer Matrix $A \in M(n \times n, K)$ sind über den Endomorphismus $\tilde{A}: K^n \rightarrow K^n$ definiert.
+\end{defi}
+
+\begin{bem}
+	$A \in M(n \times n, K)$. Dann sind äquivalent:\\
+	(i) $A$ ist diagonalisierbar.\\
+	(ii) Es gibt eine Basis von $K^n$ aus Eigenvektoren von A\\
+	(iii) Es gibt ein $S \in GL(n,K)$, $\lambda_1, \ldots, \lambda_n \in K$ mit $SAS^{-1} = \begin{pmatrix}
+	\lambda_1&&0\\
+	&\ddots&\\
+	0&&\lambda_n
+	\end{pmatrix}$\\
+	(iv) $A$ ist ähnlich zu einer Diagonalmatrix.\\
+	In diesem Fall steht in den Spalten von $S^{-1}$ eine Basis des $K^n$ aus EV von $A$, und für jede Matrix $A \in M(n\times n, K)$ mit der Eigenschaft, dass die Spalten von $S^{-1}$ eine Basis des $K^n$ aus EV von $A$ bilden, dann ist $SAS^{-1}$ eine Diagonalmatrix (mit den EW auf der Diagonalen).
+\end{bem}
+
+\begin{bsp}
+	$K = \RR, V = \RR^2$\\
+	(a) $\varphi: \RR^2 \rightarrow \RR^2, \binom{x_1}{x_2} \mapsto \binom{x_2}{x_1} = \begin{pmatrix}
+	0&1\\
+	1& 0
+	\end{pmatrix}\begin{pmatrix}
+	x_1\\
+	x_2
+	\end{pmatrix}$\\
+	Es ist $\varphi(\binom{1}{1}) = \binom{1}{1} = 1 \cdot \binom{1}{1}$, d.h. $\binom{1}{1}$ ist EV von $\varphi$ zum EW 1.\\
+	$\varphi(\binom{1}{-1}) = \binom{-1}{1} = -1 \cdot \binom{1}{-1}$, d.h. $\binom{1}{-1}$ ist EV von $\varphi$ zum EW -1.\\
+	Somit: $(\binom{1}{1}, \binom{1}{-1})$ ist eine Basis des $\RR^2$ aus EV von $\varphi$, d.h. $\varphi$ ist diagnoalisierbar.\\
+	In Termen von Matrizen: $A = \begin{pmatrix}
+	0&1\\
+	1& 0
+	\end{pmatrix} \in M(2 \times 2, \RR)$ ist diagonalisierbar, und mit $S = \begin{pmatrix}
+	1&1\\
+	1&-1
+	\end{pmatrix}^{-1}$ ist dann $SAS^{-1} = \begin{pmatrix}
+	1&0\\
+	0& -1
+	\end{pmatrix}$\\
+	Achtung: Das $\varphi$ diagonalisierbar ist, heißt nicht, dass jeder Vektor aus $V = \RR^2, v \neq 0$ ein EV von $\varphi$ ist, z.B. ist $\varphi(\binom{1}{2}) = \binom{2}{1} \neq \lambda \binom{1}{2}$ für alle $\lambda \in \RR$.\\
+	(b) $\varphi: \RR^2 \rightarrow \RR^2$, $\begin{pmatrix}
+	x_1\\
+	x_2
+	\end{pmatrix} \mapsto \begin{pmatrix}
+	0&-1\\
+	1&0
+	\end{pmatrix}\begin{pmatrix}
+	x_1\\
+	x_2
+	\end{pmatrix} = \begin{pmatrix}
+	-x_2\\
+	x_1
+	\end{pmatrix}$ (=Drehung um $\pi/2$) hat keinen EW. Beweis dafür später.\\
+\end{bsp}
+Ziel: Suche Kriterium für Diagonalisierbarkeit
+
+\begin{bem}
+	$v_1,\ldots, v_m$ EV von $\varphi$ zu paarweise verschiedenen EW $\lambda_1,\ldots\lambda_m \in K$\\
+	Dann ist $(v_1,\ldots,v_m)$ linear unabhängig, insbesondere ist $m \leq \dim V$.\\
+	Insbesondere gilt: Ist $V$ endlichdimensional, dann hat $\varphi$ höchstens $\dim(V)$ Eigenwerte. 
+\end{bem}
+
+\begin{folg}
+	$V$ endlichdimensional, $\varphi$ habe $n$ paarweise verschiedene EW, wobei $n = \dim V$\\
+	Dann ist $\varphi$ diagonalisierbar.
+\end{folg}
+
+\begin{defi}
+	$\lambda \in K$\\
+	$Eig(\varphi, \lambda) := \{v \in V| \varphi(v) = \lambda v\}$ heißt Eigenraum von $\varphi$ bzgl. $\lambda$\\
+	$\mu_{geo} (\varphi, \lambda) := \dim Eig(\varphi, \lambda)$ heißt die geometrische Vielfachheit von $\lambda$\\
+	Für $A \in M(n \times n, K)$ setzen wir $Eig(A, \lambda) := Eig(\tilde{A},\lambda)$, $\mu_{geo}(A, \lambda) := \mu_{geo}(\tilde{A}, \lambda)$. 
+\end{defi}
+
+\begin{bem}
+	$\lambda \in K$. Dann gilt:\\
+	(a) $Eig(\varphi, \lambda)$ ist ein UVR von $V$.\\
+	(b) $\lambda$ ist EW von $\varphi \Leftrightarrow Eig(\varphi, \lambda) \neq \{0\}$\\
+	(c) $Eig(\varphi, \lambda)\backslash \{0\}$ ist die Menge der zu $\lambda$ gehörenden EV von $\varphi$.\\
+	(d) $Eig(\varphi, \lambda) = \ker(\lambda id_V - \varphi)$, insbesondere ist $Eig(A,\lambda) = \ker(\lambda E_n - A) =$ Lös$(\lambda E_n - A, 0)$ für $A \in M(n \times n, K)$\\
+	(e) Sind $\lambda_1, \lambda_2 \in K$ mit $\lambda_1 \neq \lambda_2$, dann $Eig(\varphi, \lambda_1) \cap Eig(\varphi, \lambda_2) = \{0\}$
+\end{bem}
+
+\begin{bem}
+	$V$ endlichdimensional, $\lambda \in K$. Dann sind äquivalent:\\
+	(i) $\lambda$ ist EW von $\varphi$\\
+	(ii) $\det(\lambda id_V - \varphi) = 0$
+\end{bem}
+
+\begin{defi}
+	$K$ Körper, $A = (a_{ij}) \in M(n\times n, K)$\\
+	$\chi_A^{char} := \det(t E_n - A) = \det \begin{pmatrix}
+	t - a_{11} & -a_{12}& \dots &-a_{1n}\\
+	-a{21}& t-a_{22}&& \vdots\\
+	\vdots&&\ddots & \vdots\\
+	-a_{nn} & \dots & \dots  & t - a_{nn}
+	\end{pmatrix} \in K[t]$\\ 
+	heißt das charakteristische Polynom von $A$.
+\end{defi}
+Anmerkung: Hierfür nötig: Determinante von Matrizen mit Einträgen in einem kommutativen Ring (Anmerkung in LA 1). 
+
+\begin{bsp}
+	$A = \begin{pmatrix}
+	1 & 2\\
+	3 & 4
+	\end{pmatrix} \in M(2 \times 2, \RR) \Rightarrow \chi_A^{char} = \det \begin{pmatrix}
+	t-1 & -2\\
+	-3 & t-4\\
+	\end{pmatrix} = (t-1) (t-4) - 6 = t^2 - 5t-2$
+\end{bsp}
+
+\begin{bem}
+	$A, B \in M(n \times n, K), A \approx B$\\
+	Dann ist $\chi_A^{char} = \chi_B^{char}$. 
+\end{bem}
+
+\begin{defi}
+	$V$ endlichdimensional, $n = \dim V, B$ Basis von $V$, $\varphi \in End(V), A = M_B (\varphi)$\\
+	$\chi_\varphi^{char} := \chi_A^{char} = \det(t E_n - A) \in K[t]$ heißt das charakteristische Polynom von $\varphi$. 
+\end{defi}
+
+Anmerkung: $\chi_\varphi^{char}$ ist wohldefiniert, denn: Ist $B'$ eine weitere Basis von $V$, $A' = M_{B'} (\varphi)$, dann ist $A \approx A'$ und deshalb nach Bem. 1.11: $\chi_A^{char} = \chi_{A'}^{char}$.
+
+\begin{satz}
+	$V$ endlichdimensional, $n = \dim V$. Dann gilt:\\
+	(a) $\chi_{\varphi}^{char}$ ist ein normiertes Polynom vom Grad $n$: $\chi_\varphi^{char} = t^n + c_{n-1} t^{n-1} + \ldots + c_0$ mit $c_0 = (-1)^n \det \varphi,\\
+	c_{n-1} = -sp(\varphi)$ (vgl. Ü zur Spur)\\
+	(b) Die Nullstellen von $\chi_\varphi^{char}$ sind genau die EW von $\varphi$: $\lambda \in K$ ist EW von $\varphi \Leftrightarrow \chi_A^{char} (\lambda) = 0$
+\end{satz}
+
+\begin{defi}
+	$\lambda \in K$\\
+	$\mu_{alg} (\varphi, \lambda) := \mu (\chi_{\varphi}^{char}, \lambda)$ heißt die algebraische Vielfachheit von $\lambda$. 
+\end{defi}
+\newpage
+\begin{bsp}
+	(vgl. Bsp. 1.3)\\
+	(a) $\varphi: \RR^2 \rightarrow \RR^2$, $\begin{pmatrix}
+	x_1\\
+	x_2
+	\end{pmatrix} \mapsto \underbrace{\begin{pmatrix}
+	0& 1\\
+	1 & 0
+	\end{pmatrix}}_{=: A}\begin{pmatrix}
+	x_1\\
+	x_2
+	\end{pmatrix}$.\\
+	Es ist $\chi_{\varphi}^{char} = \chi_A^{char} = \det\begin{pmatrix}
+	t & -1\\
+	-1 & t
+	\end{pmatrix} = t^2 -1 = (t-1)(t+1) \in \RR[t] \Rightarrow$ EW von $\varphi: 1, -1$\\
+	Es ist $\mu_{alg}(\varphi,1) = 1, \mu_{alg}(\varphi, -1) = 1$\\
+	$Eig(\varphi,1) = Eig(A,1) =$ Lös$(E_2 -A, 0) =$ Lös$(\begin{pmatrix}
+	1 & -1\\
+	-1 & 1
+	\end{pmatrix}, 0) = Lin(\binom{1}{-1})$, also $\mu_{geo}(\varphi, 1) = \dim Eig(\varphi, 1) = 1$.\\
+	$Eig(\varphi, -1) = 1$ (analog)\\
+	(b) $\varphi: \RR^2 \rightarrow \RR^2, \begin{pmatrix}
+	x_1\\
+	x_2
+	\end{pmatrix} \mapsto \underbrace{\begin{pmatrix}
+		0& -1\\
+		1 & 0
+		\end{pmatrix}}_{=: A}\begin{pmatrix}
+	x_1\\
+	x_2
+	\end{pmatrix}$.\\
+		Es ist $\chi_{\varphi}^{char} = \chi_A^{char} = \det\begin{pmatrix}
+	t & 1\\
+	-1 & t
+	\end{pmatrix} = t^2+1$, $\chi_{\varphi}^{char}$ hat keine NS in $\RR \Rightarrow \varphi$ hat keine Eigenwerte.\\
+	(c) $\varphi: \RR^2 \rightarrow \RR^2, \begin{pmatrix}
+	x_1\\
+	x_2
+	\end{pmatrix} \mapsto \underbrace{\begin{pmatrix}
+		1& 1\\
+		0 & 1
+		\end{pmatrix}}_{=: A}\begin{pmatrix}
+	x_1\\
+	x_2
+	\end{pmatrix}$.\\
+	Es ist $\chi_{\varphi}^{char} = \chi_A^{char} = \det\begin{pmatrix}
+	t-1 & -1\\
+	0 & t-1
+	\end{pmatrix} = (t-1)^2 \Rightarrow 1$ ist einziger EW von $\varphi$, es ist $\mu_{alg}(\varphi,1) = 2$\\
+	$Eig(\varphi,1) = Eig(A,1) =$ Lös$(1 \cdot E_2 - A, 0) =$ Lös$(\begin{pmatrix}
+	0 & -1\\
+	0 & 0 
+	\end{pmatrix}, 0) = Lin(\binom{1}{0}) \Rightarrow \mu_{geo}(\varphi,1) = 1. \Rightarrow \varphi$ ist nicht diagonalisierbar. 
+\end{bsp}
+
+\begin{satz}
+	$V$ endlichdimensional, $n = \dim V$\\
+	(a) Ist $\varphi$ diagonalisierbar, dann ist $\chi_{\varphi}^{char} = (t-\lambda_1) \cdot \ldots \cdot (t-\lambda_n)$ mit $\lambda_1, \ldots, \lambda_n \in K$, nicht notwendig verschieden, d.h. $\chi_{\varphi}^{char}$ zerfällt in Linearfaktoren.\\
+	(b) Ist $\chi_{\varphi}^{char} = (t-\lambda_1) \cdot \ldots\cdot (t- \lambda_n)$ mit paarweise verschiedenen $\lambda_1, \ldots, \lambda_n \in K$, dann ist $\varphi$ diagonalisierbar.
+\end{satz}
+
+\begin{bem}
+	$V$ endlichdimensional, $n = \dim V$, $\lambda$ EW von $\varphi$. Dann gilt:\\
+	$1 \leq \mu_{geo}(\varphi, \lambda) \leq \mu_{alg}(\varphi, \lambda)$
+\end{bem}
+
+\begin{bem}
+	$\lambda_1, \ldots, \lambda_n$ paarweise verschiedene EW von $\varphi$\\
+	Dann gilt: $Eig(\varphi, \lambda_i) \cap \sum\limits_{j = 1, j \neq i}^r Eig(\varphi, \lambda_j) = \{0\}$ für alle $i \in \{1,\ldots, r\}$
+\end{bem}
+
+\begin{satz}
+	$V$ endlichdimensional. Dann sind äquivalent:\\
+	(i) $\varphi$ diagonalisierbar\\
+	(ii) $\chi_{\varphi}^{char}$ zerfällt in Linearfaktoren und $\mu_{alg}(\varphi, \lambda) = \mu_{geo}(\varphi, \lambda)$ für alle EW $\lambda$ von $\varphi$.\\
+	(iii) Sind $\lambda_1, \ldots, \lambda_k$ die paarweise verschiedene EW von $\varphi$, dann ist $V = Eig(\varphi, \lambda_1) \oplus \ldots \oplus Eig(\varphi, \lambda_k)$\\
+	In diesem Fall erhält man eine Basis von $V$ aus EV von $\varphi$, indem man Basen von $Eig(\varphi, \lambda_i), i = 1,\ldots,k$, zusammenfügt.
+\end{satz}
+
+Anmerkung: In der Praxis ist es in der Regel schwierig festzustellen, ob $\chi_\varphi^{char}$ in Linearfaktoren zerfällt oder die NS von $\chi_\varphi^{char}$ zu bestimmen. Für Polynome vom Grad $\geq 5$ existiert keine Lösungsformel zur Bestimmung der Nullstellen, die Nullstellen müssen numerisch bestimmt werden.
+\newpage
+\begin{bsp}
+	(a) In 1.15(c) ist $ A = \begin{pmatrix}
+	1& 1\\
+	0 & 1
+	\end{pmatrix} \in M(2 \times 2, \RR), \chi_A^{char} = (t-1)^2, \mu_{geo}(A,1)= 1 < \underbrace{\mu_{alg} (A;1)}_{=2}\\ \Rightarrow A$ nicht diagonalisierbar.\\
+	(b) $A = \begin{pmatrix}
+	2 & -1 & -1\\
+	-6 & 1 & 2\\
+	3 & -1 & -2
+	\end{pmatrix} \in M(3 \times 3, \RR) \Rightarrow \chi_A^{char} = det \begin{pmatrix}
+	t-2 & 1 & 1\\
+	6 & t-1 & -2 \\
+	-3 & 1 & t+2
+	\end{pmatrix} = t^3-t^2-5*t-3\\ = (t+1)^2(t-3) \Rightarrow$ EW von $A: -1, 3$, $\mu_{alg}(A, -1) = 2$, $\mu_{alg} (A,3) = 1$\\
+	$Eig(A, -1) =$ Lös$(-E_n-A,0) =$ Lös$(\begin{pmatrix}
+	-3 & 1 & 1\\
+	6 & -2 & -2 \\
+	-3 & 1 & 1
+	\end{pmatrix}, 0) = Lin(\begin{pmatrix}
+	-1\\
+	3\\
+	0
+	\end{pmatrix}, \begin{pmatrix}
+	0\\
+	-1\\
+	3
+	\end{pmatrix}) \Rightarrow \mu_{geo}(A, -1) = 2 = \mu_{alg} (A, -1).$\\
+	$Eig(A,3) =$ Lös$(3E_n - A, 0) =$ Lös$(\begin{pmatrix}
+	1 & 1 & 1\\
+	6 & 2 & -2\\
+	-3 & 1 & 5
+	\end{pmatrix},0) = Lin(\begin{pmatrix}
+	1\\
+	-2\\
+	1
+	\end{pmatrix}) \Rightarrow \mu_{geo} (A,3) = 1 = \mu_{alg} (A, 3)\\
+	\Rightarrow$ A ist diagonalisierbar, $B := (\begin{pmatrix}
+	-1\\
+	 3\\
+	 0
+	\end{pmatrix}, \begin{pmatrix}
+	0\\
+	-1\\
+	3
+	\end{pmatrix}, \begin{pmatrix}
+	1\\
+	-2\\
+	1
+	\end{pmatrix})$ ist eine Basis des $\RR^3$ aus EV von $A$, $M_B(\tilde{A})= \begin{pmatrix}
+	-1 & & 0\\
+	& -1 &\\
+	0 & & 3
+	\end{pmatrix}$\\ Mit $ S:= \begin{pmatrix}
+	-1 & 0 & 1\\
+	3 & -1 & -2\\
+	0 & 3 & 1
+	\end{pmatrix}^{-1}$ ist $SAS^{-1} = \begin{pmatrix}
+	-1 & & 0\\
+	& -1 &\\
+	0 & & 3
+	\end{pmatrix}$\\
+\end{bsp}
+
+Anmerkung: Ist $f = a_mt^m+ \ldots + a_1t+a_0 \in K[t]$, dann können wir in $f$:
+\begin{itemize}
+	\item Endomorphismen $\varphi \in End_K(V)$ einsetzen durch die Regel $f(\varphi) := a_m\varphi^m + \ldots + a_1\varphi + a_0id_V \in End_K (V)$, wobei $\varphi^k := \underbrace{\varphi \circ \ldots \circ \varphi}_{\text{ k- mal}}$
+	\item Matrizen $A \in M(n \times n, K)$ einsetzen durch die Regel $f(A) := a_mA^m+ \ldots + a_1A+a_0E_n \in M(n \times n, K)$ 
+\end{itemize}
+
+Für $f,g \in K[t], \varphi \in End_K (V)$ ist $f(\varphi) \circ g(\varphi) = (fg)(\varphi) = (gf) (\varphi) = g(\varphi) \circ f(\varphi)$, analog für Matrizen.
+
+\begin{satz}
+	(Satz von Cayley-Hamilton)\\
+	$V$ endlichdimensional, dann gilt: $\chi_{\varphi}^{char} (\varphi) = 0$\\
+	Insbesondere gilt für alle $A \in M(n \times n, K): \chi_A^{char} (A) = 0$
+\end{satz}
+
+Anmerkung: Der ''Beweis'' $\chi_A (A) = (\det(tE_n-A))(A) = \det(AE_n-A) = \det(A-A) = \det(0) = 0$ funktioniert nicht, denn $\underbrace{(\underbrace{\det(tE_n-A)}_{\in K[t])}(A)}_{\in M(n \times n,K)}$ $"\neq"$ $\underbrace{\det(\underbrace{AE_n-A}_{\in M(n \times n,K)})}_{\in K}$
+
+\begin{satz}
+	$V$ endlichdimensional, $I := \{f \in K[t]| f(\varphi) = 0\}$\\
+	Dann gilt:\\
+	(a) Es gibt ein eindeutig bestimmtes normiertes Polynom $\chi_{\varphi}^{min} \in K[t]$, sodass $I = \chi_{\varphi}^{min} K[t] := \{\chi_{\varphi}^{min} q| q \in K[t]\}$\\
+	$\chi_{\varphi}^{min}$ heißt das Minimalpolynom von $\varphi$. $\chi_{\varphi}^{min}$ ist das eindeutig bestimmte normierte Polynom $f$ kleinsten Grades mit $f(\varphi) = 0$.\\
+	(b) $\chi_{\varphi}^{min} | \chi_{\varphi}^{char}$, d.h. es existiert ein $q \in K[t]$ mit $\chi_{\varphi}^{char}= q \cdot \chi_{\varphi}^{min}$\\
+	Analog konstruiert man für $A \in M(n \times n, K)$ das Minimalpolynom $\chi_A^{min}$. Es ist $\chi_{\varphi}^{min} = \chi_{\tilde{A}}^{min}$
+\end{satz}
+
+\begin{bem}
+	$V$ endlichdimensional, $\lambda \in K$\\
+	Dann gilt: $\chi_{\varphi}^{char} (\lambda) = 0 \Leftrightarrow \chi_{\varphi}^{min} (\lambda) = 0$\\
+	Insbesondere haben $\chi_{\varphi}^{char}$ und $\chi_{\varphi}^{min}$ dieselben Nullstellen.
+\end{bem}
+
+\begin{bsp}
+	(a) $A = \begin{pmatrix}
+	1 & 0\\
+	0 & 1
+	\end{pmatrix} \in M(2 \times 2, \QQ)$. $\chi_A^{char} = (t-1)^2$\\
+	Wegen 1.22, 1.23 gilt: $\chi_A^{min}$ normiert, $\chi_A^{min} | \chi_A^{char}$, $\chi_A^{min} (1) = 0 \Rightarrow \chi_A^{min} \in \{t-1, (t-1)^2\}$\\
+	Wegen $A-E_2 = 0$ ist $\chi_A^{min} = t-1$.\\
+	(b) $A = \begin{pmatrix}
+	0 & 1\\
+	1 & 0
+	\end{pmatrix} \in M(2 \times 2, \QQ) \Rightarrow \chi_A^{char} = (t-1)(t+1) \overset{\text{1.22, 1.23}}{\Rightarrow} \chi_A^{min} = (t-1)(t+1) = \det \begin{pmatrix}
+	t & -1\\
+	-1 & t
+	\end{pmatrix} = t^2 -1$\\
+	(c) $A = \begin{pmatrix}
+	1 & -1 & 0\\
+	-8 & 1 & 4\\
+	2 & -1 & -1
+	\end{pmatrix} \in M(3 \times 3, \RR) \Rightarrow \chi_A^{char} = (t+1)^2(t-3) \Rightarrow \chi_A^{min} = \{(t+1)(t-3), (t+1)^2(t-3)\}$\\ Es ist $(A+E_n)(A-3E_n) \neq 0$, also $\chi_A^{min} = (t+1)^2(t-3)$\\
+	(d) $A = \begin{pmatrix}
+	2 & -1 & -1\\
+	-6 & 1 & 2\\
+	3 & -1 & -2
+	\end{pmatrix} \in M(3 \times 3, \RR) \Rightarrow \chi_A^{char} = (t+1)^2(t-3) \Rightarrow \chi_A^{min} \in \{(t+1)(t-3), (t+1)^2(t-3)\}$\\ Es ist $(A+E_n)(A-3E_n) = 0 \Rightarrow \chi_A^{min} = (t+1)(t-3)$. 
+\end{bsp}
+
+\begin{satz}
+	$V$ endlichdimensional. Dann sind äquivalent:\\
+	(i) $\varphi$ diagonalisierbar\\
+	(ii) Das Minimalpolynom $\chi_\varphi^{min}$ zerfällt in Linearfaktoren und besitzt nur einfache Nullstellen,\\ d.h. $\chi_\varphi^{min} = (t-\lambda_1) \cdot \ldots \cdot(t-\lambda_r)$ mit paarweise verschidenen $\lambda_1, \ldots, \lambda_r \in K$
+\end{satz}
+
+\begin{bsp}
+	(vgl. 1.24)\\
+	(a) $A = \begin{pmatrix}
+	1 & -1 & 0\\
+	-8 & 1 & 4\\
+	2 & -1 & -1	
+	\end{pmatrix} \in M(3 \times 3, \RR)$. Es ist $\chi_A^{min} = (t+1)^2(t-3) \overset{1.25}{\Rightarrow} A$ nicht diagonalisierbar.\\
+	(b) $A = \begin{pmatrix}
+	2 & -1 & -1\\
+	-6 & 1 & 2\\
+	3 & -1 & -2 
+	\end{pmatrix} \in M(3 \times 3, \RR)$. Es ist $\chi_A^{min} = (t+1)(t-3) \overset{1.25}{\Rightarrow} A$ diagonalisierbar.
+\end{bsp}
+\newpage
+\section{Dualraum}
+
+In diesem Abschnitt sei $V$ ein $K$-VR.\\
+
+\begin{defi}
+	$ $\\
+	$V^* := Hom_K(V,K) = \{\varphi: V \rightarrow K| \varphi \text{ linear}\}$ heißt Dualraum von $V$, die Elemente aus $V^*$ heißen Linearformen auf $V$.
+\end{defi}
+
+\begin{bsp}
+	$ $\\
+	(a) $K = \RR, V = \RR^n$; $\varphi: \RR^n \rightarrow \RR$, $\begin{pmatrix}
+	x_1\\
+	\vdots\\
+	x_n
+	\end{pmatrix} \mapsto x_1$ ist eine Linearform auf $\RR^n$\\
+	(b) $K = \RR$, $V = \varrho [0,1] = \{f : [0,1] \rightarrow \RR| f \text{ stetig}\} \varphi: \varrho [0,1] \rightarrow \RR$, $f \mapsto \int_{0}^{1} f(t) dt$ ist eine Linearform auf $\varrho [0,1]$.
+\end{bsp}
+
+\begin{bem}
+	$V$ endlichdimensional, $B = (v_1, \ldots, v_n)$ Basis von $V$. Wir definieren für $i = 1, \ldots, n$ die linaere Abbildung $v_i^*: V \rightarrow K$, $v_j \mapsto \delta_{ij} = \begin{cases}
+	1, \text{ falls $i = j$}\\
+	0, \text{ falls $i \neq j$} 
+	\end{cases}$\\
+	 Dann ist $B^* := (v_1^*, \ldots, v_n^*)$ ist eine Basis von $V^*$, die duale Basis zu $B$. 
+\end{bem}
+
+Anmerkung: Ist $V$ unendlichdimensional mit Basis $(v_i)_{i \in I}$, dann ist $(v_i^*)_{i \in I}$ (analog def.) linear unabhängig aber kein Erzeugendensystem von V.\\
+
+Notation: Elemente des $K^n$ schreiben wir im Folgenden als Spaltenvektoren. Ist $\varphi \in (K^n)^* = Hom_K (K^n, K)$, dann existiert nach LA 1 ein eindeutig bestimmtes $A = \begin{pmatrix}
+a_1 & \dots & a_n
+\end{pmatrix} \in M(1 \times n, K)$ mit $\varphi = \tilde{A} : K^n \rightarrow K,$\\ $x = \begin{pmatrix}
+x_1\\
+\vdots\\
+x_n
+\end{pmatrix} \mapsto \begin{pmatrix}
+a_1 & \dots & a_n
+\end{pmatrix} \begin{pmatrix}
+x_1\\
+\vdots\\
+x_n
+\end{pmatrix}$ (es ist $A = M_{(e_1)}^{(e_1,\ldots,e_n)}(\varphi)$).\\ Dementsprechend schreiben wir Elemente von $(K^n)^*$ als Zeilenvektoren.\\
+
+\begin{bsp}
+$(a) V = K^n$, $B = (e_1, \ldots, e_n) \Rightarrow B^* = (e_1^*, \ldots, e_n^*)$ duale Basis zu $B$ mit $e_i^* = (0, \ldots,0, \underbrace{1}_{\text{i-te Stelle}},0,\ldots,0)$. Für die Abbildung aus 2.2(a) gilt: $\varphi = e_1^* = (1,0,\ldots,0)$.\\
+(b) $K = \RR, V = \RR^2, B = (v_1, v_2)$ mit $v_1 = \binom{1}{0}, v_2 = \binom{1}{1}$.\\ Es ist $e_1 = v_1, e_2 = v_2 - v_1\\ \Rightarrow v_1^*(e_1) = v_1^*(v_1) = 1$, $v_1^*(e_2) = v_1^*(v_2-v_1) = \underbrace{v_1^*(v_2)}_{= 0} - \underbrace{v_1^*(v_1)}_{= 1} = -1 \Rightarrow v_1^* = (1, -1)$\\
+$v_2^* (e_1) = v_2^*(v_1) = 0$, $v_2^*(e_2) = v_2^*(v_2-v_1) = \underbrace{v_2^*(v_2)}_{= 1} - \underbrace{v_2^*(v_1)}_{= 0} = 1 \Rightarrow v_2^* = (0,1)$. 
+\end{bsp}
+
+\begin{folg}
+	$V$ endlichdimensional, $v \in V$, $v \neq 0$\\
+	Dann existiert $\varphi \in V^*$ mit $\varphi(v) \neq 0$
+\end{folg}
+
+Anmerkung: Die Aussage gilt auch ohne die Voraussetzung "$V$ endlichdimensional"
+
+\begin{folg}
+	$V$ endlichdimensional $B = (v_1, \ldots, v_n)$ Basis von $V$, $B^* = (v_1^*, \ldots, v_n^*)$ duale Basis zu $B$\\
+	Dann gibt es einen Isomorphismus $\psi_B: V \rightarrow V^*$, $v_i \mapsto
+	 v_i^*$ $(i = 1, \ldots, n)$. Insbesondere ist $\dim V  = \dim V^*$
+\end{folg}
+
+\begin{bem}
+	$U \subseteq V$ UVR\\
+	$U^0 = \{\varphi \in V^* | \varphi(u) = 0 \text{ für alle } u \in U\} \subseteq V^*$ heißt der Annulator von $U$. $U^0$ ist ein UVR von $V^*$. 
+\end{bem}
+
+\begin{satz}
+	$V$ endlichdimensional $U \subseteq V$ UVR, $(u_1, \ldots, u_k)$ von $U$. $B = (u_1, \ldots, u_k, v_1, \ldots, v_r)$ Basis von $V$\\
+	Dann ist die Teilfamilie $(v_1^*, \ldots, v_r^*)$ von $V^*$ eine Basis von $U^0$. Insbesondere ist $\dim U^0 = \dim V - \dim U$. 
+\end{satz}
+
+\begin{bem}
+	$V, W$, $K$-VR $f: V \rightarrow W$ lineare Abbildung\\
+	Wir definieren $f^*: W^* \rightarrow V^*$, $\psi \mapsto f^*(\psi) = \psi \circ f$\\
+	$f^*$ heißt die zu $f$ duale Abbildung. Es gilt $f^*$ ist linear.
+\end{bem}
+
+\begin{bem}
+	$V, W$ endlichdimensional $K$-VRe\\
+	Dann ist die Abbildung $*: Hom_K(V,W) \rightarrow Hom_K(W^*,V^*)$, $f \mapsto f^*$ ist ein Isomorphismus von $K$-VR. 
+\end{bem}
+
+\begin{satz}
+	$V, W$ endlichdimensionaler $K$-VR, $A, B$ Basen von $V$ bzw. $W$, $f: V \rightarrow W$ lineare Abbildung.\\
+	Dann gilt: $M_{A^*}^{B^*} (f^*) = (M_B^{A}(f))^t$
+\end{satz}
+
+\begin{satz}
+	$V, W$ endlichdimensional $K$-VR, $f: V \rightarrow W$ lineare Abbildung. Dann gilt:\\
+	(a) $im(f^*) = ker(f)^{0}$\\
+	(b) $\ker(f^*) = im(f)^{0}$ 
+\end{satz}
+
+\begin{folg}
+	$V, W$ endlichdimesnional $K$-VR, $f: V \rightarrow W$ lineare Abbildung. Dann gilt:\\
+	Rang$(f^*)$ = Rang$(f)$
+\end{folg}
+
+\begin{folg}
+	$A \in M(m \times n, K)$. Dann gilt:\\
+	Zeilenrang$(A)$ = Spaltenrang$(A)$ 
+\end{folg}
+
+\begin{defi}
+	$V^{**} := (V^*)^* = Hom_K(V^*, K)$ heißt der Bidualraum von $V$.
+\end{defi}
+
+\begin{satz}
+	$V$ endlichdimensional\\
+	Dann gibt es einen kanonischen (d.h. basisunabhängigen) Isomorphismus $i: V \rightarrow V^{**}$, $v \mapsto i_v$ mit $i_v: V^* \rightarrow K$, $\varphi \mapsto \varphi(v)$ 
+\end{satz}
+
+Anmerkung: \begin{itemize}
+	\item Im Gegensatz zu $\psi_B : V \rightarrow V^*$ ist der Isomorphismus $i: V \rightarrow V^{**}$ unabhängig von der Wahl einer Basis, d.h. $V$ und $V^*$ sind unkanonisch ismorph, $V$ und $V^{**}$ sind kanonisch isomorph (für $V$ endlichdimensional))
+	\item Ist $V$ unendlichdimensional, dann liefert $i$ zumindest noch eine kanonische Inklusion von $V$ nach $V^{**}$. Diese ist jedoch nie surjektiv.\\
+\end{itemize}
+\newpage
+\textbf{\Large Kapitel IV Bilinearformen und Skalarprodukte}\\
+\\ 
+In diesem Kapitel sei $K$ stets ein Körper
+
+\section{Bilinearformen} 
+In diesem Abschnitt sei $V$ ein $K$-VR 
+
+\begin{defi}
+	$\gamma: V \times V  \rightarrow K$ heißt eine Bilinearform auf $V$\\
+	$\Leftrightarrow$ Die folgenden Bedingungen sind erfüllt:\\
+	(B1) $\gamma(v_1+v_2, w) = \gamma(v_1,w) + \gamma(v_2, w)$, $\gamma(\lambda v, w) = \lambda \gamma(v,w)$\\
+	(B2) $\gamma (v, w_1+w_2) = \gamma(v, w_1) + \gamma(v,w_2)$, $\gamma(v,\lambda w) = \lambda \gamma(v,w)$\\
+	für alle $v,w,v_1,v_2,w_1,w_2 \in V$, $\lambda \in K$.
+\end{defi}
+
+\begin{bsp}
+	$ $\\
+	(a) $K = \RR$, $V = \RR^n$, $\gamma: \RR^n \times \RR^n \rightarrow \RR$, $\gamma (\begin{pmatrix}
+	x_1\\
+	\vdots\\
+	x_n
+	\end{pmatrix}, \begin{pmatrix}
+	y_1\\
+	\vdots\\
+	y_n
+	\end{pmatrix}) = x_1 y_1 + \ldots + x_n y_n$ ist eine Bilinearform auf $\RR^n$.\\
+	(b) $K = \RR$, $V = \varrho [0,1]$, $\gamma: \varrho[0,1] \times \varrho[0,1] \rightarrow \RR$, $\gamma(f,g) := \int_{0}^{1} f(t) g(t) dt$ ist eine Bilinearform auf $\varrho[0,1]$
+	(c) $K = \RR$, $V = \RR^2$, $\gamma : \RR^2 \times \RR^2 \rightarrow \RR$, $\gamma(\binom{x_1}{x_2}), \binom{y_1}{y_2}) = x_1y_1 + 2x_1y_2 - x_2y_2$ ist eine Bilinearform auf $\RR^2$. 
+\end{bsp}
+
+\begin{defi}
+	$V$ endlichdimensional, $B = (v_1, \ldots, v_n)$ Basis von $V$, $\gamma$ Bilinearform auf $V$:\\
+	$M_B (\gamma) = (\gamma(v_i, v_j))_{1 \leq i \leq n, 1 \leq j \leq n} \in M(n \times n, K)$ heißt die Darstellungsmatrix (Fundamentalmatrix) von $\gamma$ bzgl. $B$. 
+\end{defi}
+
+\begin{bsp}
+	$ $\\
+	(a) In 3.2a ist für $B=(e_1, \ldots, e_n): M_B (\gamma) = E_n$\\
+	(b) In 3.2c ist für $B=(e_1, e_2): M_B(\gamma) = \begin{pmatrix}
+	1 & 2\\
+	0 & -1
+	\end{pmatrix}$
+\end{bsp}
+
+\begin{bem}
+	$V$ endlichdimensional, $B = (v_1, \ldots, v_n)$ Basis von $V$, $\gamma$ Bilinearform auf $V$, $A = M_B(\gamma)$,\\
+	$\overline{\underline{\phi}}_B: K^n \rightarrow V$ Koordinatensystem zu $B$, $v,w \in V$, $x = \begin{pmatrix}
+	x_1\\
+	\vdots\\
+	x_n
+	\end{pmatrix} = \overline{\underline{\phi}}_B^{-1} (v)$, d.h. $v = x_1v_1+ \ldots +x_nv_n$, $y = \begin{pmatrix}
+	y_1\\
+	\vdots\\
+	y_n
+	\end{pmatrix} = \overline{\underline{\phi}}_B^{-1} (w)$, d.h. $w = y_1v_1+ \ldots + y_nv_n$.\\
+	Dann gilt: $\gamma (v,w) = \overline{\underline{\phi}}_B^{-1}(v)^t A \overline{\underline{\phi}}_B^{-1} (w) = x^t A y = (x_1 \cdots x_n) A \begin{pmatrix}
+	y_1\\
+	\vdots\\ 
+	y_n
+	\end{pmatrix}$
+\end{bem}
+
+\begin{bem}
+	$V$ endlichdimensional, $B = (v_1, \ldots, v_n)$ Basis von $V$, $A \in M(n \times n, K)$\\
+	Dann gilt: Durch $\varDelta_A^B: V \times V \rightarrow K$, $(v,w) \mapsto \overline{\underline{\phi}}_B^{-1} (v) ^t A \overline{\underline{\phi}}_B^{-1} (w)$ ist eine Bilinearform auf $V$ gegeben. 
+\end{bem}
+
+\begin{bsp}
+	(wichtiger Spezialfall von 3.6)\\
+	$V = K^n$, $B = (e_1, \ldots, e_n)$, $A \in M(n \times n, K) \Rightarrow \overline{\underline{\phi}}_B = id_{K^n} \Rightarrow$ Durch $\varDelta_A^{(e_1, \ldots, e_n)} : K^n \times K^n \rightarrow K$, $(v, w) \mapsto v^t A w$ ist eine Bilinearform auf $K^n$ gegeben. Wir setzen kurz $\varDelta (A) := \varDelta_A :=  \varDelta_A^{(e_1, \ldots, e_n)}$
+\end{bsp}
+
+\begin{bem}
+	$ $\\
+	$Bil(V) : = \{\gamma : V \times V \rightarrow K | \gamma \text{ ist Bilinearform}\}$ ist ein $K$-VR (ist ein UVR vom $K$-VR $Abb(V \times V, K))$
+\end{bem}
+
+\begin{bem}
+	$V$ endlichdimensional, $B = (v_1, \ldots, v_n)$ Basis von $V$, $A \in M(n \times n, K)$\\
+	Dann gilt: Die Abb. $M_B : Bil (V) \rightarrow M(n \times n, K)$ ist ein Isomorphismus von $K$-VR mit Umkehrabbildung\\ $\varDelta^B: M(n\times n, K) \rightarrow Bil(V)$, $A \mapsto \varDelta_A^B$
+\end{bem}
+
+\begin{satz}
+	$V$ endlichdimensional, $A, B$ Basen von $V$, $\gamma$ Bilinearformen auf $V$\\
+	Dann gilt: $M_B(\gamma) = (T_A^B)^t M_A(\gamma) T_A^B$. 
+\end{satz}
+
+\begin{defi}
+	$ $\\
+	$V$ endlichdimensional, $\gamma$ Bilinearform auf $V$. Wir setzen $Rang(\gamma) := Rang (M_B(\gamma))$, wobei $B$ eine Basis von $V$ ist. 
+\end{defi}
+
+Anmerkung: Dies ist wohldefiniert (folgt aus 3.10, da die Matrizen $T_A^B$ invertierbar sind)
+
+\begin{bem}
+	Es gilt:\\
+	(a) Ist $\gamma: V \times V \rightarrow K$ eine Bilinearform, dann induziert $\gamma$ die linearen Abbildungen\\
+	$\varGamma_l : V \rightarrow V^*$, $w \mapsto \gamma(\cdot, w)$, wobei $\gamma(\cdot, w): V \rightarrow K$, $v \mapsto \gamma(v,w)$\\
+	$\varGamma_r : V \rightarrow V^*$, $v \mapsto \gamma(v, \cdot)$, wobei $\gamma(v, \cdot) : V \rightarrow K$, $w \mapsto \gamma(v,w)$\\
+	(b) Jede lineare Abbildung $\varGamma : V \rightarrow V^*$ induziert Bilinearformen\\
+	$\gamma_l: V \times V \rightarrow K$, $\gamma_l (v,w) := \varGamma(w) (v)$\\
+	$\gamma_r: V \times V \rightarrow K$, $\gamma_r (v,w) := \varGamma(v)(w)$\\
+	Die Zuordnungen aus (a),(b) induzieren einen Isomorphismus $Bil(V) \cong Hom_K(V, V^*)$ 
+\end{bem}
+
+\begin{defi}
+	$\gamma$ Bilinearform auf $V$\\
+	$\gamma$ heißt nicht-ausgeartet $\Leftrightarrow \varGamma_l$ und $\varGamma_r$ sind injektiv $\Leftrightarrow (\gamma(v,w) = 0$ für alle $v \in V \Rightarrow w = 0$ (Injektivität von $\varGamma_l$) und $\gamma (v, w) = 0$ für alle $w \in V \Rightarrow v = 0$ (Injektivität von $\varGamma_r)$)\\
+	$\gamma$ heißt perfekt $\Leftrightarrow \varGamma_l$ und $\varGamma_r$ sind Isomorphismen.
+\end{defi}
+
+\begin{bem}
+	$V$ endlichdimensional, $\gamma$ Bilinearform auf $V$, $B = (v_1, \ldots, v_n)$ Basis von $V$, $B^*$ duale Basis zu $B$\\
+	Dann gilt: $M_{B^*}^B (\varGamma_l) = M_B(\gamma) = (M_{B^*}^B (\varGamma_r))^t$
+\end{bem}
+
+\begin{folg}
+	$V$ endlichdimensional, $\gamma$ Bilinearform auf $V$, $B$ Basis von $V$. Dann sind äquivalent:\\
+	(i) $\gamma$ nicht-ausgeartet\\
+	(ii) $\gamma$ perfekt\\
+	(iii) $M_B (\gamma)$ invertierbar\\
+	(iv) $\varGamma_l$ injektiv\\
+	(v) $\varGamma_r$ injektiv
+\end{folg}
+
+\begin{defi}
+	$\gamma$ Bilinearform auf $V$\\
+	$\gamma$ heißt symmetrisch $\Leftrightarrow \gamma(v,w) = \gamma(w,v)$ für alle $v,w \in V$\\
+	$\gamma$ heißt antisymmetrisch $\Leftrightarrow \gamma(v,w) = -\gamma(w,v)$ für alle $v,w \in V$\\
+	$\gamma$ heißt alternierend $\Leftrightarrow \gamma(v,v) = 0$ für alle $v \in V$
+\end{defi}
+
+Anmerkung: \begin{itemize}
+	\item $\gamma$ symmetrisch $\Rightarrow \varGamma_l = \varGamma_r$
+	\item Für $char (K) \neq 2$ gilt: $\gamma$ alternierend $\Leftrightarrow \gamma$ antisymmetrisch
+	\item Für $char (K) = 2$ gilt immer noch $\gamma$ alternierend $\Rightarrow \gamma$ (anti)symmetrisch
+	\item Die Umkehrung ist falsch: $\gamma: \FF_2^3 \times \FF_2^3 \rightarrow \FF_2$, $\gamma(x,y) = x_1y_1+x_2y_2+x_3y_3$ ist (anti)symmetrisch, aber nicht alternierend $( \gamma(\begin{pmatrix}
+	\overline{1}\\
+	\overline{0}\\
+	\overline{0}
+	\end{pmatrix}, \begin{pmatrix}
+	\overline{1}\\ \overline{0}\\ \overline{0}
+	\end{pmatrix}) = \overline{1} \neq \overline{0})$
+\end{itemize}
+
+\begin{bem}
+	$V$ endlichdimensional, $B$ Basis von $V$, $\gamma$ Bilinearform auf $V$\\
+	Dann gilt:\\
+	(a) $\gamma$ symmetrisch $\Leftrightarrow M_B(\gamma)$ ist symmetrisch, d.h. $M_B(\gamma)^t = M_B(\gamma)$\\
+	(b) $\gamma$ antisymmetrisch $\Leftrightarrow M_B(\gamma)$ ist antisymmetrisch, d.h. $M_B(\gamma) ^t = -M_B(\gamma)$
+\end{bem}
+
+\section{Quadratische Räume} 
+
+\begin{defi}
+	$V$ $K$-VR. Eine Abb. $q: V \rightarrow K$ heißt eine quadratische Form auf $V \Leftrightarrow$ Die folgenden Bedingungen sind erfüllt:\\
+	(Q1) $q(\lambda v) = \lambda^2 q(v)$ für alle $\lambda \in K$, $v \in V$\\
+	(Q2) Die Abbildung $\epsilon_q: V \times V \rightarrow K$, $(v,w) \mapsto q(v+w) - q(v) - q(w)$ ist eine (automatisch symmetrische) Bilinearform.
+\end{defi}
+
+\begin{bsp}
+	$K = \RR$, $V = \RR^2$, $q(\binom{x_1}{x_2}) = x_1^2+x_1x_2 + x_2^2$ ist eine quadratische Form auf $\RR^2$:\\
+	(Q1) ist erfüllt, (Q2) ist ebenfalls erfüllt, denn:\\
+	$\epsilon_q(\binom{x_1}{x_2}, \binom{y_1}{y_2}) = q(\binom{x_1+y_1}{x_2+y_2}) -q(\binom{x_1}{x_2}) - q(\binom{y_1}{y_2}) = (x_1+y_1)^2 + (x_1+y_1)(x_2+y_2)+ (x_2+y_2)^2 - x_1^2 - x_1x_2 -x_2^2-y_1^2 -y_1y_2 -y_2^2 = 2x_1y_1+x_1y_2+x_2y_1+2x_2y_2$, d.h. $\epsilon_q$ ist eine symmetrische Bilinearform.
+\end{bsp}
+
+\begin{bem}
+	$char K \neq 2$, $V$ $K$-VR, $SymBil(V) := \{\gamma: V \times V \rightarrow | \gamma \text{ ist symmetrische Bilinearform}\}$,\\ $Quad(V) := \{q: V \rightarrow K| q \text{ ist quadratische Form}\}$ Dann sind die Abbildungen:\\ 
+	$\overline{\underline{\phi}}: SymBil(V) \rightarrow Quad(V)$, $\gamma \mapsto q_\gamma$ mit $q_\gamma : V \rightarrow K$, $v \mapsto \gamma(v,v)$\\
+	$\underline{\psi}: Quad(V) \rightarrow SymBil(V)$, $q \mapsto \gamma_q := 1/2 \epsilon_q$, d.h. $\gamma_q: V \times V \rightarrow K$, $(v,w) \mapsto 1/2 (q(v+w)-q(v)-q(w))$\\
+	zueinander inverse Bijektionen.
+\end{bem}
+
+Anmerkung: 
+
+\begin{enumerate}
+	\item Philosophie dahinter: symmetrische Bilinearformen/quadratische Formen auf $V$ sind für $char(K) \neq 2$ fast dasselbe.
+	\item Für $char(K)  = 2$ kann man die Abbildung $\overline{\underline{\phi}}$ immer noch definieren, $\overline{\underline{\phi}}$ ist im allgemeinen weder injektiv noch surjetiv (exemplarisch: Für $K = \FF_2$, $V = \FF_2^2$ liegt die quadratische Form $q: \FF_2^2 \rightarrow \FF_2$, $\binom{x_1}{x_2}) \mapsto X_1^2+ x_1x_2 + x_2^2$ liegt nicht im Bild von $\overline{\underline{\phi}}$) 
+\end{enumerate}
+
+Für den Rest dieses Abschnittes sei $K$  stets  ein Körper mit $char(K) \neq 2$
+
+\begin{defi}
+	Ein quadratischer Raum ist ein Paar $(V, \gamma)$, bestehend aus einem endlichdimensionalen $K$-VR $V$ und einer symmetrischen Bilinearform $\gamma$ auf $V$.\\
+	$v,w \in V$ heißen orthogonal bzgl. $\gamma \Leftrightarrow \gamma (v,w) = 0$.\\
+	$(v_i)_{i \in I}$ Familie von Vektoren aus $V$ heißt orthogonal bzgl. $\gamma \Leftrightarrow \gamma(v_i, v_j) = 0$ für alle $i,j \in I$, $i \neq j$.\\
+	Eine Familie $(v_1, \ldots, v_n)$ von Vektoren aus $V$ heißt eine Orthogonalbasis (OB) von $(V,\gamma) \Leftrightarrow (v_1, \ldots, v_n)$ ist eine Basis von $V$ und ist orthogonal bzgl. $\gamma$.
+\end{defi}
+
+Anmerkung: 
+\begin{itemize}
+	\item Ist $\gamma$ aus dem Kontext klar, wird es häufig weggelassen
+	\item Ist $B$ eine Basis von $V$, dann gilt: $B$ OB von $(V, \gamma) \Leftrightarrow M_B(\gamma)$ ist eine Diagonalmatrix
+\end{itemize}
+
+\begin{defi}
+	$(V, \gamma_V)$, $(W, \gamma_W)$ quadratische Räume, $f: V \rightarrow W$ lineare Abbildung\\
+	$f$ heißt Homomorphismus quadratischer Räume $\Leftrightarrow \gamma_W (f(v_1), f(v_2)) = \gamma_V(v_1, v_2)$ für alle $v_1,v_2 \in V$\\
+	$f$ heißt Isomorphismus quadratischer Räume $\Leftrightarrow f$ ist ein Isomorphismus von $K$-VR und ein Homomorphismus quadratischer Räume.\\ 
+	Notation: Wir schreiben häufig $f:  (V, \gamma_V) \rightarrow (W, \gamma_W)$ für eine Abb./Hom. quadratischer Räume
+\end{defi}
+
+Anmerkung: 
+\begin{itemize}
+	\item Ist $f: (V, \gamma_V) \rightarrow (W, \gamma_W)$ ein Isomorphismus quadratischer Räume, dann ist $f^{-1}: (W, \gamma_W) \rightarrow (V, \gamma_V)$ ebenfalls ein Isomorphismus quadratischer Räume, und es ist $Rang(\gamma_V) = Rang(\gamma_W)$ 
+\end{itemize}
+
+Ziel: Klassifiziere quadratische Räume bis auf Isomorphie quadratischer Räume
+
+\begin{satz}
+	$(V, \gamma)$ quadratischer Raum. Dann besitzt $(V, \gamma)$ eine OB. 
+\end{satz}
+
+\begin{folg}
+	$A \in M(n \times n, K)$ symmetrisch\\
+	Dann existiert ein $T \in GL(n,K)$, sodass $T^tAT$ eine Diagonalmatrix ist\\
+\end{folg}
+
+\begin{folg}
+	$(V, \gamma)$ quadratischer Raum, $n = \dim V$, $r = Rang(\gamma)$\\
+	Dann existieren $\lambda_1, \ldots, \lambda_r \in K\textbackslash \{0\}$ un ein Isomorphismus von quadratischen Räumen\\
+	$\overline{\underline{\phi}}: (K^n, \varDelta(\begin{pmatrix}
+	\lambda_1&&&&&0\\
+	& \ddots&&&&\\
+	&& \lambda_r&&&\\
+	&&&0&&\\
+	&&&&\ddots&\\
+	0&&&&&0
+	\end{pmatrix})) \rightarrow (V, \gamma)$
+\end{folg}
+
+Anmerkung: $\lambda_1, \ldots \lambda_r$ sind im allgemeinen nicht eindeutig bestimmt.\\
+
+Frage: Kann man über speziellen Körpern mehr sagen? Wir werden $K = \CC, \RR$ untersuchen
+
+\begin{satz}
+	$(V, \gamma)$ quadratischer Raum über $\CC$, $n = \dim V$, $r = Rang(\gamma)$\\
+	Dann existiert eine OB $B$ von $(V, \gamma)$ mit\\
+	$M_B (\gamma) = \begin{pmatrix}
+	E_r & 0\\
+	0 & 0
+	\end{pmatrix}$\\
+	Insbesondere existiert ein Isomorphismus quadratischer Räume $\overline{\underline{\phi}} : (\CC^n, \varDelta(\begin{pmatrix}
+	E_r & 0\\
+	0 & 0
+	\end{pmatrix})) \rightarrow (V, \gamma)$ 
+\end{satz}
+
+\begin{folg}
+	$A \in M(n \times n, \CC)$ symmetrisch, $r = Rang(A)$\\
+	Dann existiert ein $T \in GL(n, \CC)$, sodass $T^tAT = \begin{pmatrix}
+	E_r & 0\\
+	0 & 0
+	\end{pmatrix}$
+\end{folg}
+
+\begin{folg}
+	$(V, \gamma_V)$, $(W, \gamma_W)$ quadratische Räume über $\CC$. Dann sind äquivalent:\\
+	(i) Es gibt einen Isomorphismus quadratischer Räume $(V, \gamma_V) \rightarrow (W, \gamma_W)$\\
+	(ii) $\dim V = \dim W$ und $Rang(\gamma_V) = Rang(\gamma_W)$ 
+\end{folg}
+
+\begin{defi}
+	$(V, \gamma)$ quadratischer Raum, $U_1, \ldots, U_m \subseteq V$ UVR mit $V = U_1 \oplus \ldots \oplus U_m$.\\
+	Die direkte Summe heißt orthogonale direkte Summe $(V = U_1 \hat{\oplus} \ldots \hat{\oplus} U_m) \Leftrightarrow \gamma(u_i, u_j) = 0$ für alle $u_i \in U_i$, $u_j \in U_j$, $i \neq j$. (alternativ: $\perp$)
+\end{defi}
+
+\begin{satz}
+	$(V, \gamma)$ quadratischer Raum über $\RR$, $n = \dim V$. Dann existiert eine OB $B$ von $(V, \gamma)$ sowie $r_+, r_- \in \{0, \ldots, \dim V\}$ mit\\
+	$M_B(\gamma) = \begin{pmatrix}
+	E_{r_+} & & 0\\
+	& -E_{r_-} & \\
+	0 & & 0
+	\end{pmatrix}$\\
+	Insbesondere existiert ein Isomorphismus quadratischer Räume $(\RR^n, \varDelta(\begin{pmatrix}
+	E_{r_+} & & 0\\
+	& -E_{r_-} & \\
+	0 & & 0
+	\end{pmatrix})) \rightarrow (V, \gamma)$. Die Zahlen $r_+, r_-$ sind unabhängig von der Wahl einer solchen Basis . Wir nennen die Signatur$(\gamma) := (r_+, r_-)$ heißt die Signatur von $\gamma$ 
+\end{satz}
+
+\begin{folg}
+	(Sylvesterscher Trägheitssatz)\\
+	$A \in M( n\times n, \RR)$ symmetrisch. Dann exisitert ein $T \in GL(n, \RR), r_+, r_- \in \{0,\ldots, n\}$ mit\\
+	$T^tAT = \begin{pmatrix}
+	E_{r_+} & & 0\\
+	& -E_{r_-} & \\
+	0 & & 0
+	\end{pmatrix}$\\
+	Die Zahlen $r_+, r_-$ sind unabhängig von der Wahl eines solchen $T$.\\ 
+	Signatur$(A) := (r_+, r_-)$ heißt die Signatur von $A$ 
+\end{folg}
+
+\begin{folg}
+	$(V, \gamma_V), (W, \gamma_W)$ quadratische Räume über $\RR$. Dann sind äquivalent:\\
+	(i) Es gibt einen Isomorphismus quadratischer Räume $(V, \gamma_V) \rightarrow (W, \gamma_W)$\\
+	(ii) $\dim V = \dim W$ und Signatur$(\gamma_V) =$ Signatur$(\gamma_W)$
+\end{folg}
+
+\section{Euklidische Räume}
+
+\begin{defi}
+	$V$ $\RR$-VR, $\gamma: V \times V \rightarrow \RR$ symmetrische Bilinearform\\
+	$\gamma$ heißt:\\
+	positiv definit $\Leftrightarrow \gamma(v,v) > 0$ für alle $v \in V \textbackslash \{0\}$\\
+	positiv semidefinit $\Leftrightarrow \gamma(v,v) \geq 0$ für alle $v \in V \textbackslash \{0\}$\\
+	negativ definit $\Leftrightarrow \gamma(v,v) < 0$ für alle $v \in V \textbackslash \{0\}$\\
+	negativ semidefinit $\Leftrightarrow \gamma(v,v) \leq 0$ für alle $v \in V \textbackslash \{0\}$\\
+	indefinit $\Leftrightarrow \gamma$ weder positiv noch negativ semidefinit.\\
+	Eine positiv definite symmetrische Bilinearform nennt man auch ein Skalarprodukt
+\end{defi}
+
+\begin{bsp}
+	$ $
+	(a) $V = \RR^n$, $<.,.>: \RR^n \times \RR^n \rightarrow \RR$, $<\begin{pmatrix}
+	x_1\\
+	\vdots\\
+	x_n
+	\end{pmatrix}, \begin{pmatrix}
+	y_1\\\vdots\\
+	y_n
+	\end{pmatrix}> := x_1y_1+\ldots+x_ny_n$ ist ein Skalarprodukt auf dem $\RR^n$\\
+	positiv Definitheit: $<\begin{pmatrix}
+	x_1\\
+	\vdots\\
+	x_n
+	\end{pmatrix}, \begin{pmatrix}
+	x_1\\\vdots\\
+	x_n
+	\end{pmatrix}> = x_1^2+ \ldots + x_n^2 > 0$, falls $\begin{pmatrix}
+	x_1\\
+	\vdots\\
+	x_n
+	\end{pmatrix} \neq 0$\\
+	$<.,.>$ heißt das Standardskalarprodukt auf dem $\RR^n$.\\
+	(b) $V = \varrho [0,1]\\
+	\gamma : \varrho [0,1] \times \varrho [0,1] \rightarrow \RR$, $(f,g) \mapsto \int_{0}^{1} f(t) g(t) dt$ ist ein Skalarprodukt.
+\end{bsp}
+
+Anmerkung: Um die Definitheit eine symmetrischen Bilinearform nachzuweisen, genügt es nicht, das Verhalten auf den Basisvektoren zu untersuchen:\\
+Sei $\gamma: \RR^2 \times \RR^2 \rightarrow \RR$ gegeben durch $\gamma = \varDelta(\begin{pmatrix}
+1 & -2\\
+-2 & 1
+\end{pmatrix})$, d.h. $M_{(e_1,e_2)} (\gamma) = \begin{pmatrix}
+1 & -2\\
+-2 & 1
+\end{pmatrix}$ Dann ist $\Gamma(e_1,e_2) = 1$, $\gamma(e_2, e_2) = 1$, aber\\
+$\gamma (\binom{1}{1}, \binom{1}{1}) = $(1 1) $\begin{pmatrix}
+1 & -2\\
+-2 & 1
+\end{pmatrix} \binom{1}{1} =$ (1  1) $\binom{-1}{-1} = -2 < 0$, d.h. $\gamma$ ist indefinit. 
+
+\begin{defi}
+	Ein Euklidischer Raum ist ein Paar $(V, \gamma)$, bestehend aus einem endlichdimensionalen $\RR$-VR $V$ und einem Skalarprodukt $\gamma$ auf $V$.
+\end{defi}
+
+Für den Rest dieses Abschnittes sei $(V, \gamma)$ ein Euklidischer Raum
+
+\begin{defi}
+	$v \in V$\\
+	$|| v || := \sqrt{\gamma (v,v)}$ heißt die Norm von $V$.\\
+	$(v_i)_{i \in I}$ Familie von Vektoren aus $V$ heißt orthonormal $\Leftrightarrow (v_i)_{i \in I}$ ist orthogonal und $||v_i|| = 1$ für alle $i \in I$\\
+	$B = (v_1, \ldots v_n)$ heißt Orthonormalbasis von $(V,\gamma)$ (ONB) $\Leftrightarrow $ $B$ ist Basis von $V$ und $B$ ist orthonormal.
+\end{defi}
+
+\begin{bem}
+	$(v_1, \ldots, v_n)$ orthogonale Familie von Vektoren aus $V \backslash \{0\}$\\
+	Dann gilt:\\
+	(a) $(\frac{v_1}{||v_1||}, \ldots \frac{v_n}{||v_n||})$ ist eine orthonormale Familie\\
+	(b) $(v_1, \ldots, v_n)$ ist linear unabhängig
+\end{bem}
+
+\begin{bem}
+	Es gilt:\\
+	(a) $(V, \gamma)$ besitzt eine ONB\\
+	(b) $\gamma$ ist nicht-ausgeartet\\
+	(c) Es gibt eine Basis $B$ von $V$ mit $M_B (\gamma) = E_n$, wobei $n = \dim (V)$
+\end{bem}
+
+\begin{bem}
+	$B = (v_1, \ldots, v_n)$ ONB von $(V,\gamma)$, $v \in V$\\
+	Dann gilt: Ist $v = \lambda_1 v_1 + \ldots + \lambda_n v_n$, dann ist $\lambda_i = \gamma (v , v_i)$ für $i = 1, \ldots, n$ 
+\end{bem}
+
+\begin{bem}
+	$U \subseteq V$ UVR\\
+	$U^{\perp} := \{ v \in V | \gamma(v,u) = 0 \text{ für alle } u \in U\}$ heißt das orthogonale Komplement zu $U$.\\
+	$U^\perp$ ist ein UVR von $V$. 
+\end{bem}
+
+\begin{satz}
+	$U \subseteq V$ UVR. Dann gilt:\\
+	(a) $V = U \oplus U^\perp$\\
+	(b) $\dim(U^\perp) = \dim(V) - \dim (U)$\\
+	(c) $(U^\perp)^\perp = U$\\
+	(d) Ist $(u_1, \ldots, u_m)$ eine ONB von $(U, \gamma|_{U x U})$, und ist $v \in V$ mit $v = u + v'$, $u \in U$, $v' \in U^\perp$, dann ist $u = \sum\limits_{j = 1}^{m} \gamma (v, u_j) u_j$.\\
+	Die lineare Abbildung $\pi_u: V \rightarrow U$, $v \mapsto \sum\limits_{j = 1}^{m} \gamma (v, u_j) u_j$ heißt die Orthogonalprojektion von $V$ auf $U$.
+\end{satz}
+
+
+Anmerkung: Insbesondere gilt: für alle $v \in V$: $v - \pi_u (v) \in U^\perp$
+
+\begin{bsp}
+	$(V, \gamma) = (\RR^2, <.,.>)$, $U = Lin(\binom{1}{1})$\\
+	$\Rightarrow U^\perp = Lin (\binom{-1}{1})$, denn $\binom{-1}{1} \in U^\perp$, wegen $< \binom{-1}{1}, \binom{1}{1}> = 0$, und es ist $\dim(U^\perp) = 2 - \dim(U) = 2-1 = 1$\\
+	Jedes Element aus $V$ lässt sich eindeutig schreiben als $v = \lambda \binom{1}{1} + \mu \binom{-1}{1}$, d.h.\\
+	$\pi_u: v = \underbrace{\lambda \binom{1}{1}}_{\in U} + \underbrace{\mu \binom{-1}{1}}_{\in U^\perp} \mapsto \lambda \binom{1}{1} = \frac{1}{2} \gamma (v, \binom{1}{1}) \binom{1}{1} = \gamma (v, 1/\sqrt{2} \binom{1}{1}) 1/\sqrt{2} \binom{1}{1}$.
+\end{bsp}
+
+Frage: Wie bestimmt man explizit eine ONB eines euklidischen Raumes? 
+
+\begin{satz}
+	Algorithmus: Gram-Schmidt-Verfahren:\\
+	Eingabe: $(v_1, \ldots, v_n)$ Basis von $V$\\
+	Ausgabe: ONB $(w_1, \ldots, w_n)$ von $(V, \gamma)$\\
+	Durchführung:\\
+	1. Setze $w_1 := \frac{v_1}{||v_1||}$\\
+	2. Setze für $k = 2, \ldots, n$\\
+	$\tilde{w}_k := v_k - \sum\limits_{i = 1}^{k-1} \gamma(v_k, w_i) w_i$, $w_k := \frac{\tilde{w}_k}{||\tilde{w}_k||}$\\
+	3. $(w_1, \ldots, w_n)$ ist eine ONB von $(V, \gamma)$.
+\end{satz}
+\newpage
+\begin{bsp}
+	Wir betrachten $(\RR^3, <.,.>)$, $U = Lin((v_1, v_2))$ mit $v_1 := \begin{pmatrix}
+	2\\
+	0\\
+	1
+	\end{pmatrix}$, $v_2 := \begin{pmatrix}
+	-1\\
+	1\\
+	0
+	\end{pmatrix}$\\
+	Gesucht ist eine ONB von $U$ bzgl $<.,.>$.\\
+	Setze $w_1 := \frac{v_1}{||v_1||} = \frac{1}{\sqrt{5}} \begin{pmatrix}
+	2\\
+	0\\
+	1
+	\end{pmatrix}$\\
+	$\tilde{w}_2 = v_2 - <v_2, w_1>w_1 = \begin{pmatrix}
+	-1\\
+	1\\
+	0
+	\end{pmatrix} - <\begin{pmatrix}
+	-1\\
+	1\\
+	0
+	\end{pmatrix}, \frac{1}{\sqrt{5}} \begin{pmatrix}
+	2\\
+	0\\
+	1
+	\end{pmatrix}> \frac{1}{\sqrt{5}} \begin{pmatrix}
+	2\\
+	0\\
+	1
+	\end{pmatrix} = \begin{pmatrix}
+	-1\\
+	1\\
+	0
+	\end{pmatrix} - \frac{1}{5} < \begin{pmatrix}
+	-1\\
+	1\\
+	0
+	\end{pmatrix}, \begin{pmatrix}
+	2\\
+	0\\
+	1
+	\end{pmatrix}> \begin{pmatrix}
+	2\\
+	0\\
+	1
+	\end{pmatrix} = \begin{pmatrix}
+	-1\\1\\
+	0
+	\end{pmatrix} + \frac{2}{5} \begin{pmatrix}
+	2\\
+	0\\
+	1
+	\end{pmatrix} = \begin{pmatrix}
+	-\frac{1}{5}\\
+	1\\
+	\frac{2}{5}
+	\end{pmatrix} = \frac{1}{5} \begin{pmatrix}
+	-1\\
+	5\\
+	2
+	\end{pmatrix}$\\
+	$w_2 = \frac{\tilde{w}_2}{||\tilde{w}_2||} = \frac{1}{\sqrt{30}} \begin{pmatrix}
+	-1\\
+	5\\
+	2
+	\end{pmatrix}$ $||\tilde{w}_2|| = \frac{1}{5} \sqrt{1^2 + 5^2 +2^2} = \frac{1}{5} \sqrt{30}$\\
+	$\Rightarrow (\frac{1}{\sqrt{5}} \begin{pmatrix}
+	2\\
+	0\\
+	1
+	\end{pmatrix}, \frac{1}{\sqrt{30}} \begin{pmatrix}
+	-1\\
+	5\\
+	2
+	\end{pmatrix})$ ist eine ONB von $U$
+\end{bsp}
+
+\begin{defi}
+	$A \in M(n \times n, \RR)$ symmetrisch.\\
+	$A$ heißt positiv definit (Notation: $A > 0$) $\Leftrightarrow$ Die symmetrische Bilinearform $\varDelta(A): \RR^n \times \RR^n \rightarrow \RR$, $(x,y) \mapsto x^t A y$\\
+	ist positiv definit.
+\end{defi}
+
+\begin{bem}
+	$A \in M(n \times n, \RR)$ symmetrisch. Dann sind äquivalent:\\
+	(i) $A > 0$\\
+	(ii) Es existiert ein $T \in Gl(n, \RR)$ mit $A = T^tT$
+\end{bem}
+
+Anmerkung: (i), (ii) sind äquivalent zu: (iii): Es existiert eine obere Dreiecksmatrix $P$ mit positiven Diagonaleinträgen, sodass $A = P^tP$ (siehe Übungen). Obiges $P$ ist sogar eindeutig bestimmt, eine solche Zerlegung heißt Cholesky-Zerlegung.
+
+\begin{satz}
+	(Cauchy-Schwarz-Ungleichung)\\
+	$v,w \in V$. Dann gilt:\\
+	$|\gamma (v,w)| \leq ||v|| \cdot ||w||$\\
+	Gleichheit gilt hierbei genau dann, wenn $(v,w)$ linear abhängig.
+\end{satz}
+
+\begin{bem}
+	(Eigenschaften der Norm)\\
+	$v,w \in V, \lambda \in \RR$. Dann gilt:\\
+	(a) $||v|| = 0 \Leftrightarrow v = 0$\\
+	(b) $||\lambda v|| = |\lambda| ||v||$\\
+	(c) $||v+w|| \leq ||v|| + ||w||$ (Dreiecksungleichung)
+\end{bem}
+
+\begin{bem}
+	$v,w \in V$. Dann gilt:\\
+	(a) $||v+w||^2 = ||v||^2 + ||w||^2 \Leftrightarrow \gamma(v,w) = 0$ (Satz des Pythagoras)\\
+	(b) $||v+w||^2 + ||v-w||^2 = 2 ||v||^2 + 2 ||w||^2$ (Parallelogrammgleichung)
+\end{bem}
+\newpage
+Anmerkung: $V$ $\RR$-VR. Eine Abb $||.||: V \rightarrow \RR_{\geq 0}$ mit den Eigenschaften (a)-(c) aus 5.16 heißt eine Norm auf $V$, $(V, ||.||)$ ein normierter VR.\\
+Man kann zeigen: Ist $(V, ||.||)$ ein normierter VR, in dem die Parallelogrammgleichung gilt, dann ist durch\\
+$\gamma(v,w) := \frac{1}{2} (||v+w||^2 - ||v||^2 - ||w||^2)$\\
+ein Skalarprodukt auf $V$ mit $||v|| = \sqrt{\gamma (v,v)}$ gegeben, d.h. in diesen Fällen ist $(V, \gamma)$ ein euklidischer VR, dessen Norm mit der gegebenen übereinstimmt. 
+
+\section{Die orthogonale Gruppe} 
+
+\begin{defi}
+	$(V, \gamma_V)$, $(W, \gamma_W)$ euklidische Räume, $\varphi: V \rightarrow W$ lineare Abbildung\\
+	$\varphi$ heißt orthogonal $\Leftrightarrow \varphi$ ist ein Homomorphismus quadratischer Räume, d.h. $\gamma_W (\varphi(v_1), \varphi (v_2)) = \gamma_V (v_1, v_2)$ für alle $v_1, v_2 \in V$.
+\end{defi}
+
+\begin{bem}
+	$(V, \gamma_V)$, $(W, \gamma_W)$ euklidische Räume, $\varphi: V \rightarrow W$ orthogonale Abbildung. Dann gilt:\\
+	(a) $|| \varphi(v)||_W = ||v||_V$ für alle $v \in V$.\\
+	(b) $v_1 \perp v_2 \Leftrightarrow \varphi(v_1) \perp \varphi(v_2)$ für $v_1, v_2 \in V$\\
+	(c) $\varphi$ ist injektiv
+\end{bem}
+
+\begin{bem}
+	$(V, \gamma)$ euklidischer Raum, $n = \dim (V)$, $B$ ONB von $(V, \gamma)$.\\
+	Dann ist das Koordinatensystem $\overline{\underline{\phi}}_B: (\RR^n, <.,.>) \rightarrow (V, \gamma)$ ist ein orthogonaler Isomorphismus 
+\end{bem}
+
+\begin{bem}
+	$(V, \gamma)$ euklidischer Raum. $\varphi \in End(V)$ orthogonal. Dann gilt:\\
+	(a) $\varphi$ ist ein Isomorphismus\\
+	(b) $\varphi^{-1}$ ist orthogonal\\
+	(c) $\lambda \in \RR$ EW von $\varphi \Rightarrow |\lambda| = 1$, d.h. $\lambda \in \{\pm 1\}$  
+\end{bem}
+
+\begin{bem}
+	$(V, \gamma)$ euklidischer Raum, $n = \dim V$, $B$ ONB von $V$, $\varphi \in End(V)$, $A = M_B(\varphi)$\\
+	Dann sind äquivalent:\\
+	(i) $\varphi$ ist orthogonal\\
+	(ii) $A^t A = E_n$
+\end{bem}
+
+\begin{defi}
+	$A \in M(n \times n, \RR)$\\
+	$A$ heißt orthogonal $\Leftrightarrow A^tA = E_n$\\
+	$O(n) := \{A \in M(n \times n, \RR)| A \text{ ist orthogonal}\}$\\
+	$O(n)$ ist bzgl. der Matrixmultiplikation eine Gruppe, die orthogonale Gruppe vom Rang $n$. 
+\end{defi}
+
+Anmerkung: $A \in O(n) \Rightarrow \det(A) \in \{\pm 1\}$, denn $1 = \det(E_n) = \det (A^tA) = \det(A^t) \det (A) = \det(A)^2$
+
+\begin{bem}
+	$A \in M(n \times n, \RR)$. Dann sind äquivalent:\\
+	(i) $A \in O(n)$\\
+	(ii) $A A^t = E_n$\\
+	(iii) $A^t A = E_n$\\
+	(iv) Die Transponierten der Zeilen von $A$ bilden eine ONB von $(\RR^n, <.,.>)$\\
+	(v) Die Spalten von $A$ bilden eine ONB von $(\RR^n, <.,.>)$\\
+	(vi) Die Abb. $\tilde{A}: (\RR^n, <.,.>) \rightarrow (\RR^n, <.,.>)$ ist orthogonal
+\end{bem}
+
+\begin{satz}
+	$\varphi: \RR^n \rightarrow \RR^n$ (nicht notwendig linear) abstandstreu, d.h.\\
+	$||\varphi(x) - \varphi(y)|| = ||x-y||$ für alle $x,y \in \RR^n$, wobei $||.||$ die Norm auf $(\RR^n, <.,.>)$ bezeichne.\\
+	Dann existieren eindeutig bestimmte $A \in O(n)$, $b \in \RR^n$, sodass $\varphi(x) = Ax+b$ für alle $x \in \RR^n$ gilt. 
+\end{satz}
+
+\begin{bem}
+	$SO(n) := \{A \in O(n)| \det(A) = 1\}$ ist eine Untergruppe von $O(n)$ (d.h. $SO(n) \subseteq O(n)$ und ist eine Gruppe bzgl. der eingeschränkten Verknüpfung), dei spezielle orthogonale Gruppe vom Rang $n$. 
+\end{bem}
+
+\begin{bsp}
+	$n = 1:$ $O(1) = \{\pm 1\}$, $SO(1) = \{1\}$
+\end{bsp}
+
+\begin{bem}
+	$A \in O(2)$. Dann gilt:\\
+	(a) $A \in SO(2) \Leftrightarrow$ Es existiert genau ein $\alpha \in [0, 2\pi)$ mit\\
+	$A = \begin{pmatrix}
+	\cos(\alpha) & -\sin(\alpha)\\
+	\sin(\alpha) & \cos(\alpha)
+	\end{pmatrix}$\\
+	In diesem Fall beschreibt $A$ eine Drehung mit Zentrum $0$ um den Winkel $\alpha$.\\
+	Außer im Fall $\alpha \in \{0, \pi\}$ besitzt $A$ keine Eigenwerte.\\
+	Falls $\alpha = 0: A = \begin{pmatrix}
+	1 & 0\\
+	0 & 1
+	\end{pmatrix}$, einziger EW: $+1$\\
+	Falls $\alpha = \pi: A = \begin{pmatrix}
+	-1 & 0\\
+	0 & -1
+	\end{pmatrix}$, einziger EW: $-1$\\
+	(b) $A \in O(2) \backslash SO(2) \Leftrightarrow$ Es existiert genau ein $\alpha \in [0, 2\pi)$ mit\\
+	$A = \begin{pmatrix}
+	\cos (\alpha) & \sin (\alpha)\\
+	\sin (\alpha) & -\cos(\alpha)
+	\end{pmatrix}$\\
+	In diesem Fall beschreibt $A$ eine Spiegelung an der Geraden $Lin(\binom{\cos(\frac{\alpha}{2})}{\sin (\frac{\alpha}{2})})$, 
+	$A$ besitzt die EW $\pm 1$, und es existiert eine ONB $B$ von $(\RR^2, <.,.>)$ mit $M_B(\tilde{A}) = \begin{pmatrix}
+	1 & 0\\
+	0 & -1
+	\end{pmatrix}$ 
+\end{bem}
+
+\begin{folg}
+	$\varphi: (\RR^2, <.,.>) \rightarrow (\RR^2, <.,.>)$, sodass $M_B(\varphi) = \begin{pmatrix}
+	\pm1 & 0\\
+	0 & \pm1
+	\end{pmatrix}$ oder $M_B (\varphi) = \begin{pmatrix}
+	\cos (\alpha) & -\sin (\alpha)\\
+	\sin (\alpha) & \cos(\alpha)
+	\end{pmatrix}$ für ein $\alpha \in (0, \pi)$\\
+	Die Anzahl der $\pm1$ sowie $\alpha$ sind unabhängig von der Wahl einer solchen ONB $B$ (d.h. sind Invarianten von $\varphi$)
+\end{folg}
+
+\begin{Large}
+	Ab hier nicht klausurrelevant
+\end{Large}
+
+Ziel: Verallgemeinerung von 6.12 auf $(\RR^n, <.,.>)$ 
+
+\begin{bem}
+	$f \in \RR[t] \backslash \{0\}$, $n = \deg (f)$\\
+	Dann existieren $r,m \in \NN_0$ mit $r+2m = n$, $a \in \RR^*$, $\lambda_1, \ldots, \lambda_r \in \RR$, $b_1, \ldots, b_m \in \RR$, $c_1, \ldots, c_m \in \RR$, sodass\\
+	$f = a(t - \lambda_1) \cdot \ldots \cdot (t - \lambda_r) (t^2+b_1t+c_1) \cdot \ldots \cdot (t^2 + b_m t + c_m)$ und die Polynome $t^2 + b_it + c_i$ haben keine reellen Nullstellen. 
+\end{bem}
+
+\begin{satz}
+	$V$ endlichdimensionaler $\RR$-VR, $\dim(V) \geq 1$, $\varphi \in End(V)$\\
+	Dann existiert ein UVR $W \subseteq V$ mit $\varphi(W) \subseteq W$ und $1 \leq \dim(W) \leq 2$
+\end{satz}
+\newpage
+\begin{satz}
+	$(V, \gamma)$ euklidischer VR, $\varphi \in End(V)$ orthogonal\\
+	Dann existiert eine ONB $B$ von $V$, sodass\\
+	$M_B (\varphi) = \left(
+	\begin{array}{ccccccccccc}
+	+1 & & & & & & & & & \rdelim){10}{1em} &\rdelim\}{3}{1cm}[r]\\
+	& \ddots & & & & & & & & & \\ 
+	& & +1 & & & & & & & & \\
+	& & & -1 & & & & & & &  \rdelim\}{3}{1cm}[s]\\
+	& & & & \ddots & & & & & &  \\
+	& & & & & -1 & & & & &\\
+	& & & & & & A_1 & & & &  \\
+	& & & & & & & \ddots & & &\\
+	& & & & & & & & A_k & &\\
+	\end{array}\right.$\\
+	wobei $A_j = \begin{pmatrix}
+	\cos (\alpha_j) & -\sin (\alpha_j)\\
+	\sin (\alpha_j) & \cos (\alpha_j
+	\end{pmatrix} \in SO(2)$, $\alpha_j \in (0, \pi)$\\
+	$r,s$ und $\alpha_1, \ldots, \alpha_k$ (bis auf Reihenfolge) sind unabhängig von der Wahl einer solchen ONB.\\
+	Insbesondere gilt: $r =$ Vielfachheit des EW $+1$ von $\varphi$\\
+	$s =$ Vielfachheit des EW $-1$ von $\varphi$
+\end{satz}
+
+\begin{folg}
+	Jede orthogonale Selbstabbildung des $(\RR^3, <.,.>)$ kann man bzgl. einer geeigneten ONB wie folgt darstellen:\\
+
+	$(I) \begin{pmatrix}
+	1 & &\\
+	& 1 &\\
+	& & 1
+	\end{pmatrix}$ id. Abbildung \hspace{3,4 cm }  $(IV) \begin{pmatrix}
+	-1 & &\\
+	& -1 &\\
+	& & -1
+	\end{pmatrix}$ Punktspiegelung an 0.\\
+	$(II) \begin{pmatrix}
+	1 & &\\
+	& 1 &\\
+	& & -1
+	\end{pmatrix}$ Spiegelung an Ebene \hspace{2 cm} $(V) \begin{pmatrix}
+	1 & 0 & 0\\
+	0 & \cos (\alpha) & -\sin (\alpha)\\
+	0 & \sin (\alpha) & \cos (\alpha)
+	\end{pmatrix}$ 
+	$\begin{matrix}
+	\text{Drehung mit fester Dreh-}\\ 
+	\text{achse um den Winkel} \alpha \in (0, \pi)\\ 
+	\end{matrix}$\\
+	
+\begin{small}
+	$(III) \begin{pmatrix}
+	1 & &\\
+	& -1 &\\
+	& & -1
+	\end{pmatrix}$ $\begin{matrix}
+		\text{Drehung mit fester Dreh-}\\
+		\text{achse um den Winkel } \pi
+	\end{matrix}$   $(VI) \begin{pmatrix}
+	-1 & 0 & 0\\
+	0 & \cos (\alpha) & -\sin (\alpha)\\
+	0 & \sin (\alpha) & \cos (\alpha)
+	\end{pmatrix}$ $\begin{matrix}
+		\text{"Drehspiegelung": Drehung mit fester Drehachse um}\\
+		\text{den Winkel } \alpha \in (0, \pi) \text{ mit nachfolgender Spiegelung}\\
+		\text{an der zur Drehachse orthogonalen Ursprungsebene}\\
+	\end{matrix}$
+\end{small}   
+\end{folg}
+
+\begin{Large}
+	Ende der nicht Klausurrelevanz
+\end{Large}
+\newpage
+\section{Der Spektralsatz}
+
+In diesem Abschnitt sei $(V, \gamma)$ stets ein euklidischer Raum
+
+\begin{bem}
+	Die Abb. $\Gamma: V \rightarrow V^*$, $w \mapsto \gamma (.,w)$ ist ein Isomorphismus.
+\end{bem}
+
+Anmerkung: Insbesondere sind für einen euklidischen VR $(V, \gamma)$ die VRe $V$ und $V^*$ kanonisch isomporph
+
+\begin{bem}
+	$B = (v_1, \ldots, v_n)$ ONB von $(V, \gamma)$, $B^* = (v_1^*, \ldots, v_n^*)$ duale Basis zu $B$, $U \subseteq V$ UVR, $\Gamma: V \rightarrow V^*$ kanonische Abbildung aus 7.1. Dann gilt:\\
+	(a) $\Gamma (U^{\perp}) = U^0$\\
+	(b) $\Gamma(v_i) = v_i^*$ für $i = 1, \ldots, n$
+\end{bem}
+
+\begin{bem}
+	$(V, \gamma_V)$, $(W, \gamma_W)$ euklidische Räume, $\varphi: V \rightarrow W$\\
+	Dann existiert genau eine lineare Abbildung $\varphi^{ad}: W \rightarrow V$ mit $\gamma_W (\varphi (v), w) = \gamma_V (v, \varphi^{ad}(w))$ für alle $v \in V, w \in W$. $\varphi^{ad}$ heißt die zu $\varphi$ adjungierte Abbildung
+\end{bem}
+
+Anmerkung: Ist $\varphi: V \rightarrow V$ orthogonal, dann ist $\varphi^{ad} = \varphi^{-1}$, denn für $v,w \in V$:\\ $\gamma(\varphi(v), w) = \gamma(\varphi(v), \varphi(\varphi^{-1}(w))) = \gamma(v, \varphi^{-1} (w))$.
+
+\begin{bem}
+	$(V, \gamma_V), (W, \gamma_W)$ eukldische Räume, $A$ ONB von $(V, \gamma_V)$, $B$ ONB von $(W, \gamma_W)$, $\varphi: V \rightarrow W$ lineare Abbildung. Dann gilt:\\
+	$M_A^B (\varphi^{ad}) = (M_B^A (\varphi))^t$\\
+	Insbesondere ist $(\varphi^{ad})^{ad} = \varphi$.
+\end{bem}
+
+\begin{satz}
+	$(V, \gamma_V)$, $(W,\gamma_W)$ euklidische Räume, $\varphi: V \rightarrow W$ lineare Abbildung. Dann gilt:\\
+	(a) $\ker (\varphi^{ad}) = (im (\varphi))^\perp$\\
+	(b) $im (\varphi^{ad}) = (\ker(\varphi))^\perp$
+\end{satz}
+
+\begin{folg}
+	$\varphi \in End(V)$\\
+	Dann gilt:\\
+	$V = \ker (\varphi) \hat{\oplus} im(\varphi^{ad})$ sowie $V = \ker (\varphi^{ad}) \hat{\oplus} im(\varphi)$
+\end{folg}
+
+\begin{defi}
+	$\varphi \in End (V)$\\
+	$\varphi$ heißt selbstadjungiert $\Leftrightarrow \varphi = \varphi^{ad}$
+\end{defi}
+
+\begin{bem}
+	$B$ ONB von $(V, \gamma)$. Dann sind äquivalent:\\
+	(i) $\varphi$ selbstadjungiert\\
+	(ii) $M_B(\varphi)$ symmetrsich.\\
+	In diesem Fall ist $V = \ker (\varphi) \hat{\oplus} im (\varphi)$.
+\end{bem}
+
+\begin{satz}
+	Es gilt:\\
+	(a) $\varphi \in End(V)$ selbstadjungiert: $\Rightarrow \gamma$ $' : V \times V \rightarrow \RR$, $\gamma$ $' (x,y) = \gamma(\varphi(x), y)$ ist eine symmetrische Bilinearform\\
+	(b) Ist $\gamma$ $': V \times V \rightarrow \RR$ eine symmetrische Bilinearform, dann existiert genau ein selbstadjungierter Endomorphismus $\varphi \in End(V)$ mit $\gamma$ $'(x,y) = \gamma(\varphi(x), y)$ für alle $x,y \in V$.\\
+	In diesen Fällen gilt bzgl. jeder ONB $B$ von $(V, \gamma)$: $M_B(\gamma$ $') = M_B(\varphi)$.
+\end{satz}
+
+Anmerkung: Interpretation für $(\RR^n, <.,.>):$\\
+Ist $A \in M(n \times n, \RR)$ symmetrisch, dann ist $A$:
+\begin{itemize}
+	\item Darstellungsmatrix bzgl. $(e_1, \ldots, e_n)$ des selbstadjungierten Endomorphismus $\tilde{A}$ von $\RR^n$
+	\item Darstellungsmatrix bzgl $(e_1, \ldots, e_n)$ der symmetrischen Bilinearform $\gamma$ $' = \varDelta(A) : (x,y) \mapsto x^tAy$
+\end{itemize}
+Es ist $\gamma$ $'(x,y) = x^tAy = x^tA^ty = (Ax)^ty = <Ax,y> = <\tilde{A}(x), y>$ für alle $x,y \in \RR^n$.\\
+Bzgl. jeder ONB von $(\RR^n, <.,.>)$ gilt $M_B(\tilde{A}) = M_B(\gamma$ $')$.
+
+\begin{bem}
+	$\varphi \in End(V)$ selbstadjungiert, $U \subseteq V$ UVR mit $\varphi(U) \subseteq U$\\
+	Dann gilt: $\varphi (U^{\perp}) \subseteq U^{\perp}$
+\end{bem}
+
+\begin{bem}
+	$\varphi \in End(V)$ selbstadjungiert:\\
+	Dann zerfällt $\chi_\varphi^{char}$ über $\RR$ in Linearfaktoren.
+\end{bem}
+
+\begin{satz}
+	(Spektralsatz für selbstadjungierte Endomorphismen)\\
+	$\varphi \in End(V)$ selbstadjungierter Endomorphismus. Dann existiert eine ONB von $(V, \gamma)$ aus EV von $\varphi$.\\
+	Sind $\lambda_1, \ldots, \lambda_r$ die verschiedenen EW von $\varphi$, so ist $V = Eig(\varphi, \lambda_1) \hat{\oplus} \ldots \hat{\oplus} Eig(\varphi, \lambda_r)$
+\end{satz}
+
+\begin{folg}
+	$\gamma$ $': V \times V \rightarrow \RR$ symmetrische Bilinearform, $n = \dim V$.\\
+	Dann existiert eine ONB $B$ von $(V, \gamma)$, bzgl. derer die Darstellungsmatrix von $\gamma$ $'$ Diagonalgestalt hat:\\
+	$M_B(\gamma$ $') = \begin{pmatrix}
+	\lambda_1 & & 0\\
+	& \ddots &\\
+	0 & & \lambda_n
+	\end{pmatrix}$ 
+	Hierbei sind $\lambda_1, \ldots, \lambda_n$ die EWe (mit Vielf.) des zu $\gamma$ $'$ gehörenden eindeutig bestimmten selbstadjungierten Endomorphismus $\varphi \in End(V)$mit $\gamma$ $'(x,y)  = \gamma(\varphi(x), y)$ (vgl. 7.9) 
+\end{folg}
+
+\begin{folg}
+	$A \in M(n \times n, \RR)$ symmetrisch.\\
+	Dann existiert ein $T \in O(n)$, sodass $T^{-1} A T = \begin{pmatrix}
+	\lambda_1 & & 0\\
+	& \ddots &\\
+	0 & & \lambda_n
+	\end{pmatrix}$\\
+	Hierbei sind $\lambda_1, \ldots, \lambda_n$ die EWe (mit Vielf.) von $A$. Die Spalten von T bilden eine ONB von $(\RR^n, <.,.>)$ aus EV von $A$.
+\end{folg}
+
+Anmerkung: Man kann sogar stets $T \in SO(n)$ erreichen (indem man ggf. eine Spalte $v_i$ von $T$ durch $-v_i$ ersetzt).
+
+\begin{satz}
+	(Algorithmus Hauptachsentranformation)\\
+	Eingabe: $A \in M(n \times n, \RR)$ symmetrisch\\
+	Ausgabe: $T \in O(n)$, sodass $T^{-1} A T$ Diagonalmatrix.\\
+	Durchführung: 
+	\begin{enumerate}
+		\item Bestimme $\chi_A^{char} \in \RR[t]$ sowie eine Zerlegung $\chi_A^{char} = (t-\lambda_1)^{r_1} \cdot \ldots \cdot (t-\lambda_k)^{r_k}$ mit $\lambda_1, \ldots, \lambda_k$ paarweise verschieden
+		\item Bestimme für $i = 1, \ldots k$ jeweils eine Basis von $Eig(A, \lambda_i)$
+		\item Bestimme mit dem Gram-Schmidt-Verfahren für $i = 1, \ldots, k$ eine ONB $B_i = (v_{i_1}, \ldots, v_{i,r_i})$ von $Eig(A, \lambda_i)$
+		\item Die ONB $B_i$, $i = 1, \ldots, k$ bilden zusammen eine ONB $B = (v_{1,1}, \ldots, v_{1,r_1}, \ldots, v_{k,1}, \ldots, v_{k,r_k})$ des $(\RR^n, <.,.>)$ aus EV von $A$.
+		\item Schreibe die Basisvektoren aus $B$ in Spalten von $T$
+	\end{enumerate}
+	Es ist dann $T^{-1}AT = \left(
+	\begin{array}{cccccccccc}
+	\lambda_1 & & & & & & &\rdelim){8}{1em} & \rdelim\}{3}{1cm}[$r_1$]\\
+	& \ddots & & & & & & &\\
+	& & \lambda_1 & & & & & &\\
+	& & & \ddots & & & & &\\
+	& & & & \lambda_k & & & & \rdelim\}{3}{1cm}[$r_k$]\\
+	& & & & & \ddots & & &\\
+	& & & & & & \lambda_k & &\\
+	\end{array}\right.$\\
+\end{satz}
+
+Anmerkung: Um $T \in SO(n)$ zu erreichen, ersetze ggf. $v_{1,1} durch -v_{1,1}$
+\newpage
+\begin{bsp}
+	$ $\\
+	$A = \begin{pmatrix}
+	2 & -1 & 2\\
+	-1 & 2 & 2\\
+	2 & 2 & -1
+	\end{pmatrix} \in M(3 \times 3, \RR)$\\
+	Es ist $\chi_A^{char} = t^3 - 3*t^2 - 9*t + 27 = (t-3)^2(t+3)$\\
+	Es ist $Eig(A,3) = \ldots = Lin(\begin{pmatrix}
+	2\\
+	0\\
+	1
+	\end{pmatrix}, \begin{pmatrix}
+	-1\\
+	1\\
+	0
+	\end{pmatrix})$\\
+	Nach Bsp 5.12 ist $(\frac{1}{\sqrt{5}} \begin{pmatrix}
+		2\\
+		0\\
+		1
+		\end{pmatrix}, \frac{1}{\sqrt{30}} \begin{pmatrix}
+		-1\\
+		5\\
+		2
+		\end{pmatrix})$ eine ONB von $Eig(A,3)$\\
+	$Eig(A, -3) = Lin (\begin{pmatrix}
+	1\\
+	1\\
+	-2
+	\end{pmatrix}) \Rightarrow (\frac{1}{\sqrt{6}} \begin{pmatrix}
+	1\\
+	1\\
+	-2
+	\end{pmatrix})$ ist eine ONB von $Eig(A, -3)\\
+	\Rightarrow (\frac{1}{\sqrt{5}} \begin{pmatrix}
+	2\\
+	0\\
+	1
+	\end{pmatrix}, \frac{1}{\sqrt{30}} \begin{pmatrix}
+	-1\\
+	5\\
+	2
+	\end{pmatrix}, \frac{1}{\sqrt{6}} \begin{pmatrix}
+	1\\
+	1\\
+	-2
+	\end{pmatrix})$ ist ONB von $(\RR^3, <.,.>)$ aus EVen von $A$.\\
+	Mit $T = \begin{pmatrix}
+	\frac{2}{\sqrt{5}} & -\frac{1}{\sqrt{30}} & \frac{1}{\sqrt{6}}\\
+	0 & \frac{5}{\sqrt{30}} & \frac{1}{\sqrt{6}}\\
+	\frac{1}{\sqrt{5}} & \frac{2}{\sqrt{30}} & -\frac{2}{\sqrt{6}}
+	\end{pmatrix}$ ist 
+	$T^{-1} A T = \begin{pmatrix}
+	3 & 0 & 0\\
+	0 & 3 & 0\\
+	0 & 0 & -3
+	\end{pmatrix}$\\
+	Es ist $\det(T) = -1$, also $T \in O(3) \backslash SO(3)$.\\ 
+	Setzt man $T' := \begin{pmatrix}
+	-\frac{2}{\sqrt{5}} & -\frac{1}{\sqrt{30}} & \frac{1}{\sqrt{6}}\\
+	0 & \frac{5}{\sqrt{30}} & \frac{1}{\sqrt{6}}\\
+	-\frac{1}{\sqrt{5}} & \frac{2}{\sqrt{30}} & -\frac{2}{\sqrt{6}}
+	\end{pmatrix}$ ist
+	$(T')^{-1} A T' = \begin{pmatrix}
+	3 & 0 & 0\\
+	0 & 3 & 0\\
+	0 & 0 & -3
+	\end{pmatrix}$ und es ist $T' \in SO(3)$
+\end{bsp}
+
+\begin{Large}
+	Ab hier nicht klausurrelevant
+\end{Large}
+
+\begin{bem}
+	$\gamma$ $'$: $V \times V \rightarrow \RR$ symmetrische Bilinearform\\
+	Dann existiert eine Orthogonalbasis $B$ von $(V, \gamma)$ mit\\
+	$M_B(\gamma$ $') = \left(
+	\begin{array}{ccccccccccc}
+	1 & & & & & & & & & \rdelim){10}{1em} &\rdelim\}{3}{1cm}[$s_+$]\\
+	& \ddots & & & & & & & & & \\ 
+	& & 1 & & & & & & & & \\
+	& & & -1 & & & & & & &  \rdelim\}{3}{1cm}[$s_-$]\\
+	& & & & \ddots & & & & & &  \\
+	& & & & & -1 & & & & &\\
+	& & & & & & 0 & & & & \rdelim\}{3}{1cm}[$s_0$]\\
+	& & & & & & & \ddots & & &\\
+	& & & & & & & & 0 & &\\
+	\end{array}\right.$\\
+	Ist $\varphi \in End(V)$ der gemäß 7.9 zu $\gamma$ $'$ gehörige selbstadjungierte Endomorphismus von $V$, dann:\\
+	$s_+ =$ Anzahl der positiven Eigenwerte von $\varphi$ (mit Vielf.)\\
+	$s_- =$ Anzahl der negativen Eigenwerte von $\varphi$ (mit Vielf.)\\
+	$s_0 =$ Vielfachheit des Eigenwerts 0 von $\varphi$\\
+	Die Invarianten $s_+, s_-, s_0$ stimmen mit den Invarianten $r_+, r_-, n-(r_++r_-)$ aus dem Sylvesterschen Trägheitssatz für $(V, \gamma$ $'$) überein.
+\end{bem}
+
+\begin{folg}
+	$A \in M(n \times n, \RR)$ symmetrisch\\
+	Dann existiert ein $T \in Gl(n, \RR)$ (deren Spalten eine Orthogonalbasis von $(\RR^n, <.,.>)$ bilden) mit\\
+	$T^t A T = \left(
+	\begin{array}{ccccccccccc}
+	1 & & & & & & & & & \rdelim){10}{1em} &\rdelim\}{3}{1cm}[$s_+$]\\
+	& \ddots & & & & & & & & & \\ 
+	& & 1 & & & & & & & & \\
+	& & & -1 & & & & & & &  \rdelim\}{3}{1cm}[$s_-$]\\
+	& & & & \ddots & & & & & &  \\
+	& & & & & -1 & & & & &\\
+	& & & & & & 0 & & & & \rdelim\}{3}{1cm}[$s_0$]\\
+	& & & & & & & \ddots & & &\\
+	& & & & & & & & 0 & &\\
+	\end{array}\right.$\\
+	Hierbei ist $s_+ =$ Anzahl der positiven Eigenwerte von $A$, $s_- =$ Anzahl der negativen Eigenwerte von $A$ (jeweils mit Vielfachheit). 
+	$s_0 = $ Vielfachheit des Eigenwerts 0 von $A$.\\
+	Die Invarianten $s_+, s_-, s_0$ stimmen mit $r_+, r_-, n-(r_++r_-)$ aus dem Sylvesterschen Trägheitssatz überein.
+\end{folg}
+
+\begin{folg}
+	$A \in M(n \times n, \RR)$ symmetrisch, $S \in Gl(n, \RR)$\\
+	Dann gilt: $A$ und $S^t A S$ haben mit Vielfachheit gezählt die gleiche Anzahl positiv und negativer Eigenwerte. 
+\end{folg}
+
+\begin{Large}
+	Ende der nicht Klausurrelevanz
+\end{Large}
+
+\section{Unitäre Räume}
+
+\begin{defi}
+	$V$ $\CC$-VR, $h: V \times V \rightarrow \CC$, $(v,w) \mapsto h(v,w)$ heißt Sesquilinearform auf V $\Leftrightarrow$ Die folgenden Bedingungen sind erfüllt:\\
+	(S1) $h(v_1+v_2,w) = h(v_1,w) + h(v_2,w)$, $h(\lambda v, w) = \lambda h(v,w)$\\
+	(S2) $h(v,w_1+w_2) = h(v,w_1)+h(v,w_2)$, $h(v, \lambda w) = \overline{\lambda} h(v,w)$\\
+	für alle $v_1, v_2, w_1, w_2, v, w \in V, \lambda \in \CC$
+\end{defi}
+
+\begin{bsp}
+	$h: \CC^n \times \CC^n \rightarrow \CC$, $h(x,y) := x^t \overline{y}$ ist eine Sesquilinearform auf $\CC^n$\\
+	(beachte: $h(x, \lambda y) = x^t \overline{\lambda y} = \overline{\lambda} x^t y)$, aber keine Bilinearform auf $\CC^n$
+\end{bsp}
+
+\begin{bem}
+	$V$ $\CC$-VR, $h: V \times V \rightarrow \CC$ Sesquilinearform auf $V$.\\
+	Dann induziert $h$ eine ''semilineare'' Abbildung\\
+	$\Gamma : V \rightarrow V^*$, $w \mapsto h(\cdot, w)$\\
+	(d.h. $\Gamma(w_1 + w_2) = \Gamma(w_1) + \Gamma(w_2)$, $\Gamma(\lambda(w)) = \overline{\lambda} \Gamma(w)$ für alle $w_1, w_2 \in V, w \in V, \lambda \in \CC$)
+\end{bem}
+
+\begin{defi}
+	$V$ endlichdimensional $\CC-VR$, $h$ Sesquilinearform auf $V$, $B = (v_1, \ldots, v_n)$ Basis von $V$\\
+	$M_B(h) = (h(v_i, v_j))_{1 \leq i \leq n, 1 \leq j \leq n}$ heißt die Darstellungsmatrix (Fundamentalmatrix) von $h$ bzgl. $B$. 
+\end{defi}
+
+\begin{bem}
+	$V$ endlichdimensional $\CC$-VR, $B = (v_1, \ldots v_n)$ Basis von $V$.\\
+	$Sesq(V) := \{h: V \times V \rightarrow \CC| h \text{ ist eine Sesquilinearform}\}$ ist eine $\CC$-VR/UVR von $Abb(V \times V, \CC)$\\
+	Dann gilt: Die Abb. $M_B: Sesq(V) \rightarrow M(n \times n, \CC)$, $h \mapsto M_B(h)$ ist ein Isomorphismus von $\CC$-VR mit Umkehrabbildung $\varDelta^B: M(n \times n, \CC) \rightarrow Sesq(V)$ mit $\varDelta^B(A)(v,w) = \overline{\underline{\phi}}_B^{-1} (v)^t A \overline{\overline{\underline{\phi}}_B^{-1} (w)}$
+\end{bem}
+
+\begin{satz}
+	$V$ endlichdimensional $\CC$-VR, $A, B$ Basen von $V$, $h$ Sesquilinearform auf $V$\\
+	Dann gilt: $M_B(h) = (T_A^B)^t \cdot M_A(h) \cdot \overline{T_A^B}$
+\end{satz}
+
+\begin{defi}
+	$V$ $\CC$-VR, $h$ Sesquilinearform auf $V$\\
+	$h$ heißt hermitesch $\Leftrightarrow$ $h(w,v) = \overline{h(v,w)}$ für alle $v,w \in V$
+\end{defi}
+
+Anmerkung: In diesem Fall ist $h(v,v) = \overline{h(v,v)}$, d.h. $h(v,v) \in \RR$ für alle $v \in V$.
+
+\begin{bem}
+	$V$ endlichdimensionaler $\CC$-VR, $h$ Sesquilinearform auf $V$, $B$ Basis von $V$, $A = M_B(h)$\\
+	Dann sind äquivalent:\\
+	(i) $h$ ist hermitesch\\
+	(ii) $\overline{A}^t$ = $A$
+\end{bem}
+
+Anmerkung: Matrizen $A \in M(n \times n, \CC)$ mit $\overline{A}^t = A$ heißen hermitesche Matrizen.
+
+\begin{defi}
+	$V$ $\CC$-VR, $h$ hermitesche Form auf $V$\\
+	$h$ heißt positiv definit $\Leftrightarrow$ $h(v,v) > 0$ für alle $v \in V$, $v \neq 0$\\
+	Eine positiv definite hermitesche Form nennt man auch ein Skalarprodukt
+\end{defi}
+
+\begin{bsp}
+	$V = \CC^n$, $<.,.>: \CC^n \times \CC^n \rightarrow \CC$, $<x,y> := x^t\overline{y}$ ist ein Skalarprodukt auf $\CC^n$ (das Standardskalarprodukt auf $\CC^n$):\\
+	\begin{itemize}
+		\item $<.,.>$ ist sesquilinear (vgl. 8.2)
+		\item $<.,.>$ ist hermitesch: $<y,x> = y^t \overline{x} = (y^t\overline{x})^t = \overline{x}^t y = \overline{x^t \overline{y}} = \overline{<x,y>}$
+	\end{itemize}
+	$<.,.>$ ist postiv definit: $<x,x> = x^t\overline{x} = (x_1 \cdots x_n) \begin{pmatrix}
+	\overline{x_1}\\
+	\vdots\\
+	\overline{x_n}
+	\end{pmatrix} = X_1\overline{x_1} + \ldots +x_n \overline{x_n} = |x_1|^2+ \ldots + |x_n|^2 > 0$ für $x \neq 0$ 
+\end{bsp}
+
+\begin{defi}
+	Ein unitärer Raum ist ein Paar $(V,h)$, betstehend aus einem endlichdimensionalen $\CC$-VR $V$ und einem Skalarprodukt $h$ auf $V$
+\end{defi}
+
+Für den Rest des Abschnitts sei $(V,h)$ stets ein unitärer Raum\\
+
+Anmerkung: Analog zu euklidischen Räumen definiert man die Begriffe: Norm, orthogonal, orthonormal, Orthogonalbasis, Orthonormalbasis und orthogonales Komplement.\\
+Es gilt dabei:
+\begin{itemize}
+	\item Cauchy-Schwarz-Ungleichung: $|h(v,w)| \leq ||v|| ||w||$ für alle $v,w \in V$
+	\item Gram-Schmidt-Verfahren (mit $h$ statt $\gamma$) liefert ONB
+	\item $V = U \hat{\oplus} U^{\perp}$, $U^{\perp^\perp} = U$ für $U \subseteq V$ UVR
+\end{itemize}
+
+\begin{defi}
+	$(V, h_V)$, $(W, h_W)$ unitäre Räume, $\varphi: V \rightarrow W$ lineare Abbildung\\
+	$\varphi$ heißt unitär $\Leftrightarrow h_W(\varphi(v_1), \varphi(v_2)) = h_V(v_1,v_2)$ für alle $v_1,v_2 \in V$
+\end{defi}
+
+\begin{bem}
+	$n = \dim(V)$, $B$ ONB von $(V,h)$\\
+	Dann ist das Koordinatensystem $\overline{\underline{\phi}}_B: (\CC^n, <.,.>) \rightarrow (V,h)$ ist ein unitärer Isomorphismus
+\end{bem}
+
+\begin{bem}
+	$B$ ONB von $(V,h)$, $\varphi \in End(V)$, $A = M_B(\varphi)$. Dann sind äquivalent:\\
+	(i) $\varphi$ ist unitär\\
+	(ii) $\overline{A}^t A = E_n$
+\end{bem}
+
+\begin{bem}
+	$A \in M(n \times, \CC)$\\
+	$A$ heißt unitär $\Leftrightarrow \overline{A}^t A = E_n$\\
+	$U(n) := \{A \in M(n \times n, \CC)| A \text{ ist unitär}\}$\\
+	$U(n)$ ist eine Gruppe bzgl. "$\cdot$", die unitäre Gruppe vom Rang $n$\\
+	$SU(n) := \{A \in U(n)| \det(A) = 1\}$ ist eine Untergruppe von $U(n)$, die spezielle unitäre Gruppe vom Rang $n$
+\end{bem}
+
+\begin{bem}
+	$B = (v_1, \ldots, v_n)$ ONB von $(V, h)$, $B^* = (v_1^*, \ldots, v_n^*)$ duale Basis.\\
+	Dann ist die Abb. $\Gamma: V \rightarrow V^*$, $w \mapsto h(\cdot, w)$ ist ein Semiisomorphismus mit $\Gamma(v_i) = v_i^*$ für $i = 1, \ldots, n$.
+\end{bem}
+
+\begin{satz}
+	$(V, h_V)$,$(W, h_W)$ unitäre Räume, $\varphi: V\rightarrow W$ lineare Abbildung, $A$ ONB von $(V, h_V)$ $B$ ONB von $(W,h_W)$. Dann gilt:\\
+	(a) Es gibt genau eine lineare Abbildung $\varphi^{ad}: W \rightarrow V$ mit $h_W(\varphi(v), w) = h_V(v, \varphi^{ad}(w))$ für alle $v \in V, w \in W$.\\ $\varphi^{ad}$ heißt die zu $\varphi$ adjungierte Abbildung.\\
+	(b) $M_A^B(\varphi^{ad}) = \overline{M_B^A(\varphi)}^t$
+\end{satz}
+
+\begin{bem}
+	$\varphi \in End(V)$. Dann gilt:\\
+	(a) $\ker(\varphi^{ad}) = (im (\varphi))^\perp$\\
+	(b) $im(\varphi^{ad}) = (\ker(\varphi))^\perp$
+\end{bem}
+
+\begin{defi}
+	$\varphi \in End(V)$. $\varphi$ heißt selbstadjungiert $\Leftrightarrow \varphi = \varphi^{ad}$
+\end{defi}
+
+\begin{bem}
+	$\varphi \in End(V)$, $B$ ONB von $(V,h)$, $A = M_B(\varphi)$. Dann sind äquivalent:\\
+	(i) $\varphi$ selbstadjungiert\\
+	(ii) $\overline{A}^t = A$, d.h. $A$ ist hermitesch
+\end{bem}
+
+\begin{bem}
+	$\varphi \in End(V)$ selbstadjungiert. Dann sind alle Eigenwerte von $\varphi$ reell.
+\end{bem}
+
+\begin{defi}
+	$\varphi \in End(V)$\\
+	$\varphi$ heißt normal $\Leftrightarrow \varphi^{ad} \circ \varphi = \varphi \circ \varphi^{ad}$\\
+	$A \in M(n \times n, \CC)$ heißt normal $\Leftrightarrow \overline{A}^t A  = A \overline{A}^t$
+\end{defi}
+
+Anmerkung: Ist $B$ eine ONB von $(V,h)$, dann: $\varphi$ normal $\Leftrightarrow M_B(\varphi)$ normal.
+
+\begin{bem}
+	$\varphi \in End(V)$. Dann gilt:\\
+	(a) $\varphi$ unitär $\Rightarrow$ normal\\
+	(b) $\varphi$ selbstadjungiert $\Rightarrow$ normal\\
+	Für $A \in M(n \times n, \CC)$ gilt: $A$ unitär $\Rightarrow A$ normal, $A$ hermitesch $\Rightarrow A$ normal.
+\end{bem}
+
+\begin{satz}
+	$\varphi \in End(V)$ normal\\
+	Dann gilt:\\
+	(a) $\ker(\varphi^{ad}) = \ker(\varphi)$\\
+	(b) $im(\varphi^{ad}) = im(\varphi)$\\
+	Insbesondere gilt $V = \ker(\varphi) \hat{\oplus} im(\varphi)$
+\end{satz}
+
+\begin{bem}
+	$\varphi \in End(V)$ normal, $\lambda \in \CC$\\
+	Dann gilt:\\
+	(a) $\varphi - \lambda id_V$ ist normal\\
+	(b) $Eig(\varphi, \lambda) = Eig(\varphi^{ad}, \overline{\lambda})$
+\end{bem}
+
+\begin{satz}
+	(Spektralsatz für normale Endomorphismen)\\
+	$\varphi \in End(V)$. Dann sind äquivalent:\\
+	(i) Es gibt eine ONB von $(V, h)$ aus EVen von $\varphi$\\
+	(ii) $\varphi$ ist normal
+\end{satz}
+\newpage
+Anmerkung: Insbesondere gilt:
+\begin{itemize}
+	\item Für jeden selbstadjungierten/unitären Endomorphismus existiert eine ONB aus EVen
+	\item Jede reelle orthogonale Matrix ist über $\CC$ diagonalisierbar
+\end{itemize}
+
+Achtung: über $\RR$ reicht "normal" nicht aus: Es gibt orthogonale Matrizen, die über $\RR$ nicht diagonalisierbar sind (z.B. $\begin{pmatrix}
+0 & -1\\
+1 & 0 
+\end{pmatrix} (\text{Drehungen um} \frac{\pi}{2})$)
+
+\begin{folg}
+	$A \in M(n \times n, \CC)$. Dann sind äquivalent:\\
+	(i) $A$ ist normal\\
+	(ii) Es gibt ein $T \in U(n)$ , sodass $T^{-1} A T = \begin{pmatrix}
+	\lambda_1 & & 0\\
+	& \ddots &\\
+	0 & & \lambda_n
+	\end{pmatrix}$ $, \lambda_1, \ldots, \lambda_n$ EW von $A$
+\end{folg}
+
+\textbf{\Large Kapitel V Ringe und Moduln}\\
+
+\section{Ringe, Ideale, Teilbarkeit}
+
+In diesem Abschnitt seien $R,S$ stets kommutative Ringe (bei uns immer mit Eins)
+
+\begin{defi}
+	$\varphi: R \rightarrow S$ Abbildung. $\varphi$ heißt Ringhomomorphismus $\Leftrightarrow$ Die folgenden Bedingungen sind erfüllt:\\
+	(RH1) $\varphi(a+b) = \varphi(a) + \varphi(b)$\\
+	(RH2) $\varphi(ab) = \varphi(a)\varphi(b)$ für alle $a,b \in \RR$\\
+	(RH3) $\varphi(1_R) = 1_S$
+\end{defi}
+
+\begin{defi}
+	$I \subseteq R$\\
+	$I$ heißt Ideal in $R$ $\Leftrightarrow$ Die folgenden Bedingungen sind erfüllt:\\
+	(I1) $0 \in I$\\
+	(I2) $a, b \in I \Rightarrow a+b \in I$\\
+	(I3) $r \in R, a \in I \Rightarrow ra \in I$
+\end{defi}
+
+\begin{bsp}
+	$ $\\
+	(a) $\{0\}, R$ sind Ideale in $R$\\
+	(b) Für $n \in \ZZ$ ist $n\ZZ := \{na| a \in \ZZ\}$ ist ein Ideal in $\ZZ$
+\end{bsp}
+
+\begin{bem}
+	$\varphi: R \rightarrow S$ Ringhomomorphismus. Dann gilt:\\
+	(a) $J \subseteq S$ Ideal $\Rightarrow \varphi^{-1} (J) \subseteq R$ Ideal\\
+	(b) $\ker(\varphi) := \{a \in R| \varphi(a) = 0 \} \subseteq R$ Ideal\\
+	(c) $\varphi$ injektiv $\Leftrightarrow \ker(\varphi) = \{0\}$\\
+	(d) $I \subseteq R$ Ideal und $\varphi$ surjektiv $\Rightarrow \varphi(I) \subseteq S$ Ideal\\
+	(e) $im(\varphi) := \varphi(R)$ ist ein Unterring von $S$ (d.h. ein Ring bzgl. der eingeschränkten Verknüpfung) 
+\end{bem}
+
+Anmerkung: (d) wird falsch, wenn man die Voraussetzung $\varphi$ surjektiv weglässt:\\
+Die kanonische Inklusion $i: \ZZ \rightarrow \QQ$, $x \mapsto x$ ist ein Ringhomomorphismus, $\ZZ$ ist ein Ideal in $\ZZ$, aber $\ZZ = i(\ZZ)$ ist kein Ideal in $\QQ$ (denn: $\frac{1}{3} \cdot 2 = \frac{2}{3} \notin \ZZ$)\\
+$\ZZ$ ist aber zumindest ein Unterring von $\QQ$
+\newpage
+\begin{bem}
+	$I \subseteq R$ Ideal\\
+	Dann ist durch $r_1 \sim r_2 \Leftrightarrow r_1 - r_2 \in I$ eine Äquivalenzrelation auf $R$ gegeben, welche die zusätzliche Eigenschaft $r_1 \sim r_2$, $s_1 \sim s_2 \rightarrow r_1 + s_1 \sim r_2 + s_2$, $r_1s_1 \sim r_2s_2$\\
+	hat ("Kongruenzrelation"). Die Äquivalenzklasse von $r \in R$ ist durch 
+	$\overline{r} := r + I := \{r+a| a \in I \}$ gegeben und heißt die Restklasse von $r$ modulo $I$. Die Menge der Restklassen bezeichnen wir mit $R/I$
+\end{bem}
+
+\begin{bem}
+	$I \subseteq R$ Ideal. Dann wird $R/I$ mit der Addition\\
+	$+: R/I \times R/I \rightarrow R/I$, $\overline{r} + \overline{s} := \overline{r+s}$,\\
+	und der Multiplikation\\
+	$\cdot: R/I \times R/I \rightarrow R/I$, $\overline{r} \cdot \overline{s} := \overline{r \cdot s}$\\
+	zu einem kommutativen Ring, dem Faktorring (Restklassenring) $R/I$\\
+	Die Abbildung: $\pi: R \rightarrow R/I$, $r \mapsto \overline{r}$ ist ein surjektiver Ringhomomorphismus mit $\ker \pi = I$ 
+\end{bem}
+
+Anmerkung: Insbesondere sind die Ideale in $R$ genau die Kerne von Ringhomomorphismen, die von $R$ ausgehen.
+
+\begin{bsp}
+	 $ $\\
+	 Ist $R = \ZZ$, $I = n\ZZ$ mit $n \in \NN$, dann erhält man die aus LA1 bekannten Restklassenringe $\ZZ/n\ZZ$ (vgl. 6.4) 
+\end{bsp}
+
+\begin{satz}
+	(Homomorphiesatz für Ringe)\\
+	$\varphi: R \rightarrow S$ Ringhomomorphismus.\\
+	Dann gibt es einen Ringisomorphismus $\overline{\underline{\phi}}: R/\ker(\varphi) \rightarrow im(\varphi)$, $\overline{r}= r + \ker(\varphi) \mapsto \varphi(r)$
+\end{satz}
+
+\begin{bsp}
+	$K$ Körper, $R = K[t]$, $\varphi: K[t] \rightarrow K$, $f \mapsto f(0)$\\
+	$\varphi$ ist Ringhomomorphismus (nachrechnen), $im(\varphi) = K$, $\ker(\varphi) = \{f \in K[t]| f(0) = 0\} = \{tg| g \in K[t]\} = t K[t]$\\
+	Wir erhalten einen Ringisomorphismus $\overline{\underline{\phi}}: K[t]/tK[t] \rightarrow K$, $f + tK[t] \mapsto f(0)$
+\end{bsp}
+
+\begin{defi}
+	$x \in R$ heißt Nullteiler $\Leftrightarrow$ Es existiert ein $y \in R, y \neq 0$ mit $xy = 0$\\
+	$R$ heißt nullteilerfrei (Integritätsbereich) $\Leftrightarrow R \neq0$ und $0 \in R$ ist der einzige Nullteiler in $R$.
+\end{defi}
+
+Anmerkung:
+\begin{itemize}
+	\item $R \neq 0 \Rightarrow 0$ ist ein Nullteiler in $R$ (wg. $0 \cdot1 = 0, 0 \neq 1$) (Achtung: unterschiedliche Notation in Literatur)
+	\item Im Nullring ist $0$ kein Nullteiler, aber Nullring ist nicht nullteilerfrei
+\end{itemize} 
+
+\begin{bsp}
+	(a) $\ZZ$ ist nullteilerfrei\\
+	(b) $\overline{2} \in \ZZ/6 \ZZ$ ist Nullteiler wg $\overline{2} \cdot \overline{3} = \overline{0}$ in $\ZZ/6 \ZZ$\\
+	(c) Analog zu $K[t]$ kann man den Polynomring $R[t]$ erklären. Es gilt dann: $R$ nullteilerfrei $\Rightarrow R[t]$ nullteilerfrei 
+\end{bsp}
+
+\begin{bem}
+	$x \in R$ heißt Einheit $\Leftrightarrow$ Es existiert ein $y \in R$ mit $xy = 1$\\
+	$R^* := \{x \in R| x \text{ ist Einheit}\}$ bildet eine abelsche Gruppe bzgl "$\cdot$"
+\end{bem}
+
+\begin{bsp}
+	$ $\\
+	(a) $\ZZ^* = \{1, -1\}$ denn $1 \cdot 1 = 1, (-1)(-1) = 1$, $ab = 1 \Rightarrow |a||b| = 1 \Rightarrow |a| = |b| = 1$\\
+	(b) $K$ Körper $\Rightarrow K^* = K \backslash \{0\}$\\
+	(c) $R[t]^* = R^*$ falls $R$ nullteilerfrei (im Allgemeinen nur $R^* \subseteq R[t]^*$) 
+\end{bsp}
+
+\begin{defi}
+	$a_1, \ldots, a_n \in R$, $I \subseteq R$ Ideal\\
+	$(a_1, \ldots, a_n) := \{\sum\limits_{i = 1}^n a_ir_i| r_1, \ldots, r_n \in R\} \subseteq R$ heißt das von $a_1, \ldots, a_n$ erzeugte Ideal.\\
+	$I$ heißt Hauptideal $\Leftrightarrow$ Es existiert ein $a \in R$ mit $I = (a) = \{ra| r \in R\} =: Ra$\\
+	$R$ heißt Hauptidealring (HIR) $\Leftrightarrow R$ ist nullteilerfrei und jedes Ideal in $R$ ist ein Hauptideal
+\end{defi}
+
+Anmerkung: $(a_1, \ldots, a_n)$ ist ein Ideal in $R$ (leicht nachzurechnen) 
+
+\begin{bem}
+	$ $\\
+	$\ZZ$ ist ein HIR. Ist $I \subseteq \ZZ$ ein Ideal, dann existiert ein eindeutig bestimmtes $n \in \NN_0$ mit $I = (n) = n\ZZ$. 
+\end{bem}
+
+\begin{bsp}
+	$\ZZ[t]$ ist kein HIR: Es gibt $f \in \ZZ[t]$ mit $(2,t) = (f)$, denn:\\
+	Angenommen es ex. $f \in \ZZ[t]$ mit $(f) = (2,t)$, dann existiert $h \in \ZZ[t]$ mit $2 = hf \Rightarrow \deg(h) = \deg(f) = 0$, d.h. $f$ ist ein konstantes Polynom, etwa $f = a$ für ein $a \in \ZZ$\\
+	Außerdem ex. $\tilde{h} \in \ZZ[t]$ mit $t = \tilde{h} f = ha \underset{t \text{ normiert}}{\Rightarrow} a = \pm 1 \Rightarrow f = \pm 1$\\
+	Aber: $\pm 1 \notin (2,t)$, denn andernfalls ex. $u,v \in \ZZ[t]$ mit $\pm 1 = 2u+ tv \Rightarrow \pm 1= 2u(0) + 0 \cdot v(0) = 2u(0) \lightning$
+\end{bsp}
+
+\begin{defi}
+	$R$ nullteilerfrei, $a,b \in R$\\
+	$b$ heißt Teiler von $a$ (Notation: $b|a$) $\Leftrightarrow$ Es exisitert ein $c \in R$ mit $a = bc$\\
+	$a,b$ heißen assoziiert (Notation $a \widehat{=} b$) $\Leftrightarrow a|b$ und $b|a$
+\end{defi}
+
+\begin{bsp}
+	$R = \ZZ$, $a \in \ZZ \Rightarrow a \widehat{=} -a$
+\end{bsp}
+
+\begin{bem}
+	$R$ nullteilerfrei, $a,b \in R$. Dann sind äquivalent:\\
+	(i) $a \widehat{=} b$\\
+	(ii) Es existiert ein $e \in R^*$ mit $a = be$\\
+	(iii) $(a) = (b)$
+\end{bem}
+
+\begin{defi}
+	$R$ nullteilerfrei, $a_1, \ldots, a_n \in R$\\
+	$d \in R$ heißt größter gemeinsamer Teiler von $a_1, \ldots, a_n \Leftrightarrow$ Die folgenden Bedingungen sind erfüllt:\\
+	(GGT1) $d|a_1, \ldots, d|a_n$\\
+	(GGT2) $c|a_1, \ldots, c|a_n \Rightarrow c|d$\\
+	Wir bezeichnen die Meinge aller größten gemeinsamen Teiler von $a_1, \ldots, a_n$ mit $GGT(a_1, \ldots, a_n)$
+\end{defi}
+
+Anmerkung:
+\begin{itemize}
+	\item Sind $d_1, d_2 \in GGT(a_1, \ldots, a_n)$, dann folgt $d_1|d_2$ und $d_2|d_1$, also $d_1 \widehat{=} d_2$
+	\item Ist $d \in GGT(a_1, \ldots, a_n)$ und $d' \widehat{=} d$, dann ist $d' \in GGT(a_1, \ldots, a_n)$
+	\item ohne zusätzliche Voraussetzungen an $R$ kann man im allgemeinen nicht erwarten, dass $GGT(a_1, \ldots, a_n) \neq \emptyset$ (z.B. in $R = \ZZ[\sqrt{-3}] = \{a + b\sqrt{-3}|a,b \in \ZZ\} \subseteq \CC$ ist $GGT(4, 2 \cdot (1+ \sqrt{-3})) = \emptyset)$
+\end{itemize}
+
+\begin{bem}
+	$R$ HIR, $a_1, \ldots, a_n \in R$. Dann gilt:\\
+	(a) $GGT(a_1, \ldots, a_n) \neq \emptyset$\\
+	(b) $d \in GGT(a_1, \ldots, a_n) \Leftrightarrow (d) = (a_1, \ldots, a_n)$
+\end{bem}
+
+Anmerkung: \begin{itemize}
+	\item Im Fall $R = \ZZ$, $a_1, \ldots, a_n \in \ZZ$ ist $GGT(a_1, \ldots, a_n) \cap \NN_0 = \{d\}$ für ein $d \in \NN_0$ (beachte: $\ZZ^* = \{ \pm 1\}$). Man nennt dann $d$ den größten gemeinsamen Teiler von $a_1, \ldots, a_n$: $d =: ggT(a_1, \ldots, a_n)$ 
+	\item Im Fall $R = K[t]$ (wobei $K$ Körper in Section 10: dies ist ein HIR), $f_1, \ldots, f_n \in K[t]$, nicht alle $f_i = 0$, existiert ein eindeutig bestimmtes normiertes Polynom $d \in K[t]$ mit $d \in GGT(f_1, \ldots, f_n)$ (beachte: $K[t]^* = K^*$). Man nennt $d =: ggT(f_1, \ldots, f_n)$ den größten gemeinsament Teiler von $f_1, \ldots, f_n$ und setzt $ggT(0, \ldots, 0) := 0$ 
+\end{itemize}
+
+\begin{folg}
+	$R$ $HIR$, $a,b \in R$, $d \in GGT(a,b)$\\
+	Dann existieren $u,v \in R$ mit $d = ua + vb$
+\end{folg}
+
+\begin{defi}
+	$R$ nullteilerfrei, $p \in R \backslash (R^* \cup \{0\})$\\
+	$p$ heißt irreduzibel $\Leftrightarrow$ Aus $p = ab$ mit $a,b \in R$ folgt stets $a \in R^*$ oder $b \in R^*$\\
+	$p$ heißt Primelement $\Leftrightarrow$ Aus $p|ab$ folgt stets $p|a$ oder $p|b$
+\end{defi}
+
+Anmerkung: $p$ irreduzibel/Primelement, $p' \hat{=} p \Rightarrow p'$ irreduzibel/Primelement
+
+\begin{bsp}
+	irreduzible Elemente in $\ZZ =$ Primzahlen $p$ aus $\NN$ sowie deren Negative $-p$.\\
+	Primelemente in $\ZZ$?
+\end{bsp}
+
+Frage: Zusammenhang zwischen irreduziblen Elementen und Primelementen?
+
+\begin{bem}
+	$R$ nullteilerfrei, $p \in R \backslash (R^* \cup \{0\})$ Primelement\\
+	Dann ist $p$ irreduzibel
+\end{bem}
+
+Anmerkung: Es gibt Beispiele für irreduzible Elemente, die keine Primelemente sind
+
+\begin{satz}
+	$R$ HIR, $p \in R \backslash (R^* \cup \{0\})$. Dann sind äquivalent:\\
+	(i) $p$ ist irreduzibel\\
+	(ii) $p$ ist Primelement
+\end{satz}
+
+Anmerkung: \begin{itemize}
+	\item Beweis hat gezeigt: $R$ HIR, $p$ irreduzibles Element in $R$, dann ist $R/ (p)$ ein Körper
+	\item Primelement in $\ZZ$ = irreduzibles Element in $\ZZ$ 
+\end{itemize}
+
+Frage: Wann gilt in $R$ ein Analogon des Satzes über die eindeutig bestimmte Primfaktorzerlegung aus $\ZZ$? 
+
+\begin{defi}
+	$R$ nullteilerfrei\\
+	$R$ heißt faktoriell $\Leftrightarrow$ Jedes $a \in R \backslash (R^* \cup \{0\})$ lässt sich eindeutig bis auf Reihenfolge und Assoziiertheit als Produkt irreduzibler Elemente aus $R$ schreiben, d.h. es exisiteren irreduzible Elemente $p_1, \ldots, p_r \in R$ mit $a = p_1 \cdot \ldots \cdot p_r$ und sind $q_1, \ldots, q_s \in R$ irreduzible Elemente mit $a = q_1 \cdot \ldots \cdot q_s$, so ist $r = s$ und nach Umnummerierung ist $p_i \hat{=} q_i$ für $i = 1, \ldots, r$
+\end{defi}
+
+Ziel: HIR sind faktoriell
+
+\begin{defi}
+	$R$ heißt noethersch $\Leftrightarrow$ Für jede aufsteigende Kette $I_1 \subseteq I_2 \subseteq...$ von Idealen in $R$ existiert ein $n \in \NN$ mit $I_k = I_n$ für alle $k \geq n$ 
+\end{defi}
+
+\begin{bem}
+	$R$ HIR. Dann ist $R$ noethersch
+\end{bem}
+
+\begin{satz}
+	$R$ HIR. Dann ist $R$ faktoriell
+\end{satz}
+
+Anmerkung: \begin{itemize}
+	\item Fasst man in einer Zerlegung eines Elementes zueinander assoziierte Faktoren zusammen und erlaubt einen Vorfaktor $c \in R^*$, so erhält man eine Darstellung für Elemente $a \in R \backslash (R^* \cup \{0\})$ der Form $a = cp_1^{e_1} \cdot \ldots p_r^{e_r}$ mit $c \in R^*$, $p_1, \ldots, p_r$ irreduzibel, $p_i \hat{\neq} p_j$ für $i \neq j$, $e_1, \ldots, e_r \in \NN$.\\
+	Ist dann $ a= dq_1^{f_1} \cdot \ldots \cdot q_s^{f_s}$ mit $d \in R^*$, $q_1, \ldots, q_s$ irreduzibel, $q_i \hat{\neq} q_j$, für $i \neq j$, $f_1, \ldots, f_s \in \NN$, dann ist $r = s$ und nach Umnummerierung ist $p_i \hat{=} q_i$, $e_i = f_i$ für $i = 1, \ldots, r$
+\end{itemize}
+\newpage
+\section{Euklidische Ringe}
+
+In diesem Abschnitt sei R stets ein kommutativer Ring
+
+\begin{defi}
+	$R$ nullteilerfrei\\
+	$R$ heißt ein Euklidischer Ring $\Leftrightarrow$ Es existiert eine Abbildung $\delta: R \backslash \{0\} \rightarrow \NN_0$, sodass gilt: Für alle $f, g \in R$, $g \neq 0$ existieren $q,r \in R$ mit $f = qg + r$ und ($\delta(r) < \delta(g)$ oder $r = 0$)\\
+	$\delta$ heißt eine Normabbildung auf $R$
+\end{defi}
+	
+\begin{bsp}
+	$ $\\
+	(a) $R = \ZZ$  mit $\delta = |.|$ ist ein euklidischer Ring (vgl. EZT- Skript, Satz 1.3)\\
+	(b) $K$ Körper $\Rightarrow R = K[t]$ mit $\delta = \deg$ ist ein euklidischer Ring (vgl. 7.6)
+	(c) $R = \ZZ[i] = \{a+bi|a,b \in \CC\} \in \CC$ mit $\delta(x+iy) = x^2 + y^2$ ist ein euklidischer Ring (Ring der ganzen Gaußschen Zahlen)\\
+	(d) $K$ Körper mit $\delta: K \backslash \{0\} \rightarrow \NN_0$, $x \mapsto 1$ ist ein euklidischer Ring (Hier ist stets ''$r = 0$'')
+\end{bsp}
+
+\begin{satz}
+	$R$ Euklidischer Ring. Dann ist $R$ ein HIR
+\end{satz}
+
+\begin{folg}
+	$R$ euklidischer Ring. Dann ist $R$ faktoriell
+\end{folg}
+
+\begin{folg}
+	$K$ Körper, $f \in K[t], f \neq 0$\\
+	Dann besitzt $f$ eine bis auf Reihenfolge der Faktoren eindeutige Darstellung $f = cp_1^{e_1} \cdot \ldots \cdot p_r^{e_r}$ mit $c \in K^*$, $r \geq 0$, $e_1, \ldots, e_r \in \NN_0$ und paarweise verschiedene normierte irreduzible Polynome $p_1, \ldots, p_r$
+\end{folg}
+
+\begin{satz}
+	(Euklidischer Algorithmus) $R$ euklidischer Ring mit Normabbildung $\delta, a,b \in R \backslash \{0\}$\\
+	Wir betrachten eine Folge $a_0, a_1,...$ von Elementen aus $R$, die induktiv wie folgt gegeben ist:\\
+	$a_0 := a$\\
+	$a_1 := b$\\
+	$a_0 = q_0a_1 + a_2$ mit $\delta(a_2) < \delta(a_1)$ oder $a_2 = 0$\\
+	
+	Falls $a_2 \neq 0$: $a_1 = q_1a_2 + a_3$ mit $\delta(a_3) < \delta(a_2)$ oder $a_3 = 0$\\
+	
+	Falls $a_i \neq 0$: $a_{i-1} = qa_i + a_{i+1}$ mit $\delta(a_{i+1}) < \delta(a_i)$ oder $a_{i+1} = 0$\\
+	
+	Dann existiert ein eindeutig bestimmter Index $n \in \NN$ mit $a_n \neq 0$, $a_{n+1} = 0$. Es ist dann $d := a_n \in GGT(a,b)$\\
+	Durch Rückwärtseinsetzen lässt sich $d$ als Linearkombination von $a,b$ darstellen (vgl. 8.22):\\
+	$d = a_n = a_{n-2} - q_{n-2} a_{n-1} = \ldots = ua + vb$ mit $u,v \in R$ (''erweiterter euklidsicher Algorithmus'')
+\end{satz}
+
+\begin{bsp}
+	$R = \ZZ$, $a = 24$, $b = 15$\\
+	$24 = 1 \cdot 15 +9$\\
+	$15 = 1 \cdot 9 + 6$\\
+	$9 = 1 \cdot 6 + 3$\\
+	$6 = 2 \cdot 3 + 0$\\
+	$\Rightarrow ggT(24, 15) = 3$\\
+	$3 = 9 - 1 \cdot 6 = 9 - (15 - 1 \cdot 9) = 2 \cdot 9 - 1 \cdot 15 = 2(24 - 1 \cdot 15) - 15 = 2 \cdot 24 - 3 \cdot 15$
+\end{bsp}
+
+Anmerkung: Für Matrizen aus $M(m \times n, R)$ kann man analog zu LA1 (vgl. 10.5) elementare Zeilen- und Spaltenoperationen erklären.
+\newpage
+\begin{satz}
+	(Gauß-Diagonalisierung für euklidische Ringe)\\
+	$R$ euklidischer Ring, $A \in M(m \times n, R)$\\
+	Dann gilt: $A$ lässt sich durch wiederholte Anwendung von elementaren Zeilen- und Spaltenumformungen vom Typ III (Addition des $\lambda$-fachen einer Zeile/Spalte zu einer anderen Zeile/Spalte), sowie des Typs II (Zeilen/Spaltenvertauschung) in eine Matrix der Gesalt:\\
+	
+	$\begin{pmatrix}
+		c_1 & & & & \multicolumn{1}{|c}{}\\
+		& c_2 & & &\multicolumn{1}{|c}{0}\\
+		& & \ddots & & \multicolumn{1}{|c}{}\\
+		& & & c_r  & \multicolumn{1}{|c}{}\\
+		\hline
+		0 & & & & \multicolumn{1}{|c}{0}
+	\end{pmatrix}$ mit $c_1, \ldots, c_r \in R \backslash \{0\}$, $c_1|c_2|\ldots|c_r$ überführen
+\end{satz}
+
+\begin{proof}
+	(= Algorithmus zur Durchführung)\\
+	Falls $A = 0$, dann fertig. Im Folgenden sei $A \neq 0$. Sei $\delta$ eine Normabbildung auf $R$\\
+	
+	1.Schritt: Durch Zeilen- und Spaltenvertauschungen erreichen wir $a_{11} \neq 0$ und $\delta(a_{11}) \leq \delta(a_{ij})$ für alle $i, j$ mit $a_{ij} \neq 0$\\
+	
+	2.Schritt: Bringe $A$ auf die Form $\begin{pmatrix}
+	\multicolumn{1}{c|}{*} &  & 0 &\\
+	\hline 
+	\multicolumn{1}{c|}{}& & &\\
+	\multicolumn{1}{c|}{0} & & * &\\
+	\multicolumn{1}{c|}{}& & &\\
+	\end{pmatrix}$\\
+	1. Fall: In der ersten Spalte/Zeile stehen keine Elemente $\neq 0$ außer $a_11$; dann fertig\\
+	2. Fall: In der ersten Spalte/Zeile stehen noch Elemente $\neq 0$, oE $a_{21} \neq 0$\\
+	$\Rightarrow$ Es existiert ein $q \in R$ mit $a_{21} = q a_{11}$ oder $\delta(a_{21} - qa_{11}) < \delta(a_{11})$ (*)\\
+	Addiere das $(-q)$-fache der 1. Zeile zur 2. Zeile\\
+	$\Rightarrow$ Erhalte Matrix $A' = (a_{ij}')$ mit $a_{21}' = 0$ oder $\delta(a_{21}') < \delta(a_{11})$\\
+	erhalte durch Zeilen sowie ggf. Spaltenvertauschungen eine Matrix $A'' = (a_{ij}'')$ mit $a_{11}'' \neq 0$, $\delta(a_{11}'') \leq \delta(a_{ij}'')$ für alle $i,j$ mit $a_{ij}'' \neq 0$, mit $\delta(a_{11}'') \leq(a_{11})$ (''<'',falls Division in (*) nicht aufgegangen)\\
+	Dieser Prozess bricht nach endlich vielen Iterationen ab, und wir erhalten eine Matrix der Form\\
+	
+	$D = (d_{ij})\begin{pmatrix}
+	\multicolumn{1}{c|}{d_{11}}& & 0 &\\
+	\hline
+	\multicolumn{1}{c|}{}& & &\\
+	\multicolumn{1}{c|}{0}& & * &\\
+	\multicolumn{1}{c|}{}& & &\\
+	\end{pmatrix}$ $d_{11} \neq 0, \delta(d_{11}) \leq \delta(d_{ij})$ falls $d_{ij} \neq 0$ $\delta(d_{11}) \leq \delta(a_{11})$\\
+	
+	3. Schritt: Erreiche $d_{11}|d_{ij}$ für alle $i,j$\\
+	1. Fall: Es gilt bereits $d_{11}|d_{ij}$ für alle $i,j$, dann fertig\\
+	2. Fall: Es existiert $i,j$ mit $d_{11} \nmid d_{ij}$\\
+	$\Rightarrow$ Es existiert ein $q \in R$ mit $d_{ij} - q d_{11} \neq 0$ und $\delta(d_{ij} - q d_{11}) < \delta()d_{11})$\\
+	Addiere erste Zeile von $D$ zur i-ten Zeile von $D$, erhalte:\\
+	
+	i-te Zeile $\rightarrow \begin{pmatrix}
+	\multicolumn{1}{c|}{d_{11}} & 0 & \dots & \dots & \dots & 0\\
+	\hline
+	\multicolumn{1}{c|}{0} &  & &  & &\\
+	\multicolumn{1}{c|}{\vdots} & & &* &&\\
+	\multicolumn{1}{c|}{d_{11}} & d_{i2} & \dots & d_{ij} & \dots & d_{in}\\
+	\multicolumn{1}{c|}{0} &  & &  & &\\
+	\multicolumn{1}{c|}{\vdots} & & & * &&\\
+	\multicolumn{1}{c|}{0} &  & &  & &\\
+	\end{pmatrix}$\\
+	\hspace*{46 mm}\rotatebox[origin=c]{90}{$\Rsh$} j-te Zeile\\
+	
+	Subtrahiere das q-fache der ersten Spalte von der j-ten Spalte dieser Matrix, erhalte:\\
+	
+	$D' = (d_{ij}') = \begin{pmatrix}
+	\multicolumn{1}{c|}{d_{11}} & 0 & \dots & 0 & -q d_{11} & 0 & \dots & 0\\
+	\hline
+	\multicolumn{1}{c|}{0} & & & & &  & &\\
+	\multicolumn{1}{c|}{\vdots} & & & & * & & &\\
+	\multicolumn{1}{c|}{0} & & & & &  & &\\
+	\multicolumn{1}{c|}{d_{11}} &  & * & & d_{ij} - q d_{11} &  & * &\\
+	\multicolumn{1}{c|}{0} &  & &  & & & & \\
+	\multicolumn{1}{c|}{\vdots} & & & & * & &&\\
+	\multicolumn{1}{c|}{0} &  & & & & & &
+	\end{pmatrix}$mit $d_{ij}' = d_{ij} - q d_{11}$, $\delta(d_{ij}') < \delta(d_{11}) \leq d_(a_{11})$\\
+	
+	Wiederhole die gesamte bisherige Prozedur für die Matrix $D'$. Dieser Prozess bricht nach endlich vielen Schnitten ab. Wir erhalten eine Matrix\\
+	
+	$C = (c_{ij}) = \begin{pmatrix}
+	\multicolumn{1}{c|}{c_{11}}& & 0 &\\
+	\hline
+	\multicolumn{1}{c|}{}& & &\\
+	\multicolumn{1}{c|}{C'}& & * &\\
+	\multicolumn{1}{c|}{}& & &\\
+	\end{pmatrix}$ $c_{11} \neq 0, \delta(c_{11}) \leq \delta(a_{11})$, $c_{11}|c_{ij}$ für alle $i,j$\\
+	
+	4. Schritt: Wende das Verfahren auf $C'$ an (und iteriere dies)\\
+	Operationen an $C'$ erhalten die Teilbarkeit durch $c_{11}$, wir können daher die Matrix auf die Gestalt\\
+	
+	$\begin{pmatrix}
+	c_1 & & & \multicolumn{1}{|c}{}\\
+	& \ddots & 0 & \multicolumn{1}{|c}{0}\\
+	0 & & c_r & \multicolumn{1}{|c}{}\\
+	\hline
+	0 & & 0 & \multicolumn{1}{|c}{0}
+	\end{pmatrix}$ mit $c_1|c_2|c_3|\ldots|c_r$\\
+	bringen.
+\end{proof}
+
+\begin{bsp} $ $\\
+	(a) $R = \ZZ$ mit $\delta = |.|$:\\
+	$A = \begin{pmatrix}
+	4 & 3\\
+	6 & 5
+	\end{pmatrix} \leadsto \begin{pmatrix}
+	3 & 4\\
+	5 & 6
+	\end{pmatrix} \leadsto \begin{pmatrix}
+	3 & 1\\
+	5 & 1
+	\end{pmatrix} \leadsto \begin{pmatrix}
+	1 & 3\\
+	1 & 5
+	\end{pmatrix} \leadsto \begin{pmatrix}
+	1 & 0\\
+	1 & 2
+	\end{pmatrix} \leadsto \begin{pmatrix}
+	1 & 0\\
+	0 & 2
+	\end{pmatrix}$\\
+	
+	(b) $R = \QQ[t]$ mit $\delta = \deg$\\
+	$A = \begin{pmatrix}
+	t-1 & 0\\
+	-1 & t-1
+	\end{pmatrix} \leadsto \begin{pmatrix}
+	-1 & t-1\\
+	t-1 & 0
+	\end{pmatrix} \leadsto \begin{pmatrix}
+	-1 & t-1\\
+	0 & (t-1)^2
+	\end{pmatrix} \leadsto \begin{pmatrix}
+	-1 & 0\\
+	0 & (t-1)^2
+	\end{pmatrix}$
+	
+\end{bsp}
+
+Anmerkung: Wir haben bei der Gauß-Diagonalisierung nur elementare Operatoren vom Typ III, IV verwendet. Umformungen vom Typ I (Multiplikation von einer Zeile/Spalte mit $\lambda \in R^*$) sowie Typ II (Addition einer Zeile/Spalte auf eine andere Zeile oder Spalte) sind auch erlaubt.\\
+
+Frage Eindeutigkeitsaussage für $c_1, \ldots, c_r$?\\
+
+\begin{bem}
+	$Gl(n,R) := \{A \in M(n \times n, R)| \text{ Es existiert ein } B \in M(n \times n, R) \text{ mit } AB = BA = E_n\}$ ist eine Gruppe bzgl ''$\cdot$'', die allgemeine lineare Gruppe über $R$ vom Rang $n$.\\
+	Es ist $Gl(n,R) = \{A \in M(n \times n, R)| \det(A) \in R^*\}$
+\end{bem}
+
+\begin{bem}
+	$A, B \in M(m \times n, R)$\\
+	$A$ heißt äquivalent zu $B$ $(A \sim B) \Leftrightarrow$ Es existiert ein $S \in Gl(m, R), T \in Gl(n,R)$ mit $B = SAT^{-1}$\\
+	Falls $m = n$, dann heißt $A$ ähnlich zu $B$ ($A \approx B$) $\Leftrightarrow$ Es existiert ein $S \in Gl(n,R)$ mit $B = SAS^{-1}$\\
+	$\sim, \approx$ sind Äquivalenzrelationen auf $M(m \times n, R)$ bzw. $M(n \times n, R)$
+\end{bem}
+
+Erinnerung: In LA1 gezeigt (vgl. 16.11): $K$ Körper, $A, B \in M(m \times n, K)$\\
+Dann gilt: $A \sim B \Leftrightarrow Rang(A) = Rang(B)$\\
+Ist $Rang(A) = r$, dann $A \sim \begin{pmatrix}
+E_r & 0\\
+0 & 0
+\end{pmatrix}$\\
+
+Ziel: Klassifikation von Matrizen aus $M(m \times n, R)$, $R$ euklidischer Ring, bis auf Äquivalenz.
+
+\begin{defi}
+	$A \in M(m \times n, R)$, $1 \leq k \leq m$, $1 \leq l \leq n$\\
+	$B \in M(k \times l, R)$ heißt eine Untermatrix von $A \Leftrightarrow B$ aus $A$ durch Streichen von $m-k$ Zeilen und $n-l$ Spalten.\\
+	Ist $B \in M(l \times l, R)$ eine quadratische Untermatrix von $A$, dann heißt $\det(B)$ ein Minor l-ter Stufe von $A$.\\
+	$Fit_l(A) = (\det(B)| B \text{ ist $l \times l$- Untermatrix von} A) \subseteq R$ (das von allen Minoren l-ter Stufe von $A$ erzeugte Ideal in R) heißt das l-te Fittingideal von $A$.
+\end{defi}
+
+\begin{bsp}
+	$A = \begin{pmatrix}
+	1 & 2\\
+	3 & 4
+	\end{pmatrix} \in M(2 \times 2, \ZZ)$\\
+	$Fit_1(A) = (\det(1), \det(2), \det(3), \det(4)) = (1,2,3,4) = (1) = \ZZ$\\
+	$Fit_2(A) = (\det \begin{pmatrix}
+	1 & 2\\
+	3 & 4
+	\end{pmatrix}) = (-2) = (2)$
+\end{bsp}
+
+\begin{satz}
+	(Fittings Lemma) $A \in M(m \times n, R)$, $S \in Gl(m, R)$, $T \in Gl(n,R)$, $l \leq min\{m,n\}$\\
+	Dann gilt: $Fit_l(A) = Fit_l(SA) = Fit_l(AT)$
+\end{satz}
+
+\begin{folg}
+	$A, B \in M(m \times n, R)$ mit $A \sim B$\\
+	Dann gilt: $Fit_l(A) = Fit_l(B)$ für alle $1 \leq l \leq min\{m,n\}$
+\end{folg}
+
+\begin{bem}
+	$R$ nullteilerfreier Ring, $A = \begin{pmatrix}
+	c_1 & & 0& \multicolumn{1}{|c}{}\\
+	& \ddots & & \multicolumn{1}{|c}{0}\\
+	0 & & c_r & \multicolumn{1}{|c}{}\\
+	\hline
+	& 0 & &\multicolumn{1}{|c}{0}
+	\end{pmatrix}$ mit $c_1|\ldots|c_r$\\
+	Dann gilt: $Fit_l(A) = \begin{cases}
+	(c_1\cdot \ldots \cdot c_l), \text{ falls }1 \leq l \leq r\\
+	(0), \hspace{3mm} \text{ sonst}
+	\end{cases}$\\
+	Insbesondere gilt: $Fit_r(A) \subseteq Fit_{r-1}(A) \subseteq \ldots \subseteq Fit_1(A)$\\
+\end{bem}
+\newpage
+\begin{satz}
+	(Elementarteilersatz über euklidischen Ringen)\\
+	$R$ Euklidischer Ring, $A \in M(m \times n, R)$\\
+	Dann existieren $c_1, \ldots, c_r \in R \backslash \{0\}$ mit $c_1|c_2| \ldots |c_r$, sodass\\
+	$A \sim \begin{pmatrix}
+	c_1 & & 0& \multicolumn{1}{|c}{}\\
+	& \ddots & & \multicolumn{1}{|c}{0}\\
+	0 & & c_r & \multicolumn{1}{|c}{}\\
+	\hline
+	& 0 & &\multicolumn{1}{|c}{0}
+	\end{pmatrix}$\\
+	$r$ ist eindeutig bestimmt, $c_1, \ldots, c_r$ sind eindeutig bestimmt bis auf Assoziiertheit. $c_1, \ldots, c_r$ heißen Elementarteiler von $A$.
+\end{satz}
+
+\begin{satz}
+	$R$ euklidischer Ring, $A, B \in M(m \times n, R)$. Dann sind äquivalent:\\
+	(i) $A \sim B$\\
+	(ii) Die Elementarteiler von $A$ und $B$ stimmen bis auf Assoziiertheit überein.\\
+	(iii) $Fit_l(A) = Fit_l(B)$ für alle $1 \leq l \leq min\{m,n\}$
+\end{satz}
+
+\begin{bsp}
+	$A = \begin{pmatrix}
+	1 & 2\\
+	3 & 4
+	\end{pmatrix} \in M(2 \times 2, \ZZ) \overset{10.13}{\Rightarrow} Fit_1(A) = (1), Fit_2(A) = (2)$\\
+	$\Rightarrow$ Elementarteiler von $A$: $1, 2$, insbesondere $A \sim \begin{pmatrix}
+	1 & 0\\
+	0 & 2
+	\end{pmatrix}$\\
+	Sei $B = \begin{pmatrix}
+	4 & 3\\
+	2 & 2
+	\end{pmatrix} \in M(2 \times 2, \ZZ) \Rightarrow Fit_1(B) = (2,3,4) = (1)$, $Fit_2(B) = (2)$ $\overset{10.18}{\Rightarrow} A \sim B$
+\end{bsp}
+\newpage
+\section{Normalformen von Endomorphismen}
+
+In diesem Abschnitt sei $K$ stets ein Körper und $n \in \NN$\\
+
+Ziel: $A, B \in M(n \times n, K)$
+\begin{itemize}
+	\item Wann ist $A \approx B$?
+	\item Suche möglichst einfache Vertreter der Äquivalenzklasse bzgl. ''$\approx$'' ($\leadsto$ Normalformen)
+	\item In Termen von Endomorphismen: Gegeben sei $\varphi \in End(V)$, $V$ endlichdimensionaler $K$-Vektorraum. Wir suchen Basis $B$ von $V$, sodass $M_B(\varphi)$ möglichst einfach ist.
+\end{itemize}
+
+\begin{defi}
+	$A \in M(n \times n, K)$\\
+	$P_A := t E_n - A \in M(n \times n, K[t])$ heißt die charakteristische Matrix von $A$.
+\end{defi}
+
+Anmerkung: Insbesondere ist $\chi_A^{char} = \det(P_A)$
+
+\begin{satz}
+	(Satz von Frobenius)\\
+	$A, B \in M(n \times n, K)$. Dann sind äquivalent:\\
+	(i) $A \approx B$ (in $M(n \times n, K$))\\
+	(ii) $P_A \sim P_B$ (in $M(n \times n,K[t])$)
+\end{satz}
+
+\begin{bem}
+	$A \in M(n \times n, K)$. Dann gilt:\\
+	(a) Es gibt eindeutig bestimmte normierte Polynome $c_1(A), \ldots, c_n(A) \in K[t]$ mit\\
+	$P_A \sim \begin{pmatrix}
+	c_1(A) & & 0\\
+	& \ddots &\\
+	0 & & c_n(A)
+	\end{pmatrix}$, $c_1(A)|c_2(A)|\ldots|c_n(A)$\\
+	$c_1(A), \ldots, c_n(A)$ heißen die Invariantenteiler von $A$.\\
+	
+	(b) Es gibt eindeutig bestimmte normierte Polynome $d_1(A), \ldots, d_n(A) \in K[t]$ mit\\
+	$Fit_l(P_A) = (d_l(A))$ für $l = 1, \ldots, n$\\
+	Es ist $d_l(A) = ggT(\det(B)| B \text{ ist } l \times l \text{-Untermatrix von } P_A)$\\
+	Insbesondere ist $d_n(A) = \chi_A^{char}$\\
+	$d_1(A), \ldots, d_n(A)$ heißen die Determinantenteiler von $A$
+\end{bem}
+
+Anmerkung: Also: Invariantenteiler von $A$ = normierte Elementarteiler von $P_A$\\
+Determinantenteiler von $A$ = normierte Erzeuger der Fittingideale von $P_A$
+
+\begin{folg}
+	$A \in M(n \times n, K)$\\
+	Dann gilt: $d_l(A) = c_1(A) \cdot \ldots \cdot c_l(A)$ für alle $l = 1, \ldots, n$\\
+	Inbesondere gilt: $\chi_A^{char} = d_n(A) = c_1(A) \cdot \ldots \cdot c_n(A)$ sowie $d_1(A)| \ldots | d_n(A)$
+\end{folg}
+
+\begin{satz}
+	(Invariantenteilersatz)\\
+	$A, B \in M(n \times n, K)$\\
+	Dann sind äquivalent:\\
+	(i) $A \approx B$\\
+	(ii) Die Invariantenteiler von $A$ stimmen mit den Invariantenteilern von $B$ überein: $c_1(A) = c_1(B), \ldots, c_n(A) = c_n(B)$\\
+	(iii) Die Determinantenteiler von $A$ stimmen mit den Determinantenteilern von $B$ überein:\\ $d_1(A) = d_1(B), \ldots, d_n(A) = d_n(B)$
+\end{satz}
+
+\begin{bsp} 
+	$ $\\
+	Sei $A = \begin{pmatrix}
+	0 & 1 & 3\\
+	3 & 1 & -4\\
+	-2 & 1 & 5
+	\end{pmatrix} \in M(3 \times 3, \QQ)$\\
+	Es ist $P_A = \begin{pmatrix}
+	t & -1 & -3\\
+	-3 & t-1 & 4\\
+	2 & -1 & t-5
+	\end{pmatrix} \in M(3 \times 3, \QQ[t])$\\
+	Bestimmen der Determinantenteiler von $A$: $d_1(A) = ggT(-1, \ldots) = 1$\\
+	$d_2(A) = ggT((-1) \cdot 4 - (-3)(t-1), (-3)(-1) - 2(t-1), \ldots) = ggT(3t - 7, -2t+5, \ldots) = 1$\\
+	
+	$d_3(A) = \chi_A^{char} = (t-2)^3$\\
+	$\Rightarrow c_1(A) = 1$, $c_2(A) = 1$, $c_3(A) = (t-2)^3$\\
+	Sei $B = \begin{pmatrix}
+	1 & 1 & 2\\
+	1 & 1 & -2\\
+	-1 & 1 & 4
+	\end{pmatrix} \in M(3 \times 3, \QQ) \Rightarrow P_B = \begin{pmatrix}
+	t-1 & -1 & -2\\
+	-1 & t-1 & 2\\
+	1 & -1 & t-4
+	\end{pmatrix}$\\
+	Bestimmen der Invariantenteiler von $B$:\\
+	$P_B = \begin{pmatrix}
+	t-1 & -1 & -2\\
+	-1 & t-1 & 2\\
+	1 & -1 & t-4
+	\end{pmatrix}$ $\leadsto$ $\begin{pmatrix}
+	-1 & t-1 & 2\\
+	t-1 & -1 & -2\\
+	1 & -1 & t-4
+	\end{pmatrix}$\\
+	$\leadsto \begin{pmatrix}
+	-1 & t-1 & 2\\
+	0  & (t-1)^2 -1 & -2 +2(t-1)\\
+	0 & t-2 & t-2
+	\end{pmatrix}$ $\leadsto$ $\begin{pmatrix}
+	-1 & 0 & 0\\
+	0 & t^2 - 2t & 2t -4\\
+	0 & t-2 & t-2
+	\end{pmatrix}$\\
+	$\leadsto \begin{pmatrix}
+	-1 & 0 & 0\\
+	0 & t-2 & t-2\\
+	0 & t^2-2t & 2t-4
+	\end{pmatrix}$ $\leadsto$ $\begin{pmatrix}
+	-1 & 0 & 0\\
+	0 & t-2 & 0\\
+	0 & t^2-2t & -t^2 + 4t-4
+	\end{pmatrix}$\\
+	$\leadsto \begin{pmatrix}
+	-1 & 0 & 0\\
+	0 & t-2 & 0\\
+	0 & 0 & -(t-2)^2
+	\end{pmatrix}$ $\leadsto$ $\begin{pmatrix}
+	1 & 0 & 0\\
+	0 & t-2 & 0\\
+	0 & 0 & (t-2)^2
+	\end{pmatrix}$\\
+	$\Rightarrow c_1(B) = 1, c_2(B) = t-2, c_3(B) = (t-2)^2\\
+	d_1(B) = 1, d_2(B) = t-2, d_3(B) = (t-2)^3$\\
+	$\Rightarrow A \not\approx B$
+\end{bsp}
+
+\begin{bem}
+	$A, B \in M(n \times n, K)$, $K$ Teilkörper eines Körpers $L$. Dann sind äquivalent:\\
+	(i) $A \approx B$ in $M(n \times n, K)$\\
+	(ii) $A \approx B$ in $M(n \times n, L)$
+\end{bem}
+
+Ziel: Suche möglichst einfache Matrizen, die vorgebene Invarianten- bzw. Determinantenteiler haben.
+
+\begin{defi}
+	$g = t^n + a_{n-1}*t^{n-1} + \ldots + a_1*t + a_0 \in K[t]$, $n \geq 1$\\
+	$B_g = \begin{pmatrix}
+	0 & & & & -a_0\\
+	1 & 0 & & & -a_1\\
+	& 1 & \ddots & & \vdots\\
+	& & \ddots & 0 & -a_{n-2}\\
+	& & & 1 & -a_{n-1}
+	\end{pmatrix} \in M(n \times n, K)$  (für $n = 1: B_g = (-a_0))$\\
+	heißt die Begleitmatrix zu $g$.
+\end{defi}
+\newpage
+\begin{bem}
+	$g \in K[t]$ nichtkonstant, normiert\\
+	Dann ist $c_1(B_g) = \ldots = c_{n-1}(B_g) = 1$, $c_n(B_g) = g$, also\\
+	$P_{B_g} \sim \begin{pmatrix}
+	1 & & &\\
+	& \ddots & &\\
+	& & 1 & \\
+	& & & g
+	\end{pmatrix}$,\\
+	$d_1(B_g) = \ldots = d_{n-1}(B_g) = 1$, $d_n(B_g) = \chi_{B_g}^{char} = g$
+\end{bem}
+
+\begin{bem}
+	$g_1, \ldots, g_r \in K[t]$ normiert, nichtkonstant mit $g_1|g_2|\ldots|g_r$,\\
+	$n:= \deg(g_1) + \ldots + \deg(g_r)$\\
+	$B_{g_1, \ldots, g_r} := \begin{pmatrix}
+	B_{g_1} & & &\\
+	& B_{g_2} & &\\
+	& & \ddots &\\
+	& & & B_{g_r}
+	\end{pmatrix} \in M(n \times n,K)$\\
+	Dann gilt: $c_1(B_{g_1, \ldots, g_r}) = 1, \ldots, c_{n-r}(B_{g_1, \ldots, g_r}) = 1$,\\
+	$c_{n-r+1}(B_{g_1, \ldots, g_r}) = g_1, \ldots, c_n(B_{g_1, \ldots, g_r}) = g_r$
+\end{bem}
+
+\begin{satz}
+	(Frobenius-Normalform $A \in M(n \times n, K)$\\
+	Dann existiert eindeutig bestimmte $r \in \NN$ sowie eindeutg bestimmte normierte nichtkonstante Polynome $g_1, \ldots, g_r \in K[t]$ mit $g_1|\ldots|g_r$ und\\
+	$A \approx B_{g_1, \ldots, g_r}$\\
+	$g_1, \ldots g_r$ sind genau die nichtkonstanten Invariantenteiler von $A$.\\
+	$B_{g_1, \ldots, g_r}$ heißt die Frobenius-Normalform (FNF) von $A$.
+\end{satz}
+
+\begin{bsp}
+	(vgl. 11.6)\\
+	(a) $A = \begin{pmatrix}
+	0 & 1 & 3\\
+	3 & 1 & -4\\
+	-2 & 1 & 5
+	\end{pmatrix} \in M(3 \times 3, \QQ)$\\
+	$\Rightarrow c_1(A) = 1$, $c_2(A) = 1$, $c_3(A) = (t-2)^3 = t^3 - 6t^2 + 12t- 8 =: g_1$\\
+	$\Rightarrow A \approx B_{g_1} = \begin{pmatrix}
+	0 & 0 & 8\\
+	1 & 0 & -12\\
+	0 & 1 & 6
+	\end{pmatrix}$ (FNF von $A$)\\
+	(b) $A = \begin{pmatrix}
+	1 & 1 & 2\\
+	1 & 1 & -2\\
+	-1 & 1 & 4
+	\end{pmatrix} \in M(3 \times 3, \QQ)$\\
+	$\Rightarrow c_1(A) = 1$, $c_2(A) = t-2 =: g_1$, $c_3(A) = (t-2)2 = t^2 - 4t + 4 =: g_2$\\
+	$\Rightarrow A \approx B_{g_1, g_2} = \begin{pmatrix}
+	\multicolumn{1}{c|}{2} & 0 & 0\\
+	\hline\\
+	\multicolumn{1}{c|}{0} & 0 & -4\\
+	\multicolumn{1}{c|}{0} & 1 & 4
+	\end{pmatrix}$ (FNF von $A$)\\
+	(c) $\begin{pmatrix}
+	4 & -1 & -2 & 3\\
+	-1 & 5 & 2 & -4\\
+	0 & 1 & 3 & -1\\
+	-1 & 2 & 2 & 1
+	\end{pmatrix} \in M(4 \times 4, \QQ)\\
+	\Rightarrow c_1(A) = 1, c_2(A) = 1, c_3(A) = t-3 =: g_1$,
+	$c_4(A) = (t-3)^2(t-2) = t^3 - 8t^2 + 21t - 18 =: g_2$\\
+	$A \approx B_{g_1, g_2} = \begin{pmatrix}
+	\multicolumn{1}{c|}{3} & 0 & 0 & 0\\
+	\hline
+	\multicolumn{1}{c|}{0} & 0 & 0 & 18\\
+	\multicolumn{1}{c|}{0} & 1 & 0 & -21\\
+	\multicolumn{1}{c|}{0} & 0 & 1 & 8
+	\end{pmatrix}$ (FNF von $A$)
+\end{bsp}
+
+\begin{bem}
+	$A \in M(n \times n, K)$. Dann ist $c_n(A) = \chi_A^{min}$
+\end{bem}
+
+\begin{bem}
+	$g \in K[t]$, $g = h_1 \cdot \ldots \cdot h_k$ mit $h_1, \ldots, h_k \in K[t]$ normiert, nicht konstant, paarweise teilerfremd\\
+	$\Rightarrow B_g \approx \begin{pmatrix}
+	B_{h_1} & &\\
+	& \ddots &\\
+	& & B_{h_k}
+	\end{pmatrix}$
+\end{bem}
+
+\begin{satz}
+	(Weierstrass-Normalform) $A \in M(n \times n, K)$\\
+	Dann existieren eindeutig bestimmte $m \in \NN$, Polynome $h_1, \ldots, h_m \in K[t]$, die Potenzen von irreduziblen normierten Polynomen sind, sodass:\\
+	$A \approx B_{h_1, \ldots, h_m}$\\
+	$h_1, \ldots, h_m$ heißt eine Weierstrass-Normalform von $A$ (WNF).\\
+	$h_1, \ldots, h_m$ sind die Potenzen irreduzibler Polynome, die in den Primfaktorzerlegungen nicht konstanter Invariantenteiler von $A$ auftauchen.
+\end{satz}
+
+\begin{bsp}
+	$ $\\
+	(a) $A = \begin{pmatrix}
+	-2 & 1 &5\\
+	1 & 1 & -2\\
+	3 & 1 & 6
+	\end{pmatrix} \in M(3 \times 3, \QQ)$\\
+	$\Rightarrow c_1(A) = 1$, $c_2(A) = 1$, $c_3(A) = (t-1)(t-2)^2$\\
+	Mit $h_1 = t-1$, $h_2 = (t-2)^2 = t^2 -4t +4$ ist\\
+	$A \approx B_{h_1, h_2} = \begin{pmatrix}
+	1 & 0 & 0\\
+	0 & 0 & -4\\
+	0 & 1& 4
+	\end{pmatrix}$ (WNF von A)\\
+	
+	(b) (vgl 11.12(c))\\
+	$A = \begin{pmatrix}
+	4 & -1 & -2 &3\\
+	-1 & 5 & 2 & -4\\
+	0 & 1 & 3 & -1\\
+	-1 & 2 & 2 & 1
+	\end{pmatrix} \in M(4 \times 4, \QQ)$\\
+	$\Rightarrow c_1(A) = 1$, $c_2(A) = 1$, $c_3(A) = t-3$, $c_4(A) = (t-3)^2(t-2)$\\
+	Mit $h_1:= t-3$, $h_2:= (t-3)^2$, $h_3 := t-2$ ist $= t^2 - 6t +9$\\
+	$A \approx B_{h_1, h_2, h_3} = \begin{pmatrix}
+	3 & 0 & 0 & 0\\
+	0 & 0 & -9 & 0\\
+	0 & 1 & 6 & 0\\
+	0 & 0 & 0 & 2
+	\end{pmatrix}$ (WNF von A)
+\end{bsp}
+
+Ziel: Einfache Normalform, falls $\chi_A^{char}$ in Linearfaktoren zerfällt (und damit alle Weierstrassteiler Potenzen lineare Polynome sind.)
+
+\begin{bem}
+	$ \lambda \in K$, $f = (t-\lambda)^e \in K[t]$. Dann gilt:\\
+	$B_f \approx \begin{pmatrix}
+	\lambda & & & 0\\
+	1 & \ddots & &\\
+	& \ddots & \ddots &\\
+	0 & &1 & \lambda
+	\end{pmatrix} =: J(\lambda, e) \in M(e \times e, K)$ $(e = 1: J(\lambda, 1) = (\lambda))$\\
+	Eine Matrix der Form $J(\lambda, e)$ heißt Jordanmatrix über $K$
+\end{bem}
+\newpage
+\begin{satz}
+	(Jordansche Normalform)\\
+	$A \in M(n \times n, K)$, $\chi_A^{char}$ zerfällt in $K[t]$ in Linearfaktoren\\
+	Dann existieren Jordanmatrizen $J_1 = J(\lambda_1, e_1), \ldots, J_m = J)\lambda_m,e_m)$ über $K$, sodass\\
+	$A \approx \begin{pmatrix}
+	J_1 & & &\\
+	& J_2 & &\\
+	& & \ddots &\\
+	& & & J_m
+	\end{pmatrix} =: J$\\
+	Hierbei sind $\lambda_1, \ldots, \lambda_m$ die (nicht notwendig paarweise verschiedenen) EW von$A$ (= NS von $\chi_A^{char}$)\\
+	$J_1, \ldots, J_m$ sind bis auf Reihenfolge eindeutig bestimmt.\\
+	Die Matrix $J$ heißt eine Jordansche Normalform (JNF) von $A$.
+\end{satz}
+
+Anmerkung: \begin{itemize}
+	\item Üblicherweise gruppiert man in der JNF Jordanmatrizen zu gleichen EW zusammen (zu einem Block mit aufsteigenden e'is)
+	\item Es gilt: $A$ diagonalisierbar $\Leftrightarrow$ JNF $A$ ist eine Diagonalmatrix (denn: $''\Leftarrow''$ trivial $''\Rightarrow''$ da Diagonalmatrizen bereits in JNF sind (mit $1 \times 1$-Jordanmatrizen))
+\end{itemize}
+
+\begin{satz}
+	(Algorithmus zur JNF)\\
+	Eingabe: $A \in M(n \times n, K)$, sodass $\chi_A^{char}$ in Linearfaktoren zerfällt\\
+	Ausgabe: JNF von $A$\\
+	Durchführung:\\
+	\begin{enumerate}
+		\item Bestimme die nicht-konstanten Invariantenteiler $g_1, \ldots, g_r$ von $A$\\
+		\item Bestimme die Primfaktorzerlegung $g_i = (t- \lambda_{i,1})^{m_i,1} \cdot \ldots \cdot(t-\lambda_{i, k_i})^{m_i,k_i}$, $i= 1, \ldots, r$\\
+		\item Erhalte $A \approx \begin{pmatrix}
+		J(\lambda_{1,1}, m_{1,1}) & &\\
+		& \ddots &\\
+		& &J(\lambda_{r, k_r}, m_{r,k_r})
+		\end{pmatrix}$
+		\item Gruppiere Jordanmatrizen zu gleichen EWen zusammen (jeweils nach aufsteigender Größe geordnet)
+	\end{enumerate}
+\end{satz}
+\newpage
+\begin{bsp}
+	$ $\\
+	(a) (vgl. 28.16 (b)) 
+	$A = \begin{pmatrix}
+	4 & -1 & -2 &3\\
+	-1 & 5 & 2 & -4\\
+	0 & 1 & 3 & -1\\
+	-1 & 2 & 2 & 1
+	\end{pmatrix} \in M(4 \times 4, \QQ)$\\
+	$\Rightarrow c_1(A) = 1$, $c_2(A) = 1$, $c_3(A) = t-3 =: g_1$, $c_4(A) = (t-3)^2(t-2)=:g_2$\\
+	Weierstrassteiler von $A$: $h_1:= t-3$, $h_2:= (t-3)^2$, $h_3 := t-2$\\
+	$\Rightarrow A \approx B_{h_1, h_2, h_3} = \begin{pmatrix}
+	B_{h_1} & &\\
+	& B_{h_2} &\\
+	& & B_{h_3}
+	\end{pmatrix} \approx \begin{pmatrix}
+	J(3,1) & &\\
+	& J(3,2) &\\
+	& & J(2,1)
+	\end{pmatrix} = \begin{pmatrix}
+	3 & 0 & 0 & 0\\
+	0 & 3 & 0 & 0\\
+	0 & 1 & 3 & 0\\
+	0 & 0 & 0 & 2
+	\end{pmatrix}$\\
+	
+	(b) (vgl. 28.6)\\
+	$A = \begin{pmatrix}
+	0 & 1 & 3\\
+	3 & 1 & -4\\
+	-2 & 1 & 5
+	\end{pmatrix} \in M(3 \times 3, \QQ)$ $\Rightarrow c_1(A) = 1$, $c_2(A) = 1$, $c_3(A) = (t-2)^3$\\
+	$\Rightarrow$ Weierstrassteiler von $A$: $h_1 = (t-2)^3$\\
+	$\Rightarrow A \approx B_{h_1} \approx J(2,3) = \begin{pmatrix}
+	2 & 0 & 0\\
+	1 & 2 & 0\\
+	0 & 1 & 2
+	\end{pmatrix}$\\
+	
+	(c) $A = \begin{pmatrix}
+	1 & 1& 2\\
+	1& 1 & -2\\
+	-1 & 1 & 4
+	\end{pmatrix} \in M(3 \times 3, \QQ)$ $\Rightarrow c_1(A) = 1$, $c_2(A) = t-2$, $c_3(A) = (t-2)^2$\\
+	$\Rightarrow$ Weierstrassteiler von $A$: $h_1 = t-2$, $h_2 = (t-2)^2$\\
+	$\Rightarrow A \approx B_{h_1, h_2} = \begin{pmatrix}
+	B_{h_1}&\\
+	& B_{h_2}
+	\end{pmatrix} \approx \begin{pmatrix}
+	J(2,1) &\\
+	& J(2,2) 
+	\end{pmatrix} = \begin{pmatrix}
+	2 & 0 & 0\\
+	0 & 2 & 0\\
+	0 & 1 & 2
+	\end{pmatrix}$	
+\end{bsp}
+
+\section{Moduln}
+
+In diesem Abschnitt sei $R$ stets ein kommutativer Ring.\\
+
+\begin{defi}
+	Eine Menge $M$ zusammen mit einer Verknüpfung\\
+	$+: M \times M \rightarrow M$, $(x,y) \mapsto x+y$ (genannt Addition)\\
+	und einer äußeren Verknüpfung\\
+	$\cdot: R \times M \rightarrow M$, $(a,x) \mapsto ax$ (genannt skalare Multiplikation)\\
+	heißt ein $R$-Modul, wenn gilt:\\
+	(M1) $(M,+)$ ist eine abelsche Gruppe. Das neutrale Element bezeichnen wir mit $0$, das Inverse zu $x \in M$ mit $-x$.\\
+	(M2) Die skalare Multiplikation ist in folgender Weise mit den Verknüpfungen auf $M$ und $R$ verträglich:\\
+	\begin{itemize}
+		\item $(a+b)x = ax+bx$
+		\item $a(x+y) = ax + ay$
+		\item $(ab)x = a(bx)$
+		\item $1 \cdot x = x$
+	\end{itemize}
+	für alle $a,b \in R$, $x, y \in M$
+\end{defi}
+
+\begin{bsp}
+	$ $\\
+	(a) $K$ Körper, $V$ $K$-VR $\Rightarrow V$ ist ein $K$-Modul\\
+	(b) $(G, +)$ abelsche Gruppe wird zum $\ZZ$-Modul durch \\
+	$\ZZ \times G \rightarrow G$, $(n,g) \mapsto \begin{cases}
+	\underbrace{g+ \ldots + g}_{n \text{-mal}} \text{, falls } n \in \NN\\
+	0, \hspace{14mm} \text{falls } n = 0\\
+	-(\underbrace{g+ \ldots + g}_{-n - mal}), \text{ falls} -n \in \NN
+	\end{cases}$\\
+	Umgekehrt ist jeder $\ZZ$-Modul eine abelsche Gruppe bzgl ''+''\\
+	(c) $I \subseteq R$ Ideal $\Rightarrow I$ ist ein $R$-Modul\\
+	(Addition: auf $I$ eingeschränkte Addition von $R$, skalare Mult.: $R \times I$, $(a,x) \mapsto ax$)\\
+	Insbesondere ist $R$ ein $R$-Modul\\
+	(d) $I \subseteq R$ Ideal $\Rightarrow R/I$ ist ein $R$-Modul (skalare Mult.: $R \times R/I \rightarrow R/I$, $(a, \overline{x}) \mapsto \overline{ax})$\\
+	(e) $K$ Körper, $V$ $K$-VR, $\varphi \in End(V) \Rightarrow V$ ist $K[t]$-Modul via skalare Mult: $K[t] \times V \rightarrow V$, $(f,v) \mapsto f(\varphi)(v)$
+\end{bsp}
+
+\begin{defi}
+	$M, N$ $R$-Moduln. $\varphi: M \rightarrow N$\\
+	$\varphi$ heißt ($R$-Modul)-Homomorphismus $\Leftrightarrow$ Für alle $x, y \in M$, $a \in R$ gilt:\\
+	$\varphi(x+y) = \varphi(x) + \varphi(y)$, $\varphi(ax) = a \varphi(x)$\\
+	$\varphi$ heißt ($R$-Modul)-Isomorphismus $\Leftrightarrow \varphi$ ist ein bijektiver $R$-Modul-Homomorphismus.\\
+	Existiert ein Isomorphismus zwischen $M, N$, so schreiben wir $M \cong N$.
+\end{defi}
+
+\begin{defi}
+	$M$ $R$-Modul, $N \subseteq M$\\
+	$N$ heißt Untermodul von $N \Leftrightarrow$ Folgende Bedingungen sind erfüllt:\\
+	(U1) $0 \in N$\\
+	(U2) $x, y \in N \Rightarrow x + y \in N$\\
+	(U3) $a \in R, x \in N \Rightarrow ax \in N$
+\end{defi}
+
+\begin{bsp}
+	$ $\\
+	(a) $K$ Körper, $V$ $K$-VR $\Rightarrow$ Untermoduln von $V$ = UVR von $V$\\
+	(b) $M = R$ als $R$-Modul $\Rightarrow$ Untermodul von $M$ = Ideale in $R$
+\end{bsp}
+
+\begin{bem}
+	$M$ $R$-Modul, $N \subseteq M$ Untermodul\\
+	Dann gilt: Durch $x \sim y \Leftrightarrow x - y \in N$ ist eine Äquivalenzrelation auf $M$ definiert.\\
+	Die Äquivalenzklasse $\overline{x}$ von $x \in M$ ist gegeben durch\\
+	$\overline{x} = x + N = \{x +y | y \in N\}$\\
+	Die Menge aller Äquivalenzklassen bezeichnen wir mit $M/N$\\
+	$M/N$ wird mit den Verknüpfungen\\
+	$+: M/N \times M/N \rightarrow M/N$, $\overline{x} + \overline{y} := \overline{x+y}$,\\
+	$\cdot: R \times M/N \rightarrow$, $a \cdot \overline{x} := \overline{ax}$\\
+	zu einem $R$-Modul, dem Faktormodul $M/N$\\
+	Die kanonische Projektion $\pi: M \rightarrow M/N$, $x \mapsto \overline{x}$ ist ein surjektiver $R$-Modulhomomorphismus
+\end{bem}
+
+\begin{bem}
+	$M, N$ $R$-Moduln, $\varphi: M \rightarrow N$ Homomorphismus. Dann gilt:\\
+	(a) $\ker(\varphi) := \{x \in M| \varphi(x) = 0\}$ ist ein Untermodul von $M$\\
+	(b) $\varphi$ ist injektiv $\Leftrightarrow \ker(\varphi) = \{0\}$\\
+	(c) $\imath(\varphi) := \varphi(M)$ ist ein Untermodul von $N$\\
+	(d) $coker(\varphi) := N/im(\varphi)$ heißt Cokern von $\varphi$, es gilt: $\varphi$ surjektiv $\Leftrightarrow coker(\varphi) = \{0\}$\\
+	(e) (Homomorphiesatz) $\varphi$ induziert einen Isomorphismus $\overline{\underline{\phi}}: M/\ker(\varphi) \rightarrow im(\varphi)$, $x + \ker(\varphi) \mapsto \varphi(x)$\\
+\end{bem}
+
+\begin{bem}
+	$M$ $R$-Modul, $(M_i)_{i \in I}$ Familie von Untermoduln von $M$. Dann gilt:\\
+	(a) $\sum\limits_{i \in I} M_i := \{\sum\limits_{i \in I} x_i| x_i \in M_i$, $x_i = 0$ für fast alle $i \in I\}$ ist ein Untermodul von $M$ und heißt die Summe der $M_i, i \in I$\\
+	(b) $\bigcap\limits_{i \in I} M_i$ ist ein Untermodul von $M$.
+\end{bem}
+
+\begin{bem}
+	$(M_i)_{i \in I}$ Familie von $R$-Moduln. Dann gilt:\\
+	(a) $\prod\limits_{i \in I} M_i := \{(x_i)_{i \in I}| x_i \in M_i\}$ wird mit komponentenweiser Addition und skalarer Mult. ein $R$-Modul, das direkte Produkt der $M_i, i \in I$.
+		(b) $\bigoplus\limits_{i \in I} M_i := \{(x_i)_{i \in I}| x_i \in M_i$, $x_i = 0$ für fast alle $i \in I\}$ wird mit komponentenweiser Addition und skalarer Mult. ein $R$-Modul, die direkte Summe der $M_i$, $i \in I$.\\
+	Falls $I$ endlich, dann ist $\prod\limits_{i \in I} M_i = \bigoplus\limits_{i \in I} M_i$\\
+	Spezialfall $R^n = \bigoplus\limits_{i = 1}^{n} R$
+\end{bem}
+
+Anmerkung: Zusammenhang zur direkten Summe von UVR aus LA1:\\
+Sei $M$ $R$-Modul, $M_1, M_2 \subseteq M$ Untermoduln\\
+$M_1 \oplus M_2 = \{(m_1, m_2) | m_1 \in M_1, m_2 \in M_2\}$\\
+$\Rightarrow$ Erhalte surjektiven Homomorphimus $\varphi: M_1 \oplus M_2 \rightarrow M_1 + M_2$, $(m_1, m_2) \mapsto m_1 + m_2$\\
+Ist $M_1 \cap M_2 = \{0\}$, dann ist $\ker(\varphi) = \{(m_1, m_2) \in M_1 \oplus M_2| m_1 + m_2 = 0\} = \{0\}$,\\
+denn: $m_1 + m_2 = 0 \Rightarrow m_1 = -m_2 \in M_1 \cap M_2 = \{0\}$, also $m_1 = m_2 = 0$, d.h. wir erhalten einen Isomorphismus von $R$-Moduln $M_1 \oplus M_2 \cong M_1 + M_2$\\
+Insbesondere: Ist $M_1 + M_2 = M$, $M_1 \cap M_2 = \{0\}$, dann ist $M_1 \oplus M_2 \cong M$.
+
+\begin{bem}
+	$I \subseteq R$ Ideal, $M$ $R$-Modul, $(x_i)_{i \in I}$ Familie von Elementen aus $M$.\\
+	Dann gilt:\\
+	(a) $IM := \{\sum\limits_{i = 1}^{n} a_ix_i| a_i \in I, x_i \in M, n \in \NN\}$ ist ein Untermodul von $M$.\\
+	(b) $Lin((x_i)_{i \in I}) := \{ \sum\limits_{i \in I} a_ix_i| a_i \in R, a_i = 0 \text{ für fast alle } i \in I\}$ ist ein Untermodul von $M$, die lineare Hülle von $(x_i)_{i \in I}$
+\end{bem}
+
+\begin{defi}
+	$M$ $R$-Modul, $(x_i)_{i \in I}$ Familie von Elementen aus $M$\\
+	$(x_i)_{i \in I}$ heißt\\
+	Erzeugendensystem von $M \Leftrightarrow M = Lin((x_i)_{i \in I})$\\
+	linear unabhängig $\Leftrightarrow$ Aus $\sum\limits_{i \in I} a_ix_i = 0$, wobei $a_i \in R$, $a_i = 0$ für fast alle $i \in I$ folgt $a_i = 0$ für alle $i \in I$\\
+	Basis von $M \Leftrightarrow (x_i)_{i \in I}$ ist ein linear unabhängiges Erzeugendensystem von $M$\\
+	
+	$M$ heißt\\
+	endlich erzeugt (ee) $\Leftrightarrow M$ besitzt ein endliches Erzeugendensystem\\
+	frei $\Leftrightarrow M$ besitzt eine Basis\\
+	endlichfrei $\Leftrightarrow M$ besitzt eine endliche Basis.
+\end{defi}
+
+\begin{bsp}
+	$ $\\
+	(a) $K$ Körper $\Rightarrow$ Jeder $K$-VR ist frei (Satz 9.15)\\
+	(b) $R$ ist einer freier $R$-Modul ((1) ist eine Basis)\\
+	(c) Sei $n \in \NN$, $n > 1$
+	\begin{itemize}
+		\item $\ZZ/n\ZZ$ ist ee $\ZZ$-Modul, denn: 
+		\begin{itemize}
+			\item $\ZZ/n\ZZ$ ist als abelsche Gruppe ein $\ZZ$-Modul
+			\item $Lin((\overline{1})) = \{r \cdot \overline{1}| r \in \ZZ\} = \{ \overline{r}| r \in \ZZ\} = \ZZ/n\ZZ$, d.h. $(\overline{1})$ ist ein ES von $\ZZ$ als $\ZZ$-Modul
+		\end{itemize}
+		\item $\ZZ/n\ZZ$ ist kein freier $\ZZ$-Modul, denn:\\
+		Sei $x = \overline{a} \in \ZZ/n\ZZ \Rightarrow n \cdot x = n \cdot \overline{a} = \overline{na} = \overline{0}$, aber $n \neq 0$. $\Rightarrow (x)$ linear abhängig $\Rightarrow$ Jede Form $\neq \{\}$ von $\ZZ/n\ZZ$ ist linear abhängig. Insbesondere kann $\ZZ/n\ZZ$ keine Basis als $\ZZ$-Modul haben
+	\end{itemize}
+	Beachte: Als $\ZZ/n\ZZ$-Modul ist $\ZZ/n\ZZ$ frei (siehe (b))
+\end{bsp}
+
+Fazit: Es gibt Moduln, die keine Basis haben.
+
+\begin{bem}
+	$M$ freier $R$-Modul, $B = (x_i)_{i \in I}$ Basis von $M$\\
+	Dann existiert ein Modulisomorphismus\\
+	$\overline{\underline{\phi_B}}: \bigoplus\limits_{i \in I} R \rightarrow M$, $(a_i)_{i \in I} \mapsto \sum\limits_{i \in I} a_ix_i$\\
+	(Beachte: $a_i = 0$ für fast alle $i \in I$)
+\end{bem}
+
+Anmerkung: \begin{itemize}
+	\item Man kann zeigen: Sind $(x_i)_{i \in I}$, $(y_j)_{j \in J}$ Basen des freien $R$-Moduls $M$, dann existiert eine Bijektion $I \rightarrow J$, d.h. $|I| = |J|$. 
+	\item Man kann zeigen: $M$ ee, frei $\Leftrightarrow M$ endlich frei
+	\item Achtung: Es gilt im Allgemeinen kein Analogon des Basisauswahlsatzes: $(2,3)$ ist ein ES des freien $\ZZ$-Moduls $\ZZ$ wegen $1 = (-1) \cdot 2 + 1 \cdot 3$, aber $(2)$ noch $(3)$ sind Basen von $\ZZ$.  
+\end{itemize}
+
+Anmerkung: Man kann zeigen: Sind $M, N$ endlich freie R-Moduln, dann kann man analog zu LA1 jeden Modulhomomorphismus $\varphi: M \rightarrow N$ nach Wahl von Basen $A$ von $M$, $B$ von $N$ durch eine Darstellungsmatrix $M_B^A(\varphi)$ beschreiben. Es gilt die Basiswechselformel $M_{B'}^{A'}(\varphi) = T_{B'}^B M^A$ wobei $T_A^{A'} = M_A^{A'}(id_M)$, $T^B$
+
+\begin{bem}
+	$M, N$ $R$-Moduln. $\varphi: M \rightarrow N$ Homomorphismus, sodass $\ker(\varphi), im(\varphi)$ endlich erzeugt. Dann ist $M$ ein endlich erzeugter $R$-Modul.
+\end{bem}
+
+\begin{bem}
+	$M$ $R$-Modul\\
+	$x \in M$ heißt Torsionselement von $M$ $\Leftrightarrow$ Es existiert ein $a \in R$, $a$ kein Nullteiler, mit $ax = 0$\\
+	$T(M) = \{x \in M| x \text{ ist ein Torsionselement}\}$ ist ein Untermodul von $M$, der Torsionsuntermodul von $M$.\\
+	$M$ heißt:\\
+	Torsions-$R$-Modul $\Leftrightarrow$ $T(M) = M$\\
+	torsionsfreier $R$-Modul $\Leftrightarrow T(M) = \{0\}$ 
+\end{bem}
+
+Anmerkung: Falls $R$ nullteilerfrei, dann $T(M) = \{x \in M| \text{ Es existiert } a \in R, a \neq 0 \text{ mit } ax = 0\}$\
+
+\begin{bsp}
+	$ $\\
+	(a) $K$ Körper, $V$ $K$-VR $\Rightarrow V$ ist torsionsfreier $K$-Modul, denn:\\
+	$T(V) = \{x \in V| \text{ es existiert } \lambda \in K , \lambda \neq 0 \text{ mit } \lambda x = 0\} = \{0\}$\\
+	(b) $\ZZ$ ist torsionsfreier $\ZZ$-Modul, denn:\\
+	$T(\ZZ) = \{x \in \ZZ| \text{ es existiert } a \in \ZZ, a \neq 0 \text{ mit } ax = 0\} = \{0\}$\\
+	(c) Für $n \in \NN$, $n > 1$ ist $\ZZ/n\ZZ$ ein Torsions-$\ZZ$-Modul, denn für alle $\overline{a} in \ZZ/n\ZZ$ ist $n \cdot \overline{a} = \overline{na} = \overline{0}$, d.h. $T(\ZZ/n\ZZ) = \ZZ/n\ZZ$.
+\end{bsp}
+
+\begin{bem}
+	$F$ freier $R$-Modul. Dann ist $F$ torsionsfrei, d.h. $T(F) = \{0\}$ 
+\end{bem}
+
+Anmerkung: Die Umkehrung ist falsch: $\QQ$ ist ein torsionsfreier $\ZZ$-Modul, aber kein freier $\ZZ$-Modul
+\begin{itemize}
+	\item $\QQ$ ist torsionsfreier $\ZZ$-Modul, denn: $T(\QQ) = \{x \in \QQ| \text{ es existiert} a \in \ZZ, a \neq 0 \text{ mit } ax = 0\} = \{0\}$
+	\item $\QQ$ ist kein freier $\ZZ$-Modul, denn:
+	\begin{itemize}
+		\item Sind $a, b \in \QQ$, dann ist die Familie $(a,b)$ $\ZZ$-linear abhängig, da: Ist $a = \frac{m_1}{m_2} \neq 0$, $b = \frac{m_2}{n_2}\neq 0$ dann ist $m_2n_1a - m_1n_2b = 0$
+		\item leere Familie bzw. eindeutige Familien sind keine Erzeugendensysteme von $\QQ$ als $\ZZ$-Modul
+	\end{itemize}
+\end{itemize}
+
+\begin{defi}
+	$M$ $R$-Modul\\
+	$l_R(M) := sup\{l \in \NN_0| M_0 = \{0\} \subsetneq M_1 \subsetneq M_2 \subsetneq \ldots \subsetneq M_l = M \text{ ist eine Kette von Untermoduln von M}\} \in \NN_0 \cup \{\infty\}$ heißt die Länge von $M$.
+\end{defi}
+
+\begin{bsp}
+	$ $\\
+	(a) $K$ Körper, $V$ $K$-VR $\Rightarrow l_K(V) = \dim_K(V)$, denn:
+	\begin{itemize}
+		\item $\dim_K(V) = n < \infty \Rightarrow$ Wähle Basis $(v_1, \ldots, v_n)$ von $V$, dann ist $M_0 = \{0\} \subsetneq Lin(v_1) \subsetneq Lin(v_1, v_2) \subsetneq \ldots \subsetneq Lin(v_1, \ldots, v_n) = V$ eine Kette von UVR von $V \Rightarrow l_K(V) \geq n$. Ist $M_0 = \{0\} \subsetneq M_1 \subsetneq \ldots \subsetneq M_l = V$ eine Kette von Untermoduln dann ist $0 < \dim \mu_1 < \ldots < \dim M_l = \dim V = n$, insbesondere $\dim V = \dim M_l \geq l$, also $l_K(V) \leq n$
+		\item $\dim_K(V) = \infty \Rightarrow l_K(V) = \infty$.
+	\end{itemize}
+	(b) $l_{\ZZ}(\ZZ) = \infty$, denn: für alle $n \in \NN$ ist $0 \subsetneq 2^n\ZZ \subsetneq 2^{n-1} \ZZ \subsetneq \ldots \subsetneq 2 \ZZ \subsetneq \ZZ$ eine Kette von Untermoduln von $\ZZ$
+	(c) $l_{\ZZ} (\ZZ/6\ZZ) = 2$, denn: Für $\overline{a} \in \ZZ/6\ZZ$ ist\\
+	$Lin(\overline{a}) = \begin{cases}
+	\ZZ/6\ZZ, \text{ falls } \overline{a} \in \{\overline{1}, \overline{5}\}\\
+	\{\overline{0}\}, \text{ falls } \overline{a} = \overline{0}\\
+	\{\overline{0}, \overline{3}\}, \text{ falls } \overline{a} = \overline{3}\\
+	\{\overline{0}, \overline{2}, \overline{4}\}, \text{ falls } \overline{a} \in \{\overline{2}, \overline{4}\}
+	\end{cases}\\
+	\Rightarrow$ Die beiden Ketten $\{\overline{0}\} \subsetneq Lin(\overline{3}) \subsetneq \ZZ/6\ZZ$, $\{\overline{0}\} \subseteq Lin(\overline{2}) \subsetneq \ZZ/6\ZZ$ können nicht weiter verfeinert werden, also $l_\ZZ(\ZZ/6\ZZ) = 2$\\
+	(d) $l_R(M) = 0 \Leftrightarrow M = \{0\}$
+\end{bsp}
+
+\begin{bem}
+	$M$ $R$-Modul, $N \subseteq M$ Untermodul\\
+	Dann gilt: $l_R(N) \leq l_R(M)$
+\end{bem}
+
+\begin{bem}
+	$M', M''$ $R$-Moduln. Dann gilt:\\
+	$l_R(M' \oplus M'')= l_R(M') + l_R(M'')$
+\end{bem}
+
+\section{Moduln über Hauptidealringen}
+
+In diesem Abschnitt sei $R$ stets ein HIR.\\
+
+Ziel: Struktursatz für endlich erzeugte $R$-Moduln.
+
+\begin{bem}
+	$F$ endlich freier $R$-Modul\\
+	Dann gilt: Je zwei Basen von $F$ haben dieselbe Kardinalität. Diese heißt der Rang von $F$
+\end{bem}
+
+\begin{satz}
+	$A \in M(m \times n, R)$\\
+	Dann existiert ein $r \in \NN_0$, $c_1, \ldots c_r \in R \backslash \{0\}$, sodass\\
+	$A \sim \begin{pmatrix}
+	c_1 & & & & &\\
+	& \ddots & & & &\\
+	& & c_r & & &\\
+	& & & 0 & &\\
+	& & & & \ddots &\\
+	& & & & & 0
+	\end{pmatrix}$ mit $c_1|\ldots|c_r$\\
+	$r$ ist eindeutig bestimmt, $c_1, \ldots, c_r$ sind eindeutig bestimmt bis auf Assoziiertheit und heißen die Elementarteiler von $A$
+\end{satz}
+
+\begin{bem}
+	$R$ HIR, $a \in R \backslash (R^* \cup \{0\})$, $a = p_1 \cdot \ldots \cdot p_r$ mit irreduziblen Elementen $p_1, \ldots, p_r$ (nicht notwendig paarweise verschieden). Dann ist\\
+	$l_R(R/aR) = r$, insbesondere ist $l_R(R/aR) < \infty$
+\end{bem}
+
+\begin{bem}
+	$c_1, \ldots c_r \in R \backslash (R^* \cup \{0\})$ mit $c_1|\ldots|c_r$\\
+	$M$ $R$-Modul mit $M \cong \bigoplus\limits_{i = 1}^r R/c_iR$\\
+	Dann gilt: $r$ ist eindeutig bestimmt, $c_1, \ldots, c_r$ sind eindeutig bestimmt bis auf Assoziiertheit durch $M$
+\end{bem}
+
+\begin{satz}
+	(Elementarteilersatz)\\
+	$F$ endlich freier $R$-Modul, $M \subseteq F$ Untermodul\\
+	Dann existiert eine Basis $(x_1, \ldots, x_m)$ von $F$ sowie $s \in \NN_0$, $c_1, \ldots, c_s \in R \backslash \{0\}$ mit folgenden Eigenschaften:\\
+	(I) $(c_1x_1, \ldots, c_sx_s)$ ist eine Basis von $M$\\
+	(II) $c_1|\ldots|c_s$\\
+	$s$ ist eindeutig, $c_1, \ldots, c_s$ sind eindeutig bis auf Assoziiertheit durch $M$ bestimmt (sind insbesondere unabhängig von der Wahl der Basis $(x_1, \ldots, x_m)$) und heißen die Elementarteiler von $M \subseteq F$
+\end{satz}
+
+\begin{folg}
+	$F$ eindlichfreier $R$-Modul, $M \subseteq F$ Untermodul\\
+	Dann ist $M$ endlich frei und $Rang(M) \leq Rang(F)$
+\end{folg}
+
+Anmerkung:
+\begin{itemize}
+	\item Aus $M \subsetneq M$ folgt nicht $Rang(M) < Rang(F)$: z.B. ist $\ZZ$ ein freier $\ZZ$-Modul von Rang 1, $2\ZZ \subsetneq \ZZ$ ist freier $\ZZ$-Modul mit $Rang(2\ZZ) = 1 = Rang(\ZZ)$
+	\item Man kann zeigen (unter Verwendung des Auswahlaxioms): $F$ freier $R$-Modul, $M \subseteq F$ Untermodul $\Rightarrow M$ frei ($R$ HIR!)
+	\item ohne die Voraussetzung, dass $R$ HIR ist, wird 13.6 falsch:\\
+	Bsp.: $F = \QQ[X,Y]$ als $R = \QQ[X, Y]$-Modul ($R$ ist kein HIR!), $M = Lin((X,Y))$ ist nicht frei als $R$-Modul.
+\end{itemize}
+\begin{satz}
+	(Hauptsatz für endlich erzeugte Moduln über HIR, Variante 1)\\
+	$M$ endlich erzeugter $R$-Modul. Dann gilt:\\
+	(a) Es gibt einen endlich freien Untermodul ($F \subseteq M$, etwa $F \cong R^d$, mit $M = F \oplus T(M)$. Hierbei ist $d = Rang(F)$ eindeutig bestimmt.
+	(b) Es gibt $s \in \NN_0$, $c_1, \ldots, c_s \in R \backslash (R^* \cup \{0\})$ mit $T(M) \cong \bigoplus\limits_{j = 1}^s R/c_jR$ mit $c_1|\ldots|c_s$\\
+	(c) Die Zahl $s$ ist eindeutig bestimmt, $c_1, \ldots, c_s$ sind eindeutig bestimmt bis auf Assoziiertheit und heißen die Elementarteiler von $M$.\\
+	Also: $M \cong R^d \oplus R/c_1R \oplus \ldots \oplus R/c_sR$
+\end{satz}
+
+Anmerkung: Ohne die Voraussetzung ''$M$ e. e.'' wird die Aussage falsch: $\QQ$ ist ein (nicht endlich erzeugter) $\ZZ$-Modul mit $T(\QQ) = \{0\}$, aber $\QQ$ ist kein freier $\ZZ$-Modul
+
+\begin{folg}
+	$M$ $R$-Modul. Dann sind äquivalent:\\
+	(i) $M$ ist endlich erzeugt und frei\\
+	(ii) $M$ ist endlich frei
+\end{folg}
+
+\begin{folg}
+	(Hauptsatz über e. e. abelsche Gruppen, Variante 1)\\
+	$G$ endlich erzeugte abelsche Gruppe (= e. e. $\ZZ$-Modul)\\
+	Dann existiert ein Isomorphismus $G \cong \ZZ^d \oplus \ZZ/c_1\ZZ \oplus \ldots \oplus \ZZ/c_s\ZZ$ mit d $\in \NN_0, c_1, \ldots, c_s \in \NN_0{>1}$, $c_1|\ldots|c_s$\\
+	$d$ sowie $s$, $c_1, \ldots, c_s$ sind eindeutig bestimmt.\\
+	Es ist $G$ endlich $\Leftrightarrow d = 0$. In diesem Fall ist $|G| = c_1 \cdot \ldots \cdot c_s$
+\end{folg}
+
+\begin{bsp}
+	$ $\\
+	(a) abelsche Gruppen mit 4 Elementen bis auf Isomorphie:\\
+	1. Fall: $s = 1$, $c_1 = 4$: $\ZZ/4\ZZ$\\
+	2. Fall: $s = 2$, $c_1= 2$, $c_2 = 2$: $\ZZ/2\ZZ \oplus\ZZ/2\ZZ$\\
+	$\Rightarrow$ Bist auf Isomorphie gibt es 2 abelsche Gruppen mit 4 Elementen\\
+	(b) abelsche Gruppen mit 24 Elementen bis auf Isomorphie:\\
+	1. Fall: $s = 1$, $c_1 = 24$: $\ZZ/24\ZZ$\\
+	2. Fall: $s = 2$, $c_1 = 2$, $c_2 = 12$: $\ZZ/2\ZZ \oplus \ZZ/12\ZZ$\\
+	3. Fall: $s = 3$, $c_1 = 2$, $c_2 = 2$, $c_3 = 6$: $\ZZ/2\ZZ \oplus \ZZ/2\ZZ \oplus \ZZ/6\ZZ$\\
+	$\Rightarrow$ Bis auf Isomorphie gibt es 3 abelsche Gruppen mit 24 Elementen
+\end{bsp}
+
+Frage: $\ZZ/3\ZZ \oplus \ZZ/8\ZZ$ ist ebenfalls eine abelsche Gruppe mit 24 Elementen\\
+Zu welcher der Gruppen aus der Liste von 13.10(b) ist diese isomorph?
+
+\begin{bem}
+	(Spezialfall des Chinesischen Restsatzes)\\
+	$a \in R \backslash (R* \cup \{0\})$, $a = cp_1^{n_1} \cdot \ldots p_r^{n_r}$ mit $c \in R^*$, $p_1,\ldots, p_r$ irreduzibel, paarweise nicht-assoziiert,\\
+	$\pi_i: R \rightarrow R/(p_i^{n_i})$, $b \mapsto b + (p_i^{n_i})$ kanonische Projektion für $i = 1, \ldots, r$\\
+	Dann ist die Abbildung $\varphi: R \rightarrow R/(p_1^{n_1}) \times \ldots \times R/(p_r^{n_r})$, $b \mapsto (\pi_1(b), \ldots, \pi_r(b)) = (b + (p_1^{n_1}), \ldots, b+ (p_r^{n_r}))$ ein surjektiver Ringhomomorphismus mit $\ker \varphi = (a)$, d.h. wir erhalten eine Ringisomorphismus\\
+	$\overline{\underline{\phi}}: R/(a) \rightarrow R/(p_1^{n_1}) \times \ldots \times R/(p_r^{n_r})$\\
+	Hierbei ist $R/(p_1^{n_1}) \times \ldots \times R/(p_r^{n_r})$ ein Ring via komponentenweiser Addition und Multiplikation.\\
+	Insbesondere erhalten wir einen Isomorphismus von $R$-Moduln\\
+	$R/(a) \cong R/(p_1^{n_1}) \oplus \ldots \oplus R/(p_r^{n_r})$
+\end{bem}
+
+\begin{bsp}
+	Nach 13.11 ist $\ZZ/24\ZZ \cong \ZZ/3\ZZ \oplus \ZZ/8\ZZ$
+\end{bsp}
+
+\begin{satz}
+	(Hauptsatz für e. e. Moduln über HIR, Variante 2)\\
+	$M$ e. e. $R$-Modul, $\PP$ sei ein Vertretersystem der Primelemente von $R$ bis auf Assoziiertheit,\\ für $p \in \PP$ sei $M_p := \{x \in M| \text{ Es existiert ein $n \in \NN$ mit} p^nx= 0\} \subseteq T(M)$ (ist offenbar ein Untermodul)\\
+	Dann gilt:\\
+	(a) Es gibt einen e. e. freien Untermodul $F \subseteq M$, sodass $M = F \oplus T(M)$, $d := Rang(F)$ ist eindeutig bestimmt.\\
+	(b) $T(M) = \bigoplus\limits_{p \in \PP} M_p$, wobei $M_p = 0$ für fast alle $p \in \PP$\\
+	(c) Für jedes $p \in \PP$ mit $M_p \neq 0$ gibt es eindeutig bestimmte natürliche Zahlen $1 \leq n_{p,1} \leq \ldots \leq n_{p,s_p}$ mit $M_p \cong R/p^{n_{p,1}}R \oplus \ldots \oplus R/p^{n_{p,s_p}}R$\\
+	Also $M \cong R^d \oplus \bigoplus\limits_{p \in \PP} (R/p^{n_{p,1}}R \oplus \ldots \oplus R/p^{n_{p,s_p}})$
+\end{satz}
+
+\begin{folg}
+	(HS für e.e. abelsche Gruppen, Variante 2)\\
+	$G$ e. e. abelsche Gruppe, $\PP$ Menge der Primzahlen in $\NN$\\
+	Dann existiert ein Isomorphismus $G \cong \ZZ^d \oplus \bigoplus\limits_{p \in \PP} (\ZZ/p^{n_{p,1}}R \oplus \ldots \oplus \ZZ/p^{n_{p,s_p}})$, $1 \leq n_{p,1} \leq \ldots \leq n_{p,s_p}$\\
+	Die Zahlen $d, s_p, n_{p_i}$ sind eindeutig bestimmt. Es ist $s_p = 0$ für fast alle $p \in \PP$\\
+	Es ist $G$ endlich $\Leftrightarrow d = 0$. In diesem Fall ist $|G| = \prod\limits_{p \in \PP} p^{n_{p,1}+ \ldots+ n_{p,s_p}}$
+\end{folg}
+
+\begin{bsp}
+	(vgl. 13.10) Endliche abelsche Gruppen mit 24 Elementen bis auf Isomorphie:\\
+	Es ist $24 = 2^3 \cdot 3 = 2 \cdot 2^2 \cdot 3 = 2 \cdot 2 \cdot 2 \cdot 3$\\
+	$\Rightarrow$ Isomorphietypen: $\ZZ/8\ZZ \oplus \ZZ/3\ZZ$, \hspace{1,5 mm} $\ZZ/2\ZZ \oplus \ZZ/4\ZZ \oplus \ZZ/3\ZZ$, \hspace{1,5 mm} $\ZZ/2\ZZ \oplus \ZZ/2\ZZ \oplus \ZZ/2\ZZ \oplus \ZZ/3\ZZ$\\
+	Es ist $\ZZ/8\ZZ \oplus \ZZ/3\ZZ \cong \ZZ/24\ZZ$\\
+	$\ZZ/2\ZZ \oplus \ZZ/4\ZZ \oplus \ZZ/3\ZZ \underset{chin. RS}{\cong} \ZZ/2\ZZ \oplus \ZZ/12\ZZ$\\
+	$\ZZ/2\ZZ \oplus \ZZ/2\ZZ \oplus \ZZ/2\ZZ \oplus \ZZ/3\ZZ \underset{chin. RS}{\cong} \ZZ/2\ZZ \oplus \ZZ/2\ZZ \oplus \ZZ/6\ZZ$
+\end{bsp}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+
